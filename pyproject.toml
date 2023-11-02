@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "mulsan"
+version = "0.1.0"
+packages = [
+    {include = "src"}
+]
+description = "Reimplementation of old MulSAn."
+authors = ["Your Name <you@example.com>"]
+readme = "readme.md"
+
+[tool.poetry.scripts]
+mulsan = "src.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint]
+max-line-length = 120
+disable = ["missing-module-docstring"]
