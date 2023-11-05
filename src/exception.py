@@ -1,0 +1,2 @@
+class FileContentParsingError(Exception):
+    pass

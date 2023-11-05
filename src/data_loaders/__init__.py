@@ -1,0 +1,1 @@
+from src.data_loaders.ligand_stats_loader import load_ligand_stats
