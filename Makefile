@@ -1,5 +1,5 @@
 test_run:
-	poetry run mulsan
+	poetry run mulsan --debug
 
 pylint:
 	poetry run pylint src
@@ -10,5 +10,7 @@ pylint_tests:
 pytest:
 	poetry run pytest --tb=no
 
+check: pylint pytest
 
-.PHONY: pylint pylint_tests pytest
+
+.PHONY: pylint pylint_tests pytest test_run check

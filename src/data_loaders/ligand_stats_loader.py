@@ -57,4 +57,4 @@ def process_normal_ligand_stats_row(row: list[str]) -> tuple[str, LigandStats]:
     try:
         return row[0], LigandStats(int(row[1]), float(row[2]))
     except ValueError as ex:
-        raise FileContentParsingError(str(ex))
+        raise FileContentParsingError(str(ex)) from ex

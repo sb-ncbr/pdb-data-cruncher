@@ -2,3 +2,6 @@
 .pycache/
 __pycache__
 .pytest_cache
+
+# TODO remove in final version
+local_testing_scripts/
