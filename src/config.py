@@ -19,7 +19,14 @@ class Config:
     """
     Class containing configuration for mulsan with default values. Switches from commandline will overwrite this.
     """
-    path_to_ligand_stats_csv: str = "../sample_data/ligandStats.csv"
+    # BASIC CONFIG
     logging_debug: bool = False
     # run_mode: RunModeType = RunModeType.ALL
     run_mode: RunModeType = RunModeType.TEST
+
+    # TIMEOUTS
+    http_requests_timeout_s: int = 10
+
+    # FILE config
+    temporary_files_folder_path: str = "./temp/"
+    path_to_ligand_stats_csv: str = "../sample_data/ligandStats.csv"

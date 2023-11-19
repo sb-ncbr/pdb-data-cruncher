@@ -2,6 +2,7 @@
 .pycache/
 __pycache__
 .pytest_cache
+temp/
 
 # TODO remove in final version
 local_testing_scripts/
