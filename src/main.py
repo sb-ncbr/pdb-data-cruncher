@@ -59,7 +59,7 @@ def main():
     config = create_config_from_parsed_arguments()
     configure_logging(config)
 
-    # temporary endpoint for testing
+    # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:
         load_ligand_stats(config.path_to_ligand_stats_csv)
 
