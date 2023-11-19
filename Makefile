@@ -1,5 +1,5 @@
 test_run:
-	poetry run mulsan --debug
+	poetry run python3 src/main.py --debug
 
 pylint:
 	poetry run pylint src
