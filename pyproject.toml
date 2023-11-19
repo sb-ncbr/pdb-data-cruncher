@@ -1,19 +1,17 @@
 [tool.poetry]
-name = "mulsan"
+name = "pdb-data-cruncher"
 version = "0.1.0"
 packages = [
     {include = "src"}
 ]
-description = "Reimplementation of old MulSAn."
-authors = ["Your Name <you@example.com>"]
+description = "Data collection from PDB and processing it."
+authors = [
+    "Iveta Strnadová <527354@muni.cz>",
+]
 readme = "readme.md"
-
-[tool.poetry.scripts]
-mulsan = "src.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.2"
