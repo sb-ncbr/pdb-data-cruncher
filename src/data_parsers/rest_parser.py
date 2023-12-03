@@ -1,7 +1,7 @@
 from typing import Any, Optional
 import logging
 
-from src.models import LigandInfo
+from src.models.ligand_info import LigandInfo
 from src.exception import RestParsingError
 
 
@@ -9,10 +9,10 @@ def parse_rest(pdb_id: str,
                protein_summary_json: dict[str, Any],
                protein_assembly_json: dict[str, Any],
                ligand_infos: dict[str, LigandInfo]) -> bool:
-    logging.debug("[%s] Start parsing rest. Summary json path: '%s'.", pdb_id, protein_summary_json)
+    logging.debug("[%s] Start parsing rest.", pdb_id)
     try:
         parse_rest_unsafe(pdb_id, protein_summary_json, protein_assembly_json, ligand_infos)
-        logging.debug("[%s] Rest parsed successfully")
+        logging.debug("[%s] Rest parsed successfully", pdb_id)
         return True
     except RestParsingError as ex:
         logging.error("[%s] %s", pdb_id, ex)
@@ -33,6 +33,7 @@ def parse_rest_unsafe(pdb_id: str,
     collected_protein_data = {
         "pdb_id": pdb_id
     }
+    noncritical_issues = []
 
     preferred_assembly_id = parse_protein_summary(pdb_id, protein_summary_json, collected_protein_data)
 
@@ -50,9 +51,56 @@ def parse_rest_unsafe(pdb_id: str,
     )
     if preferred_assembly_full is None:
         raise RestParsingError(f"Preferred assembly with assembly id {preferred_assembly_id} "
-                               f"was found in assembly json.")
+                               f"was not found in assembly json.")
 
-    # TODO continue
+    collected_protein_data["molecular_weight"] = preferred_assembly_full.get("molecular_weight", None)
+
+    for entity in preferred_assembly_full.get("entities", []):
+        try:
+            entity_id = int(entity["entity_id"])
+            molecule_type = entity["molecule_type"].lower()  # lower for case insensitive comparisons
+            number_of_copies = int(entity["number_of_copies"])
+        except KeyError:
+            noncritical_issues.append("Entity in assembly json is missing entity_id, molecule_type or number_of_copies."
+                                      f"Skipped. (entity content: {entity})")
+            continue
+        except ValueError:
+            noncritical_issues.append("Entity in assembly json has non-int value as entity_id or number_of_copies."
+                                      f"Skipped. (entity content: {entity}")
+            continue
+
+        molecule_type = molecule_type.lower()  # change to lowercase for case insensitive comparison
+        if molecule_type in ["carbohydrate polymer",
+                             "polypeptide(l)",
+                             "polypeptide(d)",
+                             "polyribonucleotide",
+                             "polydeoxyribonucleotide",
+                             "polysaccharide(d)",
+                             "polysaccharide(l)",
+                             "polydeoxyribonucleotide/polyribonucleotide hybrid",
+                             "cyclic-pseudo-peptide",
+                             "peptide nucleic acid"]:
+            biopolymer_entity_count[entity_id] = number_of_copies
+        elif molecule_type == "bound":
+            ligand_entity_count[entity_id] = number_of_copies
+        elif molecule_type == "water":
+            water_entity_count[entity_id] = number_of_copies
+        elif molecule_type == "other":
+            pass  # ignore "other" type
+        else:
+            noncritical_issues.append(f"Entity {entity_id} in assembly json has unknown type '{molecule_type}'. "
+                                      f"Skipped.")
+
+    collected_protein_data["assembly_biopolymer_count"] = sum(biopolymer_entity_count.values())
+    collected_protein_data["assembly_ligand_count"] = sum(ligand_entity_count.values())
+    collected_protein_data["assembly_water_count"] = sum(water_entity_count.values())
+    collected_protein_data["assembly_unique_biopolymer_count"] = len(biopolymer_entity_count)
+    collected_protein_data["assembly_unique_ligand_count"] = len(ligand_entity_count)
+
+    # end of processing assembly
+
+    # start of processing molecules json
+    # TODO continue Entry.cpp line 425
 
 
 def parse_protein_summary(pdb_id, protein_summary_json, collected_protein_data) -> str:
