@@ -1,8 +1,10 @@
 import logging
 import argparse
+import os
 
 from src.config import Config, RunModeType
 from src.data_loaders import load_ligand_stats
+from src.data_download import get_and_store_json
 
 
 def parse_arguments_and_update_config(config: Config) -> None:
@@ -59,9 +61,18 @@ def main():
     config = create_config_from_parsed_arguments()
     configure_logging(config)
 
+    if not os.path.exists(config.temporary_files_folder_path):
+        os.mkdir(config.temporary_files_folder_path)
+        logging.info("Created folder %s for temporary files.", config.temporary_files_folder_path)
+
     # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:
-        load_ligand_stats(config.path_to_ligand_stats_csv)
+        # load_ligand_stats(config.path_to_ligand_stats_csv)
+        get_and_store_json("https://www.ebi.ac.uk/pdbe/api/pdb/entry/summary/8a34",
+                           os.path.join(config.temporary_files_folder_path, "8a34_summary.json"),
+                           config.http_requests_timeout_s)
+
+    logging.debug("App finished running successfully")
 
 
 if __name__ == "__main__":

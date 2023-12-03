@@ -1,7 +1,7 @@
 import csv
 import logging
 
-from src.classes import LigandStats
+from src.models import LigandStats
 from src.exception import FileContentParsingError
 
 

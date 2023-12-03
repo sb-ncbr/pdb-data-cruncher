@@ -1,5 +1,5 @@
 from src.data_loaders import load_ligand_stats
-from src.classes import LigandStats
+from src.models import LigandStats
 
 
 def test_ligands_load_correctly(mocker):
