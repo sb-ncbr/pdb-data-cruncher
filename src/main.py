@@ -2,9 +2,11 @@ import logging
 import argparse
 import os
 
+from src.exception import ParsingError
 from src.config import Config, RunModeType
-from src.data_loaders import load_ligand_stats
-from src.data_download import get_and_store_json
+from src.data_parsers.ligand_stats_parser import parse_ligand_stats
+from src.data_parsers.rest_parser import parse_rest
+from src.data_loaders.json_file_loader import load_json_file
 
 
 def parse_arguments_and_update_config(config: Config) -> None:
@@ -50,8 +52,8 @@ def configure_logging(config: Config):
     """
     logging_level = logging.DEBUG if config.logging_debug else logging.INFO
     logging.basicConfig(level=logging_level,
-                        format="%(asctime)s %(levelname)s: %(message)s")
-    logging.debug("Starting mulsan app with following configuration: %s", config)
+                        format="%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)")
+    logging.debug("Starting pdb-data-cruncher app with following configuration: %s", config)
 
 
 def main():
@@ -67,12 +69,21 @@ def main():
 
     # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:
-        # load_ligand_stats(config.path_to_ligand_stats_csv)
-        get_and_store_json("https://www.ebi.ac.uk/pdbe/api/pdb/entry/summary/8a34",
-                           os.path.join(config.temporary_files_folder_path, "8a34_summary.json"),
-                           config.http_requests_timeout_s)
+        run_current_test(config)
 
     logging.debug("App finished running successfully")
+
+
+def run_current_test(config: Config):
+    try:
+        protein_summary_json = load_json_file("./temp/8jip_summary.json")
+        protein_assembly_json = load_json_file("./temp/8jip_assembly.json")
+    except ParsingError as ex:
+        logging.error(f"Cannot parse file. Reason: {ex}")
+        exit(1)
+
+    ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
+    parse_rest("8jip", protein_summary_json, protein_assembly_json, ligand_information)
 
 
 if __name__ == "__main__":

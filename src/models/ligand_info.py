@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class LigandStats:
+class LigandInfo:
     """
     Dataclass holding information about a ligand.
     """
