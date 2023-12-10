@@ -78,12 +78,17 @@ def run_current_test(config: Config):
     try:
         protein_summary_json = load_json_file("./temp/8jip_summary.json")
         protein_assembly_json = load_json_file("./temp/8jip_assembly.json")
+        protein_molecules_json = load_json_file("./temp/8jip_molecules.json")
     except ParsingError as ex:
         logging.error(f"Cannot parse file. Reason: {ex}")
         exit(1)
 
     ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
-    parse_rest("8jip", protein_summary_json, protein_assembly_json, ligand_information)
+    parse_rest("8jip",
+               protein_summary_json,
+               protein_assembly_json,
+               protein_molecules_json,
+               ligand_information)
 
 
 if __name__ == "__main__":
