@@ -1,6 +1,9 @@
 test_run:
 	poetry run python3 src/main.py --debug
 
+black:
+	poetry run black src
+
 pylint:
 	poetry run pylint src
 

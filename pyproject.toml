@@ -19,6 +19,9 @@ pylint = "^3.0.2"
 pytest = "^7.4.3"
 setuptools = "^68.2.2"
 pytest-mock = "^3.12.0"
+flake8 = "^6.1.0"
+black = "^23.11.0"
+flake8-pyproject = "^1.2.3"
 
 [build-system]
 requires = ["poetry-core"]
@@ -27,3 +30,9 @@ build-backend = "poetry.core.masonry.api"
 [tool.pylint]
 max-line-length = 120
 disable = ["missing-module-docstring"]
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.black]
+line-length = 120

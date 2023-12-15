@@ -2,9 +2,11 @@ import logging
 import argparse
 import os
 
+from src.exception import ParsingError
 from src.config import Config, RunModeType
-from src.data_loaders import load_ligand_stats
-from src.data_download import get_and_store_json
+from src.data_parsers.ligand_stats_parser import parse_ligand_stats
+from src.data_parsers.rest_parser import parse_rest
+from src.data_loaders.json_file_loader import load_json_file
 
 
 def parse_arguments_and_update_config(config: Config) -> None:
@@ -50,8 +52,8 @@ def configure_logging(config: Config):
     """
     logging_level = logging.DEBUG if config.logging_debug else logging.INFO
     logging.basicConfig(level=logging_level,
-                        format="%(asctime)s %(levelname)s: %(message)s")
-    logging.debug("Starting mulsan app with following configuration: %s", config)
+                        format="%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)")
+    logging.debug("Starting pdb-data-cruncher app with following configuration: %s", config)
 
 
 def main():
@@ -67,12 +69,52 @@ def main():
 
     # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:
-        # load_ligand_stats(config.path_to_ligand_stats_csv)
-        get_and_store_json("https://www.ebi.ac.uk/pdbe/api/pdb/entry/summary/8a34",
-                           os.path.join(config.temporary_files_folder_path, "8a34_summary.json"),
-                           config.http_requests_timeout_s)
+        run_current_test(config)
 
     logging.debug("App finished running successfully")
+
+
+# TODO setup logging into two seperate files like this (one errors or warnings only, second all)
+# # Create the root logger
+# root_logger = logging.getLogger()
+# root_logger.setLevel(logging.DEBUG)  # Set the root logger level to the lowest level you want to capture
+#
+# # Create a handler for errors_only.txt with a filter for ERROR level
+# error_handler = logging.FileHandler('errors_only.txt')
+# error_handler.setLevel(logging.ERROR)
+# error_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+# error_handler.addFilter(lambda record: record.levelno == logging.ERROR)
+#
+# # Create a handler for all_errors.txt
+# all_errors_handler = logging.FileHandler('all_errors.txt')
+# all_errors_handler.setLevel(logging.DEBUG)
+# all_errors_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+#
+# # Add both handlers to the root logger
+# root_logger.addHandler(error_handler)
+# root_logger.addHandler(all_errors_handler)
+#
+# # Example usage
+# logging.error("This message will be logged to errors_only.txt and all_errors.txt")
+# logging.warning("This message will only be logged to all_errors.txt")
+# logging.info("This message will only be logged to all_errors.txt")
+
+
+def run_current_test(config: Config):
+    try:
+        protein_summary_json = load_json_file("./temp/8jip_summary.json")
+        protein_assembly_json = load_json_file("./temp/8jip_assembly.json")
+        protein_molecules_json = load_json_file("./temp/8jip_molecules.json")
+    except ParsingError as ex:
+        logging.error(f"Cannot parse file. Reason: {ex}")
+        exit(1)
+
+    ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
+    parse_rest("8jip",
+               protein_summary_json,
+               protein_assembly_json,
+               protein_molecules_json,
+               ligand_information)
 
 
 if __name__ == "__main__":

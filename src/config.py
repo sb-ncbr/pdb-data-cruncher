@@ -2,6 +2,27 @@ from dataclasses import dataclass
 from enum import Enum
 
 
+INVALID_VALUE_STRING = "nan"
+
+
+BIOPOLYMER_MOLECULE_TYPES = [
+    "carbohydrate polymer",
+    "polypeptide(l)",
+    "polypeptide(d)",
+    "polyribonucleotide",
+    "polydeoxyribonucleotide",
+    "polysaccharide(d)",
+    "polysaccharide(l)",
+    "polydeoxyribonucleotide/polyribonucleotide hybrid",
+    "cyclic-pseudo-peptide",
+    "peptide nucleic acid",
+]
+"""
+Holds all molecule types that are considered biopolymers for parsing rest molecules.
+The comparison ignores upper/lower case differences.
+"""
+
+
 # TODO only an idea of how the running of the program could work, subject to changes
 class RunModeType(Enum):
     """

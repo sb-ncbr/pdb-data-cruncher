@@ -36,8 +36,6 @@ def get_response_json(address: str, get_timeout_s: int) -> dict:
         return response.json()
     except requests.exceptions.RequestException as ex:
         raise DataDownloadError(f"GET {address} failed. {ex}") from ex
-    except requests.exceptions.JSONDecodeError as ex:
-        raise DataDownloadError(f"JSONDecodeError from request to {address}. {ex}") from ex
 
 
 def save_json_into_file(json_content: dict, new_file_path: str) -> None:
