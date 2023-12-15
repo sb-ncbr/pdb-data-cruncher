@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(slots=True)
 class LigandInfo:
     """
     Dataclass holding information about a ligand.

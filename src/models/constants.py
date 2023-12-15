@@ -1,1 +1,0 @@
-INVALID_VALUE_STRING = "nan"
