@@ -35,7 +35,7 @@ class RunModeType(Enum):
     TEST = 99
 
 
-@dataclass
+@dataclass(frozen=True)
 class Config:
     """
     Class containing configuration for mulsan with default values. Switches from commandline will overwrite this.
@@ -50,4 +50,6 @@ class Config:
 
     # FILE config
     temporary_files_folder_path: str = "./temp/"
-    path_to_ligand_stats_csv: str = "../sample_data/ligandStats.csv"
+    path_to_rest_jsons: str = "./temp/"
+    path_to_pdb_files: str = "./temp/"
+    path_to_ligand_stats_csv: str = "./temp/ligandStats.csv"

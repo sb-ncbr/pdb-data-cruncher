@@ -2,19 +2,20 @@ import logging
 import argparse
 import os
 
+from src.manager import Manager
 from src.exception import ParsingError
 from src.config import Config, RunModeType
 from src.data_parsers.ligand_stats_parser import parse_ligand_stats
 from src.data_parsers.rest_parser import parse_rest
+from src.data_parsers.pdb_parser import parse_pdb
 from src.data_loaders.json_file_loader import load_json_file
 
 
-def parse_arguments_and_update_config(config: Config) -> None:
+def parse_arguments_into_config() -> Config:
     """
     Parses arguments from commandline and updates the default values in config.
 
-    :param config: Object holding program configuration.
-    :return:
+    :return: Object holding program configuration.
     """
     parser = argparse.ArgumentParser(
         prog="valtrendsdb_dataprep",
@@ -29,7 +30,9 @@ def parse_arguments_and_update_config(config: Config) -> None:
 
     args = parser.parse_args()
 
-    config.logging_debug = args.logging_debug
+    return Config(
+        logging_debug=args.logging_debug
+    )
 
 
 def create_config_from_parsed_arguments() -> Config:
@@ -38,8 +41,7 @@ def create_config_from_parsed_arguments() -> Config:
 
     :return: Config loaded with updated values.
     """
-    config = Config()
-    parse_arguments_and_update_config(config)
+    config = parse_arguments_into_config()
     return config
 
 
@@ -101,20 +103,12 @@ def main():
 
 
 def run_current_test(config: Config):
-    try:
-        protein_summary_json = load_json_file("./temp/8jip_summary.json")
-        protein_assembly_json = load_json_file("./temp/8jip_assembly.json")
-        protein_molecules_json = load_json_file("./temp/8jip_molecules.json")
-    except ParsingError as ex:
-        logging.error(f"Cannot parse file. Reason: {ex}")
-        exit(1)
-
-    ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
-    parse_rest("8jip",
-               protein_summary_json,
-               protein_assembly_json,
-               protein_molecules_json,
-               ligand_information)
+    # ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
+    # result = Manager.load_and_parse_json("8jip", ligand_information, config)
+    # print(result)
+    result = parse_pdb("1cbs", config)
+    # result = parse_pdb("8jip", config)
+    print(result)
 
 
 if __name__ == "__main__":
