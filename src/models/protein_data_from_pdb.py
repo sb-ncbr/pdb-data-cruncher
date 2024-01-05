@@ -34,7 +34,3 @@ class ProteinDataFromPDB:
     nonpolymer_weight: Optional[float] = None
     nonpolymer_weight_no_water: Optional[float] = None
     water_weight: Optional[float] = None
-
-    @property
-    def values_missing(self):
-        return sum(field is None for field in fields(self))

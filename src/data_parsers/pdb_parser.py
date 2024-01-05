@@ -1,14 +1,14 @@
 import logging
+import math
 import os
 
-from Bio.PDB import MMCIFParser, PDBParser
+from Bio.PDB import MMCIFParser
 from Bio.PDB.Atom import Atom
-from Bio.PDB.MMCIFParser import MMCIF2Dict
-from Bio.PDB import PDBList
 from Bio.PDB.Residue import Residue
 
 from src.models.protein_data_from_pdb import ProteinDataFromPDB
 from src.config import Config
+
 
 # turning off black formatter to keep the elements more readable
 # fmt: off
@@ -37,6 +37,7 @@ def _parse_pdb_unsafe(pdb_id: str, filepath: str):
     parser = MMCIFParser()
     structure = parser.get_structure(pdb_id, filepath)
 
+    # PART TO REFACTOR 1
     residue_hetatm_groups = {}
 
     # go through all atoms, count simple atoms, store hetatms for future
@@ -63,8 +64,33 @@ def _parse_pdb_unsafe(pdb_id: str, filepath: str):
             protein_data.ligand_count_metal += 1
             protein_data.hetatm_count_metal += hetatm_count_in_residue
 
+    # calculate more metrics from these atom counts
+    protein_data.all_atom_count = protein_data.atom_count_without_hetatms + protein_data.hetatm_count
+
+    if protein_data.all_atom_count > 0:
+        protein_data.all_atom_count_ln = math.log(protein_data.all_atom_count)
+    if protein_data.ligand_count > 0:
+        protein_data.ligand_ratio = protein_data.hetatm_count / protein_data.ligand_count
+    if protein_data.ligand_count_no_water > 0:
+        protein_data.ligand_ratio_no_water = protein_data.hetatm_count_no_water / protein_data.ligand_count_no_water
+
+    protein_data.hetatm_count_no_metal = protein_data.hetatm_count - protein_data.hetatm_count_metal
+    protein_data.ligand_count_no_metal = protein_data.ligand_count - protein_data.ligand_count_metal
+    protein_data.hetatm_count_no_water_no_metal = protein_data.hetatm_count_no_water - protein_data.hetatm_count_metal
+    protein_data.ligand_count_no_water_no_metal = protein_data.ligand_count_no_water - protein_data.ligand_count_metal
+
+    if protein_data.ligand_count_metal > 0:
+        protein_data.ligand_ratio_metal = protein_data.hetatm_count_metal / protein_data.ligand_count_metal
+    if protein_data.ligand_count_no_metal > 0:
+        protein_data.ligand_ratio_no_metal = protein_data.hetatm_count_no_metal / protein_data.ligand_count_no_metal
+    if protein_data.ligand_count_no_water_no_metal > 0:
+        protein_data.ligand_ratio_no_water_no_metal = (
+                protein_data.hetatm_count_no_water_no_metal / protein_data.ligand_count_no_water_no_metal
+        )
+    # END OF PART TO REFACTOR 1
+
     pass
-    # continue on line 202
+    # continue on line 257
 
 
 def residue_is_water(residue: Residue) -> bool:
