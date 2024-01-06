@@ -59,7 +59,7 @@ def parse_rest(
         logging.error("[%s] %s", pdb_id, ex)
         return None
     except Exception as ex:  # pylint: disable=broad-exception-caught
-        # We want to catch broad exception here so unforseen data error doesn't kill the whole data processing.
+        # We want to catch broad exception here so unforseen data error doesn't kill the whole test_data processing.
         logging.exception("[%s] Encountered unexpected issue: %s", pdb_id, ex)
         return None
 
@@ -79,11 +79,11 @@ def _parse_rest_unsafe(
     :param protein_assembly_json: Full content of assembly json.
     :param protein_molecules_json: Full content of molecules json.
     :param ligand_infos: Information about all ligands.
-    :return: Collected protein data and diagnostics from non-critical issues with data.
-    :raises RestParsingError: When encountering critical issue that prevents data extraction completely.
+    :return: Collected protein test_data and diagnostics from non-critical issues with test_data.
+    :raises RestParsingError: When encountering critical issue that prevents test_data extraction completely.
     """
-    # set up data structures
-    protein_data = ProteinDataFromRest(pdb_id=pdb_id)  # holds parsed protein data
+    # set up test_data structures
+    protein_data = ProteinDataFromRest(pdb_id=pdb_id)  # holds parsed protein test_data
     diagnostics = Diagnostics()  # holds recoverable parsing mistakes
 
     # parse summary file
@@ -122,13 +122,13 @@ def _parse_molecules(
     :param ligand_infos: Information about all ligands.
     :param entity_counts: Information about entity counts (biopolymers, water and ligands).
     :param protein_data: Dataclass for extracted information.
-    :param diagnostics: Dataclass for non-critical issues with data.
+    :param diagnostics: Dataclass for non-critical issues with test_data.
     """
-    # check if the data is even in the json
+    # check if the test_data is even in the json
     if pdb_id not in protein_molecules_json.keys():
         raise RestParsingError("Given molecules json doesn't have currently processed pdb_id.")
 
-    # setup data structures
+    # setup test_data structures
     total_biopolymer_weight: float = 0.0
     total_ligand_weight: float = 0.0
     total_water_weight: float = 0.0
@@ -249,9 +249,9 @@ def _parse_preferred_assembly(
     assembly_json: Any, protein_data: ProteinDataFromRest, diagnostics: Diagnostics
 ) -> EntityCounts:
     """
-    Parses given preferred assembly, stores data in protein_data and returns entity counts for further parsing needs.
-    :param assembly_json: Loaded json with the preferred assembly data.
-    :param protein_data: Structure that holds extracted data
+    Parses given preferred assembly, stores test_data in protein_data and returns entity counts for further parsing needs.
+    :param assembly_json: Loaded json with the preferred assembly test_data.
+    :param protein_data: Structure that holds extracted test_data
     :param diagnostics: Structure that holds any noncritical issues.
     :return: Entity counts (biopolymers, ligands and waters).
     """

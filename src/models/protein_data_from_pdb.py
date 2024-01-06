@@ -7,7 +7,7 @@ class ProteinDataFromPDB:
     pdb_id: Optional[str] = None
     # general counts
     atom_count_without_hetatms: int = 0
-    aa_count: Optional[int] = None
+    aa_count: int = 0
     all_atom_count: Optional[int] = None
     all_atom_count_ln: Optional[float] = None
     # hetero atom counts

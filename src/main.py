@@ -7,7 +7,7 @@ from src.exception import ParsingError
 from src.config import Config, RunModeType
 from src.data_parsers.ligand_stats_parser import parse_ligand_stats
 from src.data_parsers.rest_parser import parse_rest
-from src.data_parsers.pdb_parser import parse_pdb
+from src.data_parsers.pdbx_parser import parse_pdbx
 from src.data_loaders.json_file_loader import load_json_file
 
 
@@ -55,7 +55,7 @@ def configure_logging(config: Config):
     logging_level = logging.DEBUG if config.logging_debug else logging.INFO
     logging.basicConfig(level=logging_level,
                         format="%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)")
-    logging.debug("Starting pdb-data-cruncher app with following configuration: %s", config)
+    logging.debug("Starting pdb-test_data-cruncher app with following configuration: %s", config)
 
 
 def main():
@@ -106,8 +106,8 @@ def run_current_test(config: Config):
     # ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
     # result = Manager.load_and_parse_json("8jip", ligand_information, config)
     # print(result)
-    result = parse_pdb("1cbs", config)
-    # result = parse_pdb("8jip", config)
+    # result = parse_pdb("1cbs", config)
+    result = parse_pdbx("8jip", config)
     print(result)
 
 
