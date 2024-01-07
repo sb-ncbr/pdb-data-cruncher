@@ -55,7 +55,7 @@ def configure_logging(config: Config):
     logging_level = logging.DEBUG if config.logging_debug else logging.INFO
     logging.basicConfig(level=logging_level,
                         format="%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)")
-    logging.debug("Starting pdb-test_data-cruncher app with following configuration: %s", config)
+    logging.debug("Starting pdb-data-cruncher app with following configuration: %s", config)
 
 
 def main():
@@ -107,7 +107,8 @@ def run_current_test(config: Config):
     # result = Manager.load_and_parse_json("8jip", ligand_information, config)
     # print(result)
     # result = parse_pdb("1cbs", config)
-    result = parse_pdbx("8jip", config)
+    # result = parse_pdbx("8jip", config)
+    result = parse_pdbx("6n6n", config)
     print(result)
 
 

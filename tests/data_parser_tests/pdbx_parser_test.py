@@ -2,7 +2,7 @@ import pytest
 import dataclasses
 
 from src.models.protein_data_from_pdb import ProteinDataFromPDB
-from src.data_parsers.pdbx_parser import parse_pdbx
+from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe, _parse_pdbx_unsafe_alternative
 from src.config import Config
 
 
@@ -96,6 +96,7 @@ protein_data_6n6n = ProteinDataFromPDB(
 )
 # TODO this one does not produce correct atom count wihtout hetatm - could be related to
 # structure build warnings
+# (only with mmcifparser, with mmcif2dict it works)
 
 
 # larger sample but no hetatm
@@ -142,9 +143,24 @@ expected_protein_data_sets = {
     "6n6n",
     "1a5j"
 ])
-def test_test(pdb_id):
-    config = Config(path_to_pdb_files="./tests/test_data/")
-    protein_data = parse_pdbx(pdb_id, config)
+def test_pdbx_parser(pdb_id):
+    protein_data = _parse_pdbx_unsafe_alternative(pdb_id, f"./tests/test_data/{pdb_id}.cif")
+    expected_protein_data = expected_protein_data_sets[pdb_id]
+
+    differences = assert_protein_data_equal(protein_data, expected_protein_data)
+    differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
+
+    assert not differences, differences_messages
+
+
+@pytest.mark.parametrize("pdb_id", [
+    "8jip",
+    "1cbs",
+    "6n6n",
+    "1a5j"
+])
+def test_pdbx_parser_non_alt(pdb_id):
+    protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
     differences = assert_protein_data_equal(protein_data, expected_protein_data)
