@@ -1,9 +1,9 @@
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, field
 from typing import Optional
 
 
 @dataclass(slots=True)
-class ProteinDataFromPDB:
+class ProteinDataFromPDBx:
     pdb_id: Optional[str] = None
     # general counts
     atom_count_without_hetatms: int = 0
@@ -34,3 +34,5 @@ class ProteinDataFromPDB:
     nonpolymer_weight: Optional[float] = None
     nonpolymer_weight_no_water: Optional[float] = None
     water_weight: Optional[float] = None
+    # additional data for future processing
+    structure_keywords: Optional[list] = None

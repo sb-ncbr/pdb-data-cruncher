@@ -7,7 +7,7 @@ from Bio.PDB import MMCIFParser, is_aa
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
 from src.config import Config
-from src.models.protein_data_from_pdb import ProteinDataFromPDB
+from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
 
 if TYPE_CHECKING:
     from Bio.PDB.Atom import Atom
@@ -30,7 +30,7 @@ METAL_ELEMENT_NAMES = {
 # fmt: on
 
 
-def parse_pdbx(pdb_id: str, config: Config) -> Optional[ProteinDataFromPDB]:
+def parse_pdbx(pdb_id: str, config: Config) -> Optional[ProteinDataFromPDBx]:
     logging.debug("[%s] PDB parsing started", pdb_id)
     filepath = os.path.join(config.path_to_pdb_files, f"{pdb_id}.cif")
     logging.debug("[%s] Will extract cif file from: %s", pdb_id, filepath)
@@ -44,8 +44,8 @@ def parse_pdbx(pdb_id: str, config: Config) -> Optional[ProteinDataFromPDB]:
         return None
 
 
-def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDB:
-    protein_data = ProteinDataFromPDB(pdb_id=pdb_id)
+def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDBx:
+    protein_data = ProteinDataFromPDBx(pdb_id=pdb_id)
     parser = MMCIFParser()
     structure = parser.get_structure(pdb_id, filepath)
     # TODO check what errors parsing can throw, and if any of them is not breaking
@@ -98,13 +98,15 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDB:
     return protein_data
 
 
-def _parse_pdbx_unsafe_alternative(pdb_id: str, filepath: str) -> ProteinDataFromPDB:
-    protein_data = ProteinDataFromPDB(pdb_id=pdb_id)
+def _parse_pdbx_unsafe_alternative(pdb_id: str, filepath: str) -> ProteinDataFromPDBx:
+    protein_data = ProteinDataFromPDBx(pdb_id=pdb_id)
     mmcif_dict = MMCIF2Dict(filepath)
 
+    # parse keywords
+    protein_data.structure_keywords = [value.strip() for value in mmcif_dict["_struct_keywords.text"][0].split(",")]
+
     # PART 1 FOR REFACTOR
-    # TODO this part is potentially too resource greedy, look into a way to do it
-    # more effectively, eg. through iterators
+    # TODO this part is potentially too resource greedy
     atom_site_relevant_info = zip(
         mmcif_dict["_atom_site.group_PDB"],  # ATOM or HETATM
         mmcif_dict["_atom_site.type_symbol"],  # element symbol
@@ -154,7 +156,7 @@ def _parse_pdbx_unsafe_alternative(pdb_id: str, filepath: str) -> ProteinDataFro
     return protein_data
 
 
-def calculate_additional_protein_data(data: ProteinDataFromPDB) -> None:
+def calculate_additional_protein_data(data: ProteinDataFromPDBx) -> None:
     """
     Calculates addional protein data that can be calculated from already collected protein data.
     It includes all_atom_count(_ln), ligand_ratio, ligand_ratio_no_water, and hetatm counts, ligand counts

@@ -1,13 +1,13 @@
 import pytest
 import dataclasses
 
-from src.models.protein_data_from_pdb import ProteinDataFromPDB
+from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
 from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe, _parse_pdbx_unsafe_alternative
 from src.config import Config
 
 
 # small testing protein
-protein_data_8jip = ProteinDataFromPDB(
+protein_data_8jip = ProteinDataFromPDBx(
     pdb_id="8jip",
     atom_count_without_hetatms=9336,
     aa_count=1385,
@@ -32,12 +32,19 @@ protein_data_8jip = ProteinDataFromPDB(
     polymer_weight=157.035,
     nonpolymer_weight=385.538,
     nonpolymer_weight_no_water=385.538,
-    water_weight=0
+    water_weight=0,
+    structure_keywords=[
+        "G protein-coupled receptor",
+        "ligand recognition",
+        "receptor activation",
+        "unimolecular dual agonist",
+        "STRUCTURAL PROTEIN",
+    ],
 )
 
 
 # has water molecules
-protein_data_1cbs = ProteinDataFromPDB(
+protein_data_1cbs = ProteinDataFromPDBx(
     pdb_id="1cbs",
     atom_count_without_hetatms=1091,
     aa_count=137,
@@ -62,12 +69,13 @@ protein_data_1cbs = ProteinDataFromPDB(
     polymer_weight=15.5818,
     nonpolymer_weight=2101.93,
     nonpolymer_weight_no_water=300.435,
-    water_weight=1801.5
+    water_weight=1801.5,
+    structure_keywords=["RETINOIC-ACID TRANSPORT"],
 )
 
 
 # has some issues in the structure
-protein_data_6n6n = ProteinDataFromPDB(
+protein_data_6n6n = ProteinDataFromPDBx(
     pdb_id="6n6n",
     atom_count_without_hetatms=9514,
     aa_count=303,
@@ -92,15 +100,13 @@ protein_data_6n6n = ProteinDataFromPDB(
     polymer_weight=66.2021,
     nonpolymer_weight=10124.4,
     nonpolymer_weight_no_water=1315.08,
-    water_weight=8809.34
+    water_weight=8809.34,
+    structure_keywords=["FtsY", "SRP", "Signal recognition particle receptor", "SR", "TRANSPORT PROTEIN"],
 )
-# TODO this one does not produce correct atom count wihtout hetatm - could be related to
-# structure build warnings
-# (only with mmcifparser, with mmcif2dict it works)
 
 
 # larger sample but no hetatm
-protein_data_1a5j = ProteinDataFromPDB(
+protein_data_1a5j = ProteinDataFromPDBx(
     pdb_id="1a5j",
     atom_count_without_hetatms=59136,
     aa_count=110,
@@ -125,7 +131,8 @@ protein_data_1a5j = ProteinDataFromPDB(
     polymer_weight=12.9589,
     nonpolymer_weight=0,
     nonpolymer_weight_no_water=0,
-    water_weight=0
+    water_weight=0,
+    structure_keywords=["DNA-BINDING PROTEIN", "PROTOONCOGENE PRODUCT", "DNA BINDING PROTEIN"],
 )
 
 
@@ -137,12 +144,7 @@ expected_protein_data_sets = {
 }
 
 
-@pytest.mark.parametrize("pdb_id", [
-    "8jip",
-    "1cbs",
-    "6n6n",
-    "1a5j"
-])
+@pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
 def test_pdbx_parser(pdb_id):
     protein_data = _parse_pdbx_unsafe_alternative(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
@@ -153,12 +155,7 @@ def test_pdbx_parser(pdb_id):
     assert not differences, differences_messages
 
 
-@pytest.mark.parametrize("pdb_id", [
-    "8jip",
-    "1cbs",
-    "6n6n",
-    "1a5j"
-])
+@pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
 def test_pdbx_parser_non_alt(pdb_id):
     protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
@@ -169,15 +166,19 @@ def test_pdbx_parser_non_alt(pdb_id):
     assert not differences, differences_messages
 
 
-def assert_protein_data_equal(actual: ProteinDataFromPDB, expected: ProteinDataFromPDB):
+def assert_protein_data_equal(actual: ProteinDataFromPDBx, expected: ProteinDataFromPDBx):
     differences = []
 
     for field_name, actual_value in dataclasses.asdict(actual).items():
         expected_value = getattr(expected, field_name)
+        if field_name[0] == "_":
+            continue
         if field_name in [
-            # "aa_count",
             "structure_weight",
-            "polymer_weight", "nonpolymer_weight", "nonpolymer_weight_no_water", "water_weight"
+            "polymer_weight",
+            "nonpolymer_weight",
+            "nonpolymer_weight_no_water",
+            "water_weight",
         ]:  # TODO remove this workaround when implemented
             continue
         if type(actual_value) is float:
