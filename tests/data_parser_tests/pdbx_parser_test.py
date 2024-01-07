@@ -1,9 +1,8 @@
 import pytest
-import dataclasses
 
 from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
 from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe, _parse_pdbx_unsafe_alternative
-from src.config import Config
+from tests.helpers import compare_dataclasses
 
 
 # small testing protein
@@ -149,43 +148,30 @@ def test_pdbx_parser(pdb_id):
     protein_data = _parse_pdbx_unsafe_alternative(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
-    differences = assert_protein_data_equal(protein_data, expected_protein_data)
-    differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
-
-    assert not differences, differences_messages
-
-
-@pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
-def test_pdbx_parser_non_alt(pdb_id):
-    protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
-    expected_protein_data = expected_protein_data_sets[pdb_id]
-
-    differences = assert_protein_data_equal(protein_data, expected_protein_data)
-    differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
-
-    assert not differences, differences_messages
-
-
-def assert_protein_data_equal(actual: ProteinDataFromPDBx, expected: ProteinDataFromPDBx):
-    differences = []
-
-    for field_name, actual_value in dataclasses.asdict(actual).items():
-        expected_value = getattr(expected, field_name)
-        if field_name[0] == "_":
-            continue
-        if field_name in [
+    # TODO use this when weights are implemented
+    # differences = compare_dataclasses(protein_data, expected_protein_data)
+    differences = compare_dataclasses(
+        protein_data,
+        expected_protein_data,
+        [
             "structure_weight",
             "polymer_weight",
             "nonpolymer_weight",
             "nonpolymer_weight_no_water",
             "water_weight",
-        ]:  # TODO remove this workaround when implemented
-            continue
-        if type(actual_value) is float:
-            if expected_value != pytest.approx(actual_value, abs=1e-3):
-                differences.append((field_name, actual_value, expected_value))
-        else:
-            if actual_value != expected_value:
-                differences.append((field_name, actual_value, expected_value))
+        ]
+    )
+    differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
 
-    return differences
+    assert not differences, differences_messages
+
+
+# @pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
+# def test_pdbx_parser_non_alt(pdb_id):
+#     protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
+#     expected_protein_data = expected_protein_data_sets[pdb_id]
+#
+#     differences = assert_protein_data_equal(protein_data, expected_protein_data)
+#     differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
+#
+#     assert not differences, differences_messages

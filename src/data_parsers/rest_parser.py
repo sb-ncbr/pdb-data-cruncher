@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-from config import BIOPOLYMER_MOLECULE_TYPES
+from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
 from src.models import LigandInfo, ProteinDataFromRest, Diagnostics, IssueType
 
@@ -178,7 +178,7 @@ def _parse_molecules(
             total_water_weight += molecule_weight * entity_counts.waters.get(molecule_id)
 
     # save results into protein_data
-    protein_data.assembly_biopolymer_weight = total_biopolymer_weight
+    protein_data.assembly_biopolymer_weight = total_biopolymer_weight / 1000.0
     protein_data.assembly_ligand_weight = total_ligand_weight
     protein_data.assembly_water_weight = total_water_weight
     if total_ligand_count_with_flexibility > 0:
