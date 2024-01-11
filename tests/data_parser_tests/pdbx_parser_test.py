@@ -1,7 +1,7 @@
 import pytest
 
 from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
-from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe, _parse_pdbx_unsafe_alternative
+from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe
 from tests.helpers import compare_dataclasses
 
 
@@ -145,7 +145,7 @@ expected_protein_data_sets = {
 
 @pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
 def test_pdbx_parser(pdb_id):
-    protein_data = _parse_pdbx_unsafe_alternative(pdb_id, f"./tests/test_data/{pdb_id}.cif")
+    protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
     # TODO use this when weights are implemented
@@ -164,14 +164,3 @@ def test_pdbx_parser(pdb_id):
     differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
 
     assert not differences, differences_messages
-
-
-# @pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
-# def test_pdbx_parser_non_alt(pdb_id):
-#     protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
-#     expected_protein_data = expected_protein_data_sets[pdb_id]
-#
-#     differences = assert_protein_data_equal(protein_data, expected_protein_data)
-#     differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
-#
-#     assert not differences, differences_messages
