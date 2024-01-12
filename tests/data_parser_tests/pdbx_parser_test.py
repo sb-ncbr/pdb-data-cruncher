@@ -32,12 +32,23 @@ protein_data_8jip = ProteinDataFromPDBx(
     nonpolymer_weight=385.538,
     nonpolymer_weight_no_water=385.538,
     water_weight=0,
-    structure_keywords=[
+    struct_keywords_text=[
         "G protein-coupled receptor",
         "ligand recognition",
         "receptor activation",
         "unimolecular dual agonist",
         "STRUCTURAL PROTEIN",
+    ],
+    em_3d_reconstruction_resolution=2.85,
+    experimental_method="ELECTRON MICROSCOPY",
+    struct_keywords_pdbx="STRUCTURAL PROTEIN",
+    gene_source_scientific_name=["Homo sapiens", "Homo sapiens", "Rattus norvegicus", "Bos taurus", "Escherichia coli"],
+    host_organism_scientific_name=[
+        "Spodoptera frugiperda",
+        "Spodoptera frugiperda",
+        "Spodoptera frugiperda",
+        "Spodoptera frugiperda",
+        "Escherichia coli",
     ],
 )
 
@@ -69,7 +80,13 @@ protein_data_1cbs = ProteinDataFromPDBx(
     nonpolymer_weight=2101.93,
     nonpolymer_weight_no_water=300.435,
     water_weight=1801.5,
-    structure_keywords=["RETINOIC-ACID TRANSPORT"],
+    struct_keywords_text=["RETINOIC-ACID TRANSPORT"],
+    experimental_method="X-RAY DIFFRACTION",
+    software_name=["X-PLOR", "X-PLOR", "X-PLOR"],
+    struct_keywords_pdbx="RETINOIC-ACID TRANSPORT",
+    refinement_resolution_high=1.8,
+    gene_source_scientific_name=["Homo sapiens"],
+    host_organism_scientific_name=["Escherichia coli BL21(DE3)"],
 )
 
 
@@ -100,7 +117,18 @@ protein_data_6n6n = ProteinDataFromPDBx(
     nonpolymer_weight=10124.4,
     nonpolymer_weight_no_water=1315.08,
     water_weight=8809.34,
-    structure_keywords=["FtsY", "SRP", "Signal recognition particle receptor", "SR", "TRANSPORT PROTEIN"],
+    struct_keywords_text=["FtsY", "SRP", "Signal recognition particle receptor", "SR", "TRANSPORT PROTEIN"],
+    experimental_method="X-RAY DIFFRACTION",
+    software_name=["PHENIX", "XDS", "Aimless", "MOLREP"],
+    struct_keywords_pdbx="TRANSPORT PROTEIN",
+    reflections_resolution_high=1.877,
+    refinement_resolution_high=1.877,
+    diffraction_ambient_temperature=100,
+    gene_source_scientific_name=["Escherichia coli (strain K12)"],
+    host_organism_scientific_name=["Escherichia coli 'BL21-Gold(DE3)pLysS AG'"],
+    crystal_grow_methods=["VAPOR DIFFUSION", "SITTING DROP"],
+    crystal_grow_temperature=297.15,
+    crystal_grow_ph=5.8,
 )
 
 
@@ -131,7 +159,12 @@ protein_data_1a5j = ProteinDataFromPDBx(
     nonpolymer_weight=0,
     nonpolymer_weight_no_water=0,
     water_weight=0,
-    structure_keywords=["DNA-BINDING PROTEIN", "PROTOONCOGENE PRODUCT", "DNA BINDING PROTEIN"],
+    struct_keywords_text=["DNA-BINDING PROTEIN", "PROTOONCOGENE PRODUCT", "DNA BINDING PROTEIN"],
+    experimental_method="SOLUTION NMR",
+    software_name=["DYANA", "DYANA"],
+    struct_keywords_pdbx="DNA BINDING PROTEIN",
+    gene_source_scientific_name=["Gallus gallus"],
+    host_organism_scientific_name=["Escherichia coli"],
 )
 
 
@@ -148,19 +181,14 @@ def test_pdbx_parser(pdb_id):
     protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
-    # TODO use this when weights are implemented
-    # differences = compare_dataclasses(protein_data, expected_protein_data)
     differences = compare_dataclasses(
         protein_data,
         expected_protein_data,
-        [
-            "structure_weight",
-            "polymer_weight",
-            "nonpolymer_weight",
-            "nonpolymer_weight_no_water",
-            "water_weight",
-        ]
+        ignored_fields=[  # ignored fields that are not compared
+            "citation_journal_abbreviation",
+        ],
+        float_precision=1e-1,
     )
-    differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
+    differences_messages = " ".join([f"{diff[0]}: expected {diff[1]}, got {diff[2]}" for diff in differences])
 
     assert not differences, differences_messages

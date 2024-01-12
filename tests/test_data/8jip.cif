@@ -144,7 +144,7 @@ _entity.pdbx_ec
 _entity.pdbx_mutation 
 _entity.pdbx_fragment 
 _entity.details 
-1 polymer     man 'Glucagon-like peptide 1 receptor'                                     50860.801 1 ? ? ? ? 
+1 polymer     man 'Glucagon-like peptide 1 receptor'                                     50860.801 1 ? ? ? ?
 2 polymer     man 'Guanine nucleotide-binding protein G(s) subunit alpha isoforms short' 41907.516 1 ? ? ? 
 'There is no an appropriate UniProt/GenBank entry for entity 2 because the protein sequence (P63092) was modified.' 
 3 polymer     syn MEDI0382                                                               3278.431  1 ? ? ? ? 
