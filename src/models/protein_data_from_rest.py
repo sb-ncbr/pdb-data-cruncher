@@ -2,8 +2,13 @@ from dataclasses import dataclass, fields
 from typing import Optional
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class ProteinDataFromRest:
+    """
+    Class holding protein data extracted from REST endpoints.
+    """
+
     pdb_id: Optional[str] = None
     release_date: Optional[str] = None
     experimental_method_class: Optional[str] = None
@@ -21,5 +26,9 @@ class ProteinDataFromRest:
     assembly_ligand_flexibility: Optional[float] = None
 
     @property
-    def values_missing(self):
+    def values_missing(self) -> int:
+        """
+        Returns the number of values that are none among the class fields.
+        :return: Number of values, that are None.
+        """
         return sum(field is None for field in fields(self))

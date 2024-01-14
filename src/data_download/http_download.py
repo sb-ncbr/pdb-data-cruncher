@@ -31,8 +31,9 @@ def get_response_json(address: str, get_timeout_s: int) -> dict:
     try:
         response = requests.get(address, timeout=get_timeout_s)
         if response.status_code != 200:
-            raise DataDownloadError(f"GET {address} failed with status code {response.status_code}, "
-                                    f"content '{response.content}'.")
+            raise DataDownloadError(
+                f"GET {address} failed with status code {response.status_code}, content '{response.content}'."
+            )
         return response.json()
     except requests.exceptions.RequestException as ex:
         raise DataDownloadError(f"GET {address} failed. {ex}") from ex

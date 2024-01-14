@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-from config import BIOPOLYMER_MOLECULE_TYPES
+from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
 from src.models import LigandInfo, ProteinDataFromRest, Diagnostics, IssueType
 
@@ -12,6 +12,7 @@ class EntityCounts:
     """
     Internal class only. Entity holding biopolymers, ligands and waters count for better readability.
     """
+
     biopolymers: dict[int, int] = field(default_factory=dict)
     ligands: dict[int, int] = field(default_factory=dict)
     waters: dict[int, int] = field(default_factory=dict)
@@ -42,16 +43,7 @@ def parse_rest(
             protein_molecules_json,
             ligand_infos,
         )
-        if diagnostics.total_issues > 0:
-            logging.warning(
-                "[%s] Rest parsing finished with %s non-critical issues that may require attention.",
-                pdb_id,
-                diagnostics.total_issues,
-            )
-            for issue in diagnostics.issues:
-                logging.info("[%s] %s: %s", pdb_id, issue.type, issue.message)
-        else:
-            logging.debug("[%s] Rest parsing finished with no issues", pdb_id)
+        diagnostics.process_into_logging("REST parser", pdb_id)
         if protein_data.values_missing > 0:
             logging.info("[%s] %s values failed to be extracted. %s", pdb_id, protein_data.values_missing, protein_data)
         return protein_data
@@ -178,7 +170,7 @@ def _parse_molecules(
             total_water_weight += molecule_weight * entity_counts.waters.get(molecule_id)
 
     # save results into protein_data
-    protein_data.assembly_biopolymer_weight = total_biopolymer_weight
+    protein_data.assembly_biopolymer_weight = total_biopolymer_weight / 1000.0
     protein_data.assembly_ligand_weight = total_ligand_weight
     protein_data.assembly_water_weight = total_water_weight
     if total_ligand_count_with_flexibility > 0:

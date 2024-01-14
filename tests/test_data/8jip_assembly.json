@@ -1,0 +1,90 @@
+{
+  "8jip": [
+    {
+      "entities": [
+        {
+          "entity_id": 6,
+          "in_chains": [
+            "F"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "Nanobody 35"
+          ]
+        },
+        {
+          "entity_id": 1,
+          "in_chains": [
+            "A"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "Glucagon-like peptide 1 receptor"
+          ]
+        },
+        {
+          "entity_id": 7,
+          "in_chains": [
+            "G"
+          ],
+          "molecule_type": "bound",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "N-hexadecanoyl-L-glutamic acid"
+          ]
+        },
+        {
+          "entity_id": 2,
+          "in_chains": [
+            "B"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "Guanine nucleotide-binding protein G(s) subunit alpha isoforms short"
+          ]
+        },
+        {
+          "entity_id": 4,
+          "in_chains": [
+            "D"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "Guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-1"
+          ]
+        },
+        {
+          "entity_id": 5,
+          "in_chains": [
+            "E"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-2"
+          ]
+        },
+        {
+          "entity_id": 3,
+          "in_chains": [
+            "C"
+          ],
+          "molecule_type": "polypeptide(L)",
+          "number_of_copies": 1,
+          "molecule_name": [
+            "MEDI0382"
+          ]
+        }
+      ],
+      "assembly_id": "1",
+      "assembly_composition": "protein/protein complex",
+      "molecular_weight": 157.421,
+      "polymeric_count": 6,
+      "details": "author_and_software_defined_assembly"
+    }
+  ]
+}

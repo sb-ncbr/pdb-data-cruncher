@@ -28,18 +28,20 @@ class RunModeType(Enum):
     """
     Enum holding the different modes the app can be run in.
     """
+
     ALL = 0
     DOWNLOAD_ALL = 1
-    DOWNLOAD_ARCHIVE_MCIF = 2
+    DOWNLOAD_ARCHIVE_MMCIF = 2
     # ...
     TEST = 99
 
 
-@dataclass
+@dataclass(frozen=True)
 class Config:
     """
     Class containing configuration for mulsan with default values. Switches from commandline will overwrite this.
     """
+
     # BASIC CONFIG
     logging_debug: bool = False
     # run_mode: RunModeType = RunModeType.ALL
@@ -50,4 +52,6 @@ class Config:
 
     # FILE config
     temporary_files_folder_path: str = "./temp/"
-    path_to_ligand_stats_csv: str = "../sample_data/ligandStats.csv"
+    path_to_rest_jsons: str = "./temp/"
+    path_to_pdb_files: str = "./temp/"
+    path_to_ligand_stats_csv: str = "./temp/ligandStats.csv"
