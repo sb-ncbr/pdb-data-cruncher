@@ -2,6 +2,8 @@ import logging
 import argparse
 import os
 
+# TODO clean up imports once main.py is redone
+# pylint: disable=unused-import
 from src.manager import Manager
 from src.exception import ParsingError
 from src.config import Config, RunModeType
@@ -103,6 +105,10 @@ def main():
 
 
 def run_current_test(config: Config):
+    """
+    Temporary testing function.
+    :param config: App config.
+    """
     # ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
     # result = Manager.load_and_parse_json("8jip", ligand_information, config)
     # print(result)

@@ -1,9 +1,14 @@
-from dataclasses import dataclass, fields, field
+from dataclasses import dataclass
 from typing import Optional
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class ProteinDataFromPDBx:
+    """
+    Class holding data about protein extracted from pdbx files.
+    """
+
     pdb_id: Optional[str] = None
     # general counts
     atom_count_without_hetatms: int = 0

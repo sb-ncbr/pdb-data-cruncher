@@ -12,6 +12,7 @@ class EntityCounts:
     """
     Internal class only. Entity holding biopolymers, ligands and waters count for better readability.
     """
+
     biopolymers: dict[int, int] = field(default_factory=dict)
     ligands: dict[int, int] = field(default_factory=dict)
     waters: dict[int, int] = field(default_factory=dict)
