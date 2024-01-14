@@ -1,5 +1,7 @@
+import logging
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Optional
 
 
 class IssueType(Enum):
@@ -54,3 +56,22 @@ class Diagnostics:
         :param msg: Message describing the issue (for logging purposes).
         """
         self.issues.append(Issue(type=type, message=msg))
+
+    def process_into_logging(self, action_name: str, pdb_id: Optional[str]) -> None:
+        """
+        Takes issues collected and outputs them into logging. One logging warning if there are any issues,
+        followed by logging info with details about them. Only prints success without issues on debug level.
+        :param action_name: Name of the action that will be put into the logs.
+        :param pdb_id: PDB ID of protein that was being processed during diagnostic collection.
+        """
+        line_start_info = f"[{pdb_id}] {action_name}" if pdb_id else action_name
+        if self.total_issues > 0:
+            logging.warning(
+                "%s finished with %s non-critical issues that may require attention.",
+                line_start_info,
+                self.total_issues,
+            )
+            for issue in self.issues:
+                logging.info("%s: %s", line_start_info, issue.message)
+        else:
+            logging.debug("%s finished with no issues", line_start_info)

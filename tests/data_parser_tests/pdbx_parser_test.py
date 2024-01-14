@@ -1,6 +1,6 @@
 import pytest
 
-from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
+from src.models import ProteinDataFromPDBx
 from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe
 from tests.helpers import compare_dataclasses
 
@@ -178,7 +178,7 @@ expected_protein_data_sets = {
 
 @pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
 def test_pdbx_parser(pdb_id):
-    protein_data = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
+    protein_data, _ = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
     differences = compare_dataclasses(

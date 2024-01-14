@@ -1,13 +1,10 @@
 import logging
 import math
-import os
 from typing import Optional
 
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
-from src.config import Config
-from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
-from src.models.diagnostics import Diagnostics, IssueType
+from src.models import ProteinDataFromPDBx, Diagnostics, IssueType
 from src.exception import PDBxParsingError
 
 
@@ -27,43 +24,81 @@ METAL_ELEMENT_NAMES = {
 # fmt: on
 
 
-def parse_pdbx(pdb_id: str, config: Config) -> Optional[ProteinDataFromPDBx]:
-    logging.debug("[%s] PDB parsing started", pdb_id)
-    filepath = os.path.join(config.path_to_pdb_files, f"{pdb_id}.cif")
-    logging.debug("[%s] Will extract cif file from: %s", pdb_id, filepath)
+# pylint: disable=duplicate-code  # the code duplicate evaluation did not make sense in this case
+def parse_pdbx(pdb_id: str, filepath: str) -> Optional[ProteinDataFromPDBx]:
+    """
+    Extracts and calculates protein information from mmcif (PDBx) file.
+    :param pdb_id: PDB ID to extract.
+    :param filepath: Path to the mmcif file.
+    :return: Collected protein data.
+    """
+    logging.debug("[%s] PDBx parsing started. Will extract mmcif file from: %s", pdb_id, filepath)
     try:
-        protein_data = _parse_pdbx_unsafe(pdb_id, filepath)
+        protein_data, diagnostics = _parse_pdbx_unsafe(pdb_id, filepath)
+        diagnostics.process_into_logging("PDBx parsing", pdb_id)
         return protein_data
+    except PDBxParsingError as ex:
+        logging.error("[%s] %s", pdb_id, ex)
+        return None
     except Exception as ex:  # pylint: disable=broad-exception-caught
         # We want to catch broad exception here so unforseen data error doesn't kill the whole data processing.
         logging.exception("[%s] Encountered unexpected issue: %s", pdb_id, ex)
         return None
 
 
-def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDBx:
+def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx, Diagnostics]:
+    """
+    Extracts and calculates protein information from mmcif (PDBx) file. Unsafe - can raise exceptions.
+    :param pdb_id: PDB ID to extract.
+    :param filepath: Path to the mmcif file.
+    :return: Collected protein data and diagnostics about non-critical data issues.
+    :raises PDBxParsingError: In case of critical issue that prevents further data extraction.
+    """
     protein_data = ProteinDataFromPDBx(pdb_id=pdb_id)
     diagnostics = Diagnostics()
     mmcif_dict = MMCIF2Dict(filepath)
 
-    pdb_id_from_mmcif = get_first_item(mmcif_dict, "_entry.id").lower()
-    if pdb_id_from_mmcif != pdb_id:
-        raise PDBxParsingError(f"PDB ID aquired from the given mmcif file itself does not match expected value."
-                               f"Expected {pdb_id}, extracted {pdb_id_from_mmcif} instead.")
+    _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
+    _extract_atom_counts(mmcif_dict, protein_data)
+    _calculate_additional_counts_and_ratios(protein_data)
+    _extract_straightforward_data(mmcif_dict, protein_data)
+    _extract_weight_data(mmcif_dict, protein_data, diagnostics)
 
-    # PART 1 FOR REFACTOR
-    atom_site_relevant_info = zip(
+    return protein_data, diagnostics
+
+
+def _check_pdb_id_from_mmcif(mmcif_dict: MMCIF2Dict, expected_pdb_id: str) -> None:
+    """
+    Checks whether the PDB ID inside mmcif file matches the expected PDB ID the program is currently processing.
+    :param mmcif_dict: Holds information from mmcif file.
+    :param expected_pdb_id: Expected pdb id value (lowercase).
+    :raises PDBxParsingError: If PDB ID inside mmcif is different from the expected one or missing.
+    """
+    pdb_id_from_mmcif = _get_first_item(mmcif_dict, "_entry.id")
+    if not pdb_id_from_mmcif or pdb_id_from_mmcif.lower() != expected_pdb_id:
+        raise PDBxParsingError(
+            f"PDB ID aquired from the given mmcif file itself does not match expected value."
+            f"Expected {expected_pdb_id}, extracted '{pdb_id_from_mmcif}' instead."
+        )
+
+
+def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
+    """
+    Extracts and stores protein data about atom/hetatm counts and ligand counts.
+    :param mmcif_dict: Holds data extracted from mmcif file.
+    :param data: Protein data instance in which the collected information is stored.
+    """
+    encountered_ligands = {}  # collects element of ligands for futher processing
+    for atom_type, symbol, residue_name_label, residue_id, residue_name, residue_chain in zip(
         mmcif_dict["_atom_site.group_PDB"],  # ATOM or HETATM
         mmcif_dict["_atom_site.type_symbol"],  # element symbol
         mmcif_dict["_atom_site.label_comp_id"],  # residue name label
         mmcif_dict["_atom_site.auth_seq_id"],  # residue ids (by author)
         mmcif_dict["_atom_site.auth_comp_id"],  # residue names (by author)
         mmcif_dict["_atom_site.auth_asym_id"],  # residue chain ids (by author)
-    )
-    encountered_ligands = {}  # collects element of ligands for futher processing
-
-    for atom_type, symbol, residue_name_label, residue_id, residue_name, residue_chain in atom_site_relevant_info:
+    ):
         if atom_type == "ATOM":
-            protein_data.atom_count_without_hetatms += 1
+            data.atom_count_without_hetatms += 1
         if atom_type == "HETATM":
             ligand_identifier = (residue_id, residue_name, residue_chain)
             if ligand_identifier in encountered_ligands:
@@ -71,6 +106,7 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDBx:
             else:
                 encountered_ligands[ligand_identifier] = [(symbol, residue_name_label)]
 
+    # goes through the collected ligand (hetatm) groups
     for ligand_contents_list in encountered_ligands.values():
         has_water = False
         has_metal = False
@@ -81,62 +117,67 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> ProteinDataFromPDBx:
                 has_metal = True
 
         hetatms_in_this_ligand = len(ligand_contents_list)
-        protein_data.ligand_count += 1
-        protein_data.hetatm_count += hetatms_in_this_ligand
+        data.ligand_count += 1
+        data.hetatm_count += hetatms_in_this_ligand
         if not has_water:
-            protein_data.ligand_count_no_water += 1
-            protein_data.hetatm_count_no_water += hetatms_in_this_ligand
+            data.ligand_count_no_water += 1
+            data.hetatm_count_no_water += hetatms_in_this_ligand
         if has_metal:
-            protein_data.ligand_count_metal += 1
-            protein_data.hetatm_count_metal += hetatms_in_this_ligand
-    # PART 1 FOR REFACTOR END
+            data.ligand_count_metal += 1
+            data.hetatm_count_metal += hetatms_in_this_ligand
 
-    calculate_additional_counts_and_ratios(protein_data)
-    extract_straightforward_data(mmcif_dict, protein_data)
 
-    # WEIGHT PART - another refactoring candidate
-    entity_ids = mmcif_dict.get("_entity.id")
-    entity_types = mmcif_dict.get("_entity.type")
-    molecule_counts = mmcif_dict.get("_entity.pdbx_number_of_molecules")
-    formula_weights = mmcif_dict.get("_entity.formula_weight")
-
+def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diagnostics: Diagnostics):
+    """
+    Extracts protein data from mmcif_dict related to weights.
+    :param mmcif_dict: Holds loaded mmcif data.
+    :param data: Stores extracted protein data.
+    :param diagnostics: Stores information about important data missing.
+    """
     for entity_id, entity_type, molecule_count_str, formula_weight_str in zip(
-            entity_ids, entity_types, molecule_counts, formula_weights):
+        mmcif_dict.get("_entity.id"),
+        mmcif_dict.get("_entity.type"),
+        mmcif_dict.get("_entity.pdbx_number_of_molecules"),
+        mmcif_dict.get("_entity.formula_weight"),
+    ):
         try:
             molecule_count = int(molecule_count_str)
         except (TypeError, ValueError) as ex:
-            diagnostics.add_issue(IssueType.DATA_ITEM_ERROR,
-                                  f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
-                                  f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+            diagnostics.add_issue(
+                IssueType.DATA_ITEM_ERROR,
+                f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
+                f"This entity is ignored for the purpose of counting weights. Reason: {ex}",
+            )
             continue
         try:
             raw_weight = float(formula_weight_str)
         except (TypeError, ValueError) as ex:
-            diagnostics.add_issue(IssueType.DATA_ITEM_ERROR,
-                                  f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
-                                  f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+            diagnostics.add_issue(
+                IssueType.DATA_ITEM_ERROR,
+                f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
+                f"This entity is ignored for the purpose of counting weights. Reason: {ex}",
+            )
             continue
 
         if entity_type == "polymer":
-            protein_data.polymer_weight += raw_weight * molecule_count
+            data.polymer_weight += raw_weight * molecule_count
         elif entity_type == "non-polymer":
-            protein_data.nonpolymer_weight_no_water += raw_weight * molecule_count
+            data.nonpolymer_weight_no_water += raw_weight * molecule_count
         elif entity_type == "water":
-            protein_data.water_weight += raw_weight * molecule_count
+            data.water_weight += raw_weight * molecule_count
         else:
-            diagnostics.add_issue(IssueType.DATA_ITEM_ERROR,
-                                  f"Entity with id {entity_id} has unexpected entity type {entity_type}. "
-                                  f"Its weight is not processed.")
-
-    protein_data.polymer_weight /= 1000  # Da -> kDa adjustment
+            diagnostics.add_issue(
+                IssueType.DATA_ITEM_ERROR,
+                f"Entity with id {entity_id} has unexpected entity type {entity_type}. "
+                f"Its weight is not processed.",
+            )
+    data.polymer_weight /= 1000  # Da -> kDa adjustment
     # TODO is this alright? :point_up:
-    protein_data.nonpolymer_weight = protein_data.nonpolymer_weight_no_water + protein_data.water_weight
-    protein_data.structure_weight = protein_data.polymer_weight + (protein_data.nonpolymer_weight / 1000)
-
-    return protein_data
+    data.nonpolymer_weight = data.nonpolymer_weight_no_water + data.water_weight
+    data.structure_weight = data.polymer_weight + (data.nonpolymer_weight / 1000)
 
 
-def extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
+def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
     """
     Extracts protein data from given mmcif_dict, that are either saved as is or require just small adjustments
     without any calculations or significant transformation.
@@ -150,28 +191,28 @@ def extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPD
     data.host_organism_scientific_name = mmcif_dict.get("_entity_src_gen.pdbx_host_org_scientific_name")
 
     # get first item as string (there is always just one item)
-    data.struct_keywords_pdbx = get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
-    data.experimental_method = get_first_item(mmcif_dict, "_exptl.method")
+    data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
+    data.experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
 
     # get first item as number (there is always just one item and it's a number)
-    data.em_3d_reconstruction_resolution = get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
-    data.refinement_resolution_high = get_first_float(mmcif_dict, "_refine.ls_d_res_high")
-    data.reflections_resolution_high = get_first_float(mmcif_dict, "_reflns.d_resolution_high")
-    data.diffraction_ambient_temperature = get_first_int(mmcif_dict, "_diffrn.ambient_temp")
-    data.crystal_grow_temperature = get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
-    data.crystal_grow_ph = get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
+    data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
+    data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
+    data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
+    data.diffraction_ambient_temperature = _get_first_int(mmcif_dict, "_diffrn.ambient_temp")
+    data.crystal_grow_temperature = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
+    data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
 
     # get those that need other kind of small change
     data.aa_count = len(mmcif_dict.get("_entity_poly_seq.entity_id", []))
-    struct_keywords_text = get_first_item(mmcif_dict, "_struct_keywords.text")
-    crystal_growth_methods = get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
+    struct_keywords_text = _get_first_item(mmcif_dict, "_struct_keywords.text")
+    crystal_growth_methods = _get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
     if struct_keywords_text:
         data.struct_keywords_text = [value.strip() for value in struct_keywords_text.split(",")]
     if crystal_growth_methods:
         data.crystal_grow_methods = [value.strip() for value in crystal_growth_methods.split(",")]
 
 
-def calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
+def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
     """
     Calculates addional protein data that can be calculated from already collected protein data.
     It includes all_atom_count(_ln), ligand_ratio, ligand_ratio_no_water, and hetatm counts, ligand counts
@@ -200,7 +241,7 @@ def calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
         data.ligand_ratio_no_water_no_metal = data.hetatm_count_no_water_no_metal / data.ligand_count_no_water_no_metal
 
 
-def get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
+def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
     """
     By default, MMCIF2DICT returns all values under given key as a list, even if there is only one of them.
     This function extracts such list, and returns only the first item from it (converted to float).
@@ -211,12 +252,12 @@ def get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
     :raises PDBxParsingError: When multiple items are found in list under given key.
     """
     try:
-        return float(get_first_item(mmcif_dict, key))
+        return float(_get_first_item(mmcif_dict, key))
     except (TypeError, ValueError):
         return None
 
 
-def get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
+def _get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
     """
     By default, MMCIF2DICT returns all values under given key as a list, even if there is only one of them.
     This function extracts such list, and returns only the first item from it (converted to int).
@@ -227,12 +268,12 @@ def get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
     :raises PDBxParsingError: When multiple items are found in list under given key.
     """
     try:
-        return int(get_first_item(mmcif_dict, key))
+        return int(_get_first_item(mmcif_dict, key))
     except (TypeError, ValueError):
         return None
 
 
-def get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
+def _get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
     """
     By default, MMCIF2DICT returns all values under given key as a list, even if there is only one of them.
     This function extracts such list, and returns only the first item from it.
@@ -245,8 +286,9 @@ def get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
     if value_list and len(value_list) > 0:
         if len(value_list) != 1:
             # TODO clause to double check the logic - can be deleted once the whole thing is run
-            raise PDBxParsingError(f"DEVELOPER'S ERROR IN LOGIC: Only one relevant item in mmcif item {key} expected. "
-                                   f"Got {value_list}. Fix the logic in the pdbx_parser, type in protein data "
-                                   f"and wherever it is used.")
+            raise PDBxParsingError(
+                f"DEVELOPER'S ERROR IN LOGIC: Only one relevant item in mmcif item {key} expected. Got {value_list}. "
+                f"Fix the logic in the pdbx_parser, type in protein data and wherever it is used."
+            )
         return value_list[0]
     return None

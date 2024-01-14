@@ -1,7 +1,7 @@
+import dataclasses
 from typing import Optional, Any
 
 import pytest
-import dataclasses
 
 
 def compare_dataclasses(
@@ -26,7 +26,7 @@ def compare_dataclasses(
         expected_value = getattr(expected, field_name, None)
         if field_name in ignored_fields:
             continue
-        if type(actual_value) is float:
+        if isinstance(actual_value, float):
             if expected_value != pytest.approx(actual_value, abs=float_precision):
                 differences.append((field_name, expected_value, actual_value))
         else:

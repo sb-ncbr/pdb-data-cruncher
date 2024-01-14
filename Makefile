@@ -10,7 +10,7 @@ pylint:
 pylint-no-todo:
 	poetry run pylint src --disable "fixme"
 
-pylint_tests:
+pylint-tests:
 	poetry run pylint tests --disable "missing-function-docstring"
 
 flake8:

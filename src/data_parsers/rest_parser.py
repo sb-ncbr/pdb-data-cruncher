@@ -43,16 +43,7 @@ def parse_rest(
             protein_molecules_json,
             ligand_infos,
         )
-        if diagnostics.total_issues > 0:
-            logging.warning(
-                "[%s] Rest parsing finished with %s non-critical issues that may require attention.",
-                pdb_id,
-                diagnostics.total_issues,
-            )
-            for issue in diagnostics.issues:
-                logging.info("[%s] %s: %s", pdb_id, issue.type, issue.message)
-        else:
-            logging.debug("[%s] Rest parsing finished with no issues", pdb_id)
+        diagnostics.process_into_logging("REST parser", pdb_id)
         if protein_data.values_missing > 0:
             logging.info("[%s] %s values failed to be extracted. %s", pdb_id, protein_data.values_missing, protein_data)
         return protein_data

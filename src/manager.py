@@ -3,10 +3,11 @@ import os.path
 from typing import Optional
 
 from src.config import Config
-from src.models import ProteinDataFromRest, LigandInfo
+from src.models import LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx
 from src.data_loaders.json_file_loader import load_json_file
-from src.data_parsers.rest_parser import parse_rest
 from src.data_parsers.ligand_stats_parser import parse_ligand_stats
+from src.data_parsers.rest_parser import parse_rest
+from src.data_parsers.pdbx_parser import parse_pdbx
 from src.exception import ParsingError
 
 
@@ -51,3 +52,15 @@ class Manager:
             return None
 
         return parse_rest(pdb_id, protein_summary_json, protein_assembly_json, protein_molecules_json, ligand_info)
+
+    @staticmethod
+    def load_and_parse_pdbx(pdb_id: str, config: Config) -> Optional[ProteinDataFromPDBx]:
+        """
+        Assembles path of mmcif file from pdb id and config, attempts to load it and process it into protein
+        data instance.
+        :param pdb_id: PDB ID of protein to process.
+        :param config: App configuration.
+        :return: Instance of ProteinDataFromPDBx loaded with protein data, or None in case of a serious error.
+        """
+        filepath = os.path.join(config.path_to_pdb_files, f"{pdb_id}.cif")
+        return parse_pdbx(pdb_id, filepath)

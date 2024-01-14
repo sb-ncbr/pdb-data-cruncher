@@ -114,7 +114,7 @@ def run_current_test(config: Config):
     # print(result)
     # result = parse_pdb("1cbs", config)
     # result = parse_pdbx("8jip", config)
-    result = parse_pdbx("6n6n", config)
+    result = Manager.load_and_parse_pdbx("6n6n", config)
     print(result)
 
 
