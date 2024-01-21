@@ -16,8 +16,12 @@ pylint-tests:
 flake8:
 	poetry run flake8 src
 
+pytest-old:
+	poetry run pytest --tb=no -k "old"
+
 pytest:
-	poetry run pytest --tb=no
+	poetry run pytest -k "not old"
+
 
 check: pylint flake8 pytest
 

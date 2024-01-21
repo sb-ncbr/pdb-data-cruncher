@@ -37,3 +37,10 @@ max-line-length = 120
 
 [tool.black]
 line-length = 120
+
+[tool.pytest.ini_options]
+markers = [
+    "old",
+    "basic",
+    "extended"
+]

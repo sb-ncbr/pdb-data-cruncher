@@ -4,5 +4,12 @@ __pycache__
 .pytest_cache
 temp/
 
+# ignore everything in test data other than limited test set due to the
+# size of additional data
+tests/test_data/*
+!tests/test_data/crunched_results.csv
+!tests/test_data/1dey/*
+!tests/test_data/103d/*
+
 # TODO remove in final version
 local_testing_scripts/

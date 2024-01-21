@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.00.xsd">
+	<Entry percentilebins="all,nmr" attemptedValidationSteps="mogul,buster-report,molprobity,validation-pack,coreclust,chemicalshifts,percentiles,writepdf,writexml" PDB-deposition-date="1994-12-16" PDB-revision-date="2022-02-16" PDB-revision-number="4" protein-DNA-RNA-entities="1" PDB-resolution="NotAvailable" PDB-resolution-low="NotAvailable" PDB-R="NotAvailable" PDB-Rfree="NotAvailable" pdbid="103D" no-ligands-for-mogul="yes" no-ligands-for-buster-report="yes" num-H-reduce="272" clashscore-full-length="0.00" bonds_rmsz="1.19" num_bonds_rmsz="564" angles_rmsz="1.69" num_angles_rmsz="870" nmr_models_consistency_flag="True" cyrange_error="Not enough models (&lt;3)" panav_version="Wang et al. (2010)" rci_version="v_1n_11_5_13_A (Berjanski et al., 2005)" shiftchecker_version="2.29" no-percentile-property="true" cs_only="yes" XMLcreationDate="Aug 21, 2022 -- 06:35 AM EDT"/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="1" said="A" ent="1" seq="1" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="2" said="A" ent="1" seq="2" icode=" " resname="DT" altcode=" ">
+		<plane-outlier type="sidechain" planeRMSD="0.06"/>
+		<angle-outlier atom0="C6" atom1="C5" atom2="C7" obs="119.646" z="-5.42" mean="122.900" stdev="0.600"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="3" said="A" ent="1" seq="3" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="4" said="A" ent="1" seq="4" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="5" said="A" ent="1" seq="5" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="6" said="A" ent="1" seq="6" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="7" said="A" ent="1" seq="7" icode=" " resname="DT" altcode=" ">
+		<angle-outlier atom0="C6" atom1="C5" atom2="C7" obs="119.375" z="-5.88" mean="122.900" stdev="0.600"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="8" said="A" ent="1" seq="8" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="9" said="A" ent="1" seq="9" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="10" said="A" ent="1" seq="10" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="A" resnum="11" said="A" ent="1" seq="11" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="12" said="A" ent="1" seq="12" icode=" " resname="DC" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="B" resnum="13" said="B" ent="1" seq="1" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="B" resnum="14" said="B" ent="1" seq="2" icode=" " resname="DT" altcode=" ">
+		<plane-outlier type="sidechain" planeRMSD="0.06"/>
+		<angle-outlier atom0="C6" atom1="C5" atom2="C7" obs="119.520" z="-5.63" mean="122.900" stdev="0.600"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="15" said="B" ent="1" seq="3" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="16" said="B" ent="1" seq="4" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="17" said="B" ent="1" seq="5" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="18" said="B" ent="1" seq="6" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="B" resnum="19" said="B" ent="1" seq="7" icode=" " resname="DT" altcode=" ">
+		<angle-outlier atom0="C6" atom1="C5" atom2="C7" obs="119.437" z="-5.77" mean="122.900" stdev="0.600"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="20" said="B" ent="1" seq="8" icode=" " resname="DG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="21" said="B" ent="1" seq="9" icode=" " resname="DG" altcode=" ">
+		<angle-outlier atom0="C8" atom1="N9" atom2="C4" obs="104.386" z="-5.04" mean="106.400" stdev="0.400"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="22" said="B" ent="1" seq="10" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" model="1" chain="B" resnum="23" said="B" ent="1" seq="11" icode=" " resname="DA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="B" resnum="24" said="B" ent="1" seq="12" icode=" " resname="DC" altcode=" "/>
+	<ModelledEntityInstance bonds_rmsz="1.19" num_bonds_rmsz="282" angles_rmsz="1.69" num_angles_rmsz="435" said="A" model="1" chain="A" ent="1"/>
+	<ModelledEntityInstance bonds_rmsz="1.19" num_bonds_rmsz="282" angles_rmsz="1.69" num_angles_rmsz="435" said="B" model="1" chain="B" ent="1"/>
+	<programs>
+		<program name="validation-pipeline" version="2.29" properties="PDB-resolution-low,PDB-revision-date,PDB-Rfree,pdbid,attemptedValidationSteps,percentilebins,PDB-revision-number,PDB-resolution,PDB-R,protein-DNA-RNA-entities,PDB-deposition-date,XMLcreationDate,cs_only"/>
+		<program name="mogul" version="unknown" properties="no-ligands-for-mogul"/>
+		<program name="buster-report" version="unknown" properties="no-ligands-for-buster-report"/>
+		<program name="validation-pack" version="unknown" properties="plane-outlier"/>
+		<program name="molprobity" version="4.02b-467" properties="clashscore-full-length,angle-outlier,bonds_rmsz,num-H-reduce,bond-outlier,num_angles_rmsz,angles_rmsz,num_bonds_rmsz"/>
+		<program name="coreclust" version="unknown" properties="nmr_models_consistency_flag,cyrange_error"/>
+		<program name="chemicalshifts" version="2.29" properties="panav_version,rci_version,shiftchecker_version"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="no-percentile-property"/>
+	</programs>
+</wwPDB-validation-information>
