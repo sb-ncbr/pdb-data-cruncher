@@ -182,6 +182,8 @@ def test_pdbx_parser(pdb_id):
     protein_data, _ = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data_2/{pdb_id}.cif")
     expected_protein_data = expected_protein_data_sets[pdb_id]
 
+    assert protein_data
+
     differences = compare_dataclasses(
         protein_data,
         expected_protein_data,

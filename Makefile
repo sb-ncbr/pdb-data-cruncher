@@ -20,6 +20,9 @@ pytest-old:
 	poetry run pytest --tb=no -k "old"
 
 pytest:
+	poetry run pytest -k "basic"
+
+pytest-extended:
 	poetry run pytest -k "not old"
 
 
