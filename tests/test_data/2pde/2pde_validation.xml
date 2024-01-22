@@ -1,0 +1,1957 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v004.xsd">
+	<Entry PDB-R="NotAvailable" PDB-Rfree="NotAvailable" PDB-deposition-date="1992-11-25" PDB-resolution="NotAvailable" PDB-resolution-low="NotAvailable" PDB-revision-date="2017-11-29" PDB-revision-number="5" XMLcreationDate="May 29, 2020 -- 12:43 am BST" absolute-percentile-clashscore="0.0" absolute-percentile-percent-rama-outliers="0.0" absolute-percentile-percent-rota-outliers="0.0" angles_rmsz="28.42" attemptedValidationSteps="molprobity,validation-pack,mogul,buster-report,coreclust,chemicalshifts,percentiles,writexml,writepdf" bonds_rmsz="103.30" clashscore="1044.30" clashscore-full-length="1044.30" cyrange_error=" Less than two structures selected." cyrange_version="Kirchner and G\&quot;{u}ntert (2011)" nmr_models_consistency_flag="True" nmrclust_error="Wrapper check: not enough residues in core to run NmrClust" nmrclust_version="Kelley et al. (1996)" no-ligands-for-buster-report="yes" no-ligands-for-mogul="yes" no-percentile-property="true" num-H-reduce="311" numPDBids-absolute-percentile-clashscore="158937" numPDBids-absolute-percentile-percent-rama-outliers="154571" numPDBids-absolute-percentile-percent-rota-outliers="154315" numPDBids-relative-percentile-clashscore="12864" numPDBids-relative-percentile-percent-rama-outliers="11451" numPDBids-relative-percentile-percent-rota-outliers="11428" num_angles_rmsz="383" num_bonds_rmsz="307" panav_version="Wang et al. (2010)" pdbid="2PDE" percent-rama-outliers="44.44" percent-rama-outliers-full-length="44.44" percent-rota-outliers="62.50" percent-rota-outliers-full-length="62.50" percentilebins="all,nmr" protein-DNA-RNA-entities="1" rci_version="v_1n_11_5_13_A (Berjanski et al., 2005)" relative-percentile-clashscore="0.0" relative-percentile-percent-rama-outliers="0.1" relative-percentile-percent-rota-outliers="0.2" shiftchecker_version="2.11"/>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="11" resname="VAL" resnum="1" rota="t" said="A" seq="1" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="154.371" stdev="2.200" z="16.90"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="108.589" stdev="2.500" z="-5.24"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="110.900" obs="49.161" stdev="1.500" z="-41.16"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="110.900" obs="143.020" stdev="1.600" z="20.07"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="66.216" stdev="2.700" z="-16.59"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.400" obs="96.010" stdev="1.900" z="-8.10"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="111.500" obs="144.247" stdev="2.200" z="14.88"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="67.600" stdev="2.100" z="-25.00"/>
+		<plane-outlier improper="-48.00" type="mainchain"/>
+		<clash atom="CG2" cid="342" clashmag="0.75" dist="2.12"/>
+		<clash atom="CG2" cid="632" clashmag="0.43" dist="2.44"/>
+		<clash atom="CG1" cid="0" clashmag="1.61" dist="1.19"/>
+		<clash atom="CG1" cid="60" clashmag="1.23" dist="2.15"/>
+		<clash atom="CG1" cid="511" clashmag="0.56" dist="2.81"/>
+		<clash atom="CA" cid="60" clashmag="1.23" dist="2.15"/>
+		<clash atom="CA" cid="306" clashmag="0.79" dist="2.45"/>
+		<clash atom="CA" cid="636" clashmag="0.42" dist="2.68"/>
+		<clash atom="CA" cid="651" clashmag="0.41" dist="2.89"/>
+		<clash atom="O" cid="409" clashmag="0.67" dist="1.87"/>
+		<clash atom="O" cid="526" clashmag="0.55" dist="2.41"/>
+		<clash atom="O" cid="628" clashmag="0.43" dist="2.12"/>
+		<clash atom="O" cid="636" clashmag="0.42" dist="2.68"/>
+		<clash atom="HB" cid="631" clashmag="0.43" dist="1.91"/>
+		<clash atom="HG21" cid="281" clashmag="0.82" dist="1.50"/>
+		<clash atom="HG21" cid="629" clashmag="0.43" dist="1.88"/>
+		<clash atom="CB" cid="511" clashmag="0.56" dist="2.81"/>
+		<clash atom="CB" cid="538" clashmag="0.54" dist="2.33"/>
+		<clash atom="HG23" cid="601" clashmag="0.47" dist="2.30"/>
+		<clash atom="N" cid="306" clashmag="0.79" dist="2.45"/>
+		<clash atom="HA" cid="0" clashmag="1.61" dist="1.19"/>
+		<clash atom="C" cid="235" clashmag="0.88" dist="1.88"/>
+		<clash atom="C" cid="274" clashmag="0.83" dist="2.47"/>
+		<clash atom="C" cid="601" clashmag="0.47" dist="2.30"/>
+		<clash atom="C" cid="651" clashmag="0.41" dist="2.89"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.484" stdev="0.023" z="6.42"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="0.981" stdev="0.019" z="-13.05"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="1.080" stdev="0.021" z="-21.13"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.524" obs="2.813" stdev="0.021" z="61.39"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.451" stdev="0.020" z="49.59"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="2.892" stdev="0.026" z="52.57"/>
+		<plane-outlier omega="101.70" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="11" phi="-179.7" psi="163.8" rama="OUTLIER" resname="ILE" resnum="2" rota="OUTLIER" said="A" seq="2" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="4.132" stdev="2.500" z="-47.03"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="158.814" stdev="2.200" z="18.91"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.600" obs="89.686" stdev="2.000" z="-10.96"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="151.443" stdev="2.700" z="14.98"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="57.456" stdev="2.100" z="-29.83"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="59.886" stdev="2.000" z="-25.51"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="111.000" obs="59.983" stdev="1.900" z="-26.85"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="111.400" obs="63.187" stdev="2.200" z="-21.91"/>
+		<plane-outlier improper="-72.64" type="mainchain"/>
+		<clash atom="CD1" cid="433" clashmag="0.65" dist="2.74"/>
+		<clash atom="CD1" cid="504" clashmag="0.57" dist="2.28"/>
+		<clash atom="CD1" cid="599" clashmag="0.47" dist="2.40"/>
+		<clash atom="O" cid="73" clashmag="1.19" dist="1.36"/>
+		<clash atom="O" cid="123" clashmag="1.07" dist="2.01"/>
+		<clash atom="CB" cid="209" clashmag="0.92" dist="2.47"/>
+		<clash atom="CB" cid="526" clashmag="0.55" dist="2.41"/>
+		<clash atom="C" cid="270" clashmag="0.83" dist="1.93"/>
+		<clash atom="N" cid="261" clashmag="0.85" dist="2.39"/>
+		<clash atom="N" cid="386" clashmag="0.70" dist="2.53"/>
+		<clash atom="N" cid="545" clashmag="0.53" dist="2.71"/>
+		<clash atom="CG2" cid="123" clashmag="1.07" dist="2.01"/>
+		<clash atom="CG2" cid="433" clashmag="0.65" dist="2.74"/>
+		<clash atom="CG2" cid="507" clashmag="0.57" dist="2.82"/>
+		<clash atom="CG1" cid="50" clashmag="1.24" dist="2.15"/>
+		<clash atom="CG1" cid="209" clashmag="0.92" dist="2.47"/>
+		<clash atom="CG1" cid="545" clashmag="0.53" dist="2.71"/>
+		<clash atom="HB" cid="628" clashmag="0.43" dist="2.12"/>
+		<clash atom="HG23" cid="599" clashmag="0.47" dist="2.40"/>
+		<clash atom="HG21" cid="73" clashmag="1.19" dist="1.36"/>
+		<clash atom="HG21" cid="270" clashmag="0.83" dist="1.93"/>
+		<clash atom="HG21" cid="504" clashmag="0.57" dist="2.28"/>
+		<clash atom="CA" cid="50" clashmag="1.24" dist="2.15"/>
+		<clash atom="CA" cid="507" clashmag="0.57" dist="2.82"/>
+		<clash atom="HA" cid="475" clashmag="0.61" dist="2.26"/>
+		<clash atom="H" cid="166" clashmag="0.99" dist="1.69"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.000" stdev="0.023" z="-14.60"/>
+		<bond-outlier atom0="CG1" atom1="CD1" mean="1.500" obs="3.855" stdev="0.069" z="34.14"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.248" stdev="0.026" z="143.21"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.000" stdev="0.019" z="-12.04"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="3.199" stdev="0.031" z="54.02"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.536" obs="2.473" stdev="0.028" z="33.48"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.544" obs="1.079" stdev="0.023" z="-20.22"/>
+		<plane-outlier omega="144.75" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="4" resname="ALA" resnum="3" said="A" seq="3" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.100" obs="48.123" stdev="1.500" z="-41.32"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="69.492" stdev="2.100" z="-24.10"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.100" obs="84.370" stdev="1.400" z="-18.38"/>
+		<clash atom="HB3" cid="235" clashmag="0.88" dist="1.88"/>
+		<clash atom="HB3" cid="409" clashmag="0.67" dist="1.87"/>
+		<clash atom="CB" cid="274" clashmag="0.83" dist="2.47"/>
+		<clash atom="CB" cid="368" clashmag="0.72" dist="2.37"/>
+		<clash atom="CB" cid="386" clashmag="0.70" dist="2.53"/>
+		<clash atom="CB" cid="475" clashmag="0.61" dist="2.26"/>
+		<clash atom="O" cid="54" clashmag="1.24" dist="1.76"/>
+		<clash atom="O" cid="290" clashmag="0.81" dist="1.75"/>
+		<clash atom="O" cid="338" clashmag="0.76" dist="2.19"/>
+		<clash atom="O" cid="368" clashmag="0.72" dist="2.37"/>
+		<clash atom="O" cid="508" clashmag="0.57" dist="2.53"/>
+		<clash atom="C" cid="54" clashmag="1.24" dist="1.76"/>
+		<clash atom="C" cid="180" clashmag="0.97" dist="2.33"/>
+		<clash atom="C" cid="188" clashmag="0.96" dist="2.18"/>
+		<clash atom="C" cid="626" clashmag="0.43" dist="2.86"/>
+		<clash atom="CA" cid="166" clashmag="0.99" dist="1.69"/>
+		<clash atom="CA" cid="261" clashmag="0.85" dist="2.39"/>
+		<clash atom="CA" cid="478" clashmag="0.60" dist="2.42"/>
+		<clash atom="HA" cid="149" clashmag="1.02" dist="1.53"/>
+		<clash atom="HA" cid="420" clashmag="0.66" dist="2.09"/>
+		<clash atom="HA" cid="550" clashmag="0.52" dist="1.82"/>
+		<clash atom="HA" cid="568" clashmag="0.51" dist="2.21"/>
+		<clash atom="HB1" cid="290" clashmag="0.81" dist="1.75"/>
+		<clash atom="HB2" cid="445" clashmag="0.64" dist="2.07"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.761" stdev="0.019" z="28.00"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.812" stdev="0.026" z="126.42"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.520" obs="3.091" stdev="0.021" z="74.80"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="8.152" stdev="0.020" z="334.67"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" cis_peptide="yes" ent="1" icode=" " model="1" num-H-reduce="8" resname="MET" resnum="4" rota="tpp" said="A" seq="4" validate="True">
+		<angle-outlier atom0="C" atom1="N" atom2="CD" link="yes" mean="128.400" obs="144.917" stdev="2.100" z="7.87"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.100" obs="146.794" stdev="2.800" z="10.61"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="82.938" stdev="2.000" z="-13.73"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="52.743" stdev="2.700" z="-21.58"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="56.302" stdev="1.800" z="-30.17"/>
+		<angle-outlier atom0="CG" atom1="SD" atom2="CE" mean="100.200" obs="90.393" stdev="1.600" z="-6.13"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.300" obs="59.974" stdev="1.700" z="-31.37"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="85.750" stdev="2.100" z="-16.36"/>
+		<plane-outlier improper="-21.91" type="mainchain"/>
+		<clash atom="SD" cid="36" clashmag="1.30" dist="2.19"/>
+		<clash atom="SD" cid="552" clashmag="0.52" dist="2.98"/>
+		<clash atom="CA" cid="180" clashmag="0.97" dist="2.33"/>
+		<clash atom="CA" cid="216" clashmag="0.90" dist="2.49"/>
+		<clash atom="CA" cid="277" clashmag="0.82" dist="2.56"/>
+		<clash atom="CA" cid="552" clashmag="0.52" dist="2.98"/>
+		<clash atom="CB" cid="117" clashmag="1.08" dist="2.16"/>
+		<clash atom="CB" cid="181" clashmag="0.97" dist="2.43"/>
+		<clash atom="CB" cid="277" clashmag="0.82" dist="2.56"/>
+		<clash atom="CB" cid="508" clashmag="0.57" dist="2.53"/>
+		<clash atom="CB" cid="626" clashmag="0.43" dist="2.86"/>
+		<clash atom="C" cid="334" clashmag="0.77" dist="2.52"/>
+		<clash atom="CG" cid="36" clashmag="1.30" dist="2.19"/>
+		<clash atom="CG" cid="181" clashmag="0.97" dist="2.43"/>
+		<clash atom="CG" cid="216" clashmag="0.90" dist="2.49"/>
+		<clash atom="CG" cid="470" clashmag="0.61" dist="2.78"/>
+		<clash atom="CG" cid="645" clashmag="0.42" dist="2.79"/>
+		<clash atom="O" cid="276" clashmag="0.83" dist="2.27"/>
+		<clash atom="O" cid="548" clashmag="0.52" dist="2.01"/>
+		<clash atom="CE" cid="470" clashmag="0.61" dist="2.78"/>
+		<clash atom="N" cid="117" clashmag="1.08" dist="2.16"/>
+		<clash atom="N" cid="188" clashmag="0.96" dist="2.18"/>
+		<clash atom="N" cid="338" clashmag="0.76" dist="2.19"/>
+		<clash atom="N" cid="445" clashmag="0.64" dist="2.07"/>
+		<clash atom="N" cid="645" clashmag="0.42" dist="2.79"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.338" obs="1.473" stdev="0.019" z="7.11"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="0.980" stdev="0.019" z="-13.12"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.140" stdev="0.026" z="139.03"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.509" obs="2.425" stdev="0.032" z="28.62"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="1.083" stdev="0.020" z="-18.81"/>
+		<bond-outlier atom0="CG" atom1="SD" mean="1.807" obs="2.190" stdev="0.026" z="14.72"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.559" stdev="0.022" z="46.53"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="7" phi="163.7" psi="36.2" rama="OUTLIER" resname="PRO" resnum="5" rota="OUTLIER" said="A" seq="5" validate="True">
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="149.085" stdev="2.500" z="10.95"/>
+		<angle-outlier atom0="CA" atom1="N" atom2="CD" mean="111.500" obs="66.418" stdev="1.400" z="-32.20"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="112.000" obs="69.056" stdev="2.500" z="-17.18"/>
+		<angle-outlier atom0="N" atom1="CD" atom2="CG" mean="103.200" obs="58.193" stdev="1.500" z="-30.00"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="112.100" obs="82.867" stdev="2.600" z="-11.24"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="103.300" obs="29.422" stdev="1.200" z="-61.56"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="106.500" obs="74.110" stdev="3.900" z="-8.30"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="104.000" obs="87.768" stdev="1.900" z="-8.54"/>
+		<plane-outlier improper="-12.11" type="mainchain"/>
+		<clash atom="CD" cid="86" clashmag="1.15" dist="2.14"/>
+		<clash atom="CD" cid="459" clashmag="0.62" dist="2.46"/>
+		<clash atom="C" cid="86" clashmag="1.15" dist="2.14"/>
+		<clash atom="C" cid="490" clashmag="0.59" dist="2.13"/>
+		<clash atom="C" cid="525" clashmag="0.55" dist="2.74"/>
+		<clash atom="HG2" cid="484" clashmag="0.60" dist="1.50"/>
+		<clash atom="HD3" cid="490" clashmag="0.59" dist="2.13"/>
+		<clash atom="HD3" cid="590" clashmag="0.48" dist="2.08"/>
+		<clash atom="CB" cid="114" clashmag="1.09" dist="2.16"/>
+		<clash atom="CB" cid="276" clashmag="0.83" dist="2.27"/>
+		<clash atom="CB" cid="334" clashmag="0.77" dist="2.52"/>
+		<clash atom="CB" cid="349" clashmag="0.75" dist="2.64"/>
+		<clash atom="HB3" cid="548" clashmag="0.52" dist="2.01"/>
+		<clash atom="N" cid="97" clashmag="1.12" dist="1.58"/>
+		<clash atom="N" cid="114" clashmag="1.09" dist="2.16"/>
+		<clash atom="N" cid="260" clashmag="0.85" dist="2.39"/>
+		<clash atom="CG" cid="129" clashmag="1.06" dist="1.61"/>
+		<clash atom="CG" cid="254" clashmag="0.85" dist="2.39"/>
+		<clash atom="CG" cid="349" clashmag="0.75" dist="2.64"/>
+		<clash atom="CG" cid="525" clashmag="0.55" dist="2.74"/>
+		<clash atom="CA" cid="41" clashmag="1.29" dist="1.57"/>
+		<clash atom="CA" cid="285" clashmag="0.82" dist="2.52"/>
+		<clash atom="O" cid="459" clashmag="0.62" dist="2.46"/>
+		<clash atom="O" cid="590" clashmag="0.48" dist="2.08"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.468" obs="1.079" stdev="0.017" z="-22.86"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.531" obs="3.035" stdev="0.020" z="75.19"/>
+		<bond-outlier atom0="N" atom1="CD" mean="1.474" obs="3.434" stdev="0.014" z="140.02"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.502" obs="3.351" stdev="0.033" z="56.02"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.495" obs="2.644" stdev="0.050" z="22.98"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.524" obs="4.560" stdev="0.020" z="151.79"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.228" obs="1.079" stdev="0.020" z="-7.45"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="4" phi="-161.2" psi="-75.9" rama="Allowed" resname="SER" resnum="6" rota="OUTLIER" said="A" seq="6" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="82.156" stdev="2.200" z="-15.93"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="108.932" stdev="1.600" z="-8.61"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="27.079" stdev="2.500" z="-37.85"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.100" obs="36.245" stdev="1.900" z="-38.87"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.500" obs="39.200" stdev="1.500" z="-47.53"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="64.151" stdev="2.700" z="-17.35"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="OG" mean="111.200" obs="83.093" stdev="2.700" z="-10.41"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="157.098" stdev="2.100" z="17.62"/>
+		<plane-outlier improper="-14.05" type="mainchain"/>
+		<clash atom="O" cid="149" clashmag="1.02" dist="1.53"/>
+		<clash atom="O" cid="478" clashmag="0.60" dist="2.42"/>
+		<clash atom="O" cid="522" clashmag="0.56" dist="1.82"/>
+		<clash atom="CB" cid="6" clashmag="1.48" dist="1.34"/>
+		<clash atom="CB" cid="153" clashmag="1.01" dist="2.23"/>
+		<clash atom="CB" cid="227" clashmag="0.89" dist="2.35"/>
+		<clash atom="CB" cid="260" clashmag="0.85" dist="2.39"/>
+		<clash atom="CB" cid="285" clashmag="0.82" dist="2.52"/>
+		<clash atom="CB" cid="404" clashmag="0.68" dist="2.70"/>
+		<clash atom="CB" cid="455" clashmag="0.62" dist="2.04"/>
+		<clash atom="CA" cid="31" clashmag="1.32" dist="1.91"/>
+		<clash atom="CA" cid="198" clashmag="0.95" dist="2.42"/>
+		<clash atom="CA" cid="222" clashmag="0.90" dist="1.96"/>
+		<clash atom="CA" cid="333" clashmag="0.77" dist="2.09"/>
+		<clash atom="CA" cid="642" clashmag="0.42" dist="2.25"/>
+		<clash atom="H" cid="129" clashmag="1.06" dist="1.61"/>
+		<clash atom="H" cid="484" clashmag="0.60" dist="1.50"/>
+		<clash atom="HB3" cid="24" clashmag="1.34" dist="1.50"/>
+		<clash atom="HB3" cid="248" clashmag="0.86" dist="1.84"/>
+		<clash atom="HB3" cid="539" clashmag="0.54" dist="0.60"/>
+		<clash atom="N" cid="31" clashmag="1.32" dist="1.91"/>
+		<clash atom="N" cid="254" clashmag="0.85" dist="2.39"/>
+		<clash atom="HB2" cid="41" clashmag="1.29" dist="1.57"/>
+		<clash atom="HB2" cid="97" clashmag="1.12" dist="1.58"/>
+		<clash atom="HB2" cid="658" clashmag="0.40" dist="1.75"/>
+		<clash atom="C" cid="420" clashmag="0.66" dist="2.09"/>
+		<clash atom="HA" cid="111" clashmag="1.09" dist="1.76"/>
+		<clash atom="HA" cid="239" clashmag="0.88" dist="1.42"/>
+		<clash atom="HA" cid="414" clashmag="0.67" dist="1.48"/>
+		<clash atom="HA" cid="434" clashmag="0.65" dist="2.06"/>
+		<clash atom="HA" cid="586" clashmag="0.49" dist="2.35"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.077" stdev="0.023" z="-11.24"/>
+		<bond-outlier atom0="CB" atom1="OG" mean="1.418" obs="2.718" stdev="0.013" z="100.00"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="1.908" stdev="0.020" z="22.47"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.084" stdev="0.019" z="-7.66"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.525" obs="5.856" stdev="0.015" z="288.73"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="7.094" stdev="0.026" z="214.21"/>
+		<plane-outlier omega="58.06" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="8" phi="80.0" psi="-19.2" rama="OUTLIER" resname="VAL" resnum="7" rota="OUTLIER" said="A" seq="7" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="109.239" stdev="1.600" z="-8.41"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="31.945" stdev="2.500" z="-35.90"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="111.500" obs="99.696" stdev="2.200" z="-5.37"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="103.209" stdev="2.100" z="-8.04"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="94.582" stdev="2.700" z="-6.08"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="119.864" stdev="1.500" z="5.98"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="110.900" obs="160.629" stdev="1.500" z="33.15"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="110.900" obs="53.736" stdev="1.600" z="-35.73"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.400" obs="16.985" stdev="1.900" z="-49.69"/>
+		<plane-outlier improper="-32.76" type="mainchain"/>
+		<clash atom="C" cid="96" clashmag="1.12" dist="2.17"/>
+		<clash atom="C" cid="296" clashmag="0.80" dist="1.97"/>
+		<clash atom="C" cid="630" clashmag="0.43" dist="2.86"/>
+		<clash atom="HA" cid="456" clashmag="0.62" dist="1.69"/>
+		<clash atom="HA" cid="473" clashmag="0.61" dist="1.70"/>
+		<clash atom="HA" cid="542" clashmag="0.53" dist="2.34"/>
+		<clash atom="O" cid="240" clashmag="0.88" dist="1.69"/>
+		<clash atom="O" cid="640" clashmag="0.42" dist="2.58"/>
+		<clash atom="N" cid="69" clashmag="1.21" dist="1.46"/>
+		<clash atom="N" cid="78" clashmag="1.18" dist="2.05"/>
+		<clash atom="N" cid="492" clashmag="0.59" dist="2.06"/>
+		<clash atom="N" cid="568" clashmag="0.51" dist="2.21"/>
+		<clash atom="N" cid="578" clashmag="0.49" dist="2.19"/>
+		<clash atom="HB" cid="522" clashmag="0.56" dist="1.82"/>
+		<clash atom="HB" cid="550" clashmag="0.52" dist="1.82"/>
+		<clash atom="HG21" cid="2" clashmag="1.50" dist="1.36"/>
+		<clash atom="HG21" cid="212" clashmag="0.92" dist="1.38"/>
+		<clash atom="HG12" cid="617" clashmag="0.45" dist="2.25"/>
+		<clash atom="HG11" cid="240" clashmag="0.88" dist="1.69"/>
+		<clash atom="HG11" cid="296" clashmag="0.80" dist="1.97"/>
+		<clash atom="CG1" cid="2" clashmag="1.50" dist="1.36"/>
+		<clash atom="CG1" cid="55" clashmag="1.24" dist="2.15"/>
+		<clash atom="CG1" cid="328" clashmag="0.77" dist="2.47"/>
+		<clash atom="CG1" cid="362" clashmag="0.73" dist="2.66"/>
+		<clash atom="CG1" cid="411" clashmag="0.67" dist="2.72"/>
+		<clash atom="HG13" cid="212" clashmag="0.92" dist="1.38"/>
+		<clash atom="HG13" cid="582" clashmag="0.49" dist="2.37"/>
+		<clash atom="HG13" cid="598" clashmag="0.47" dist="2.16"/>
+		<clash atom="CG2" cid="55" clashmag="1.24" dist="2.15"/>
+		<clash atom="CG2" cid="376" clashmag="0.71" dist="2.52"/>
+		<clash atom="CG2" cid="598" clashmag="0.47" dist="2.16"/>
+		<clash atom="CA" cid="370" clashmag="0.72" dist="2.14"/>
+		<clash atom="CA" cid="404" clashmag="0.68" dist="2.70"/>
+		<clash atom="CA" cid="463" clashmag="0.62" dist="2.25"/>
+		<clash atom="CA" cid="546" clashmag="0.53" dist="2.87"/>
+		<clash atom="CB" cid="347" clashmag="0.75" dist="2.49"/>
+		<clash atom="CB" cid="362" clashmag="0.73" dist="2.66"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.085" stdev="0.023" z="-10.92"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.080" stdev="0.019" z="-7.84"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.394" stdev="0.020" z="96.74"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.543" obs="1.290" stdev="0.021" z="-12.06"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.572" stdev="0.026" z="155.64"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.524" obs="2.664" stdev="0.021" z="54.28"/>
+		<plane-outlier omega="-120.77" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="12" phi="-3.6" psi="-74.0" rama="OUTLIER" resname="ARG" resnum="8" rota="OUTLIER" said="A" seq="8" validate="True">
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="26.766" stdev="2.500" z="-37.97"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="94.742" stdev="2.200" z="-10.21"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="55.226" stdev="2.200" z="-26.44"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="90.139" stdev="2.700" z="-7.73"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="50.632" stdev="1.800" z="-33.32"/>
+		<angle-outlier atom0="NH1" atom1="CZ" atom2="NH2" mean="119.400" obs="35.003" stdev="1.100" z="-76.72"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="128.212" stdev="2.000" z="8.91"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="136.962" stdev="2.100" z="8.03"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH1" mean="120.300" obs="59.332" stdev="0.500" z="-121.94"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH2" mean="120.300" obs="60.681" stdev="0.500" z="-119.24"/>
+		<angle-outlier atom0="CD" atom1="NE" atom2="CZ" mean="123.600" obs="66.163" stdev="1.400" z="-41.03"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="96.887" stdev="2.600" z="-5.66"/>
+		<plane-outlier planeRMSD="0.44" type="sidechain"/>
+		<clash atom="HE" cid="455" clashmag="0.62" dist="2.04"/>
+		<clash atom="HE" cid="658" clashmag="0.40" dist="1.75"/>
+		<clash atom="NH1" cid="125" clashmag="1.06" dist="2.18"/>
+		<clash atom="NH1" cid="530" clashmag="0.55" dist="2.54"/>
+		<clash atom="HB2" cid="610" clashmag="0.46" dist="2.25"/>
+		<clash atom="CA" cid="96" clashmag="1.12" dist="2.17"/>
+		<clash atom="CA" cid="272" clashmag="0.83" dist="2.57"/>
+		<clash atom="CA" cid="640" clashmag="0.42" dist="2.58"/>
+		<clash atom="NE" cid="46" clashmag="1.26" dist="1.99"/>
+		<clash atom="NE" cid="227" clashmag="0.89" dist="2.35"/>
+		<clash atom="NE" cid="248" clashmag="0.86" dist="1.84"/>
+		<clash atom="NE" cid="328" clashmag="0.77" dist="2.47"/>
+		<clash atom="NE" cid="347" clashmag="0.75" dist="2.49"/>
+		<clash atom="NE" cid="376" clashmag="0.71" dist="2.52"/>
+		<clash atom="NE" cid="530" clashmag="0.55" dist="2.54"/>
+		<clash atom="NE" cid="549" clashmag="0.52" dist="2.73"/>
+		<clash atom="NE" cid="592" clashmag="0.48" dist="2.05"/>
+		<clash atom="NE" cid="617" clashmag="0.45" dist="2.25"/>
+		<clash atom="NE" cid="643" clashmag="0.42" dist="2.83"/>
+		<clash atom="NE" cid="647" clashmag="0.42" dist="2.26"/>
+		<clash atom="HD3" cid="265" clashmag="0.84" dist="2.02"/>
+		<clash atom="HD3" cid="553" clashmag="0.51" dist="1.77"/>
+		<clash atom="HD2" cid="74" clashmag="1.19" dist="1.66"/>
+		<clash atom="HD2" cid="159" clashmag="1.00" dist="1.33"/>
+		<clash atom="HD2" cid="241" clashmag="0.88" dist="1.42"/>
+		<clash atom="HD2" cid="310" clashmag="0.78" dist="1.55"/>
+		<clash atom="HD2" cid="446" clashmag="0.64" dist="2.21"/>
+		<clash atom="CG" cid="98" clashmag="1.12" dist="2.28"/>
+		<clash atom="CG" cid="272" clashmag="0.83" dist="2.57"/>
+		<clash atom="CD" cid="46" clashmag="1.26" dist="1.99"/>
+		<clash atom="CD" cid="199" clashmag="0.95" dist="1.90"/>
+		<clash atom="CD" cid="244" clashmag="0.87" dist="2.52"/>
+		<clash atom="CD" cid="364" clashmag="0.73" dist="2.13"/>
+		<clash atom="CD" cid="406" clashmag="0.68" dist="2.71"/>
+		<clash atom="CD" cid="411" clashmag="0.67" dist="2.72"/>
+		<clash atom="CD" cid="412" clashmag="0.67" dist="2.72"/>
+		<clash atom="CD" cid="582" clashmag="0.49" dist="2.37"/>
+		<clash atom="CZ" cid="125" clashmag="1.06" dist="2.18"/>
+		<clash atom="CZ" cid="257" clashmag="0.85" dist="2.55"/>
+		<clash atom="CZ" cid="265" clashmag="0.84" dist="2.02"/>
+		<clash atom="CZ" cid="412" clashmag="0.67" dist="2.72"/>
+		<clash atom="CZ" cid="497" clashmag="0.58" dist="2.67"/>
+		<clash atom="CZ" cid="643" clashmag="0.42" dist="2.83"/>
+		<clash atom="HH11" cid="592" clashmag="0.48" dist="2.05"/>
+		<clash atom="CB" cid="98" clashmag="1.12" dist="2.28"/>
+		<clash atom="CB" cid="430" clashmag="0.65" dist="2.59"/>
+		<clash atom="CB" cid="630" clashmag="0.43" dist="2.86"/>
+		<clash atom="N" cid="430" clashmag="0.65" dist="2.59"/>
+		<clash atom="N" cid="610" clashmag="0.46" dist="2.25"/>
+		<clash atom="NH2" cid="497" clashmag="0.58" dist="2.67"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.220" stdev="0.023" z="-5.04"/>
+		<bond-outlier atom0="CZ" atom1="NH1" mean="1.326" obs="2.176" stdev="0.013" z="65.37"/>
+		<bond-outlier atom0="CZ" atom1="NH2" mean="1.326" obs="2.668" stdev="0.013" z="103.24"/>
+		<bond-outlier atom0="NE" atom1="CZ" mean="1.326" obs="2.830" stdev="0.013" z="115.70"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="2.281" stdev="0.027" z="28.17"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.011" stdev="0.020" z="77.62"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="8.574" stdev="0.026" z="271.13"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="6.793" stdev="0.025" z="211.14"/>
+		<bond-outlier atom0="CD" atom1="NE" mean="1.460" obs="1.988" stdev="0.017" z="31.07"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="3.054" stdev="0.022" z="69.05"/>
+		<plane-outlier omega="-50.04" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" cis_peptide="yes" ent="1" icode=" " model="1" num-H-reduce="13" phi="-25.9" psi="-28.7" rama="OUTLIER" resname="LYS" resnum="9" rota="OUTLIER" said="A" seq="9" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="59.984" stdev="1.600" z="-39.20"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="66.042" stdev="2.200" z="-23.25"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="62.589" stdev="2.500" z="-23.64"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="82.969" stdev="2.000" z="-13.71"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="91.206" stdev="2.200" z="-10.09"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="76.866" stdev="1.800" z="-18.74"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="88.176" stdev="2.600" z="-9.01"/>
+		<clash atom="NZ" cid="90" clashmag="1.15" dist="2.10"/>
+		<clash atom="NZ" cid="140" clashmag="1.04" dist="2.08"/>
+		<clash atom="NZ" cid="150" clashmag="1.02" dist="2.08"/>
+		<clash atom="NZ" cid="203" clashmag="0.94" dist="1.76"/>
+		<clash atom="NZ" cid="249" clashmag="0.86" dist="2.08"/>
+		<clash atom="NZ" cid="286" clashmag="0.82" dist="1.90"/>
+		<clash atom="HG3" cid="558" clashmag="0.51" dist="2.36"/>
+		<clash atom="HB2" cid="6" clashmag="1.48" dist="1.34"/>
+		<clash atom="HB2" cid="539" clashmag="0.54" dist="0.60"/>
+		<clash atom="HB2" cid="647" clashmag="0.42" dist="2.26"/>
+		<clash atom="CG" cid="335" clashmag="0.77" dist="2.62"/>
+		<clash atom="CA" cid="257" clashmag="0.85" dist="2.55"/>
+		<clash atom="C" cid="9" clashmag="1.45" dist="1.70"/>
+		<clash atom="C" cid="38" clashmag="1.29" dist="1.28"/>
+		<clash atom="C" cid="43" clashmag="1.28" dist="1.70"/>
+		<clash atom="C" cid="140" clashmag="1.04" dist="2.08"/>
+		<clash atom="C" cid="165" clashmag="0.99" dist="2.31"/>
+		<clash atom="C" cid="208" clashmag="0.93" dist="1.82"/>
+		<clash atom="C" cid="374" clashmag="0.72" dist="2.58"/>
+		<clash atom="C" cid="379" clashmag="0.71" dist="2.05"/>
+		<clash atom="HB3" cid="80" clashmag="1.18" dist="1.67"/>
+		<clash atom="HB3" cid="156" clashmag="1.00" dist="1.14"/>
+		<clash atom="HB3" cid="241" clashmag="0.88" dist="1.42"/>
+		<clash atom="HB3" cid="364" clashmag="0.73" dist="2.13"/>
+		<clash atom="HB3" cid="370" clashmag="0.72" dist="2.14"/>
+		<clash atom="HB3" cid="473" clashmag="0.61" dist="1.70"/>
+		<clash atom="HB3" cid="554" clashmag="0.51" dist="1.59"/>
+		<clash atom="HZ2" cid="499" clashmag="0.58" dist="1.91"/>
+		<clash atom="O" cid="18" clashmag="1.36" dist="1.73"/>
+		<clash atom="O" cid="43" clashmag="1.28" dist="1.70"/>
+		<clash atom="O" cid="57" clashmag="1.24" dist="1.70"/>
+		<clash atom="O" cid="63" clashmag="1.22" dist="1.08"/>
+		<clash atom="O" cid="249" clashmag="0.86" dist="2.08"/>
+		<clash atom="O" cid="391" clashmag="0.70" dist="1.83"/>
+		<clash atom="HZ3" cid="234" clashmag="0.89" dist="1.79"/>
+		<clash atom="HZ3" cid="397" clashmag="0.69" dist="1.44"/>
+		<clash atom="HZ3" cid="585" clashmag="0.49" dist="1.51"/>
+		<clash atom="CE" cid="374" clashmag="0.72" dist="2.58"/>
+		<clash atom="CE" cid="655" clashmag="0.41" dist="2.82"/>
+		<clash atom="HZ1" cid="38" clashmag="1.29" dist="1.28"/>
+		<clash atom="HZ1" cid="206" clashmag="0.93" dist="1.69"/>
+		<clash atom="HZ1" cid="243" clashmag="0.87" dist="1.65"/>
+		<clash atom="HZ1" cid="620" clashmag="0.44" dist="1.49"/>
+		<clash atom="CB" cid="24" clashmag="1.34" dist="1.50"/>
+		<clash atom="CB" cid="87" clashmag="1.15" dist="2.23"/>
+		<clash atom="CB" cid="153" clashmag="1.01" dist="2.23"/>
+		<clash atom="CB" cid="245" clashmag="0.87" dist="1.99"/>
+		<clash atom="CB" cid="263" clashmag="0.84" dist="1.93"/>
+		<clash atom="CB" cid="335" clashmag="0.77" dist="2.62"/>
+		<clash atom="CB" cid="406" clashmag="0.68" dist="2.71"/>
+		<clash atom="CB" cid="446" clashmag="0.64" dist="2.21"/>
+		<clash atom="CB" cid="542" clashmag="0.53" dist="2.34"/>
+		<clash atom="CB" cid="546" clashmag="0.53" dist="2.87"/>
+		<clash atom="CB" cid="549" clashmag="0.52" dist="2.73"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.699" stdev="0.023" z="15.77"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="6.579" stdev="0.020" z="255.97"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="6.339" stdev="0.026" z="185.16"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="2.621" stdev="0.027" z="40.75"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.699" stdev="0.019" z="24.71"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="3.093" stdev="0.022" z="70.84"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="9" resname="TYR" resnum="10" rota="t80" said="A" seq="10" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CD1" atom1="CG" atom2="CD2" mean="117.900" obs="22.344" stdev="1.100" z="-86.87"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD2" mean="121.000" obs="68.078" stdev="0.600" z="-88.20"/>
+		<angle-outlier atom0="CE1" atom1="CZ" atom2="CE2" mean="119.800" obs="35.118" stdev="1.600" z="-52.93"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD1" mean="121.000" obs="86.221" stdev="0.600" z="-57.97"/>
+		<angle-outlier atom0="CG" atom1="CD1" atom2="CE1" mean="121.300" obs="143.845" stdev="0.800" z="28.18"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="85.147" stdev="1.900" z="-14.87"/>
+		<angle-outlier atom0="CD1" atom1="CE1" atom2="CZ" mean="119.800" obs="164.919" stdev="0.900" z="50.13"/>
+		<angle-outlier atom0="CE1" atom1="CZ" atom2="OH" mean="120.100" obs="143.527" stdev="2.700" z="8.68"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="93.670" stdev="1.800" z="-9.40"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="26.335" stdev="2.100" z="-44.65"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="70.535" stdev="2.000" z="-19.93"/>
+		<angle-outlier atom0="CG" atom1="CD2" atom2="CE2" mean="121.300" obs="173.456" stdev="0.800" z="65.19"/>
+		<angle-outlier atom0="CZ" atom1="CE2" atom2="CD2" mean="119.800" obs="144.403" stdev="0.900" z="27.34"/>
+		<plane-outlier planeRMSD="0.22" type="sidechain"/>
+		<clash atom="HB2" cid="156" clashmag="1.00" dist="1.14"/>
+		<clash atom="HB2" cid="263" clashmag="0.84" dist="1.93"/>
+		<clash atom="HB2" cid="310" clashmag="0.78" dist="1.55"/>
+		<clash atom="HB2" cid="456" clashmag="0.62" dist="1.69"/>
+		<clash atom="HB2" cid="463" clashmag="0.62" dist="2.25"/>
+		<clash atom="CZ" cid="154" clashmag="1.01" dist="1.90"/>
+		<clash atom="CE1" cid="137" clashmag="1.05" dist="2.39"/>
+		<clash atom="CG" cid="30" clashmag="1.32" dist="2.15"/>
+		<clash atom="CG" cid="130" clashmag="1.06" dist="2.37"/>
+		<clash atom="HE1" cid="360" clashmag="0.73" dist="1.89"/>
+		<clash atom="HE1" cid="583" clashmag="0.49" dist="1.65"/>
+		<clash atom="N" cid="9" clashmag="1.45" dist="1.70"/>
+		<clash atom="N" cid="57" clashmag="1.24" dist="1.70"/>
+		<clash atom="N" cid="150" clashmag="1.02" dist="2.08"/>
+		<clash atom="N" cid="243" clashmag="0.87" dist="1.65"/>
+		<clash atom="N" cid="499" clashmag="0.58" dist="1.91"/>
+		<clash atom="N" cid="655" clashmag="0.41" dist="2.82"/>
+		<clash atom="OH" cid="141" clashmag="1.03" dist="1.52"/>
+		<clash atom="OH" cid="400" clashmag="0.69" dist="2.41"/>
+		<clash atom="OH" cid="543" clashmag="0.53" dist="2.43"/>
+		<clash atom="CA" cid="558" clashmag="0.51" dist="2.36"/>
+		<clash atom="CD1" cid="30" clashmag="1.32" dist="2.15"/>
+		<clash atom="CB" cid="74" clashmag="1.19" dist="1.66"/>
+		<clash atom="CB" cid="80" clashmag="1.18" dist="1.67"/>
+		<clash atom="CB" cid="87" clashmag="1.15" dist="2.23"/>
+		<clash atom="CB" cid="130" clashmag="1.06" dist="2.37"/>
+		<clash atom="CB" cid="244" clashmag="0.87" dist="2.52"/>
+		<clash atom="C" cid="108" clashmag="1.09" dist="1.67"/>
+		<clash atom="C" cid="242" clashmag="0.87" dist="2.43"/>
+		<clash atom="HB3" cid="159" clashmag="1.00" dist="1.33"/>
+		<clash atom="HB3" cid="199" clashmag="0.95" dist="1.90"/>
+		<clash atom="HB3" cid="245" clashmag="0.87" dist="1.99"/>
+		<clash atom="HB3" cid="553" clashmag="0.51" dist="1.77"/>
+		<clash atom="HB3" cid="554" clashmag="0.51" dist="1.59"/>
+		<clash atom="CD2" cid="447" clashmag="0.63" dist="2.66"/>
+		<clash atom="CD2" cid="450" clashmag="0.63" dist="2.81"/>
+		<bond-outlier atom0="CZ" atom1="OH" mean="1.374" obs="1.079" stdev="0.017" z="-17.38"/>
+		<bond-outlier atom0="CE2" atom1="CZ" mean="1.381" obs="1.539" stdev="0.013" z="12.12"/>
+		<bond-outlier atom0="CG" atom1="CD2" mean="1.387" obs="3.012" stdev="0.013" z="124.98"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="6.973" stdev="0.026" z="209.53"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.512" obs="2.372" stdev="0.015" z="57.34"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="3.089" stdev="0.022" z="70.65"/>
+		<bond-outlier atom0="CG" atom1="CD1" mean="1.387" obs="2.146" stdev="0.013" z="58.41"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="7.181" stdev="0.020" z="286.12"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="3.431" stdev="0.019" z="115.91"/>
+		<bond-outlier atom0="CE1" atom1="CZ" mean="1.381" obs="2.530" stdev="0.013" z="88.36"/>
+		<bond-outlier atom0="CD1" atom1="CE1" mean="1.389" obs="2.430" stdev="0.015" z="69.39"/>
+		<bond-outlier atom0="CD2" atom1="CE2" mean="1.389" obs="2.461" stdev="0.015" z="71.44"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="4" resname="ALA" resnum="11" said="A" seq="11" validate="True">
+		<clash atom="CB" cid="137" clashmag="1.05" dist="2.39"/>
+		<clash atom="CB" cid="230" clashmag="0.89" dist="2.40"/>
+		<clash atom="CB" cid="360" clashmag="0.73" dist="1.89"/>
+		<clash atom="CB" cid="450" clashmag="0.63" dist="2.81"/>
+		<clash atom="HB1" cid="345" clashmag="0.75" dist="1.58"/>
+		<clash atom="HB1" cid="355" clashmag="0.74" dist="2.02"/>
+		<clash atom="CA" cid="400" clashmag="0.69" dist="2.41"/>
+		<clash atom="C" cid="230" clashmag="0.89" dist="2.40"/>
+		<clash atom="C" cid="273" clashmag="0.83" dist="2.47"/>
+		<clash atom="C" cid="289" clashmag="0.81" dist="2.18"/>
+		<clash atom="C" cid="332" clashmag="0.77" dist="2.00"/>
+		<clash atom="C" cid="355" clashmag="0.74" dist="2.02"/>
+		<clash atom="C" cid="436" clashmag="0.65" dist="2.12"/>
+		<clash atom="C" cid="439" clashmag="0.64" dist="2.66"/>
+		<clash atom="O" cid="289" clashmag="0.81" dist="2.18"/>
+		<clash atom="HB3" cid="332" clashmag="0.77" dist="2.00"/>
+		<clash atom="HB3" cid="583" clashmag="0.49" dist="1.65"/>
+		<clash atom="N" cid="447" clashmag="0.63" dist="2.66"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="1.760" stdev="0.020" z="15.04"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="7.075" stdev="0.026" z="213.47"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.520" obs="5.258" stdev="0.021" z="178.00"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.179" stdev="0.019" z="49.98"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="72.356" stdev="2.700" z="-14.31"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.100" obs="14.838" stdev="1.500" z="-63.51"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.100" obs="64.455" stdev="1.400" z="-32.60"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="96.331" stdev="2.100" z="-11.32"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="12" resname="ARG" resnum="12" rota="OUTLIER" said="A" seq="12" validate="True">
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="148.933" stdev="2.000" z="19.27"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="47.351" stdev="2.100" z="-34.64"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH2" mean="120.300" obs="74.457" stdev="0.500" z="-91.69"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH1" mean="120.300" obs="73.393" stdev="0.500" z="-93.81"/>
+		<angle-outlier atom0="CD" atom1="NE" atom2="CZ" mean="123.600" obs="109.011" stdev="1.400" z="-10.42"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="95.846" stdev="2.700" z="-5.61"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="5.272" stdev="2.200" z="-49.15"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="145.832" stdev="2.600" z="13.17"/>
+		<angle-outlier atom0="NH1" atom1="CZ" atom2="NH2" mean="119.400" obs="8.942" stdev="1.100" z="-100.42"/>
+		<plane-outlier planeRMSD="0.30" type="sidechain"/>
+		<clash atom="HG3" cid="340" clashmag="0.76" dist="1.96"/>
+		<clash atom="HG3" cid="472" clashmag="0.61" dist="1.54"/>
+		<clash atom="HE" cid="146" clashmag="1.02" dist="1.56"/>
+		<clash atom="HG2" cid="345" clashmag="0.75" dist="1.58"/>
+		<clash atom="HG2" cid="436" clashmag="0.65" dist="2.12"/>
+		<clash atom="O" cid="59" clashmag="1.23" dist="1.76"/>
+		<clash atom="O" cid="302" clashmag="0.79" dist="2.15"/>
+		<clash atom="O" cid="457" clashmag="0.62" dist="2.47"/>
+		<clash atom="NE" cid="171" clashmag="0.98" dist="2.15"/>
+		<clash atom="NE" cid="302" clashmag="0.79" dist="2.15"/>
+		<clash atom="NE" cid="501" clashmag="0.57" dist="2.53"/>
+		<clash atom="NE" cid="512" clashmag="0.56" dist="2.68"/>
+		<clash atom="CZ" cid="287" clashmag="0.81" dist="2.48"/>
+		<clash atom="CZ" cid="444" clashmag="0.64" dist="2.61"/>
+		<clash atom="CZ" cid="457" clashmag="0.62" dist="2.47"/>
+		<clash atom="CD" cid="44" clashmag="1.26" dist="2.11"/>
+		<clash atom="CD" cid="113" clashmag="1.09" dist="2.15"/>
+		<clash atom="CD" cid="512" clashmag="0.56" dist="2.68"/>
+		<clash atom="CD" cid="561" clashmag="0.51" dist="2.35"/>
+		<clash atom="HH21" cid="472" clashmag="0.61" dist="1.54"/>
+		<clash atom="HD2" cid="280" clashmag="0.82" dist="1.88"/>
+		<clash atom="HD2" cid="358" clashmag="0.74" dist="1.57"/>
+		<clash atom="HD3" cid="559" clashmag="0.51" dist="1.82"/>
+		<clash atom="CB" cid="624" clashmag="0.44" dist="2.43"/>
+		<clash atom="C" cid="59" clashmag="1.23" dist="1.76"/>
+		<clash atom="C" cid="146" clashmag="1.02" dist="1.56"/>
+		<clash atom="C" cid="171" clashmag="0.98" dist="2.15"/>
+		<clash atom="C" cid="287" clashmag="0.81" dist="2.48"/>
+		<clash atom="C" cid="423" clashmag="0.66" dist="2.34"/>
+		<clash atom="NH2" cid="207" clashmag="0.93" dist="1.77"/>
+		<clash atom="NH2" cid="323" clashmag="0.78" dist="2.46"/>
+		<clash atom="NH2" cid="340" clashmag="0.76" dist="1.96"/>
+		<clash atom="NH2" cid="464" clashmag="0.62" dist="2.62"/>
+		<clash atom="CG" cid="44" clashmag="1.26" dist="2.11"/>
+		<clash atom="CG" cid="232" clashmag="0.89" dist="1.97"/>
+		<clash atom="CG" cid="273" clashmag="0.83" dist="2.47"/>
+		<clash atom="CG" cid="354" clashmag="0.74" dist="2.49"/>
+		<clash atom="CG" cid="464" clashmag="0.62" dist="2.62"/>
+		<clash atom="CG" cid="485" clashmag="0.60" dist="2.78"/>
+		<clash atom="CA" cid="439" clashmag="0.64" dist="2.66"/>
+		<clash atom="CA" cid="523" clashmag="0.55" dist="2.31"/>
+		<clash atom="NH1" cid="431" clashmag="0.65" dist="2.06"/>
+		<clash atom="NH1" cid="444" clashmag="0.64" dist="2.61"/>
+		<clash atom="NH1" cid="501" clashmag="0.57" dist="2.53"/>
+		<clash atom="NH1" cid="567" clashmag="0.51" dist="2.71"/>
+		<bond-outlier atom0="NE" atom1="CZ" mean="1.326" obs="1.079" stdev="0.013" z="-18.98"/>
+		<bond-outlier atom0="CZ" atom1="NH2" mean="1.326" obs="3.580" stdev="0.013" z="173.35"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="2.108" stdev="0.025" z="23.72"/>
+		<bond-outlier atom0="CZ" atom1="NH1" mean="1.326" obs="2.612" stdev="0.013" z="98.96"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="1.220" stdev="0.022" z="-14.32"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="9.024" stdev="0.026" z="288.44"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="4.977" stdev="0.027" z="128.00"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.756" stdev="0.019" z="27.76"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.146" stdev="0.020" z="34.36"/>
+		<bond-outlier atom0="CD" atom1="NE" mean="1.460" obs="2.685" stdev="0.017" z="72.04"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="5" resname="GLU" resnum="13" rota="OUTLIER" said="A" seq="13" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="OE1" mean="118.300" obs="51.964" stdev="2.000" z="-33.17"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="98.220" stdev="2.200" z="-6.90"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="45.436" stdev="2.000" z="-32.48"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="73.286" stdev="2.100" z="-22.29"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="162.963" stdev="2.700" z="19.25"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="114.200" obs="58.061" stdev="2.700" z="-20.79"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="120.349" stdev="1.800" z="5.42"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="OE2" mean="118.300" obs="64.224" stdev="2.000" z="-27.04"/>
+		<angle-outlier atom0="OE1" atom1="CD" atom2="OE2" mean="123.300" obs="65.930" stdev="1.200" z="-47.81"/>
+		<plane-outlier planeRMSD="0.55" type="sidechain"/>
+		<clash atom="O" cid="32" clashmag="1.31" dist="1.76"/>
+		<clash atom="O" cid="540" clashmag="0.53" dist="2.46"/>
+		<clash atom="HA" cid="207" clashmag="0.93" dist="1.77"/>
+		<clash atom="HA" cid="232" clashmag="0.89" dist="1.97"/>
+		<clash atom="HA" cid="431" clashmag="0.65" dist="2.06"/>
+		<clash atom="CB" cid="61" clashmag="1.23" dist="2.16"/>
+		<clash atom="CB" cid="164" clashmag="0.99" dist="2.39"/>
+		<clash atom="CB" cid="415" clashmag="0.67" dist="2.63"/>
+		<clash atom="OE2" cid="262" clashmag="0.85" dist="2.15"/>
+		<clash atom="OE2" cid="377" clashmag="0.71" dist="2.37"/>
+		<clash atom="OE2" cid="448" clashmag="0.63" dist="2.15"/>
+		<clash atom="CA" cid="323" clashmag="0.78" dist="2.46"/>
+		<clash atom="CA" cid="480" clashmag="0.60" dist="2.80"/>
+		<clash atom="CA" cid="485" clashmag="0.60" dist="2.78"/>
+		<clash atom="CA" cid="567" clashmag="0.51" dist="2.71"/>
+		<clash atom="OE1" cid="66" clashmag="1.21" dist="1.76"/>
+		<clash atom="OE1" cid="399" clashmag="0.69" dist="2.39"/>
+		<clash atom="OE1" cid="448" clashmag="0.63" dist="2.15"/>
+		<clash atom="OE1" cid="584" clashmag="0.49" dist="2.50"/>
+		<clash atom="HG2" cid="523" clashmag="0.55" dist="2.31"/>
+		<clash atom="HG2" cid="624" clashmag="0.44" dist="2.43"/>
+		<clash atom="CD" cid="66" clashmag="1.21" dist="1.76"/>
+		<clash atom="CD" cid="262" clashmag="0.85" dist="2.15"/>
+		<clash atom="CD" cid="378" clashmag="0.71" dist="2.05"/>
+		<clash atom="CD" cid="415" clashmag="0.67" dist="2.63"/>
+		<clash atom="CD" cid="540" clashmag="0.53" dist="2.46"/>
+		<clash atom="CD" cid="644" clashmag="0.42" dist="2.73"/>
+		<clash atom="HB3" cid="378" clashmag="0.71" dist="2.05"/>
+		<clash atom="CG" cid="61" clashmag="1.23" dist="2.16"/>
+		<clash atom="CG" cid="399" clashmag="0.69" dist="2.39"/>
+		<clash atom="CG" cid="426" clashmag="0.66" dist="2.64"/>
+		<clash atom="CG" cid="480" clashmag="0.60" dist="2.80"/>
+		<clash atom="HB2" cid="16" clashmag="1.39" dist="1.46"/>
+		<clash atom="HB2" cid="213" clashmag="0.91" dist="1.42"/>
+		<clash atom="C" cid="426" clashmag="0.66" dist="2.64"/>
+		<clash atom="C" cid="503" clashmag="0.57" dist="2.72"/>
+		<clash atom="C" cid="584" clashmag="0.49" dist="2.50"/>
+		<clash atom="N" cid="113" clashmag="1.09" dist="2.15"/>
+		<clash atom="N" cid="280" clashmag="0.82" dist="1.88"/>
+		<clash atom="N" cid="354" clashmag="0.74" dist="2.49"/>
+		<clash atom="N" cid="425" clashmag="0.66" dist="2.06"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.109" stdev="0.026" z="137.84"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="3.033" stdev="0.015" z="101.17"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.517" obs="2.160" stdev="0.019" z="33.83"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="1.292" stdev="0.020" z="-8.37"/>
+		<bond-outlier atom0="CD" atom1="OE1" mean="1.252" obs="1.762" stdev="0.011" z="46.33"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.761" stdev="0.019" z="28.00"/>
+		<bond-outlier atom0="CD" atom1="OE2" mean="1.252" obs="2.153" stdev="0.011" z="81.88"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" cis_peptide="yes" ent="1" icode=" " model="1" num-H-reduce="12" resname="LYS" resnum="14" rota="OUTLIER" said="A" seq="14" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="122.300" obs="72.449" stdev="2.100" z="-23.74"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="123.200" obs="109.162" stdev="1.700" z="-8.26"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="116.200" obs="127.707" stdev="2.000" z="5.75"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="92.894" stdev="1.800" z="-9.84"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="74.386" stdev="2.100" z="-21.77"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="72.963" stdev="2.600" z="-14.86"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="19.984" stdev="2.700" z="-33.71"/>
+		<angle-outlier atom0="CD" atom1="CE" atom2="NZ" mean="111.700" obs="167.800" stdev="2.300" z="24.39"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="3.547" stdev="2.200" z="-49.93"/>
+		<plane-outlier improper="-45.55" type="mainchain"/>
+		<clash atom="NZ" cid="115" clashmag="1.08" dist="2.16"/>
+		<clash atom="NZ" cid="560" clashmag="0.51" dist="2.73"/>
+		<clash atom="NZ" cid="633" clashmag="0.43" dist="2.67"/>
+		<clash atom="NZ" cid="656" clashmag="0.40" dist="2.74"/>
+		<clash atom="CG" cid="15" clashmag="1.39" dist="2.01"/>
+		<clash atom="CG" cid="32" clashmag="1.31" dist="1.76"/>
+		<clash atom="CG" cid="152" clashmag="1.01" dist="1.82"/>
+		<clash atom="CG" cid="341" clashmag="0.76" dist="2.48"/>
+		<clash atom="CG" cid="377" clashmag="0.71" dist="2.37"/>
+		<clash atom="CG" cid="503" clashmag="0.57" dist="2.72"/>
+		<clash atom="CB" cid="17" clashmag="1.37" dist="2.00"/>
+		<clash atom="CB" cid="300" clashmag="0.79" dist="2.45"/>
+		<clash atom="HZ3" cid="487" clashmag="0.60" dist="2.10"/>
+		<clash atom="O" cid="625" clashmag="0.44" dist="2.55"/>
+		<clash atom="HE2" cid="451" clashmag="0.63" dist="1.70"/>
+		<clash atom="HE2" cid="495" clashmag="0.58" dist="2.28"/>
+		<clash atom="CD" cid="16" clashmag="1.39" dist="1.46"/>
+		<clash atom="CD" cid="164" clashmag="0.99" dist="2.39"/>
+		<clash atom="CD" cid="418" clashmag="0.67" dist="2.72"/>
+		<clash atom="CE" cid="115" clashmag="1.08" dist="2.16"/>
+		<clash atom="CE" cid="231" clashmag="0.89" dist="2.51"/>
+		<clash atom="CE" cid="418" clashmag="0.67" dist="2.72"/>
+		<clash atom="CA" cid="15" clashmag="1.39" dist="2.01"/>
+		<clash atom="CA" cid="17" clashmag="1.37" dist="2.00"/>
+		<clash atom="HE3" cid="314" clashmag="0.78" dist="2.06"/>
+		<clash atom="HD2" cid="213" clashmag="0.91" dist="1.42"/>
+		<clash atom="HA" cid="152" clashmag="1.01" dist="1.82"/>
+		<clash atom="C" cid="304" clashmag="0.79" dist="2.51"/>
+		<clash atom="C" cid="458" clashmag="0.62" dist="2.57"/>
+		<clash atom="C" cid="656" clashmag="0.40" dist="2.74"/>
+		<clash atom="N" cid="300" clashmag="0.79" dist="2.45"/>
+		<clash atom="N" cid="341" clashmag="0.76" dist="2.48"/>
+		<clash atom="N" cid="644" clashmag="0.42" dist="2.73"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.326" obs="1.082" stdev="0.018" z="-13.55"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.520" obs="7.277" stdev="0.034" z="169.31"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.001" stdev="0.022" z="21.20"/>
+		<bond-outlier atom0="CE" atom1="NZ" mean="1.486" obs="2.158" stdev="0.025" z="26.89"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="1.321" stdev="0.020" z="-6.90"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="9.569" stdev="0.026" z="309.38"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="4.000" stdev="0.027" z="91.82"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.080" stdev="0.019" z="-7.86"/>
+		<bond-outlier atom0="CD" atom1="CE" mean="1.508" obs="2.725" stdev="0.025" z="48.67"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="2" resname="GLY" resnum="15" said="A" seq="15" validate="True">
+		<clash atom="HA3" cid="451" clashmag="0.63" dist="1.70"/>
+		<clash atom="CA" cid="304" clashmag="0.79" dist="2.51"/>
+		<clash atom="CA" cid="454" clashmag="0.62" dist="2.62"/>
+		<clash atom="CA" cid="487" clashmag="0.60" dist="2.10"/>
+		<clash atom="CA" cid="495" clashmag="0.58" dist="2.28"/>
+		<clash atom="CA" cid="560" clashmag="0.51" dist="2.73"/>
+		<clash atom="N" cid="454" clashmag="0.62" dist="2.62"/>
+		<clash atom="N" cid="519" clashmag="0.56" dist="2.58"/>
+		<clash atom="N" cid="633" clashmag="0.43" dist="2.67"/>
+		<clash atom="C" cid="458" clashmag="0.62" dist="2.57"/>
+		<clash atom="C" cid="519" clashmag="0.56" dist="2.58"/>
+		<clash atom="C" cid="625" clashmag="0.44" dist="2.55"/>
+		<clash atom="O" cid="99" clashmag="1.11" dist="1.97"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.232" obs="5.400" stdev="0.016" z="260.50"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.514" obs="1.083" stdev="0.016" z="-26.94"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.456" obs="2.617" stdev="0.015" z="77.40"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.600" obs="8.068" stdev="1.800" z="-62.52"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="113.100" obs="76.220" stdev="2.500" z="-14.75"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="8" resname="VAL" resnum="16" rota="t" said="A" seq="16" validate="True">
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="110.900" obs="40.405" stdev="1.600" z="-44.06"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="111.500" obs="54.981" stdev="2.200" z="-25.69"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.400" obs="54.323" stdev="1.900" z="-30.04"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="110.900" obs="90.230" stdev="1.500" z="-13.78"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="54.953" stdev="1.500" z="-37.30"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="50.994" stdev="2.100" z="-32.91"/>
+		<clash atom="HB" cid="179" clashmag="0.97" dist="1.27"/>
+		<clash atom="HB" cid="387" clashmag="0.70" dist="2.12"/>
+		<clash atom="HB" cid="427" clashmag="0.66" dist="2.10"/>
+		<clash atom="HB" cid="639" clashmag="0.42" dist="1.81"/>
+		<clash atom="HG11" cid="284" clashmag="0.82" dist="2.03"/>
+		<clash atom="HG13" cid="147" clashmag="1.02" dist="1.27"/>
+		<clash atom="HG13" cid="223" clashmag="0.89" dist="1.97"/>
+		<clash atom="HG12" cid="201" clashmag="0.94" dist="1.83"/>
+		<clash atom="HG21" cid="132" clashmag="1.06" dist="1.79"/>
+		<clash atom="HG21" cid="147" clashmag="1.02" dist="1.27"/>
+		<clash atom="HG22" cid="358" clashmag="0.74" dist="1.57"/>
+		<clash atom="HG22" cid="561" clashmag="0.51" dist="2.35"/>
+		<clash atom="N" cid="556" clashmag="0.51" dist="2.73"/>
+		<clash atom="C" cid="278" clashmag="0.82" dist="2.47"/>
+		<clash atom="C" cid="305" clashmag="0.79" dist="2.52"/>
+		<clash atom="C" cid="396" clashmag="0.69" dist="2.60"/>
+		<clash atom="C" cid="612" clashmag="0.45" dist="2.30"/>
+		<clash atom="C" cid="641" clashmag="0.42" dist="2.88"/>
+		<clash atom="CB" cid="7" clashmag="1.47" dist="1.34"/>
+		<clash atom="CB" cid="72" clashmag="1.20" dist="2.18"/>
+		<clash atom="CB" cid="120" clashmag="1.07" dist="2.31"/>
+		<clash atom="CB" cid="189" clashmag="0.96" dist="2.13"/>
+		<clash atom="CB" cid="291" clashmag="0.81" dist="2.04"/>
+		<clash atom="CB" cid="396" clashmag="0.69" dist="2.60"/>
+		<clash atom="CB" cid="506" clashmag="0.57" dist="2.82"/>
+		<clash atom="CB" cid="556" clashmag="0.51" dist="2.73"/>
+		<clash atom="O" cid="103" clashmag="1.10" dist="2.00"/>
+		<clash atom="O" cid="189" clashmag="0.96" dist="2.13"/>
+		<clash atom="O" cid="516" clashmag="0.56" dist="2.54"/>
+		<clash atom="O" cid="604" clashmag="0.46" dist="2.63"/>
+		<clash atom="HA" cid="425" clashmag="0.66" dist="2.06"/>
+		<clash atom="CG2" cid="174" clashmag="0.98" dist="2.40"/>
+		<clash atom="CG2" cid="402" clashmag="0.68" dist="2.71"/>
+		<clash atom="CG2" cid="604" clashmag="0.46" dist="2.63"/>
+		<clash atom="CG2" cid="657" clashmag="0.40" dist="2.85"/>
+		<clash atom="CG1" cid="132" clashmag="1.06" dist="1.79"/>
+		<clash atom="CG1" cid="151" clashmag="1.02" dist="2.37"/>
+		<clash atom="CG1" cid="174" clashmag="0.98" dist="2.40"/>
+		<clash atom="CG1" cid="357" clashmag="0.74" dist="2.55"/>
+		<clash atom="CA" cid="99" clashmag="1.11" dist="1.97"/>
+		<clash atom="CA" cid="231" clashmag="0.89" dist="2.51"/>
+		<clash atom="CA" cid="314" clashmag="0.78" dist="2.06"/>
+		<clash atom="CA" cid="402" clashmag="0.68" dist="2.71"/>
+		<clash atom="CA" cid="506" clashmag="0.57" dist="2.82"/>
+		<clash atom="CA" cid="641" clashmag="0.42" dist="2.88"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="3.040" stdev="0.021" z="72.19"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="2.876" stdev="0.026" z="51.97"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.070" stdev="0.020" z="80.54"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="4.159" stdev="0.019" z="154.24"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.543" obs="2.821" stdev="0.021" z="60.84"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.524" obs="3.684" stdev="0.021" z="102.87"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="3" resname="ASP" resnum="17" rota="OUTLIER" said="A" seq="17" validate="True">
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="45.483" stdev="1.800" z="-36.18"/>
+		<angle-outlier atom0="OD1" atom1="CG" atom2="OD2" mean="123.300" obs="26.415" stdev="1.900" z="-50.99"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="OD1" mean="118.300" obs="62.681" stdev="0.900" z="-61.80"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="58.372" stdev="2.200" z="-25.01"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="OD2" mean="118.300" obs="57.646" stdev="0.900" z="-67.39"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="31.657" stdev="2.000" z="-39.37"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="72.906" stdev="2.700" z="-14.11"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="94.807" stdev="2.100" z="-12.04"/>
+		<plane-outlier planeRMSD="0.36" type="sidechain"/>
+		<clash atom="CA" cid="72" clashmag="1.20" dist="2.18"/>
+		<clash atom="CA" cid="103" clashmag="1.10" dist="2.00"/>
+		<clash atom="CA" cid="387" clashmag="0.70" dist="2.12"/>
+		<clash atom="CA" cid="437" clashmag="0.65" dist="2.74"/>
+		<clash atom="CA" cid="562" clashmag="0.51" dist="2.79"/>
+		<clash atom="HA" cid="291" clashmag="0.81" dist="2.04"/>
+		<clash atom="HA" cid="639" clashmag="0.42" dist="1.81"/>
+		<clash atom="CG" cid="76" clashmag="1.18" dist="2.12"/>
+		<clash atom="CG" cid="266" clashmag="0.84" dist="2.15"/>
+		<clash atom="CG" cid="498" clashmag="0.58" dist="2.71"/>
+		<clash atom="CG" cid="518" clashmag="0.56" dist="2.43"/>
+		<clash atom="CG" cid="562" clashmag="0.51" dist="2.79"/>
+		<clash atom="OD2" cid="109" clashmag="1.09" dist="1.45"/>
+		<clash atom="OD2" cid="438" clashmag="0.64" dist="2.15"/>
+		<clash atom="OD2" cid="467" clashmag="0.61" dist="2.36"/>
+		<clash atom="OD2" cid="482" clashmag="0.60" dist="2.49"/>
+		<clash atom="OD2" cid="518" clashmag="0.56" dist="2.43"/>
+		<clash atom="OD1" cid="68" clashmag="1.21" dist="1.53"/>
+		<clash atom="OD1" cid="266" clashmag="0.84" dist="2.15"/>
+		<clash atom="OD1" cid="563" clashmag="0.51" dist="2.59"/>
+		<clash atom="OD1" cid="565" clashmag="0.51" dist="2.58"/>
+		<clash atom="N" cid="229" clashmag="0.89" dist="2.35"/>
+		<clash atom="N" cid="309" clashmag="0.78" dist="1.93"/>
+		<clash atom="N" cid="657" clashmag="0.40" dist="2.85"/>
+		<clash atom="O" cid="68" clashmag="1.21" dist="1.53"/>
+		<clash atom="O" cid="107" clashmag="1.09" dist="1.99"/>
+		<clash atom="O" cid="251" clashmag="0.86" dist="2.15"/>
+		<clash atom="O" cid="438" clashmag="0.64" dist="2.15"/>
+		<clash atom="CB" cid="56" clashmag="1.24" dist="2.15"/>
+		<clash atom="CB" cid="229" clashmag="0.89" dist="2.35"/>
+		<clash atom="CB" cid="429" clashmag="0.65" dist="2.64"/>
+		<clash atom="CB" cid="432" clashmag="0.65" dist="2.73"/>
+		<clash atom="CB" cid="479" clashmag="0.60" dist="2.19"/>
+		<clash atom="CB" cid="482" clashmag="0.60" dist="2.49"/>
+		<clash atom="CB" cid="498" clashmag="0.58" dist="2.71"/>
+		<clash atom="CB" cid="516" clashmag="0.56" dist="2.54"/>
+		<clash atom="CB" cid="565" clashmag="0.51" dist="2.58"/>
+		<clash atom="CB" cid="566" clashmag="0.51" dist="2.34"/>
+		<clash atom="C" cid="251" clashmag="0.86" dist="2.15"/>
+		<clash atom="C" cid="429" clashmag="0.65" dist="2.64"/>
+		<clash atom="C" cid="465" clashmag="0.62" dist="2.52"/>
+		<clash atom="C" cid="551" clashmag="0.52" dist="2.25"/>
+		<clash atom="C" cid="572" clashmag="0.50" dist="2.27"/>
+		<clash atom="HB3" cid="309" clashmag="0.78" dist="1.93"/>
+		<clash atom="HB2" cid="185" clashmag="0.96" dist="1.86"/>
+		<clash atom="HB2" cid="572" clashmag="0.50" dist="2.27"/>
+		<bond-outlier atom0="CG" atom1="OD2" mean="1.249" obs="2.432" stdev="0.023" z="51.44"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.667" stdev="0.026" z="120.86"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.513" obs="2.713" stdev="0.021" z="57.14"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.095" stdev="0.020" z="81.80"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.991" stdev="0.022" z="66.18"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.145" stdev="0.019" z="48.22"/>
+		<bond-outlier atom0="CG" atom1="OD1" mean="1.249" obs="2.152" stdev="0.023" z="39.25"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="10" resname="ILE" resnum="18" rota="OUTLIER" said="A" seq="18" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="88.882" stdev="2.200" z="-12.87"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="39.558" stdev="2.500" z="-32.86"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="110.737" stdev="1.600" z="-7.48"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.600" obs="17.756" stdev="2.000" z="-46.92"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.800" obs="71.847" stdev="2.300" z="-16.94"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="111.000" obs="155.281" stdev="1.900" z="23.31"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="111.400" obs="21.238" stdev="2.200" z="-40.98"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="57.611" stdev="2.700" z="-19.77"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="171.540" stdev="2.000" z="30.32"/>
+		<plane-outlier improper="-25.26" type="mainchain"/>
+		<clash atom="CG1" cid="42" clashmag="1.28" dist="2.11"/>
+		<clash atom="CG1" cid="432" clashmag="0.65" dist="2.73"/>
+		<clash atom="CG1" cid="441" clashmag="0.64" dist="2.75"/>
+		<clash atom="CG2" cid="42" clashmag="1.28" dist="2.11"/>
+		<clash atom="CG2" cid="139" clashmag="1.04" dist="2.34"/>
+		<clash atom="CG2" cid="184" clashmag="0.96" dist="1.87"/>
+		<clash atom="CG2" cid="217" clashmag="0.90" dist="2.47"/>
+		<clash atom="CG2" cid="468" clashmag="0.61" dist="2.77"/>
+		<clash atom="CG2" cid="652" clashmag="0.41" dist="2.44"/>
+		<clash atom="HD12" cid="524" clashmag="0.55" dist="2.19"/>
+		<clash atom="CB" cid="56" clashmag="1.24" dist="2.15"/>
+		<clash atom="CB" cid="185" clashmag="0.96" dist="1.86"/>
+		<clash atom="CB" cid="437" clashmag="0.65" dist="2.74"/>
+		<clash atom="CA" cid="76" clashmag="1.18" dist="2.12"/>
+		<clash atom="CA" cid="107" clashmag="1.09" dist="1.99"/>
+		<clash atom="CA" cid="563" clashmag="0.51" dist="2.59"/>
+		<clash atom="CD1" cid="39" clashmag="1.29" dist="1.56"/>
+		<clash atom="CD1" cid="217" clashmag="0.90" dist="2.47"/>
+		<clash atom="CD1" cid="247" clashmag="0.87" dist="2.43"/>
+		<clash atom="CD1" cid="303" clashmag="0.79" dist="2.45"/>
+		<clash atom="C" cid="247" clashmag="0.87" dist="2.43"/>
+		<clash atom="C" cid="524" clashmag="0.55" dist="2.19"/>
+		<clash atom="N" cid="465" clashmag="0.62" dist="2.52"/>
+		<clash atom="HG23" cid="34" clashmag="1.30" dist="1.51"/>
+		<clash atom="HG23" cid="452" clashmag="0.63" dist="2.09"/>
+		<clash atom="HG23" cid="575" clashmag="0.50" dist="2.35"/>
+		<clash atom="HG12" cid="184" clashmag="0.96" dist="1.87"/>
+		<clash atom="HG22" cid="588" clashmag="0.48" dist="2.38"/>
+		<clash atom="HG22" cid="605" clashmag="0.46" dist="1.86"/>
+		<clash atom="HD11" cid="161" clashmag="0.99" dist="1.71"/>
+		<clash atom="HD11" cid="460" clashmag="0.62" dist="1.63"/>
+		<clash atom="HG13" cid="566" clashmag="0.51" dist="2.34"/>
+		<clash atom="HG13" cid="587" clashmag="0.48" dist="2.37"/>
+		<clash atom="HG21" cid="39" clashmag="1.29" dist="1.56"/>
+		<clash atom="HG21" cid="460" clashmag="0.62" dist="1.63"/>
+		<clash atom="HB" cid="479" clashmag="0.60" dist="2.19"/>
+		<clash atom="HB" cid="551" clashmag="0.52" dist="2.25"/>
+		<bond-outlier atom0="CG1" atom1="CD1" mean="1.500" obs="3.440" stdev="0.069" z="28.11"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.536" obs="1.312" stdev="0.028" z="-8.01"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.061" stdev="0.020" z="80.11"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.544" obs="5.176" stdev="0.023" z="157.89"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="3.283" stdev="0.031" z="56.73"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="11.428" stdev="0.026" z="380.90"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.082" stdev="0.019" z="-7.73"/>
+		<plane-outlier omega="-117.08" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="13" phi="35.7" psi="-114.7" rama="Allowed" resname="ARG" resnum="19" rota="OUTLIER" said="A" seq="19" validate="True">
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="108.964" stdev="1.600" z="-8.59"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="65.829" stdev="2.500" z="-22.35"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="53.403" stdev="2.200" z="-29.00"/>
+		<angle-outlier atom0="CD" atom1="NE" atom2="CZ" mean="123.600" obs="116.550" stdev="1.400" z="-5.04"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="86.347" stdev="2.200" z="-12.30"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="NE" mean="111.800" obs="151.170" stdev="2.100" z="18.75"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="145.342" stdev="1.800" z="19.30"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH2" mean="120.300" obs="152.826" stdev="0.500" z="65.05"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="141.149" stdev="2.100" z="10.02"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="44.391" stdev="2.700" z="-24.67"/>
+		<angle-outlier atom0="NH1" atom1="CZ" atom2="NH2" mean="119.400" obs="85.215" stdev="1.100" z="-31.08"/>
+		<plane-outlier improper="-38.92" type="mainchain"/>
+		<clash atom="NH2" cid="299" clashmag="0.79" dist="2.46"/>
+		<clash atom="NH2" cid="581" clashmag="0.49" dist="2.57"/>
+		<clash atom="NH2" cid="613" clashmag="0.45" dist="2.10"/>
+		<clash atom="CD" cid="422" clashmag="0.66" dist="2.73"/>
+		<clash atom="O" cid="186" clashmag="0.96" dist="1.61"/>
+		<clash atom="O" cid="576" clashmag="0.49" dist="2.59"/>
+		<clash atom="O" cid="597" clashmag="0.47" dist="2.09"/>
+		<clash atom="O" cid="659" clashmag="0.40" dist="2.45"/>
+		<clash atom="CG" cid="422" clashmag="0.66" dist="2.73"/>
+		<clash atom="N" cid="161" clashmag="0.99" dist="1.71"/>
+		<clash atom="N" cid="303" clashmag="0.79" dist="2.45"/>
+		<clash atom="CZ" cid="299" clashmag="0.79" dist="2.46"/>
+		<clash atom="CZ" cid="346" clashmag="0.75" dist="2.49"/>
+		<clash atom="CZ" cid="440" clashmag="0.64" dist="2.75"/>
+		<clash atom="CZ" cid="491" clashmag="0.59" dist="2.26"/>
+		<clash atom="HH22" cid="646" clashmag="0.42" dist="2.21"/>
+		<clash atom="NE" cid="534" clashmag="0.54" dist="2.17"/>
+		<clash atom="NE" cid="637" clashmag="0.42" dist="2.29"/>
+		<clash atom="HH12" cid="93" clashmag="1.13" dist="1.37"/>
+		<clash atom="HH12" cid="570" clashmag="0.50" dist="1.96"/>
+		<clash atom="HH12" cid="613" clashmag="0.45" dist="2.10"/>
+		<clash atom="C" cid="91" clashmag="1.14" dist="2.16"/>
+		<clash atom="C" cid="182" clashmag="0.96" dist="2.32"/>
+		<clash atom="C" cid="183" clashmag="0.96" dist="1.80"/>
+		<clash atom="C" cid="320" clashmag="0.78" dist="2.52"/>
+		<clash atom="C" cid="570" clashmag="0.50" dist="1.96"/>
+		<clash atom="NH1" cid="126" clashmag="1.06" dist="2.02"/>
+		<clash atom="NH1" cid="581" clashmag="0.49" dist="2.57"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.081" stdev="0.023" z="-11.11"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="2.729" stdev="0.025" z="48.57"/>
+		<bond-outlier atom0="CZ" atom1="NH1" mean="1.326" obs="0.980" stdev="0.013" z="-26.61"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.336" stdev="0.020" z="43.87"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="4.436" stdev="0.027" z="107.96"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="10.503" stdev="0.026" z="345.30"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.082" stdev="0.019" z="-7.75"/>
+		<bond-outlier atom0="CZ" atom1="NH2" mean="1.326" obs="2.458" stdev="0.013" z="87.04"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="1.081" stdev="0.022" z="-20.64"/>
+		<plane-outlier omega="-82.31" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="10" phi="-66.8" psi="-173.3" rama="Allowed" resname="LEU" resnum="20" rota="OUTLIER" said="A" seq="20" validate="True">
+		<chiral-outlier atom="CA" problem="PLANAR"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="157.196" stdev="2.200" z="18.18"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="109.291" stdev="1.600" z="-8.38"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="43.105" stdev="2.500" z="-31.44"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="3.504" stdev="2.700" z="-39.81"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="49.130" stdev="2.100" z="-33.80"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.400" obs="80.505" stdev="2.000" z="-14.95"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD2" mean="111.000" obs="93.064" stdev="1.700" z="-10.55"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="115.300" obs="98.391" stdev="2.300" z="-7.35"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.200" obs="77.002" stdev="1.900" z="-17.47"/>
+		<angle-outlier atom0="CD1" atom1="CG" atom2="CD2" mean="110.500" obs="27.023" stdev="3.000" z="-27.83"/>
+		<plane-outlier improper="-145.18" type="mainchain"/>
+		<clash atom="CB" cid="51" clashmag="1.24" dist="2.15"/>
+		<clash atom="CB" cid="320" clashmag="0.78" dist="2.52"/>
+		<clash atom="CB" cid="576" clashmag="0.49" dist="2.59"/>
+		<clash atom="CG" cid="488" clashmag="0.60" dist="2.79"/>
+		<clash atom="HD12" cid="102" clashmag="1.10" dist="1.55"/>
+		<clash atom="HD12" cid="228" clashmag="0.89" dist="1.96"/>
+		<clash atom="N" cid="26" clashmag="1.33" dist="1.89"/>
+		<clash atom="N" cid="93" clashmag="1.13" dist="1.37"/>
+		<clash atom="N" cid="102" clashmag="1.10" dist="1.55"/>
+		<clash atom="N" cid="124" clashmag="1.06" dist="1.57"/>
+		<clash atom="N" cid="126" clashmag="1.06" dist="2.02"/>
+		<clash atom="N" cid="236" clashmag="0.88" dist="2.36"/>
+		<clash atom="N" cid="346" clashmag="0.75" dist="2.49"/>
+		<clash atom="HD13" cid="124" clashmag="1.06" dist="1.57"/>
+		<clash atom="HD13" cid="183" clashmag="0.96" dist="1.80"/>
+		<clash atom="HD13" cid="186" clashmag="0.96" dist="1.61"/>
+		<clash atom="HB2" cid="597" clashmag="0.47" dist="2.09"/>
+		<clash atom="HD23" cid="196" clashmag="0.95" dist="1.33"/>
+		<clash atom="HD23" cid="449" clashmag="0.63" dist="2.13"/>
+		<clash atom="CD2" cid="145" clashmag="1.03" dist="1.83"/>
+		<clash atom="CD2" cid="214" clashmag="0.91" dist="2.48"/>
+		<clash atom="CD2" cid="253" clashmag="0.85" dist="2.53"/>
+		<clash atom="CD2" cid="267" clashmag="0.83" dist="2.46"/>
+		<clash atom="CD2" cid="440" clashmag="0.64" dist="2.75"/>
+		<clash atom="C" cid="175" clashmag="0.97" dist="1.79"/>
+		<clash atom="C" cid="225" clashmag="0.89" dist="2.40"/>
+		<clash atom="C" cid="267" clashmag="0.83" dist="2.46"/>
+		<clash atom="C" cid="288" clashmag="0.81" dist="2.49"/>
+		<clash atom="C" cid="367" clashmag="0.72" dist="2.58"/>
+		<clash atom="HD21" cid="83" clashmag="1.17" dist="1.68"/>
+		<clash atom="HD21" cid="175" clashmag="0.97" dist="1.79"/>
+		<clash atom="HD21" cid="316" clashmag="0.78" dist="2.07"/>
+		<clash atom="CD1" cid="26" clashmag="1.33" dist="1.89"/>
+		<clash atom="CD1" cid="182" clashmag="0.96" dist="2.32"/>
+		<clash atom="CD1" cid="371" clashmag="0.72" dist="2.67"/>
+		<clash atom="CD1" cid="659" clashmag="0.40" dist="2.45"/>
+		<clash atom="O" cid="579" clashmag="0.49" dist="2.60"/>
+		<clash atom="CA" cid="51" clashmag="1.24" dist="2.15"/>
+		<clash atom="CA" cid="91" clashmag="1.14" dist="2.16"/>
+		<clash atom="CA" cid="228" clashmag="0.89" dist="1.96"/>
+		<clash atom="CA" cid="236" clashmag="0.88" dist="2.36"/>
+		<clash atom="CA" cid="371" clashmag="0.72" dist="2.67"/>
+		<clash atom="CA" cid="467" clashmag="0.61" dist="2.36"/>
+		<clash atom="CA" cid="488" clashmag="0.60" dist="2.79"/>
+		<clash atom="CA" cid="646" clashmag="0.42" dist="2.21"/>
+		<clash atom="HD22" cid="491" clashmag="0.59" dist="2.26"/>
+		<clash atom="HD22" cid="534" clashmag="0.54" dist="2.17"/>
+		<clash atom="HA" cid="109" clashmag="1.09" dist="1.45"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.079" stdev="0.023" z="-11.17"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.080" stdev="0.019" z="-7.84"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.364" stdev="0.020" z="45.24"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="7.146" stdev="0.026" z="216.20"/>
+		<bond-outlier atom0="CG" atom1="CD2" mean="1.514" obs="5.946" stdev="0.037" z="119.79"/>
+		<bond-outlier atom0="CG" atom1="CD1" mean="1.514" obs="1.040" stdev="0.037" z="-12.81"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.533" obs="2.150" stdev="0.023" z="26.85"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="8" resname="VAL" resnum="21" rota="OUTLIER" said="A" seq="21" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="37.165" stdev="1.500" z="-49.16"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="5.646" stdev="2.100" z="-54.50"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="111.500" obs="51.764" stdev="2.200" z="-27.15"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="80.930" stdev="2.700" z="-11.14"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="110.900" obs="50.568" stdev="1.500" z="-40.22"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="110.900" obs="23.562" stdev="1.600" z="-54.59"/>
+		<clash atom="HG13" cid="331" clashmag="0.77" dist="2.09"/>
+		<clash atom="HG13" cid="496" clashmag="0.58" dist="1.71"/>
+		<clash atom="HG12" cid="28" clashmag="1.33" dist="1.42"/>
+		<clash atom="HG12" cid="533" clashmag="0.54" dist="2.02"/>
+		<clash atom="CA" cid="83" clashmag="1.17" dist="1.68"/>
+		<clash atom="CA" cid="142" clashmag="1.03" dist="2.20"/>
+		<clash atom="CA" cid="225" clashmag="0.89" dist="2.40"/>
+		<clash atom="CA" cid="253" clashmag="0.85" dist="2.53"/>
+		<clash atom="CA" cid="593" clashmag="0.48" dist="2.92"/>
+		<clash atom="HA" cid="637" clashmag="0.42" dist="2.29"/>
+		<clash atom="CB" cid="367" clashmag="0.72" dist="2.58"/>
+		<clash atom="CB" cid="509" clashmag="0.56" dist="2.67"/>
+		<clash atom="CB" cid="579" clashmag="0.49" dist="2.60"/>
+		<clash atom="HG22" cid="101" clashmag="1.11" dist="1.59"/>
+		<clash atom="HG22" cid="211" clashmag="0.92" dist="1.94"/>
+		<clash atom="HG22" cid="398" clashmag="0.69" dist="1.87"/>
+		<clash atom="N" cid="474" clashmag="0.61" dist="2.63"/>
+		<clash atom="N" cid="509" clashmag="0.56" dist="2.67"/>
+		<clash atom="HG23" cid="145" clashmag="1.03" dist="1.83"/>
+		<clash atom="HG23" cid="196" clashmag="0.95" dist="1.33"/>
+		<clash atom="CG1" cid="162" clashmag="0.99" dist="2.40"/>
+		<clash atom="CG1" cid="211" clashmag="0.92" dist="1.94"/>
+		<clash atom="CG1" cid="275" clashmag="0.83" dist="2.39"/>
+		<clash atom="CG1" cid="384" clashmag="0.70" dist="2.54"/>
+		<clash atom="CG1" cid="389" clashmag="0.70" dist="2.15"/>
+		<clash atom="CG1" cid="413" clashmag="0.67" dist="2.42"/>
+		<clash atom="HG21" cid="389" clashmag="0.70" dist="2.15"/>
+		<clash atom="HG21" cid="496" clashmag="0.58" dist="1.71"/>
+		<clash atom="CG2" cid="77" clashmag="1.18" dist="2.07"/>
+		<clash atom="CG2" cid="162" clashmag="0.99" dist="2.40"/>
+		<clash atom="CG2" cid="214" clashmag="0.91" dist="2.48"/>
+		<clash atom="CG2" cid="288" clashmag="0.81" dist="2.49"/>
+		<clash atom="CG2" cid="316" clashmag="0.78" dist="2.07"/>
+		<clash atom="CG2" cid="331" clashmag="0.77" dist="2.09"/>
+		<clash atom="CG2" cid="449" clashmag="0.63" dist="2.13"/>
+		<clash atom="CG2" cid="474" clashmag="0.61" dist="2.63"/>
+		<clash atom="CG2" cid="593" clashmag="0.48" dist="2.92"/>
+		<clash atom="O" cid="177" clashmag="0.97" dist="2.12"/>
+		<clash atom="O" cid="325" clashmag="0.77" dist="2.23"/>
+		<clash atom="O" cid="398" clashmag="0.69" dist="1.87"/>
+		<clash atom="O" cid="413" clashmag="0.67" dist="2.42"/>
+		<clash atom="O" cid="514" clashmag="0.56" dist="2.38"/>
+		<clash atom="O" cid="533" clashmag="0.54" dist="2.02"/>
+		<clash atom="O" cid="648" clashmag="0.41" dist="2.58"/>
+		<clash atom="C" cid="28" clashmag="1.33" dist="1.42"/>
+		<clash atom="C" cid="202" clashmag="0.94" dist="2.36"/>
+		<clash atom="C" cid="275" clashmag="0.83" dist="2.39"/>
+		<clash atom="C" cid="325" clashmag="0.77" dist="2.23"/>
+		<clash atom="C" cid="392" clashmag="0.70" dist="2.06"/>
+		<clash atom="C" cid="614" clashmag="0.45" dist="2.74"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.543" obs="3.057" stdev="0.021" z="72.11"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="4.698" stdev="0.021" z="151.15"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.229" stdev="0.019" z="52.65"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.524" obs="5.808" stdev="0.021" z="203.99"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.067" stdev="0.020" z="80.38"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.216" stdev="0.026" z="141.94"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="7" resname="GLN" resnum="22" rota="mm-40" said="A" seq="22" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="122.300" obs="63.387" stdev="2.100" z="-28.05"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="116.200" obs="140.000" stdev="2.000" z="11.90"/>
+		<angle-outlier atom0="OE1" atom1="CD" atom2="NE2" mean="121.900" obs="65.964" stdev="2.300" z="-24.32"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="86.092" stdev="1.800" z="-13.62"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="50.270" stdev="2.100" z="-33.25"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="OE1" mean="121.600" obs="60.778" stdev="2.000" z="-30.41"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="NE2" mean="116.700" obs="56.115" stdev="2.400" z="-25.24"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="77.322" stdev="2.600" z="-13.18"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="52.834" stdev="2.000" z="-28.78"/>
+		<plane-outlier improper="57.19" type="mainchain"/>
+		<plane-outlier planeRMSD="0.59" type="sidechain"/>
+		<clash atom="O" cid="373" clashmag="0.72" dist="2.38"/>
+		<clash atom="O" cid="419" clashmag="0.67" dist="1.89"/>
+		<clash atom="O" cid="500" clashmag="0.57" dist="2.22"/>
+		<clash atom="N" cid="77" clashmag="1.18" dist="2.07"/>
+		<clash atom="N" cid="101" clashmag="1.11" dist="1.59"/>
+		<clash atom="N" cid="142" clashmag="1.03" dist="2.20"/>
+		<clash atom="N" cid="384" clashmag="0.70" dist="2.54"/>
+		<clash atom="HG3" cid="419" clashmag="0.67" dist="1.89"/>
+		<clash atom="CG" cid="197" clashmag="0.95" dist="2.43"/>
+		<clash atom="CG" cid="373" clashmag="0.72" dist="2.38"/>
+		<clash atom="CG" cid="385" clashmag="0.70" dist="2.54"/>
+		<clash atom="CG" cid="616" clashmag="0.45" dist="2.65"/>
+		<clash atom="HB2" cid="471" clashmag="0.61" dist="2.16"/>
+		<clash atom="CB" cid="172" clashmag="0.98" dist="2.41"/>
+		<clash atom="CB" cid="197" clashmag="0.95" dist="2.43"/>
+		<clash atom="CB" cid="453" clashmag="0.63" dist="2.47"/>
+		<clash atom="CB" cid="493" clashmag="0.59" dist="2.71"/>
+		<clash atom="HA" cid="392" clashmag="0.70" dist="2.06"/>
+		<clash atom="C" cid="71" clashmag="1.20" dist="1.39"/>
+		<clash atom="C" cid="220" clashmag="0.90" dist="2.25"/>
+		<clash atom="C" cid="621" clashmag="0.44" dist="2.56"/>
+		<clash atom="HE22" cid="71" clashmag="1.20" dist="1.39"/>
+		<clash atom="HE21" cid="536" clashmag="0.54" dist="2.15"/>
+		<clash atom="NE2" cid="144" clashmag="1.03" dist="2.12"/>
+		<clash atom="NE2" cid="220" clashmag="0.90" dist="2.25"/>
+		<clash atom="NE2" cid="292" clashmag="0.81" dist="2.14"/>
+		<clash atom="NE2" cid="319" clashmag="0.78" dist="2.46"/>
+		<clash atom="NE2" cid="385" clashmag="0.70" dist="2.54"/>
+		<clash atom="CD" cid="67" clashmag="1.21" dist="1.77"/>
+		<clash atom="CD" cid="144" clashmag="1.03" dist="2.12"/>
+		<clash atom="CD" cid="282" clashmag="0.82" dist="2.47"/>
+		<clash atom="CD" cid="614" clashmag="0.45" dist="2.74"/>
+		<clash atom="CD" cid="648" clashmag="0.41" dist="2.58"/>
+		<clash atom="CA" cid="172" clashmag="0.98" dist="2.41"/>
+		<clash atom="CA" cid="177" clashmag="0.97" dist="2.12"/>
+		<clash atom="CA" cid="202" clashmag="0.94" dist="2.36"/>
+		<clash atom="CA" cid="282" clashmag="0.82" dist="2.47"/>
+		<clash atom="CA" cid="366" clashmag="0.73" dist="2.37"/>
+		<clash atom="OE1" cid="67" clashmag="1.21" dist="1.77"/>
+		<clash atom="OE1" cid="292" clashmag="0.81" dist="2.14"/>
+		<clash atom="OE1" cid="366" clashmag="0.73" dist="2.37"/>
+		<clash atom="OE1" cid="453" clashmag="0.63" dist="2.47"/>
+		<clash atom="OE1" cid="500" clashmag="0.57" dist="2.22"/>
+		<clash atom="OE1" cid="616" clashmag="0.45" dist="2.65"/>
+		<clash atom="OE1" cid="621" clashmag="0.44" dist="2.56"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.326" obs="1.000" stdev="0.018" z="-18.13"/>
+		<bond-outlier atom0="CD" atom1="NE2" mean="1.324" obs="2.123" stdev="0.025" z="31.95"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.000" stdev="0.019" z="-12.04"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.990" stdev="0.020" z="76.53"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.506" obs="3.015" stdev="0.023" z="65.60"/>
+		<bond-outlier atom0="CD" atom1="OE1" mean="1.235" obs="1.766" stdev="0.022" z="24.13"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.413" stdev="0.022" z="39.92"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.869" stdev="0.026" z="128.60"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="2.433" stdev="0.027" z="33.77"/>
+		<plane-outlier omega="117.21" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="2" resname="GLY" resnum="23" said="A" seq="23" validate="True">
+		<clash atom="O" cid="169" clashmag="0.98" dist="2.11"/>
+		<clash atom="O" cid="317" clashmag="0.78" dist="2.21"/>
+		<clash atom="O" cid="502" clashmag="0.57" dist="2.50"/>
+		<clash atom="C" cid="293" clashmag="0.81" dist="1.97"/>
+		<clash atom="C" cid="311" clashmag="0.78" dist="2.51"/>
+		<clash atom="C" cid="317" clashmag="0.78" dist="2.21"/>
+		<clash atom="C" cid="401" clashmag="0.69" dist="2.62"/>
+		<clash atom="C" cid="471" clashmag="0.61" dist="2.16"/>
+		<clash atom="C" cid="493" clashmag="0.59" dist="2.71"/>
+		<clash atom="C" cid="627" clashmag="0.43" dist="2.32"/>
+		<clash atom="CA" cid="319" clashmag="0.78" dist="2.46"/>
+		<clash atom="CA" cid="536" clashmag="0.54" dist="2.15"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.456" obs="3.500" stdev="0.015" z="136.29"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.514" obs="8.649" stdev="0.016" z="445.95"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.232" obs="2.209" stdev="0.016" z="61.05"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="113.100" obs="55.405" stdev="2.500" z="-23.08"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.600" obs="89.806" stdev="1.800" z="-17.11"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="6" resname="THR" resnum="24" rota="t" said="A" seq="24" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="OG1" atom1="CB" atom2="CG2" mean="110.000" obs="41.001" stdev="2.300" z="-30.00"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="OG1" mean="109.000" obs="86.823" stdev="2.100" z="-10.56"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="112.400" obs="84.505" stdev="1.400" z="-19.93"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.300" obs="43.144" stdev="1.900" z="-35.34"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="28.595" stdev="2.100" z="-43.57"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.600" obs="67.178" stdev="2.700" z="-16.45"/>
+		<clash atom="HB" cid="312" clashmag="0.78" dist="1.92"/>
+		<clash atom="HG23" cid="84" clashmag="1.16" dist="1.28"/>
+		<clash atom="HG23" cid="100" clashmag="1.11" dist="1.76"/>
+		<clash atom="HG23" cid="352" clashmag="0.74" dist="0.81"/>
+		<clash atom="N" cid="136" clashmag="1.05" dist="2.19"/>
+		<clash atom="N" cid="312" clashmag="0.78" dist="1.92"/>
+		<clash atom="N" cid="514" clashmag="0.56" dist="2.38"/>
+		<clash atom="HG22" cid="603" clashmag="0.47" dist="2.10"/>
+		<clash atom="HG22" cid="619" clashmag="0.44" dist="2.27"/>
+		<clash atom="HA" cid="204" clashmag="0.93" dist="1.37"/>
+		<clash atom="HA" cid="252" clashmag="0.86" dist="1.69"/>
+		<clash atom="HA" cid="461" clashmag="0.62" dist="2.06"/>
+		<clash atom="HA" cid="627" clashmag="0.43" dist="2.32"/>
+		<clash atom="CA" cid="13" clashmag="1.41" dist="1.66"/>
+		<clash atom="CA" cid="105" clashmag="1.10" dist="2.30"/>
+		<clash atom="CA" cid="169" clashmag="0.98" dist="2.11"/>
+		<clash atom="CA" cid="173" clashmag="0.98" dist="1.85"/>
+		<clash atom="CA" cid="193" clashmag="0.96" dist="2.34"/>
+		<clash atom="CA" cid="200" clashmag="0.94" dist="2.14"/>
+		<clash atom="CA" cid="311" clashmag="0.78" dist="2.51"/>
+		<clash atom="CA" cid="634" clashmag="0.42" dist="2.44"/>
+		<clash atom="OG1" cid="33" clashmag="1.31" dist="1.76"/>
+		<clash atom="OG1" cid="84" clashmag="1.16" dist="1.28"/>
+		<clash atom="OG1" cid="250" clashmag="0.86" dist="1.71"/>
+		<clash atom="OG1" cid="423" clashmag="0.66" dist="2.34"/>
+		<clash atom="OG1" cid="594" clashmag="0.48" dist="2.61"/>
+		<clash atom="CB" cid="136" clashmag="1.05" dist="2.19"/>
+		<clash atom="CB" cid="155" clashmag="1.00" dist="2.38"/>
+		<clash atom="CB" cid="502" clashmag="0.57" dist="2.50"/>
+		<clash atom="CB" cid="594" clashmag="0.48" dist="2.61"/>
+		<clash atom="CG2" cid="33" clashmag="1.31" dist="1.76"/>
+		<clash atom="CG2" cid="65" clashmag="1.22" dist="1.64"/>
+		<clash atom="CG2" cid="155" clashmag="1.00" dist="2.38"/>
+		<clash atom="CG2" cid="348" clashmag="0.75" dist="2.52"/>
+		<clash atom="CG2" cid="649" clashmag="0.41" dist="2.68"/>
+		<clash atom="O" cid="127" clashmag="1.06" dist="2.02"/>
+		<clash atom="O" cid="200" clashmag="0.94" dist="2.14"/>
+		<clash atom="O" cid="363" clashmag="0.73" dist="1.84"/>
+		<clash atom="O" cid="573" clashmag="0.50" dist="2.59"/>
+		<clash atom="O" cid="603" clashmag="0.47" dist="2.10"/>
+		<clash atom="O" cid="649" clashmag="0.41" dist="2.68"/>
+		<clash atom="C" cid="148" clashmag="1.02" dist="1.97"/>
+		<clash atom="C" cid="193" clashmag="0.96" dist="2.34"/>
+		<clash atom="C" cid="407" clashmag="0.68" dist="2.53"/>
+		<clash atom="HG21" cid="281" clashmag="0.82" dist="1.50"/>
+		<clash atom="HG21" cid="342" clashmag="0.75" dist="2.12"/>
+		<clash atom="HG21" cid="538" clashmag="0.54" dist="2.33"/>
+		<clash atom="HG21" cid="631" clashmag="0.43" dist="1.91"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.917" stdev="0.020" z="72.88"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="3.885" stdev="0.019" z="139.79"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.529" obs="3.041" stdev="0.026" z="58.16"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.519" obs="2.384" stdev="0.033" z="26.22"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="2.342" stdev="0.026" z="31.43"/>
+		<bond-outlier atom0="CB" atom1="OG1" mean="1.428" obs="2.606" stdev="0.020" z="58.90"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="2" resname="GLY" resnum="25" said="A" seq="25" validate="True">
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="57.376" stdev="2.200" z="-27.19"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="108.783" stdev="1.600" z="-8.70"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="29.469" stdev="2.500" z="-36.89"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.600" obs="133.140" stdev="1.800" z="6.97"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="113.100" obs="85.846" stdev="2.500" z="-10.90"/>
+		<plane-outlier improper="-31.32" type="mainchain"/>
+		<clash atom="N" cid="619" clashmag="0.44" dist="2.27"/>
+		<clash atom="HA3" cid="8" clashmag="1.45" dist="1.32"/>
+		<clash atom="HA3" cid="10" clashmag="1.43" dist="0.92"/>
+		<clash atom="HA3" cid="29" clashmag="1.32" dist="1.36"/>
+		<clash atom="HA3" cid="283" clashmag="0.82" dist="0.90"/>
+		<clash atom="HA2" cid="47" clashmag="1.26" dist="1.26"/>
+		<clash atom="HA2" cid="170" clashmag="0.98" dist="1.71"/>
+		<clash atom="HA2" cid="173" clashmag="0.98" dist="1.85"/>
+		<clash atom="HA2" cid="204" clashmag="0.93" dist="1.37"/>
+		<clash atom="HA2" cid="308" clashmag="0.79" dist="1.77"/>
+		<clash atom="C" cid="94" clashmag="1.12" dist="2.17"/>
+		<clash atom="C" cid="297" clashmag="0.80" dist="2.50"/>
+		<clash atom="C" cid="466" clashmag="0.62" dist="2.68"/>
+		<clash atom="C" cid="517" clashmag="0.56" dist="2.75"/>
+		<clash atom="C" cid="569" clashmag="0.50" dist="2.77"/>
+		<clash atom="O" cid="428" clashmag="0.66" dist="2.44"/>
+		<clash atom="O" cid="564" clashmag="0.51" dist="2.43"/>
+		<clash atom="O" cid="589" clashmag="0.48" dist="2.60"/>
+		<clash atom="O" cid="595" clashmag="0.48" dist="2.58"/>
+		<clash atom="CA" cid="5" clashmag="1.50" dist="1.84"/>
+		<clash atom="CA" cid="19" clashmag="1.35" dist="1.90"/>
+		<clash atom="CA" cid="21" clashmag="1.35" dist="1.45"/>
+		<clash atom="CA" cid="22" clashmag="1.34" dist="1.89"/>
+		<clash atom="CA" cid="53" clashmag="1.24" dist="1.85"/>
+		<clash atom="CA" cid="105" clashmag="1.10" dist="2.30"/>
+		<clash atom="CA" cid="110" clashmag="1.09" dist="1.52"/>
+		<clash atom="CA" cid="127" clashmag="1.06" dist="2.02"/>
+		<clash atom="CA" cid="219" clashmag="0.90" dist="2.35"/>
+		<clash atom="CA" cid="224" clashmag="0.89" dist="2.35"/>
+		<clash atom="CA" cid="279" clashmag="0.82" dist="2.04"/>
+		<clash atom="CA" cid="461" clashmag="0.62" dist="2.06"/>
+		<clash atom="CA" cid="517" clashmag="0.56" dist="2.75"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.080" stdev="0.023" z="-11.11"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.456" obs="3.116" stdev="0.015" z="110.69"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.514" obs="2.746" stdev="0.016" z="77.00"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.232" obs="1.084" stdev="0.016" z="-9.22"/>
+		<plane-outlier omega="-102.66" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="12" phi="-2.9" psi="-43.2" rama="OUTLIER" resname="LYS" resnum="26" rota="OUTLIER" said="A" seq="26" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="109.042" stdev="1.600" z="-8.54"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="61.554" stdev="2.500" z="-24.06"/>
+		<angle-outlier atom0="CD" atom1="CE" atom2="NZ" mean="111.700" obs="164.585" stdev="2.300" z="22.99"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="78.367" stdev="2.700" z="-12.09"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="38.647" stdev="2.200" z="-33.98"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="105.025" stdev="2.100" z="-7.18"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="135.166" stdev="2.600" z="9.06"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="59.354" stdev="1.800" z="-28.47"/>
+		<plane-outlier improper="-32.25" type="mainchain"/>
+		<clash atom="CG" cid="49" clashmag="1.25" dist="2.15"/>
+		<clash atom="CG" cid="297" clashmag="0.80" dist="2.50"/>
+		<clash atom="CD" cid="190" clashmag="0.96" dist="2.44"/>
+		<clash atom="CD" cid="428" clashmag="0.66" dist="2.44"/>
+		<clash atom="CD" cid="569" clashmag="0.50" dist="2.77"/>
+		<clash atom="C" cid="89" clashmag="1.15" dist="2.15"/>
+		<clash atom="C" cid="361" clashmag="0.73" dist="2.54"/>
+		<clash atom="C" cid="600" clashmag="0.47" dist="2.68"/>
+		<clash atom="C" cid="608" clashmag="0.46" dist="2.31"/>
+		<clash atom="C" cid="623" clashmag="0.44" dist="2.16"/>
+		<clash atom="HZ2" cid="353" clashmag="0.74" dist="1.85"/>
+		<clash atom="HZ2" cid="393" clashmag="0.70" dist="1.99"/>
+		<clash atom="HZ2" cid="486" clashmag="0.60" dist="1.94"/>
+		<clash atom="HZ2" cid="494" clashmag="0.58" dist="1.58"/>
+		<clash atom="HZ2" cid="623" clashmag="0.44" dist="2.16"/>
+		<clash atom="N" cid="219" clashmag="0.90" dist="2.35"/>
+		<clash atom="N" cid="483" clashmag="0.60" dist="2.49"/>
+		<clash atom="N" cid="615" clashmag="0.45" dist="2.80"/>
+		<clash atom="HB3" cid="279" clashmag="0.82" dist="2.04"/>
+		<clash atom="HB3" cid="363" clashmag="0.73" dist="1.84"/>
+		<clash atom="HB3" cid="634" clashmag="0.42" dist="2.44"/>
+		<clash atom="HB2" cid="293" clashmag="0.81" dist="1.97"/>
+		<clash atom="CA" cid="49" clashmag="1.25" dist="2.15"/>
+		<clash atom="CA" cid="94" clashmag="1.12" dist="2.17"/>
+		<clash atom="CA" cid="190" clashmag="0.96" dist="2.44"/>
+		<clash atom="CA" cid="258" clashmag="0.85" dist="2.54"/>
+		<clash atom="CA" cid="595" clashmag="0.48" dist="2.58"/>
+		<clash atom="NZ" cid="92" clashmag="1.14" dist="2.11"/>
+		<clash atom="NZ" cid="476" clashmag="0.60" dist="2.34"/>
+		<clash atom="NZ" cid="477" clashmag="0.60" dist="2.54"/>
+		<clash atom="NZ" cid="574" clashmag="0.50" dist="2.59"/>
+		<clash atom="NZ" cid="600" clashmag="0.47" dist="2.68"/>
+		<clash atom="CE" cid="92" clashmag="1.14" dist="2.11"/>
+		<clash atom="CE" cid="233" clashmag="0.89" dist="2.35"/>
+		<clash atom="CE" cid="589" clashmag="0.48" dist="2.60"/>
+		<clash atom="O" cid="476" clashmag="0.60" dist="2.34"/>
+		<clash atom="CB" cid="258" clashmag="0.85" dist="2.54"/>
+		<clash atom="CB" cid="401" clashmag="0.69" dist="2.62"/>
+		<clash atom="CB" cid="466" clashmag="0.62" dist="2.68"/>
+		<clash atom="CB" cid="573" clashmag="0.50" dist="2.59"/>
+		<clash atom="CB" cid="615" clashmag="0.45" dist="2.80"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.080" stdev="0.023" z="-11.12"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.520" obs="1.081" stdev="0.034" z="-12.92"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.042" stdev="0.020" z="79.14"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="7.358" stdev="0.026" z="224.34"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="3.429" stdev="0.027" z="70.65"/>
+		<bond-outlier atom0="CD" atom1="CE" mean="1.508" obs="4.656" stdev="0.025" z="125.93"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.080" stdev="0.019" z="-7.84"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.539" stdev="0.022" z="45.64"/>
+		<bond-outlier atom0="CE" atom1="NZ" mean="1.486" obs="2.107" stdev="0.025" z="24.83"/>
+		<plane-outlier omega="-102.36" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="4" resname="ASN" resnum="27" rota="OUTLIER" said="A" seq="27" validate="True">
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="78.989" stdev="2.100" z="-19.58"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="OD1" mean="121.600" obs="109.448" stdev="2.000" z="-6.08"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="74.821" stdev="1.800" z="-19.88"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="82.527" stdev="2.200" z="-14.03"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="87.829" stdev="2.000" z="-11.29"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="14.567" stdev="2.700" z="-35.72"/>
+		<angle-outlier atom0="OD1" atom1="CG" atom2="ND2" mean="121.900" obs="109.500" stdev="2.300" z="-5.39"/>
+		<plane-outlier planeRMSD="0.17" type="sidechain"/>
+		<clash atom="C" cid="327" clashmag="0.77" dist="2.22"/>
+		<clash atom="C" cid="353" clashmag="0.74" dist="1.85"/>
+		<clash atom="C" cid="477" clashmag="0.60" dist="2.54"/>
+		<clash atom="CB" cid="62" clashmag="1.22" dist="2.17"/>
+		<clash atom="CB" cid="361" clashmag="0.73" dist="2.54"/>
+		<clash atom="N" cid="307" clashmag="0.79" dist="2.45"/>
+		<clash atom="O" cid="167" clashmag="0.99" dist="2.11"/>
+		<clash atom="O" cid="327" clashmag="0.77" dist="2.22"/>
+		<clash atom="O" cid="544" clashmag="0.53" dist="2.57"/>
+		<clash atom="CG" cid="268" clashmag="0.83" dist="2.47"/>
+		<clash atom="CA" cid="62" clashmag="1.22" dist="2.17"/>
+		<clash atom="CA" cid="89" clashmag="1.15" dist="2.15"/>
+		<clash atom="CA" cid="118" clashmag="1.08" dist="2.22"/>
+		<clash atom="CA" cid="138" clashmag="1.05" dist="2.04"/>
+		<clash atom="CA" cid="268" clashmag="0.83" dist="2.47"/>
+		<clash atom="CA" cid="307" clashmag="0.79" dist="2.45"/>
+		<clash atom="HB2" cid="608" clashmag="0.46" dist="2.31"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.222" stdev="0.019" z="52.28"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="5.082" stdev="0.026" z="136.81"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.448" stdev="0.020" z="49.44"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.527" obs="2.170" stdev="0.026" z="24.73"/>
+		<bond-outlier atom0="CG" atom1="ND2" mean="1.324" obs="1.039" stdev="0.025" z="-11.38"/>
+		<bond-outlier atom0="CG" atom1="OD1" mean="1.235" obs="1.041" stdev="0.022" z="-8.83"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="2" resname="GLY" resnum="28" said="A" seq="28" validate="True">
+		<clash atom="O" cid="256" clashmag="0.85" dist="2.15"/>
+		<clash atom="O" cid="537" clashmag="0.54" dist="2.03"/>
+		<clash atom="CA" cid="167" clashmag="0.99" dist="2.11"/>
+		<clash atom="N" cid="233" clashmag="0.89" dist="2.35"/>
+		<clash atom="N" cid="329" clashmag="0.77" dist="2.32"/>
+		<clash atom="N" cid="356" clashmag="0.74" dist="2.41"/>
+		<clash atom="N" cid="564" clashmag="0.51" dist="2.43"/>
+		<clash atom="C" cid="85" clashmag="1.16" dist="1.60"/>
+		<clash atom="C" cid="246" clashmag="0.87" dist="2.43"/>
+		<clash atom="C" cid="256" clashmag="0.85" dist="2.15"/>
+		<clash atom="C" cid="356" clashmag="0.74" dist="2.41"/>
+		<clash atom="C" cid="382" clashmag="0.71" dist="2.44"/>
+		<clash atom="C" cid="547" clashmag="0.52" dist="2.77"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.232" obs="2.150" stdev="0.016" z="57.39"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.514" obs="3.067" stdev="0.016" z="97.06"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.456" obs="2.901" stdev="0.015" z="96.34"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.600" obs="59.633" stdev="1.800" z="-33.87"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="113.100" obs="47.503" stdev="2.500" z="-26.24"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="10" resname="ARG" resnum="29" rota="OUTLIER" said="A" seq="29" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="NH1" atom1="CZ" atom2="NH2" mean="119.400" obs="109.598" stdev="1.100" z="-8.91"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="148.087" stdev="2.000" z="18.84"/>
+		<angle-outlier atom0="CD" atom1="NE" atom2="CZ" mean="123.600" obs="55.676" stdev="1.400" z="-48.52"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="NE" mean="111.800" obs="59.855" stdev="2.100" z="-24.74"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="96.861" stdev="1.800" z="-7.63"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH1" mean="120.300" obs="61.712" stdev="0.500" z="-117.18"/>
+		<angle-outlier atom0="NE" atom1="CZ" atom2="NH2" mean="120.300" obs="48.502" stdev="0.500" z="-143.60"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="82.616" stdev="2.100" z="-17.85"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="55.686" stdev="2.700" z="-20.49"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="26.447" stdev="2.200" z="-39.52"/>
+		<plane-outlier planeRMSD="0.84" type="sidechain"/>
+		<clash atom="CD" cid="40" clashmag="1.29" dist="2.10"/>
+		<clash atom="CD" cid="324" clashmag="0.78" dist="2.31"/>
+		<clash atom="CD" cid="468" clashmag="0.61" dist="2.77"/>
+		<clash atom="CD" cid="481" clashmag="0.60" dist="2.79"/>
+		<clash atom="CD" cid="541" clashmag="0.53" dist="2.72"/>
+		<clash atom="CD" cid="575" clashmag="0.50" dist="2.35"/>
+		<clash atom="CD" cid="588" clashmag="0.48" dist="2.38"/>
+		<clash atom="NH1" cid="3" clashmag="1.50" dist="1.74"/>
+		<clash atom="NH1" cid="11" clashmag="1.42" dist="1.15"/>
+		<clash atom="NH1" cid="35" clashmag="1.30" dist="1.62"/>
+		<clash atom="NH1" cid="70" clashmag="1.20" dist="1.92"/>
+		<clash atom="NH1" cid="112" clashmag="1.09" dist="1.98"/>
+		<clash atom="NH1" cid="128" clashmag="1.06" dist="2.09"/>
+		<clash atom="NH1" cid="344" clashmag="0.75" dist="2.49"/>
+		<clash atom="NH1" cid="557" clashmag="0.51" dist="2.43"/>
+		<clash atom="NH1" cid="596" clashmag="0.48" dist="2.60"/>
+		<clash atom="HH11" cid="95" clashmag="1.12" dist="1.41"/>
+		<clash atom="HH11" cid="104" clashmag="1.10" dist="1.44"/>
+		<clash atom="HH11" cid="106" clashmag="1.10" dist="1.45"/>
+		<clash atom="HH11" cid="527" clashmag="0.55" dist="2.02"/>
+		<clash atom="NH2" cid="170" clashmag="0.98" dist="1.71"/>
+		<clash atom="NH2" cid="224" clashmag="0.89" dist="2.35"/>
+		<clash atom="NH2" cid="380" clashmag="0.71" dist="2.38"/>
+		<clash atom="NH2" cid="452" clashmag="0.63" dist="2.09"/>
+		<clash atom="HD3" cid="605" clashmag="0.46" dist="1.86"/>
+		<clash atom="HD3" cid="652" clashmag="0.41" dist="2.44"/>
+		<clash atom="NE" cid="1" clashmag="1.53" dist="1.68"/>
+		<clash atom="NE" cid="22" clashmag="1.34" dist="1.89"/>
+		<clash atom="NE" cid="29" clashmag="1.32" dist="1.36"/>
+		<clash atom="NE" cid="48" clashmag="1.26" dist="1.89"/>
+		<clash atom="NE" cid="116" clashmag="1.08" dist="1.52"/>
+		<clash atom="NE" cid="187" clashmag="0.96" dist="1.75"/>
+		<clash atom="NE" cid="195" clashmag="0.95" dist="2.19"/>
+		<clash atom="NE" cid="321" clashmag="0.78" dist="2.16"/>
+		<clash atom="NE" cid="322" clashmag="0.78" dist="2.46"/>
+		<clash atom="NE" cid="380" clashmag="0.71" dist="2.38"/>
+		<clash atom="NE" cid="483" clashmag="0.60" dist="2.49"/>
+		<clash atom="NE" cid="541" clashmag="0.53" dist="2.72"/>
+		<clash atom="HG2" cid="187" clashmag="0.96" dist="1.75"/>
+		<clash atom="HH12" cid="82" clashmag="1.17" dist="1.42"/>
+		<clash atom="HH12" cid="365" clashmag="0.73" dist="0.92"/>
+		<clash atom="CG" cid="40" clashmag="1.29" dist="2.10"/>
+		<clash atom="CG" cid="322" clashmag="0.78" dist="2.46"/>
+		<clash atom="CG" cid="395" clashmag="0.70" dist="2.16"/>
+		<clash atom="CG" cid="544" clashmag="0.53" dist="2.57"/>
+		<clash atom="CA" cid="547" clashmag="0.52" dist="2.77"/>
+		<clash atom="HE" cid="110" clashmag="1.09" dist="1.52"/>
+		<clash atom="HE" cid="157" clashmag="1.00" dist="0.95"/>
+		<clash atom="N" cid="329" clashmag="0.77" dist="2.32"/>
+		<clash atom="N" cid="382" clashmag="0.71" dist="2.44"/>
+		<clash atom="O" cid="271" clashmag="0.83" dist="2.16"/>
+		<clash atom="C" cid="58" clashmag="1.23" dist="1.54"/>
+		<clash atom="C" cid="82" clashmag="1.17" dist="1.42"/>
+		<clash atom="C" cid="128" clashmag="1.06" dist="2.09"/>
+		<clash atom="C" cid="158" clashmag="1.00" dist="1.76"/>
+		<clash atom="C" cid="191" clashmag="0.96" dist="2.34"/>
+		<clash atom="C" cid="201" clashmag="0.94" dist="1.83"/>
+		<clash atom="C" cid="215" clashmag="0.90" dist="1.87"/>
+		<clash atom="C" cid="237" clashmag="0.88" dist="1.89"/>
+		<clash atom="C" cid="271" clashmag="0.83" dist="2.16"/>
+		<clash atom="C" cid="350" clashmag="0.75" dist="2.55"/>
+		<clash atom="C" cid="357" clashmag="0.74" dist="2.55"/>
+		<clash atom="C" cid="408" clashmag="0.67" dist="2.62"/>
+		<clash atom="C" cid="515" clashmag="0.56" dist="2.73"/>
+		<clash atom="CZ" cid="34" clashmag="1.30" dist="1.51"/>
+		<clash atom="CZ" cid="139" clashmag="1.04" dist="2.34"/>
+		<clash atom="CZ" cid="151" clashmag="1.02" dist="2.37"/>
+		<clash atom="CZ" cid="223" clashmag="0.89" dist="1.97"/>
+		<clash atom="CZ" cid="284" clashmag="0.82" dist="2.03"/>
+		<clash atom="CZ" cid="441" clashmag="0.64" dist="2.75"/>
+		<clash atom="CZ" cid="481" clashmag="0.60" dist="2.79"/>
+		<clash atom="CZ" cid="587" clashmag="0.48" dist="2.37"/>
+		<bond-outlier atom0="CZ" atom1="NH1" mean="1.326" obs="3.936" stdev="0.013" z="200.79"/>
+		<bond-outlier atom0="CD" atom1="NE" mean="1.460" obs="2.717" stdev="0.017" z="73.97"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.148" stdev="0.020" z="34.42"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="1.220" stdev="0.022" z="-14.31"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="10.119" stdev="0.026" z="330.56"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.164" stdev="0.019" z="49.20"/>
+		<bond-outlier atom0="CZ" atom1="NH2" mean="1.326" obs="2.191" stdev="0.013" z="66.54"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="6.871" stdev="0.027" z="198.15"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="2.099" stdev="0.025" z="23.35"/>
+		<bond-outlier atom0="NE" atom1="CZ" mean="1.326" obs="3.182" stdev="0.013" z="142.77"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="8" resname="VAL" resnum="30" rota="t" said="A" seq="30" validate="True">
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="108.649" stdev="2.500" z="-5.22"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="164.113" stdev="2.200" z="21.32"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="111.400" obs="60.468" stdev="1.900" z="-26.81"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG1" mean="110.900" obs="94.328" stdev="1.500" z="-11.05"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG2" mean="110.900" obs="37.230" stdev="1.500" z="-49.11"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="52.828" stdev="2.100" z="-32.03"/>
+		<angle-outlier atom0="CG1" atom1="CB" atom2="CG2" mean="110.900" obs="80.619" stdev="1.600" z="-18.93"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="111.500" obs="39.293" stdev="2.200" z="-32.82"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="35.993" stdev="2.700" z="-27.78"/>
+		<plane-outlier improper="-89.52" type="mainchain"/>
+		<clash atom="CG1" cid="242" clashmag="0.87" dist="2.43"/>
+		<clash atom="CG1" cid="350" clashmag="0.75" dist="2.55"/>
+		<clash atom="CG1" cid="543" clashmag="0.53" dist="2.43"/>
+		<clash atom="CG1" cid="609" clashmag="0.46" dist="2.91"/>
+		<clash atom="O" cid="442" clashmag="0.64" dist="2.05"/>
+		<clash atom="O" cid="469" clashmag="0.61" dist="2.35"/>
+		<clash atom="O" cid="510" clashmag="0.56" dist="2.39"/>
+		<clash atom="O" cid="557" clashmag="0.51" dist="2.43"/>
+		<clash atom="O" cid="635" clashmag="0.42" dist="2.56"/>
+		<clash atom="CA" cid="344" clashmag="0.75" dist="2.49"/>
+		<clash atom="HG23" cid="629" clashmag="0.43" dist="1.88"/>
+		<clash atom="HG23" cid="632" clashmag="0.43" dist="2.44"/>
+		<clash atom="HG11" cid="108" clashmag="1.09" dist="1.67"/>
+		<clash atom="HG11" cid="141" clashmag="1.03" dist="1.52"/>
+		<clash atom="HG11" cid="154" clashmag="1.01" dist="1.90"/>
+		<clash atom="C" cid="20" clashmag="1.35" dist="1.93"/>
+		<clash atom="C" cid="37" clashmag="1.30" dist="1.75"/>
+		<clash atom="C" cid="75" clashmag="1.19" dist="1.34"/>
+		<clash atom="C" cid="131" clashmag="1.06" dist="1.61"/>
+		<clash atom="C" cid="133" clashmag="1.05" dist="2.19"/>
+		<clash atom="C" cid="318" clashmag="0.78" dist="1.97"/>
+		<clash atom="CB" cid="408" clashmag="0.67" dist="2.62"/>
+		<clash atom="HG13" cid="298" clashmag="0.80" dist="1.51"/>
+		<clash atom="HG13" cid="405" clashmag="0.68" dist="2.18"/>
+		<clash atom="HG13" cid="559" clashmag="0.51" dist="1.82"/>
+		<clash atom="HG13" cid="618" clashmag="0.44" dist="2.42"/>
+		<clash atom="HG12" cid="158" clashmag="1.00" dist="1.76"/>
+		<clash atom="HG21" cid="578" clashmag="0.49" dist="2.19"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.485" stdev="0.023" z="6.50"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.366" stdev="0.020" z="45.35"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="0.979" stdev="0.019" z="-13.13"/>
+		<bond-outlier atom0="CB" atom1="CG1" mean="1.524" obs="1.077" stdev="0.021" z="-21.27"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.543" obs="3.432" stdev="0.021" z="89.97"/>
+		<bond-outlier atom0="CB" atom1="CG2" mean="1.524" obs="3.893" stdev="0.021" z="112.80"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.350" stdev="0.026" z="108.64"/>
+		<plane-outlier omega="73.98" type="peptide"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="11" resname="LEU" resnum="31" rota="OUTLIER" said="A" seq="31" validate="True">
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="78.549" stdev="2.700" z="-12.02"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD2" mean="111.000" obs="69.449" stdev="1.700" z="-24.44"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="115.300" obs="58.733" stdev="2.300" z="-24.59"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.200" obs="132.410" stdev="1.900" z="11.69"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD1" mean="111.000" obs="79.996" stdev="1.700" z="-18.24"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="79.969" stdev="2.100" z="-19.11"/>
+		<angle-outlier atom0="CD1" atom1="CG" atom2="CD2" mean="110.500" obs="28.858" stdev="3.000" z="-27.21"/>
+		<clash atom="CD1" cid="25" clashmag="1.34" dist="1.76"/>
+		<clash atom="CD1" cid="194" clashmag="0.96" dist="2.14"/>
+		<clash atom="CD1" cid="294" clashmag="0.81" dist="2.48"/>
+		<clash atom="CD1" cid="295" clashmag="0.80" dist="2.06"/>
+		<clash atom="CD1" cid="313" clashmag="0.78" dist="2.59"/>
+		<clash atom="CD1" cid="339" clashmag="0.76" dist="2.10"/>
+		<clash atom="CD1" cid="372" clashmag="0.72" dist="2.67"/>
+		<clash atom="CD1" cid="381" clashmag="0.71" dist="2.57"/>
+		<clash atom="CD1" cid="383" clashmag="0.70" dist="2.54"/>
+		<clash atom="CD2" cid="192" clashmag="0.96" dist="1.70"/>
+		<clash atom="CD2" cid="313" clashmag="0.78" dist="2.59"/>
+		<clash atom="CD2" cid="416" clashmag="0.67" dist="2.19"/>
+		<clash atom="CD2" cid="650" clashmag="0.41" dist="3.01"/>
+		<clash atom="HD23" cid="638" clashmag="0.42" dist="2.48"/>
+		<clash atom="O" cid="88" clashmag="1.15" dist="1.41"/>
+		<clash atom="O" cid="119" clashmag="1.08" dist="2.00"/>
+		<clash atom="O" cid="121" clashmag="1.07" dist="2.06"/>
+		<clash atom="O" cid="194" clashmag="0.96" dist="2.14"/>
+		<clash atom="O" cid="388" clashmag="0.70" dist="2.43"/>
+		<clash atom="O" cid="513" clashmag="0.56" dist="2.00"/>
+		<clash atom="O" cid="611" clashmag="0.45" dist="2.64"/>
+		<clash atom="HD22" cid="295" clashmag="0.80" dist="2.06"/>
+		<clash atom="HD22" cid="403" clashmag="0.68" dist="1.60"/>
+		<clash atom="H" cid="27" clashmag="1.33" dist="0.83"/>
+		<clash atom="H" cid="81" clashmag="1.17" dist="1.43"/>
+		<clash atom="H" cid="192" clashmag="0.96" dist="1.70"/>
+		<clash atom="H" cid="394" clashmag="0.70" dist="0.72"/>
+		<clash atom="CG" cid="12" clashmag="1.42" dist="1.40"/>
+		<clash atom="CG" cid="134" clashmag="1.05" dist="2.35"/>
+		<clash atom="CG" cid="315" clashmag="0.78" dist="2.31"/>
+		<clash atom="CG" cid="336" clashmag="0.77" dist="2.30"/>
+		<clash atom="CG" cid="424" clashmag="0.66" dist="2.72"/>
+		<clash atom="CB" cid="424" clashmag="0.66" dist="2.72"/>
+		<clash atom="CB" cid="469" clashmag="0.61" dist="2.35"/>
+		<clash atom="CB" cid="505" clashmag="0.57" dist="2.44"/>
+		<clash atom="CA" cid="134" clashmag="1.05" dist="2.35"/>
+		<clash atom="CA" cid="654" clashmag="0.41" dist="2.73"/>
+		<clash atom="HD12" cid="122" clashmag="1.07" dist="1.69"/>
+		<clash atom="HB2" cid="520" clashmag="0.56" dist="1.99"/>
+		<clash atom="HD13" cid="88" clashmag="1.15" dist="1.41"/>
+		<clash atom="HD13" cid="176" clashmag="0.97" dist="1.58"/>
+		<clash atom="HD13" cid="218" clashmag="0.90" dist="1.81"/>
+		<clash atom="HD13" cid="403" clashmag="0.68" dist="1.60"/>
+		<clash atom="HD13" cid="416" clashmag="0.67" dist="2.19"/>
+		<clash atom="N" cid="14" clashmag="1.40" dist="1.68"/>
+		<clash atom="N" cid="52" clashmag="1.24" dist="1.91"/>
+		<clash atom="N" cid="79" clashmag="1.18" dist="1.96"/>
+		<clash atom="N" cid="221" clashmag="0.90" dist="1.35"/>
+		<clash atom="N" cid="264" clashmag="0.84" dist="2.34"/>
+		<clash atom="N" cid="410" clashmag="0.67" dist="1.98"/>
+		<clash atom="C" cid="122" clashmag="1.07" dist="1.69"/>
+		<clash atom="C" cid="381" clashmag="0.71" dist="2.57"/>
+		<clash atom="HA" cid="12" clashmag="1.42" dist="1.40"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="2.716" stdev="0.029" z="41.22"/>
+		<bond-outlier atom0="CG" atom1="CD2" mean="1.514" obs="4.369" stdev="0.037" z="77.17"/>
+		<bond-outlier atom0="CG" atom1="CD1" mean="1.514" obs="5.333" stdev="0.037" z="103.20"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="3.420" stdev="0.019" z="115.33"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.821" stdev="0.026" z="126.76"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.533" obs="1.080" stdev="0.023" z="-19.71"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="12" resname="LYS" resnum="32" rota="OUTLIER" said="A" seq="32" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="53.754" stdev="2.200" z="-27.11"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="33.905" stdev="2.000" z="-38.25"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="60.897" stdev="1.800" z="-27.61"/>
+		<angle-outlier atom0="CB" atom1="CG" atom2="CD" mean="111.600" obs="62.351" stdev="2.600" z="-18.94"/>
+		<angle-outlier atom0="CD" atom1="CE" atom2="NZ" mean="111.700" obs="124.966" stdev="2.300" z="5.77"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="57.771" stdev="2.100" z="-29.68"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="40.421" stdev="2.700" z="-26.14"/>
+		<clash atom="HD2" cid="375" clashmag="0.72" dist="2.13"/>
+		<clash atom="HD2" cid="555" clashmag="0.51" dist="1.81"/>
+		<clash atom="N" cid="218" clashmag="0.90" dist="1.81"/>
+		<clash atom="N" cid="383" clashmag="0.70" dist="2.54"/>
+		<clash atom="N" cid="528" clashmag="0.55" dist="2.74"/>
+		<clash atom="N" cid="535" clashmag="0.54" dist="2.74"/>
+		<clash atom="HD3" cid="7" clashmag="1.47" dist="1.34"/>
+		<clash atom="HD3" cid="179" clashmag="0.97" dist="1.27"/>
+		<clash atom="HD3" cid="612" clashmag="0.45" dist="2.30"/>
+		<clash atom="CA" cid="119" clashmag="1.08" dist="2.00"/>
+		<clash atom="CA" cid="163" clashmag="0.99" dist="2.40"/>
+		<clash atom="CA" cid="435" clashmag="0.65" dist="2.21"/>
+		<clash atom="CD" cid="45" clashmag="1.26" dist="2.13"/>
+		<clash atom="CD" cid="120" clashmag="1.07" dist="2.31"/>
+		<clash atom="CD" cid="238" clashmag="0.88" dist="2.51"/>
+		<clash atom="CD" cid="305" clashmag="0.79" dist="2.52"/>
+		<clash atom="CD" cid="330" clashmag="0.77" dist="2.61"/>
+		<clash atom="CD" cid="427" clashmag="0.66" dist="2.10"/>
+		<clash atom="HB3" cid="555" clashmag="0.51" dist="1.81"/>
+		<clash atom="CB" cid="255" clashmag="0.85" dist="2.53"/>
+		<clash atom="CB" cid="330" clashmag="0.77" dist="2.61"/>
+		<clash atom="CB" cid="375" clashmag="0.72" dist="2.13"/>
+		<clash atom="HG2" cid="58" clashmag="1.23" dist="1.54"/>
+		<clash atom="HG2" cid="435" clashmag="0.65" dist="2.21"/>
+		<clash atom="HG3" cid="489" clashmag="0.60" dist="2.32"/>
+		<clash atom="C" cid="351" clashmag="0.75" dist="2.55"/>
+		<clash atom="C" cid="622" clashmag="0.44" dist="2.31"/>
+		<clash atom="CG" cid="4" clashmag="1.50" dist="1.94"/>
+		<clash atom="CG" cid="163" clashmag="0.99" dist="2.40"/>
+		<clash atom="CG" cid="168" clashmag="0.99" dist="2.45"/>
+		<clash atom="CG" cid="178" clashmag="0.97" dist="2.48"/>
+		<clash atom="CG" cid="191" clashmag="0.96" dist="2.34"/>
+		<clash atom="CG" cid="238" clashmag="0.88" dist="2.51"/>
+		<clash atom="CG" cid="255" clashmag="0.85" dist="2.53"/>
+		<clash atom="CG" cid="278" clashmag="0.82" dist="2.47"/>
+		<clash atom="CE" cid="45" clashmag="1.26" dist="2.13"/>
+		<bond-outlier atom0="CD" atom1="CE" mean="1.508" obs="2.127" stdev="0.025" z="24.77"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.520" obs="2.507" stdev="0.034" z="29.02"/>
+		<bond-outlier atom0="CE" atom1="NZ" mean="1.486" obs="3.364" stdev="0.025" z="75.11"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="3.103" stdev="0.020" z="82.19"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.521" obs="2.535" stdev="0.027" z="37.54"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="2.760" stdev="0.022" z="55.69"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="2.217" stdev="0.019" z="52.01"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.280" stdev="0.026" z="105.97"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="5" resname="GLU" resnum="33" rota="tp10" said="A" seq="33" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="68.060" stdev="2.200" z="-22.34"/>
+		<angle-outlier atom0="O" atom1="C" atom2="N" link="yes" mean="122.700" obs="60.013" stdev="1.600" z="-39.18"/>
+		<angle-outlier atom0="C" atom1="N" atom2="CA" link="yes" mean="121.700" obs="76.831" stdev="2.500" z="-17.95"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="74.570" stdev="2.100" z="-21.68"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="49.451" stdev="2.000" z="-30.48"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="OE2" mean="118.300" obs="78.020" stdev="2.000" z="-20.14"/>
+		<angle-outlier atom0="CG" atom1="CD" atom2="OE1" mean="118.300" obs="38.358" stdev="2.000" z="-39.97"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="96.934" stdev="2.700" z="-5.21"/>
+		<angle-outlier atom0="OE1" atom1="CD" atom2="OE2" mean="123.300" obs="47.902" stdev="1.200" z="-62.83"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="60.031" stdev="2.200" z="-24.26"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="51.510" stdev="1.800" z="-32.83"/>
+		<plane-outlier planeRMSD="0.27" type="sidechain"/>
+		<clash atom="CB" cid="269" clashmag="0.83" dist="2.56"/>
+		<clash atom="CB" cid="343" clashmag="0.75" dist="2.69"/>
+		<clash atom="CB" cid="359" clashmag="0.74" dist="2.71"/>
+		<clash atom="CB" cid="443" clashmag="0.64" dist="2.59"/>
+		<clash atom="CB" cid="529" clashmag="0.55" dist="2.55"/>
+		<clash atom="CB" cid="532" clashmag="0.54" dist="2.70"/>
+		<clash atom="CB" cid="591" clashmag="0.48" dist="2.62"/>
+		<clash atom="CB" cid="602" clashmag="0.47" dist="2.17"/>
+		<clash atom="CB" cid="606" clashmag="0.46" dist="2.21"/>
+		<clash atom="CD" cid="64" clashmag="1.22" dist="1.75"/>
+		<clash atom="CD" cid="160" clashmag="1.00" dist="2.30"/>
+		<clash atom="CD" cid="210" clashmag="0.92" dist="2.37"/>
+		<clash atom="HB3" cid="580" clashmag="0.49" dist="1.83"/>
+		<clash atom="HB3" cid="653" clashmag="0.41" dist="2.44"/>
+		<clash atom="O" cid="326" clashmag="0.77" dist="1.79"/>
+		<clash atom="O" cid="390" clashmag="0.70" dist="2.40"/>
+		<clash atom="O" cid="421" clashmag="0.66" dist="1.91"/>
+		<clash atom="O" cid="529" clashmag="0.55" dist="2.55"/>
+		<clash atom="HB2" cid="577" clashmag="0.49" dist="2.22"/>
+		<clash atom="HG2" cid="226" clashmag="0.89" dist="1.87"/>
+		<clash atom="HG2" cid="301" clashmag="0.79" dist="1.74"/>
+		<clash atom="HG2" cid="421" clashmag="0.66" dist="1.91"/>
+		<clash atom="HG3" cid="417" clashmag="0.67" dist="2.20"/>
+		<clash atom="OE1" cid="205" clashmag="0.93" dist="2.16"/>
+		<clash atom="OE1" cid="301" clashmag="0.79" dist="1.74"/>
+		<clash atom="OE1" cid="591" clashmag="0.48" dist="2.62"/>
+		<clash atom="HA" cid="622" clashmag="0.44" dist="2.31"/>
+		<clash atom="CA" cid="23" clashmag="1.34" dist="2.10"/>
+		<clash atom="CA" cid="135" clashmag="1.05" dist="1.49"/>
+		<clash atom="CA" cid="143" clashmag="1.03" dist="2.40"/>
+		<clash atom="CA" cid="160" clashmag="1.00" dist="2.30"/>
+		<clash atom="CA" cid="259" clashmag="0.85" dist="2.54"/>
+		<clash atom="CA" cid="351" clashmag="0.75" dist="2.55"/>
+		<clash atom="CA" cid="521" clashmag="0.56" dist="2.84"/>
+		<clash atom="CA" cid="571" clashmag="0.50" dist="2.13"/>
+		<clash atom="CG" cid="205" clashmag="0.93" dist="2.16"/>
+		<clash atom="CG" cid="210" clashmag="0.92" dist="2.37"/>
+		<clash atom="CG" cid="269" clashmag="0.83" dist="2.56"/>
+		<clash atom="CG" cid="390" clashmag="0.70" dist="2.40"/>
+		<clash atom="CG" cid="462" clashmag="0.62" dist="2.59"/>
+		<clash atom="CG" cid="521" clashmag="0.56" dist="2.84"/>
+		<clash atom="CG" cid="531" clashmag="0.54" dist="2.84"/>
+		<clash atom="CG" cid="607" clashmag="0.46" dist="2.64"/>
+		<clash atom="OE2" cid="64" clashmag="1.22" dist="1.75"/>
+		<clash atom="OE2" cid="369" clashmag="0.72" dist="2.28"/>
+		<clash atom="OE2" cid="607" clashmag="0.46" dist="2.64"/>
+		<clash atom="N" cid="443" clashmag="0.64" dist="2.59"/>
+		<clash atom="C" cid="226" clashmag="0.89" dist="1.87"/>
+		<clash atom="C" cid="369" clashmag="0.72" dist="2.28"/>
+		<clash atom="C" cid="462" clashmag="0.62" dist="2.59"/>
+		<bond-outlier atom0="C" atom1="N" link="yes" mean="1.336" obs="1.760" stdev="0.023" z="18.45"/>
+		<bond-outlier atom0="CD" atom1="OE1" mean="1.252" obs="3.438" stdev="0.011" z="198.75"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="4.828" stdev="0.026" z="127.03"/>
+		<bond-outlier atom0="CB" atom1="CG" mean="1.517" obs="2.558" stdev="0.019" z="54.78"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="2.894" stdev="0.020" z="71.75"/>
+		<bond-outlier atom0="C" atom1="O" mean="1.229" obs="1.757" stdev="0.019" z="27.78"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="3.055" stdev="0.022" z="69.10"/>
+		<bond-outlier atom0="CD" atom1="OE2" mean="1.252" obs="1.752" stdev="0.011" z="45.41"/>
+		<bond-outlier atom0="CG" atom1="CD" mean="1.515" obs="2.372" stdev="0.015" z="57.15"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" cis_peptide="yes" ent="1" icode=" " model="1" num-H-reduce="3" phi="171.2" psi="13.9" rama="OUTLIER" resname="ASP" resnum="34" rota="OUTLIER" said="A" seq="34" validate="True">
+		<chiral-outlier atom="CA" problem="WRONG HAND"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="N" link="yes" mean="117.200" obs="83.171" stdev="2.200" z="-15.47"/>
+		<angle-outlier atom0="CB" atom1="CA" atom2="C" mean="110.400" obs="6.707" stdev="2.000" z="-51.85"/>
+		<angle-outlier atom0="CA" atom1="C" atom2="O" mean="120.100" obs="41.568" stdev="2.100" z="-37.40"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" mean="110.600" obs="73.342" stdev="1.800" z="-20.70"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="C" mean="111.000" obs="71.914" stdev="2.700" z="-14.48"/>
+		<angle-outlier atom0="CA" atom1="CB" atom2="CG" mean="113.400" obs="88.043" stdev="2.200" z="-11.53"/>
+		<clash atom="N" cid="532" clashmag="0.54" dist="2.70"/>
+		<clash atom="N" cid="577" clashmag="0.49" dist="2.22"/>
+		<clash atom="CG" cid="8" clashmag="1.45" dist="1.32"/>
+		<clash atom="CG" cid="19" clashmag="1.35" dist="1.90"/>
+		<clash atom="CG" cid="48" clashmag="1.26" dist="1.89"/>
+		<clash atom="CG" cid="308" clashmag="0.79" dist="1.77"/>
+		<clash atom="CG" cid="407" clashmag="0.68" dist="2.53"/>
+		<clash atom="O" cid="35" clashmag="1.30" dist="1.62"/>
+		<clash atom="O" cid="324" clashmag="0.78" dist="2.31"/>
+		<clash atom="OD2" cid="13" clashmag="1.41" dist="1.66"/>
+		<clash atom="OD2" cid="47" clashmag="1.26" dist="1.26"/>
+		<clash atom="OD2" cid="53" clashmag="1.24" dist="1.85"/>
+		<clash atom="OD2" cid="148" clashmag="1.02" dist="1.97"/>
+		<clash atom="OD2" cid="252" clashmag="0.86" dist="1.69"/>
+		<clash atom="OD1" cid="321" clashmag="0.78" dist="2.16"/>
+		<clash atom="CB" cid="1" clashmag="1.53" dist="1.68"/>
+		<clash atom="CB" cid="5" clashmag="1.50" dist="1.84"/>
+		<clash atom="CB" cid="10" clashmag="1.43" dist="0.92"/>
+		<clash atom="CB" cid="100" clashmag="1.11" dist="1.76"/>
+		<clash atom="CB" cid="337" clashmag="0.76" dist="2.53"/>
+		<clash atom="CB" cid="348" clashmag="0.75" dist="2.52"/>
+		<clash atom="C" cid="70" clashmag="1.20" dist="1.92"/>
+		<clash atom="C" cid="104" clashmag="1.10" dist="1.44"/>
+		<clash atom="C" cid="195" clashmag="0.95" dist="2.19"/>
+		<clash atom="C" cid="337" clashmag="0.76" dist="2.53"/>
+		<clash atom="HB2" cid="21" clashmag="1.35" dist="1.45"/>
+		<clash atom="HB2" cid="116" clashmag="1.08" dist="1.52"/>
+		<clash atom="HB2" cid="157" clashmag="1.00" dist="0.95"/>
+		<clash atom="HB2" cid="283" clashmag="0.82" dist="0.90"/>
+		<clash atom="HB3" cid="65" clashmag="1.22" dist="1.64"/>
+		<clash atom="HB3" cid="250" clashmag="0.86" dist="1.71"/>
+		<clash atom="HB3" cid="352" clashmag="0.74" dist="0.81"/>
+		<clash atom="CA" cid="259" clashmag="0.85" dist="2.54"/>
+		<clash atom="CA" cid="417" clashmag="0.67" dist="2.20"/>
+		<clash atom="CA" cid="531" clashmag="0.54" dist="2.84"/>
+		<bond-outlier atom0="CA" atom1="C" mean="1.525" obs="11.672" stdev="0.026" z="390.29"/>
+		<bond-outlier atom0="N" atom1="CA" mean="1.459" obs="5.555" stdev="0.020" z="204.81"/>
+		<bond-outlier atom0="CA" atom1="CB" mean="1.535" obs="13.722" stdev="0.022" z="553.95"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="10" phi="-70.7" psi="-31.4" rama="Favored" resname="ILE" resnum="35" rota="mt" said="A" seq="35" validate="True">
+		<clash atom="HD12" cid="69" clashmag="1.21" dist="1.46"/>
+		<clash atom="N" cid="106" clashmag="1.10" dist="1.45"/>
+		<clash atom="N" cid="112" clashmag="1.09" dist="1.98"/>
+		<clash atom="HD13" cid="298" clashmag="0.80" dist="1.51"/>
+		<clash atom="HD13" cid="492" clashmag="0.59" dist="2.06"/>
+		<clash atom="O" cid="505" clashmag="0.57" dist="2.44"/>
+		<clash atom="O" cid="520" clashmag="0.56" dist="1.99"/>
+		<clash atom="C" cid="527" clashmag="0.55" dist="2.02"/>
+		<clash atom="C" cid="596" clashmag="0.48" dist="2.60"/>
+		<clash atom="CG1" cid="609" clashmag="0.46" dist="2.91"/>
+		<clash atom="CG1" cid="618" clashmag="0.44" dist="2.42"/>
+		<clash atom="HA" cid="11" clashmag="1.42" dist="1.15"/>
+		<clash atom="HA" cid="215" clashmag="0.90" dist="1.87"/>
+		<clash atom="HA" cid="365" clashmag="0.73" dist="0.92"/>
+		<clash atom="CD1" cid="78" clashmag="1.18" dist="2.05"/>
+		<clash atom="CD1" cid="405" clashmag="0.68" dist="2.18"/>
+		<clash atom="CA" cid="3" clashmag="1.50" dist="1.74"/>
+		<clash atom="CA" cid="95" clashmag="1.12" dist="1.41"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="3" phi="-52.0" psi="-41.1" rama="Favored" resname="ASP" resnum="36" rota="t70" said="A" seq="36" validate="True">
+		<clash atom="HB2" cid="494" clashmag="0.58" dist="1.58"/>
+		<clash atom="N" cid="486" clashmag="0.60" dist="1.94"/>
+		<clash atom="N" cid="574" clashmag="0.50" dist="2.59"/>
+		<clash atom="CB" cid="393" clashmag="0.70" dist="1.99"/>
+		<clash atom="C" cid="635" clashmag="0.42" dist="2.56"/>
+		<clash atom="CG" cid="118" clashmag="1.08" dist="2.22"/>
+		<clash atom="O" cid="315" clashmag="0.78" dist="2.31"/>
+		<clash atom="OD2" cid="138" clashmag="1.05" dist="2.04"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="4" phi="-73.2" psi="-33.4" rama="Favored" resname="ALA" resnum="37" said="A" seq="37" validate="True">
+		<clash atom="HB3" cid="395" clashmag="0.70" dist="2.16"/>
+		<clash atom="CB" cid="246" clashmag="0.87" dist="2.43"/>
+		<clash atom="N" cid="510" clashmag="0.56" dist="2.39"/>
+		<clash atom="HB2" cid="85" clashmag="1.16" dist="1.60"/>
+		<clash atom="HB2" cid="537" clashmag="0.54" dist="2.03"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="9" phi="-44.7" psi="-71.2" rama="Allowed" resname="PHE" resnum="38" rota="t80" said="A" seq="38" validate="True">
+		<clash atom="C" cid="79" clashmag="1.18" dist="1.96"/>
+		<clash atom="C" cid="81" clashmag="1.17" dist="1.43"/>
+		<clash atom="C" cid="294" clashmag="0.81" dist="2.48"/>
+		<clash atom="CZ" cid="143" clashmag="1.03" dist="2.40"/>
+		<clash atom="CD2" cid="343" clashmag="0.75" dist="2.69"/>
+		<clash atom="CD2" cid="638" clashmag="0.42" dist="2.48"/>
+		<clash atom="HB3" cid="131" clashmag="1.06" dist="1.61"/>
+		<clash atom="HB3" cid="410" clashmag="0.67" dist="1.98"/>
+		<clash atom="HB2" cid="237" clashmag="0.88" dist="1.89"/>
+		<clash atom="HB2" cid="318" clashmag="0.78" dist="1.97"/>
+		<clash atom="CB" cid="20" clashmag="1.35" dist="1.93"/>
+		<clash atom="CB" cid="264" clashmag="0.84" dist="2.34"/>
+		<clash atom="CB" cid="515" clashmag="0.56" dist="2.73"/>
+		<clash atom="HA" cid="339" clashmag="0.76" dist="2.10"/>
+		<clash atom="HA" cid="513" clashmag="0.56" dist="2.00"/>
+		<clash atom="CD1" cid="4" clashmag="1.50" dist="1.94"/>
+		<clash atom="CD1" cid="121" clashmag="1.07" dist="2.06"/>
+		<clash atom="CD1" cid="535" clashmag="0.54" dist="2.74"/>
+		<clash atom="CA" cid="52" clashmag="1.24" dist="1.91"/>
+		<clash atom="CA" cid="133" clashmag="1.05" dist="2.19"/>
+		<clash atom="CA" cid="372" clashmag="0.72" dist="2.67"/>
+		<clash atom="CA" cid="611" clashmag="0.45" dist="2.64"/>
+		<clash atom="HE2" cid="135" clashmag="1.05" dist="1.49"/>
+		<clash atom="HE2" cid="606" clashmag="0.46" dist="2.21"/>
+		<clash atom="H" cid="75" clashmag="1.19" dist="1.34"/>
+		<clash atom="N" cid="37" clashmag="1.30" dist="1.75"/>
+		<clash atom="N" cid="442" clashmag="0.64" dist="2.05"/>
+		<clash atom="HZ" cid="571" clashmag="0.50" dist="2.13"/>
+		<clash atom="CE1" cid="178" clashmag="0.97" dist="2.48"/>
+		<clash atom="CE1" cid="528" clashmag="0.55" dist="2.74"/>
+		<clash atom="HD2" cid="602" clashmag="0.47" dist="2.17"/>
+		<clash atom="CG" cid="168" clashmag="0.99" dist="2.45"/>
+		<clash atom="CG" cid="388" clashmag="0.70" dist="2.43"/>
+		<clash atom="CG" cid="489" clashmag="0.60" dist="2.32"/>
+		<clash atom="CG" cid="650" clashmag="0.41" dist="3.01"/>
+		<clash atom="CE2" cid="23" clashmag="1.34" dist="2.10"/>
+		<clash atom="CE2" cid="359" clashmag="0.74" dist="2.71"/>
+		<clash atom="O" cid="25" clashmag="1.34" dist="1.76"/>
+		<clash atom="O" cid="176" clashmag="0.97" dist="1.58"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="11" phi="-66.8" psi="-58.1" rama="Favored" resname="LEU" resnum="39" rota="tp" said="A" seq="39" validate="True">
+		<clash atom="CB" cid="111" clashmag="1.09" dist="1.76"/>
+		<clash atom="CB" cid="198" clashmag="0.95" dist="2.42"/>
+		<clash atom="HA" cid="580" clashmag="0.49" dist="1.83"/>
+		<clash atom="H" cid="221" clashmag="0.90" dist="1.35"/>
+		<clash atom="H" cid="394" clashmag="0.70" dist="0.72"/>
+		<clash atom="H" cid="414" clashmag="0.67" dist="1.48"/>
+		<clash atom="H" cid="642" clashmag="0.42" dist="2.25"/>
+		<clash atom="CA" cid="586" clashmag="0.49" dist="2.35"/>
+		<clash atom="CA" cid="653" clashmag="0.41" dist="2.44"/>
+		<clash atom="CD2" cid="18" clashmag="1.36" dist="1.73"/>
+		<clash atom="CD2" cid="90" clashmag="1.15" dist="2.10"/>
+		<clash atom="CD2" cid="165" clashmag="0.99" dist="2.31"/>
+		<clash atom="CD2" cid="206" clashmag="0.93" dist="1.69"/>
+		<clash atom="CD2" cid="234" clashmag="0.89" dist="1.79"/>
+		<clash atom="HB3" cid="333" clashmag="0.77" dist="2.09"/>
+		<clash atom="HD21" cid="63" clashmag="1.22" dist="1.08"/>
+		<clash atom="HD21" cid="208" clashmag="0.93" dist="1.82"/>
+		<clash atom="HB2" cid="222" clashmag="0.90" dist="1.96"/>
+		<clash atom="HB2" cid="239" clashmag="0.88" dist="1.42"/>
+		<clash atom="HD22" cid="203" clashmag="0.94" dist="1.76"/>
+		<clash atom="HD22" cid="379" clashmag="0.71" dist="2.05"/>
+		<clash atom="HD22" cid="585" clashmag="0.49" dist="1.51"/>
+		<clash atom="HD22" cid="620" clashmag="0.44" dist="1.49"/>
+		<clash atom="HD23" cid="286" clashmag="0.82" dist="1.90"/>
+		<clash atom="HD23" cid="391" clashmag="0.70" dist="1.83"/>
+		<clash atom="HD23" cid="397" clashmag="0.69" dist="1.44"/>
+		<clash atom="HD13" cid="326" clashmag="0.77" dist="1.79"/>
+		<clash atom="N" cid="14" clashmag="1.40" dist="1.68"/>
+		<clash atom="N" cid="27" clashmag="1.33" dist="0.83"/>
+		<clash atom="N" cid="434" clashmag="0.65" dist="2.06"/>
+		<clash atom="N" cid="654" clashmag="0.41" dist="2.73"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="5" phi="-46.4" psi="101.0" rama="OUTLIER" resname="ALA" resnum="40" said="A" seq="40" validate="True">
+		<clash atom="O" cid="336" clashmag="0.77" dist="2.30"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="3" phi="-81.9" psi="19.8" rama="Favored" resname="GLY" resnum="41" said="A" seq="41" validate="True"/>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="3" phi="-81.5" psi="165.0" rama="Favored" resname="GLY" resnum="42" said="A" seq="42" validate="True"/>
+	<ModelledSubgroup altcode=" " chain="A" ent="1" icode=" " model="1" num-H-reduce="5" resname="ALA" resnum="43" said="A" seq="43" validate="True"/>
+	<ModelledEntityInstance absolute_rama_percentile="0.00" absolute_sidechain_percentile="0.00" angles_rmsz="28.42" bonds_rmsz="103.30" chain="A" ent="1" model="1" num_angles_rmsz="383" num_bonds_rmsz="307" relative_rama_percentile="0.00" relative_sidechain_percentile="0.00" said="A"/>
+	<programs>
+		<program name="chemicalshifts" properties="rci_version,shiftchecker_version,panav_version" version="2.11"/>
+		<program name="molprobity" properties="relative_rama_percentile,bond-outlier,phi,num-H-reduce,cis_peptide,clash,angle-outlier,percent-rota-outliers-full-length,percent-rama-outliers-full-length,num_bonds_rmsz,absolute_sidechain_percentile,relative_sidechain_percentile,rota,psi,bonds_rmsz,clashscore-full-length,angles_rmsz,num_angles_rmsz,rama,absolute_rama_percentile" version="4.02b-467"/>
+		<program name="percentiles" properties="numPDBids-absolute-percentile-clashscore,absolute-percentile-percent-rota-outliers,relative-percentile-clashscore,relative-percentile-percent-rota-outliers,numPDBids-absolute-percentile-percent-rota-outliers,numPDBids-absolute-percentile-percent-rama-outliers,numPDBids-relative-percentile-percent-rota-outliers,numPDBids-relative-percentile-percent-rama-outliers,absolute-percentile-clashscore,no-percentile-property,relative-percentile-percent-rama-outliers,absolute-percentile-percent-rama-outliers,numPDBids-relative-percentile-clashscore" version="20191225.v01 (using entries in the PDB archive December 25th 2019)"/>
+		<program name="buster-report" properties="no-ligands-for-buster-report" version="unknown"/>
+		<program name="validation-pack" properties="plane-outlier,chiral-outlier" version="unknown"/>
+		<program name="mogul" properties="no-ligands-for-mogul" version="unknown"/>
+		<program name="validation-pipeline" properties="PDB-revision-date,PDB-resolution,protein-DNA-RNA-entities,PDB-Rfree,PDB-R,percentilebins,PDB-resolution-low,pdbid,PDB-revision-number,attemptedValidationSteps,XMLcreationDate,PDB-deposition-date" version="2.11"/>
+		<program name="nmrwriter" properties="clashscore,percent-rota-outliers,percent-rama-outliers" version="2.11"/>
+		<program name="coreclust" properties="cyrange_error,cyrange_version,nmrclust_version,nmr_models_consistency_flag,validate,nmrclust_error" version="2.11"/>
+	</programs>
+</wwPDB-validation-information>

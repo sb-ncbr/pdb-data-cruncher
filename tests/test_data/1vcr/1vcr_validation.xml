@@ -1,0 +1,474 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.02.xsd">
+	<Entry percentilebins="all,9.5,xray" attemptedValidationSteps="molprobity,validation-pack,xtriage,eds,mogul,buster-report,percentiles,writexml" PDB-deposition-date="2004-03-10" PDB-revision-date="2023-12-27" PDB-revision-number="5" protein-DNA-RNA-entities="1" PDB-resolution="9.50" PDB-resolution-low="20.00" PDB-R="0.3790" PDB-Rfree="0.3530" pdbid="1VCR" num-H-reduce="275" clashscore="9.34" RestypesNotcheckedForBondAngleGeometry="CHL,CLA" percent-rama-outliers="6.32" bonds_rmsz="0.34" num_bonds_rmsz="493" angles_rmsz="0.63" num_angles_rmsz="680" xtriage_input_columns="intensity_meas,intensity_sigma" TwinFraction="k,h,-l:0.459" WilsonBaniso="[281.949,281.949,281.949,0.000,0.000,0.000]" TransNCS="The largest off-origin peak in the Patterson function is 7.97% of the height of the origin peak. No significant pseudotranslation is detected." DataAnisotropy="0.000" centric_outliers="0" TwinL="0.161" IoverSigma="9.13(9.99A)" acentric_outliers="0" WilsonBestimate="281.949" TwinL2="0.043" numMillerIndices="2532" RefmacVersion="5.8.0158" CCP4version="7.0.044 (Gargrove)" DCC_R="0.4266" DCC_Rfree="0.4432" DCC_refinement_program="PHENIX" B_factor_type="FULL" EDS_resolution="9.50" EDS_resolution_low="208.22" percent-free-reflections="9.52" num-free-reflections="241" bulk_solvent_k="0.309" bulk_solvent_b="-109.999" Fo_Fc_correlation="0.451" DataCompleteness="99.68" EDS_R="0.3869" percent-RSRZ-outliers="100.00" ligands-for-buster-report="yes" absolute-percentile-clashscore="30.1" numPDBids-absolute-percentile-clashscore="141614" relative-percentile-clashscore="65.6" numPDBids-relative-percentile-clashscore="1071" low-resol-relative-percentile-clashscore="15.0" high-resol-relative-percentile-clashscore="3.9" absolute-percentile-percent-rama-outliers="1.2" numPDBids-absolute-percentile-percent-rama-outliers="138981" relative-percentile-percent-rama-outliers="16.7" numPDBids-relative-percentile-percent-rama-outliers="1003" low-resol-relative-percentile-percent-rama-outliers="11.5" high-resol-relative-percentile-percent-rama-outliers="3.9" absolute-percentile-percent-RSRZ-outliers="0.0" numPDBids-absolute-percentile-percent-RSRZ-outliers="127900" relative-percentile-percent-RSRZ-outliers="0.2" numPDBids-relative-percentile-percent-RSRZ-outliers="1004" low-resol-relative-percentile-percent-RSRZ-outliers="9.5" high-resol-relative-percentile-percent-RSRZ-outliers="3.8" absolute-percentile-DCC_Rfree="0.1" numPDBids-absolute-percentile-DCC_Rfree="130704" relative-percentile-DCC_Rfree="2.2" numPDBids-relative-percentile-DCC_Rfree="1005" low-resol-relative-percentile-DCC_Rfree="11.5" high-resol-relative-percentile-DCC_Rfree="3.9" XMLcreationDate="Dec 20, 2023 -- 06:14 AM EST"/>
+	<ModelledSubgroup num-H-reduce="1" rscc="-0.797" rsr="2.673" rsrz="12.637" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="55" said="A" ent="1" seq="55" icode=" " resname="PRO" altcode=" ">
+		<clash atom="C" dist="2.03" clashmag="0.62" cid="1"/>
+		<clash atom="C" dist="2.67" clashmag="0.47" cid="6"/>
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" obs="109.994" z="5.58" mean="103.300" stdev="1.200"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-68.5" psi="9.9" rama="Allowed" rscc="-0.727" rsr="2.521" rsrz="11.919" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="56" said="A" ent="1" seq="56" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-81.9" psi="-78.2" rama="Allowed" rscc="-0.631" rsr="2.494" rsrz="12.092" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="57" said="A" ent="1" seq="57" icode=" " resname="THR" altcode=" ">
+		<clash atom="H" dist="2.03" clashmag="0.62" cid="1"/>
+		<clash atom="N" dist="2.67" clashmag="0.47" cid="6"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-76.8" psi="-42.7" rama="Favored" rscc="-0.462" rsr="2.128" rsrz="8.069" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="58" said="A" ent="1" seq="58" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-51.0" psi="-46.1" rama="Favored" rscc="-0.568" rsr="1.882" rsrz="8.748" owab="296.400" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="59" said="A" ent="1" seq="59" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-63.1" psi="-43.7" rama="Favored" rscc="-0.261" rsr="1.671" rsrz="6.797" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="60" said="A" ent="1" seq="60" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-61.5" psi="-12.5" rama="Favored" rscc="-0.415" rsr="1.340" rsrz="6.203" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="61" said="A" ent="1" seq="61" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-101.8" psi="28.2" rama="Favored" rscc="-0.088" rsr="1.165" rsrz="4.275" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="62" said="A" ent="1" seq="62" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-101.8" psi="-64.5" rama="Allowed" rscc="0.061" rsr="1.042" rsrz="3.842" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="63" said="A" ent="1" seq="63" icode=" " resname="GLU" altcode=" ">
+		<clash atom="C" dist="1.97" clashmag="0.66" cid="0"/>
+		<clash atom="C" dist="2.63" clashmag="0.51" cid="4"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-69.1" psi="12.7" rama="Allowed" rscc="0.205" rsr="1.413" rsrz="4.639" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="64" said="A" ent="1" seq="64" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-80.9" psi="-81.5" rama="Allowed" rscc="0.135" rsr="1.089" rsrz="4.098" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="65" said="A" ent="1" seq="65" icode=" " resname="GLU" altcode=" ">
+		<clash atom="H" dist="1.97" clashmag="0.66" cid="0"/>
+		<clash atom="N" dist="2.63" clashmag="0.51" cid="4"/>
+		<clash atom="O" dist="2.44" clashmag="0.46" cid="8"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-56.4" psi="-29.0" rama="Favored" rscc="-0.068" rsr="1.469" rsrz="5.301" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="66" said="A" ent="1" seq="66" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-62.4" psi="-57.4" rama="Favored" rscc="0.166" rsr="1.388" rsrz="4.758" owab="296.150" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="67" said="A" ent="1" seq="67" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-72.6" psi="-25.4" rama="Favored" rscc="-0.036" rsr="1.016" rsrz="3.759" owab="296.440" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="68" said="A" ent="1" seq="68" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-69.0" psi="-47.0" rama="Favored" rscc="0.223" rsr="1.172" rsrz="4.851" owab="295.470" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="69" said="A" ent="1" seq="69" icode=" " resname="SER" altcode=" ">
+		<clash atom="N" dist="2.44" clashmag="0.46" cid="8"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-63.8" psi="-41.4" rama="Favored" rscc="0.421" rsr="1.687" rsrz="7.056" owab="296.340" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="70" said="A" ent="1" seq="70" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-68.4" psi="-31.2" rama="Favored" rscc="0.170" rsr="1.530" rsrz="5.699" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="71" said="A" ent="1" seq="71" icode=" " resname="TRP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-72.6" psi="-34.9" rama="Favored" rscc="0.024" rsr="1.156" rsrz="4.236" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="72" said="A" ent="1" seq="72" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-72.0" psi="-42.6" rama="Favored" rscc="0.452" rsr="1.447" rsrz="5.342" owab="296.150" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="73" said="A" ent="1" seq="73" icode=" " resname="MET" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-72.7" psi="-31.9" rama="Favored" rscc="-0.202" rsr="1.882" rsrz="6.783" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="74" said="A" ent="1" seq="74" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-87.3" psi="-2.0" rama="Favored" rscc="0.185" rsr="2.007" rsrz="8.834" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="75" said="A" ent="1" seq="75" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-70.8" psi="-74.0" rama="Allowed" rscc="0.210" rsr="1.879" rsrz="7.867" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="76" said="A" ent="1" seq="76" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-66.5" psi="-19.4" rama="Favored" rscc="-0.516" rsr="2.425" rsrz="9.265" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="77" said="A" ent="1" seq="77" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-68.5" psi="-27.6" rama="Favored" rscc="-0.528" rsr="2.935" rsrz="13.612" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="78" said="A" ent="1" seq="78" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-96.5" psi="0.1" rama="Favored" rscc="-0.477" rsr="2.701" rsrz="13.041" owab="296.380" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="79" said="A" ent="1" seq="79" icode=" " resname="CYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-131.4" psi="-1.7" rama="Favored" rscc="-0.327" rsr="2.768" rsrz="11.561" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="80" said="A" ent="1" seq="80" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-69.6" psi="-52.7" rama="Favored" rscc="-0.364" rsr="2.870" rsrz="11.544" owab="295.760" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="81" said="A" ent="1" seq="81" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="1" phi="-52.8" psi="-25.1" rama="Favored" rscc="-0.466" rsr="3.296" rsrz="15.975" owab="295.280" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="82" said="A" ent="1" seq="82" icode=" " resname="PRO" altcode=" ">
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" obs="109.851" z="5.46" mean="103.300" stdev="1.200"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-75.7" psi="-48.2" rama="Favored" rscc="-0.317" rsr="4.253" rsrz="21.378" owab="296.440" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="83" said="A" ent="1" seq="83" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-58.1" psi="-34.0" rama="Favored" rscc="-0.582" rsr="3.697" rsrz="15.078" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="84" said="A" ent="1" seq="84" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-83.1" psi="-24.6" rama="Favored" rscc="-0.729" rsr="3.666" rsrz="14.936" owab="296.290" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="85" said="A" ent="1" seq="85" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-83.8" psi="-50.3" rama="Favored" rscc="-0.806" rsr="4.886" rsrz="25.235" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="86" said="A" ent="1" seq="86" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-54.3" psi="-24.8" rama="Favored" rscc="-0.853" rsr="4.664" rsrz="22.917" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="87" said="A" ent="1" seq="87" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-81.2" psi="-40.2" rama="Favored" rscc="-0.698" rsr="3.273" rsrz="17.655" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="88" said="A" ent="1" seq="88" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" rscc="-0.797" rsr="3.263" rsrz="15.301" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="89" said="A" ent="1" seq="89" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="1" rscc="-0.713" rsr="2.496" rsrz="12.118" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="123" said="A" ent="1" seq="123" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-58.2" psi="-48.9" rama="Favored" rscc="-0.553" rsr="2.700" rsrz="10.967" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="124" said="A" ent="1" seq="124" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-84.6" psi="-19.3" rama="Favored" rscc="-0.321" rsr="2.232" rsrz="8.383" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="125" said="A" ent="1" seq="125" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-64.1" psi="-31.3" rama="Favored" rscc="-0.675" rsr="1.838" rsrz="7.661" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="126" said="A" ent="1" seq="126" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-85.4" psi="-29.0" rama="Favored" rscc="-0.306" rsr="2.533" rsrz="10.177" owab="296.410" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="127" said="A" ent="1" seq="127" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-82.3" psi="-35.5" rama="Favored" rscc="-0.181" rsr="2.188" rsrz="8.947" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="128" said="A" ent="1" seq="128" icode=" " resname="TRP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-56.8" psi="-46.0" rama="Favored" rscc="-0.461" rsr="2.144" rsrz="9.198" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="129" said="A" ent="1" seq="129" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-75.6" psi="-50.4" rama="Favored" rscc="-0.479" rsr="2.114" rsrz="9.993" owab="296.360" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="130" said="A" ent="1" seq="130" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-54.3" psi="-51.2" rama="Favored" rscc="-0.223" rsr="3.722" rsrz="18.894" owab="296.310" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="131" said="A" ent="1" seq="131" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-75.8" psi="24.8" rama="OUTLIER" rscc="-0.613" rsr="3.205" rsrz="13.667" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="132" said="A" ent="1" seq="132" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-148.8" psi="-44.2" rama="OUTLIER" rscc="-0.713" rsr="3.753" rsrz="15.950" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="133" said="A" ent="1" seq="133" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-69.2" psi="-34.5" rama="Favored" rscc="-0.571" rsr="3.710" rsrz="15.138" owab="296.440" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="134" said="A" ent="1" seq="134" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-102.8" psi="-16.6" rama="Favored" rscc="-0.222" rsr="4.697" rsrz="21.383" owab="296.160" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="135" said="A" ent="1" seq="135" icode=" " resname="MET" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-72.3" psi="-10.7" rama="Favored" rscc="-0.581" rsr="4.133" rsrz="19.781" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="136" said="A" ent="1" seq="136" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-110.6" psi="-28.2" rama="Favored" rscc="-0.633" rsr="4.058" rsrz="18.812" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="137" said="A" ent="1" seq="137" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-58.0" psi="-57.4" rama="Favored" rscc="-0.306" rsr="4.513" rsrz="19.971" owab="296.460" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="138" said="A" ent="1" seq="138" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-69.9" psi="-16.2" rama="Favored" rscc="0.046" rsr="3.970" rsrz="19.833" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="139" said="A" ent="1" seq="139" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-78.3" psi="19.5" rama="Favored" rscc="-0.485" rsr="3.592" rsrz="16.995" owab="295.950" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="140" said="A" ent="1" seq="140" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-132.8" psi="-4.4" rama="Favored" rscc="-0.558" rsr="2.990" rsrz="12.708" owab="296.430" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="141" said="A" ent="1" seq="141" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-66.8" psi="-14.7" rama="Favored" rscc="-0.595" rsr="3.805" rsrz="18.340" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="142" said="A" ent="1" seq="142" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" rscc="-0.705" rsr="3.324" rsrz="13.920" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="143" said="A" ent="1" seq="143" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="1" rscc="-0.881" rsr="3.280" rsrz="15.890" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="170" said="A" ent="1" seq="170" icode=" " resname="PRO" altcode=" ">
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" obs="109.891" z="5.49" mean="103.300" stdev="1.200"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-59.6" psi="-25.9" rama="Favored" rscc="-0.859" rsr="4.284" rsrz="21.548" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="171" said="A" ent="1" seq="171" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-99.6" psi="-37.6" rama="Favored" rscc="-0.727" rsr="3.983" rsrz="18.435" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="172" said="A" ent="1" seq="172" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-65.3" psi="-38.8" rama="Favored" rscc="-0.624" rsr="3.913" rsrz="16.430" owab="296.420" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="173" said="A" ent="1" seq="173" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-57.6" psi="-47.0" rama="Favored" rscc="-0.709" rsr="4.443" rsrz="20.745" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="174" said="A" ent="1" seq="174" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-75.6" psi="-33.9" rama="Favored" rscc="-0.470" rsr="4.529" rsrz="22.886" owab="296.510" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="175" said="A" ent="1" seq="175" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-66.5" psi="-25.8" rama="Favored" rscc="-0.423" rsr="3.785" rsrz="15.480" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="176" said="A" ent="1" seq="176" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-80.9" psi="-12.3" rama="Favored" rscc="-0.572" rsr="3.257" rsrz="15.058" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="177" said="A" ent="1" seq="177" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-95.4" psi="-47.4" rama="Favored" rscc="0.065" rsr="2.139" rsrz="8.530" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="178" said="A" ent="1" seq="178" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-63.2" psi="-33.0" rama="Favored" rscc="0.408" rsr="2.302" rsrz="10.084" owab="296.380" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="179" said="A" ent="1" seq="179" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-59.7" psi="-26.1" rama="Favored" rscc="0.273" rsr="1.894" rsrz="8.495" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="180" said="A" ent="1" seq="180" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-94.9" psi="-30.6" rama="Favored" rscc="0.335" rsr="1.344" rsrz="4.324" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="181" said="A" ent="1" seq="181" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-73.5" psi="-34.6" rama="Favored" rscc="0.279" rsr="1.520" rsrz="6.011" owab="296.360" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="182" said="A" ent="1" seq="182" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-70.9" psi="-58.3" rama="Favored" rscc="0.612" rsr="1.598" rsrz="7.732" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="183" said="A" ent="1" seq="183" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-60.3" psi="-15.1" rama="Favored" rscc="0.704" rsr="1.086" rsrz="4.091" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="184" said="A" ent="1" seq="184" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-64.7" psi="-60.5" rama="Favored" rscc="0.292" rsr="1.288" rsrz="4.931" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="185" said="A" ent="1" seq="185" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-67.2" psi="-25.6" rama="Favored" rscc="0.313" rsr="1.884" rsrz="6.792" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="186" said="A" ent="1" seq="186" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-65.6" psi="-50.8" rama="Favored" rscc="0.511" rsr="1.710" rsrz="7.019" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="187" said="A" ent="1" seq="187" icode=" " resname="ALA" altcode=" ">
+		<clash atom="O" dist="2.49" clashmag="0.46" cid="7"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-56.6" psi="-41.9" rama="Favored" rscc="-0.210" rsr="1.384" rsrz="5.031" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="188" said="A" ent="1" seq="188" icode=" " resname="MET" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-73.0" psi="-11.5" rama="Favored" rscc="-0.415" rsr="1.873" rsrz="6.874" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="189" said="A" ent="1" seq="189" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-104.2" psi="-13.6" rama="Favored" rscc="0.064" rsr="2.306" rsrz="11.075" owab="296.360" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="190" said="A" ent="1" seq="190" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-79.3" psi="-54.7" rama="Favored" rscc="-0.272" rsr="1.723" rsrz="6.704" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="191" said="A" ent="1" seq="191" icode=" " resname="MET" altcode=" ">
+		<clash atom="C" dist="2.13" clashmag="0.50" cid="5"/>
+		<clash atom="C" dist="2.73" clashmag="0.41" cid="9"/>
+		<clash atom="N" dist="2.49" clashmag="0.46" cid="7"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-72.2" psi="7.5" rama="Allowed" rscc="-0.777" rsr="1.156" rsrz="3.516" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="192" said="A" ent="1" seq="192" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-88.3" psi="-75.5" rama="Allowed" rscc="0.089" rsr="1.709" rsrz="7.299" owab="296.520" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="193" said="A" ent="1" seq="193" icode=" " resname="GLY" altcode=" ">
+		<clash atom="H" dist="2.13" clashmag="0.50" cid="5"/>
+		<clash atom="N" dist="2.73" clashmag="0.41" cid="9"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-38.0" psi="-58.3" rama="Allowed" rscc="0.320" rsr="1.615" rsrz="5.666" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="194" said="A" ent="1" seq="194" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-51.9" psi="-64.7" rama="Allowed" rscc="-0.020" rsr="1.369" rsrz="4.514" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="195" said="A" ent="1" seq="195" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-52.9" psi="-45.0" rama="Favored" rscc="-0.395" rsr="1.109" rsrz="3.566" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="196" said="A" ent="1" seq="196" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-57.1" psi="-55.4" rama="Favored" rscc="0.086" rsr="1.516" rsrz="6.604" owab="296.020" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="197" said="A" ent="1" seq="197" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-53.5" psi="-30.2" rama="Favored" rscc="-0.316" rsr="1.555" rsrz="6.240" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="198" said="A" ent="1" seq="198" icode=" " resname="ALA" altcode=" ">
+		<clash atom="HA" dist="2.10" clashmag="0.52" cid="3"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-68.7" psi="-14.8" rama="Favored" rscc="-0.498" rsr="1.294" rsrz="4.313" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="199" said="A" ent="1" seq="199" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-51.5" psi="-42.5" rama="Favored" rscc="-0.424" rsr="2.071" rsrz="8.202" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="200" said="A" ent="1" seq="200" icode=" " resname="VAL" altcode=" ">
+		<clash atom="O" dist="2.50" clashmag="0.58" cid="2"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="125.2" psi="-6.1" rama="OUTLIER" rscc="-0.531" rsr="2.036" rsrz="9.562" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="201" said="A" ent="1" seq="201" icode=" " resname="THR" altcode=" ">
+		<clash atom="CB" dist="2.50" clashmag="0.58" cid="2"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" phi="-64.5" psi="-84.6" rama="OUTLIER" rscc="-0.704" rsr="2.746" rsrz="12.639" owab="296.350" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="202" said="A" ent="1" seq="202" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="175.8" psi="-160.1" rama="OUTLIER" rscc="-0.153" rsr="1.868" rsrz="7.823" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="203" said="A" ent="1" seq="203" icode=" " resname="LYS" altcode=" ">
+		<clash atom="O" dist="2.10" clashmag="0.52" cid="3"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" phi="-61.0" psi="169.2" rama="Favored" rscc="0.035" rsr="1.962" rsrz="8.602" owab="296.330" avgoccu="1.000" NatomsEDS="4" model="1" chain="A" resnum="204" said="A" ent="1" seq="204" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="1" phi="-54.9" psi="-73.5" rama="OUTLIER" rscc="0.179" rsr="1.958" rsrz="8.805" owab="296.070" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="205" said="A" ent="1" seq="205" icode=" " resname="PRO" altcode=" ">
+		<angle-outlier atom0="N" atom1="CA" atom2="CB" obs="109.976" z="5.56" mean="103.300" stdev="1.200"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="2" phi="-56.9" psi="-31.6" rama="Favored" rscc="0.230" rsr="2.310" rsrz="8.739" owab="295.180" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="206" said="A" ent="1" seq="206" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-61.7" psi="-14.8" rama="Favored" rscc="-0.143" rsr="2.065" rsrz="9.429" owab="296.490" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="207" said="A" ent="1" seq="207" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-91.8" psi="-38.8" rama="Favored" rscc="-0.175" rsr="2.213" rsrz="11.375" owab="296.330" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="208" said="A" ent="1" seq="208" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-63.7" psi="-41.1" rama="Favored" rscc="-0.050" rsr="2.245" rsrz="8.442" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="209" said="A" ent="1" seq="209" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-68.0" psi="-25.0" rama="Favored" rscc="-0.187" rsr="2.650" rsrz="11.740" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="210" said="A" ent="1" seq="210" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-84.5" psi="-47.3" rama="Favored" rscc="-0.449" rsr="2.241" rsrz="11.342" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="211" said="A" ent="1" seq="211" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-64.3" psi="-10.9" rama="Favored" rscc="-0.385" rsr="3.682" rsrz="18.240" owab="296.480" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="212" said="A" ent="1" seq="212" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="2" phi="-90.8" psi="22.6" rama="Favored" rscc="-0.518" rsr="3.485" rsrz="14.109" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="213" said="A" ent="1" seq="213" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" rscc="-0.727" rsr="3.255" rsrz="14.779" owab="296.520" avgoccu="1.000" NatomsEDS="5" model="1" chain="A" resnum="214" said="A" ent="1" seq="214" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.319" rsr="2.675" owab="295.890" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.11" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.86" mogul_rmsz_numangles="30" model="1" chain="A" resnum="251" said="B" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.38" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.55" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.93" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.01" Zscore="-2.71" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.16" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.04" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.76" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.38" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.64" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.40" obsval="1.53"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.50" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.19" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.11" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.86" Zscore="2.95" obsval="116.10"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.26" Zscore="-2.26" obsval="108.12"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.48" Zscore="2.47" obsval="107.81"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.18" Zscore="2.65" obsval="114.00"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.08" Zscore="-4.46" obsval="101.87"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.60" Zscore="-4.19" obsval="120.47"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.02" Zscore="-3.88" obsval="102.98"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.40" Zscore="10.80" obsval="134.95"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.10" Zscore="-4.20" obsval="116.13"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.551" rsr="2.677" owab="296.470" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.17" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.88" mogul_rmsz_numangles="30" model="1" chain="A" resnum="252" said="C" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.11" Zscore="5.65" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.53" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.90" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.53" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.15" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.12" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.76" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.49" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.04" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.88" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.50" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.80" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.25" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.00" obsval="1.40"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.97" Zscore="3.00" obsval="116.22"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.41" Zscore="-2.43" obsval="107.97"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.42" Zscore="2.32" obsval="107.75"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.18" Zscore="2.65" obsval="114.00"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.18" Zscore="-4.38" obsval="101.97"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.52" Zscore="-4.10" obsval="120.56"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.16" Zscore="-3.76" obsval="103.12"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.60" Zscore="11.00" obsval="135.14"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.00" Zscore="-4.25" obsval="116.03"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.447" rsr="2.672" owab="296.350" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.19" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.87" mogul_rmsz_numangles="30" model="1" chain="A" resnum="253" said="D" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.11" Zscore="5.68" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.66" obsval="2.15"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="6.00" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.48" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.17" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.21" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.71" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.26" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.17" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.96" obsval="1.50"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.56" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.91" obsval="1.50"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.23" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.29" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.86" Zscore="2.95" obsval="116.11"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.50" Zscore="-2.53" obsval="107.89"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.40" Zscore="2.28" obsval="107.73"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.41" Zscore="2.78" obsval="114.23"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.02" Zscore="-4.55" obsval="101.76"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.27" Zscore="-3.84" obsval="120.81"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.02" Zscore="-3.88" obsval="102.98"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.44" Zscore="10.85" obsval="134.99"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="0.92" Zscore="-4.29" obsval="115.94"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.072" rsr="1.305" owab="296.210" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.09" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.86" mogul_rmsz_numangles="30" model="1" chain="A" resnum="254" said="E" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.49" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.06" Zscore="4.04" obsval="2.13"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="4.94" obsval="1.38"/>
+		<mog-bond-outlier atoms="C1B,CHB" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.34" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.01" Zscore="-2.62" obsval="1.38"/>
+		<mog-bond-outlier atoms="CHD,C1D" numobs="401" mean="1.38" stdev="0.02" mindiff="0.00" Zscore="2.21" obsval="1.43"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.19" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.01" Zscore="3.47" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.33" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.15" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.72" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.01" Zscore="8.64" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.96" obsval="1.50"/>
+		<mog-bond-outlier atoms="C2D,C1D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.02" obsval="1.39"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.21" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.35" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="4.30" Zscore="3.16" obsval="116.55"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.43" Zscore="-2.45" obsval="107.96"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.57" Zscore="2.65" obsval="107.90"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.35" Zscore="2.75" obsval="114.17"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.17" Zscore="-4.39" obsval="101.95"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.21" Zscore="-3.78" obsval="120.86"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.13" Zscore="-3.79" obsval="103.09"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.43" Zscore="10.83" obsval="134.98"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.26" Zscore="-4.13" obsval="116.29"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.693" rsr="2.072" owab="296.490" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.16" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.88" mogul_rmsz_numangles="30" model="1" chain="A" resnum="255" said="F" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.63" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.55" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.89" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.56" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.13" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.07" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.76" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.50" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.06" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.86" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.48" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.77" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.24" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.06" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.91" Zscore="2.97" obsval="116.16"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.45" Zscore="-2.47" obsval="107.94"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.49" Zscore="2.49" obsval="107.82"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.14" Zscore="2.63" obsval="113.96"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.17" Zscore="-4.37" obsval="101.98"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.46" Zscore="-4.04" obsval="120.61"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.20" Zscore="-3.72" obsval="103.16"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.58" Zscore="10.99" obsval="135.13"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="0.95" Zscore="-4.28" obsval="115.97"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.676" rsr="3.141" owab="295.980" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.14" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.85" mogul_rmsz_numangles="30" model="1" chain="A" resnum="256" said="G" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.38" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.62" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.04" Zscore="6.07" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.01" Zscore="-2.70" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.18" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.01" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.81" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.34" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.71" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.42" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.73" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.20" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.00" obsval="1.40"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.78" Zscore="2.91" obsval="116.03"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.29" Zscore="-2.29" obsval="108.09"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.38" Zscore="2.23" obsval="107.71"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.30" Zscore="2.72" obsval="114.12"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.14" Zscore="-4.41" obsval="101.93"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.58" Zscore="-4.16" obsval="120.50"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.17" Zscore="-3.75" obsval="103.12"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.40" Zscore="10.80" obsval="134.95"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.14" Zscore="-4.19" obsval="116.16"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.641" rsr="2.568" owab="296.520" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.09" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.92" mogul_rmsz_numangles="30" model="1" chain="A" resnum="257" said="H" ent="2" seq="." icode=" " resname="CLA" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.11" Zscore="5.71" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.06" Zscore="3.96" obsval="2.13"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.77" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.40" obsval="1.39"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.15" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.01" Zscore="2.40" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.01" Zscore="3.55" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.21" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.83" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.36" obsval="1.53"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.66" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2D,C1D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.20" obsval="1.39"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.16" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.36" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.97" Zscore="3.00" obsval="116.21"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.63" Zscore="-2.68" obsval="107.75"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.29" Zscore="2.02" obsval="107.62"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.34" Zscore="2.74" obsval="114.16"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.05" Zscore="-4.49" obsval="101.84"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.30" Zscore="-3.87" obsval="120.77"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.04" Zscore="-3.87" obsval="103.00"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.78" Zscore="11.19" obsval="135.32"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="0.80" Zscore="-4.35" obsval="115.82"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.526" rsr="3.750" owab="296.360" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.11" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.87" mogul_rmsz_numangles="30" model="1" chain="A" resnum="261" said="I" ent="3" seq="." icode=" " resname="CHL" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="NA"/>
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<chiral-outlier problem="PLANAR" atom="NC"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.60" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.67" obsval="2.15"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.61" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.42" obsval="1.39"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.13" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.87" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.02" Zscore="5.24" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.85" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.47" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.79" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.15" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.03" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="4.07" Zscore="3.05" obsval="116.32"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.22" Zscore="-2.21" obsval="108.17"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.58" Zscore="2.68" obsval="107.91"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.11" Zscore="2.61" obsval="113.93"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.09" Zscore="-4.45" obsval="101.87"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.87" Zscore="-4.46" obsval="120.20"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.04" Zscore="-3.87" obsval="102.99"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.28" Zscore="10.68" obsval="134.83"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.10" Zscore="-4.21" obsval="116.12"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.229" rsr="2.427" owab="296.470" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.16" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.87" mogul_rmsz_numangles="30" model="1" chain="A" resnum="262" said="J" ent="3" seq="." icode=" " resname="CHL" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="NA"/>
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<chiral-outlier problem="PLANAR" atom="NC"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.62" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.49" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.87" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.57" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.12" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.07" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.80" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.45" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.07" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.88" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.45" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.75" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.21" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.10" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.86" Zscore="2.95" obsval="116.11"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.47" Zscore="-2.49" obsval="107.92"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.37" Zscore="2.22" obsval="107.70"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.17" Zscore="2.64" obsval="113.99"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.16" Zscore="-4.35" obsval="102.00"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.50" Zscore="-4.07" obsval="120.58"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.16" Zscore="-3.76" obsval="103.11"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.57" Zscore="10.98" obsval="135.12"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="0.99" Zscore="-4.26" obsval="116.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.590" rsr="2.961" owab="296.160" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.16" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.87" mogul_rmsz_numangles="30" model="1" chain="A" resnum="263" said="K" ent="3" seq="." icode=" " resname="CHL" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="NA"/>
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<chiral-outlier problem="PLANAR" atom="NC"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.60" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.53" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.90" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="-2.52" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.14" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.17" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.74" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.45" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.07" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.92" obsval="1.50"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.46" obsval="1.54"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.82" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.27" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.05" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.90" Zscore="2.97" obsval="116.14"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.42" Zscore="-2.44" obsval="107.96"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.50" Zscore="2.49" obsval="107.83"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.17" Zscore="2.64" obsval="113.98"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.17" Zscore="-4.39" obsval="101.95"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.49" Zscore="-4.07" obsval="120.59"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.15" Zscore="-3.77" obsval="103.10"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.49" Zscore="10.89" obsval="135.03"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.03" Zscore="-4.24" obsval="116.06"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.307" rsr="2.975" owab="296.510" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.15" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.86" mogul_rmsz_numangles="30" model="1" chain="A" resnum="265" said="L" ent="3" seq="." icode=" " resname="CHL" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="NA"/>
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<chiral-outlier problem="PLANAR" atom="NC"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.55" obsval="2.19"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.07" Zscore="4.52" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="6.01" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.01" Zscore="-2.64" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.13" obsval="1.58"/>
+		<mog-bond-outlier atoms="C1B,NB" numobs="20" mean="1.35" stdev="0.01" mindiff="0.00" Zscore="2.14" obsval="1.37"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.00" Zscore="3.80" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.44" obsval="1.49"/>
+		<mog-bond-outlier atoms="C4C,NC" numobs="104" mean="1.37" stdev="0.02" mindiff="0.01" Zscore="2.09" obsval="1.40"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.72" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.40" obsval="1.53"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.70" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.25" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.10" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.96" Zscore="3.00" obsval="116.21"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.44" Zscore="-2.46" obsval="107.95"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.47" Zscore="2.44" obsval="107.80"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="1.08" Zscore="2.59" obsval="113.90"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.00" Zscore="-4.23" obsval="102.15"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.53" Zscore="-4.11" obsval="120.55"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.09" Zscore="-3.82" obsval="103.05"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.46" Zscore="10.86" obsval="135.00"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="1.04" Zscore="-4.23" obsval="116.06"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" ligand_chirality_outlier="yes" rscc="-0.638" rsr="3.561" owab="296.440" avgoccu="1.000" NatomsEDS="25" mogul_bonds_rmsz="3.08" mogul_rmsz_numbonds="27" mogul_angles_rmsz="2.89" mogul_rmsz_numangles="30" model="1" chain="A" resnum="266" said="M" ent="3" seq="." icode=" " resname="CHL" altcode=" ">
+		<chiral-outlier problem="PLANAR" atom="NA"/>
+		<chiral-outlier problem="PLANAR" atom="ND"/>
+		<chiral-outlier problem="PLANAR" atom="NC"/>
+		<mog-bond-outlier atoms="MG,NA" numobs="26" mean="2.06" stdev="0.02" mindiff="0.10" Zscore="5.31" obsval="2.18"/>
+		<mog-bond-outlier atoms="MG,ND" numobs="26" mean="2.05" stdev="0.02" mindiff="0.06" Zscore="4.42" obsval="2.14"/>
+		<mog-bond-outlier atoms="CHB,C4A" numobs="30" mean="1.34" stdev="0.01" mindiff="0.03" Zscore="5.74" obsval="1.39"/>
+		<mog-bond-outlier atoms="C4B,CHC" numobs="344" mean="1.43" stdev="0.02" mindiff="0.01" Zscore="-2.78" obsval="1.38"/>
+		<mog-bond-outlier atoms="C3A,C2A" numobs="1064" mean="1.52" stdev="0.03" mindiff="0.00" Zscore="2.12" obsval="1.58"/>
+		<mog-bond-outlier atoms="C2B,C1B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.01" Zscore="3.68" obsval="1.46"/>
+		<mog-bond-outlier atoms="C3B,C4B" numobs="154" mean="1.39" stdev="0.02" mindiff="0.03" Zscore="5.56" obsval="1.49"/>
+		<mog-bond-outlier atoms="C2C,C1C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.81" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3C,C2C" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="8.38" obsval="1.53"/>
+		<mog-bond-outlier atoms="C3C,C4C" numobs="828" mean="1.43" stdev="0.02" mindiff="0.00" Zscore="2.57" obsval="1.49"/>
+		<mog-bond-outlier atoms="C3D,C2D" numobs="10000" mean="1.35" stdev="0.02" mindiff="0.00" Zscore="3.04" obsval="1.42"/>
+		<mog-bond-outlier atoms="C3D,C4D" numobs="326" mean="1.44" stdev="0.02" mindiff="0.00" Zscore="-2.28" obsval="1.39"/>
+		<mog-angle-outlier atoms="C3A,C4A,NA" numobs="20" mean="109.92" stdev="2.10" mindiff="3.74" Zscore="2.89" obsval="115.98"/>
+		<mog-angle-outlier atoms="C3B,C4B,NB" numobs="21" mean="110.11" stdev="0.88" mindiff="0.71" Zscore="-2.77" obsval="107.68"/>
+		<mog-angle-outlier atoms="C1C,NC,C4C" numobs="21" mean="106.71" stdev="0.45" mindiff="0.51" Zscore="2.53" obsval="107.84"/>
+		<mog-angle-outlier atoms="C2C,C1C,NC" numobs="36" mean="109.51" stdev="1.70" mindiff="0.94" Zscore="2.51" obsval="113.76"/>
+		<mog-angle-outlier atoms="C3C,C2C,C1C" numobs="732" mean="107.21" stdev="1.20" mindiff="0.15" Zscore="-4.35" obsval="102.00"/>
+		<mog-angle-outlier atoms="CHD,C1D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="1.44" Zscore="-4.02" obsval="120.63"/>
+		<mog-angle-outlier atoms="C3D,C2D,C1D" numobs="305" mean="107.28" stdev="1.11" mindiff="0.09" Zscore="-3.83" obsval="103.04"/>
+		<mog-angle-outlier atoms="CHA,C4D,ND" numobs="63" mean="124.52" stdev="0.97" mindiff="8.63" Zscore="11.04" obsval="135.18"/>
+		<mog-angle-outlier atoms="C3D,C4D,CHA" numobs="281" mean="124.98" stdev="2.11" mindiff="0.87" Zscore="-4.31" obsval="115.90"/>
+	</ModelledSubgroup>
+	<ModelledEntityInstance bonds_rmsz="0.34" num_bonds_rmsz="493" angles_rmsz="0.63" num_angles_rmsz="680" absolute_rama_percentile="1.18" relative_rama_percentile="16.65" absolute_RSRZ_percentile="0.01" relative_RSRZ_percentile="0.20" said="A" model="1" chain="A" ent="1"/>
+	<programs>
+		<program name="validation-pipeline" version="2.36" properties="PDB-Rfree,protein-DNA-RNA-entities,pdbid,PDB-R,PDB-revision-date,PDB-revision-number,attemptedValidationSteps,XMLcreationDate,PDB-resolution,PDB-resolution-low,percentilebins,PDB-deposition-date"/>
+		<program name="validation-pack" version="unknown" properties="chiral-outlier"/>
+		<program name="molprobity" version="4.02b-467" properties="psi,clash,clashscore,angle-outlier,bond-outlier,num-H-reduce,num_bonds_rmsz,phi,angles_rmsz,relative_rama_percentile,percent-rama-outliers,num_angles_rmsz,rama,bonds_rmsz,RestypesNotcheckedForBondAngleGeometry,absolute_rama_percentile"/>
+		<program name="mogul" version="1.8.5 (274361), CSD as541be (2020)" properties="mogul_angles_rmsz,mogul-bond-outlier,mogul_rmsz_numangles,mogul-angle-outlier,ligand_chirality_outlier,mogul_rmsz_numbonds,mogul_bonds_rmsz"/>
+		<program name="xtriage" version="1.13" properties="acentric_outliers,xtriage_input_columns,TwinFraction,WilsonBestimate,centric_outliers,numMillerIndices,WilsonBaniso,IoverSigma,TwinL2,DataAnisotropy,TransNCS,TwinL"/>
+		<program name="eds" version="2.36" properties="RefmacVersion,relative_RSRZ_percentile,owab,num-free-reflections,bulk_solvent_b,bulk_solvent_k,percent-free-reflections,CCP4version,percent-RSRZ-outliers,rsr,EDS_resolution_low,Fo_Fc_correlation,avgoccu,DataCompleteness,NatomsEDS,EDS_R,rsrz,EDS_resolution,absolute_RSRZ_percentile,rscc"/>
+		<program name="dcc" version="&quot;2.27  (2023-04-10)&quot;" properties="DCC_R,DCC_refinement_program,DCC_Rfree,B_factor_type"/>
+		<program name="buster-report" version="1.1.7 (2018)" properties="ligands-for-buster-report"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="numPDBids-relative-percentile-clashscore,numPDBids-relative-percentile-percent-RSRZ-outliers,relative-percentile-DCC_Rfree,high-resol-relative-percentile-percent-rama-outliers,absolute-percentile-percent-rama-outliers,numPDBids-relative-percentile-DCC_Rfree,high-resol-relative-percentile-percent-RSRZ-outliers,absolute-percentile-percent-RSRZ-outliers,high-resol-relative-percentile-clashscore,numPDBids-absolute-percentile-DCC_Rfree,high-resol-relative-percentile-DCC_Rfree,numPDBids-absolute-percentile-percent-rama-outliers,relative-percentile-percent-rama-outliers,numPDBids-absolute-percentile-clashscore,absolute-percentile-DCC_Rfree,low-resol-relative-percentile-percent-rama-outliers,numPDBids-absolute-percentile-percent-RSRZ-outliers,relative-percentile-clashscore,low-resol-relative-percentile-clashscore,numPDBids-relative-percentile-percent-rama-outliers,low-resol-relative-percentile-DCC_Rfree,relative-percentile-percent-RSRZ-outliers,low-resol-relative-percentile-percent-RSRZ-outliers,absolute-percentile-clashscore"/>
+	</programs>
+</wwPDB-validation-information>

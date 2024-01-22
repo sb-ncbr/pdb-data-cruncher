@@ -7,8 +7,24 @@ temp/
 # ignore everything in test data other than limited test set due to the
 # size of additional data
 tests/test_data/*
+# with the exception of these predefined test data sets
 !tests/test_data/crunched_results.csv
 !tests/test_data/1dey
+!tests/test_data/1i4c
+!tests/test_data/1vcr
+!tests/test_data/2dh1
+!tests/test_data/2pde
+!tests/test_data/2qz5
+!tests/test_data/3p4a
+!tests/test_data/3rec
+!tests/test_data/4v4a
+!tests/test_data/4v43
+!tests/test_data/5dh6
+!tests/test_data/5j7v
+!tests/test_data/5qej
+!tests/test_data/5zck
+!tests/test_data/7pin
+!tests/test_data/8ucv
 !tests/test_data/103d
 
 # TODO remove in final version

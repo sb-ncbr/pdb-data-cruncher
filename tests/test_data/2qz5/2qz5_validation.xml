@@ -1,0 +1,657 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.02.xsd">
+	<Entry percentilebins="all,2.6,xray" attemptedValidationSteps="molprobity,validation-pack,xtriage,eds,mogul,buster-report,percentiles,writexml" PDB-deposition-date="2007-08-16" PDB-revision-date="2023-10-25" PDB-revision-number="3" protein-DNA-RNA-entities="1" PDB-resolution="2.60" PDB-resolution-low="32.17" PDB-R="0.2250" PDB-Rfree="0.2890" pdbid="2QZ5" num-H-reduce="2594" clashscore="20.91" percent-rama-outliers="0.99" percent-rota-outliers="2.14" bonds_rmsz="0.45" num_bonds_rmsz="2535" angles_rmsz="0.69" num_angles_rmsz="3420" xtriage_input_columns="intensity_meas,intensity_sigma" TwinFraction="h,-k,-h-l:0.042" WilsonBaniso="[12.616,20.763,13.705,0.000,1.692,0.000]" TransNCS="The largest off-origin peak in the Patterson function is 7.69% of the height of the origin peak. No significant pseudotranslation is detected." DataAnisotropy="0.519" centric_outliers="0" TwinL="0.478" IoverSigma="0.25(1.74A)" acentric_outliers="0" WilsonBestimate="16.165" TwinL2="0.304" numMillerIndices="23800" RefmacVersion="5.8.0158" CCP4version="7.0.044 (Gargrove)" DCC_R="0.4420" DCC_Rfree="8.1899" DCC_refinement_program="REFMAC" B_factor_type="FULL" EDS_resolution="1.74" EDS_resolution_low="32.18" percent-free-reflections="0.02" num-free-reflections="44" babinet_k="0.224" babinet_b="35.895" bulk_solvent_k="0.338" bulk_solvent_b="33.503" Fo_Fc_correlation="0.674" DataCompleteness="73.63" EDS_R="0.4556" no-ligands-for-mogul="yes" no-ligands-for-buster-report="yes" absolute-percentile-clashscore="8.3" numPDBids-absolute-percentile-clashscore="141614" relative-percentile-clashscore="16.2" numPDBids-relative-percentile-clashscore="3518" low-resol-relative-percentile-clashscore="2.6" high-resol-relative-percentile-clashscore="2.6" absolute-percentile-percent-rama-outliers="15.4" numPDBids-absolute-percentile-percent-rama-outliers="138981" relative-percentile-percent-rama-outliers="32.4" numPDBids-relative-percentile-percent-rama-outliers="3455" low-resol-relative-percentile-percent-rama-outliers="2.6" high-resol-relative-percentile-percent-rama-outliers="2.6" absolute-percentile-percent-rota-outliers="53.1" numPDBids-absolute-percentile-percent-rota-outliers="138945" relative-percentile-percent-rota-outliers="76.8" numPDBids-relative-percentile-percent-rota-outliers="3455" low-resol-relative-percentile-percent-rota-outliers="2.6" high-resol-relative-percentile-percent-rota-outliers="2.6" absolute-percentile-DCC_Rfree="0.0" numPDBids-absolute-percentile-DCC_Rfree="130704" relative-percentile-DCC_Rfree="0.0" numPDBids-relative-percentile-DCC_Rfree="3163" low-resol-relative-percentile-DCC_Rfree="2.6" high-resol-relative-percentile-DCC_Rfree="2.6" XMLcreationDate="Oct 19, 2023 -- 02:29 AM EDT"/>
+	<ModelledSubgroup num-H-reduce="2" model="1" chain="A" resnum="19" said="A" ent="1" seq="3" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-131.4" psi="25.8" rama="Favored" rota="p" model="1" chain="A" resnum="20" said="A" ent="1" seq="4" icode=" " resname="THR" altcode=" ">
+		<clash atom="OG1" dist="2.49" clashmag="0.45" cid="71"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-64.3" psi="136.1" rama="Favored" rota="mt" model="1" chain="A" resnum="21" said="A" ent="1" seq="5" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-99.2" psi="160.3" rama="Favored" rota="mt" model="1" chain="A" resnum="22" said="A" ent="1" seq="6" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-77.5" psi="152.0" rama="Favored" rota="Cg_exo" model="1" chain="A" resnum="23" said="A" ent="1" seq="7" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-54.4" psi="141.4" rama="Favored" rota="ttm180" model="1" chain="A" resnum="24" said="A" ent="1" seq="8" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-71.7" psi="159.9" rama="Favored" rota="mt" model="1" chain="A" resnum="25" said="A" ent="1" seq="9" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD11" dist="2.23" clashmag="0.58" cid="25"/>
+		<clash atom="HD11" dist="2.20" clashmag="0.56" cid="33"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-63.5" psi="129.7" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="26" said="A" ent="1" seq="10" icode=" " resname="PRO" altcode=" ">
+		<clash atom="HB3" dist="1.65" clashmag="0.79" cid="5"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-64.2" psi="158.4" rama="Favored" rota="p" model="1" chain="A" resnum="27" said="A" ent="1" seq="11" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-139.4" psi="149.2" rama="Favored" rota="tt0" model="1" chain="A" resnum="28" said="A" ent="1" seq="12" icode=" " resname="GLU" altcode=" ">
+		<clash atom="HB3" dist="1.80" clashmag="0.62" cid="18"/>
+		<clash atom="HG3" dist="2.18" clashmag="0.44" cid="75"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-62.4" psi="124.9" rama="Favored" rota="Cg_exo" model="1" chain="A" resnum="29" said="A" ent="1" seq="13" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="72.7" psi="5.5" rama="Favored" model="1" chain="A" resnum="30" said="A" ent="1" seq="14" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-106.5" psi="154.0" rama="Favored" rota="mmm" model="1" chain="A" resnum="31" said="A" ent="1" seq="15" icode=" " resname="MET" altcode=" ">
+		<clash atom="HG3" dist="1.80" clashmag="0.62" cid="18"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-112.3" psi="144.0" rama="Favored" rota="m" model="1" chain="A" resnum="32" said="A" ent="1" seq="16" icode=" " resname="THR" altcode=" ">
+		<clash atom="HA" dist="2.20" clashmag="0.42" cid="86"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-113.7" psi="144.3" rama="Favored" rota="mt" model="1" chain="A" resnum="33" said="A" ent="1" seq="17" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-118.2" psi="133.1" rama="Favored" rota="tp" model="1" chain="A" resnum="34" said="A" ent="1" seq="18" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD23" dist="1.53" clashmag="0.88" cid="3"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-120.5" psi="135.3" rama="Favored" rota="m" model="1" chain="A" resnum="35" said="A" ent="1" seq="19" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-123.6" psi="108.2" rama="Favored" rota="mt" model="1" chain="A" resnum="36" said="A" ent="1" seq="20" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-79.5" psi="120.0" rama="Favored" rota="tpp180" model="1" chain="A" resnum="37" said="A" ent="1" seq="21" icode=" " resname="ARG" altcode=" ">
+		<clash atom="HD3" dist="1.99" clashmag="0.62" cid="19"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-92.3" psi="117.4" rama="Favored" rota="mt" model="1" chain="A" resnum="38" said="A" ent="1" seq="22" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HD11" dist="2.39" clashmag="0.52" cid="45"/>
+		<clash atom="HD11" dist="1.97" clashmag="0.46" cid="66"/>
+		<clash atom="CD1" dist="2.46" clashmag="0.46" cid="68"/>
+		<clash atom="CD1" dist="2.99" clashmag="0.41" cid="101"/>
+		<clash atom="HA" dist="2.49" clashmag="0.43" cid="82"/>
+		<clash atom="HA" dist="2.01" clashmag="0.41" cid="99"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="6" phi="-86.8" psi="-69.5" rama="Allowed" rota="mt-10" model="1" chain="A" resnum="39" said="A" ent="1" seq="23" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-155.0" psi="168.0" rama="Favored" rota="pttt" model="1" chain="A" resnum="40" said="A" ent="1" seq="24" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-135.4" psi="134.9" rama="Favored" rota="tt" model="1" chain="A" resnum="41" said="A" ent="1" seq="25" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-92.9" psi="140.0" rama="Favored" model="1" chain="A" resnum="42" said="A" ent="1" seq="26" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-156.0" psi="126.3" rama="Favored" rota="mt" model="1" chain="A" resnum="43" said="A" ent="1" seq="27" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HA" dist="2.12" clashmag="0.48" cid="53"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-52.4" psi="-20.5" rama="Favored" rota="pttt" model="1" chain="A" resnum="44" said="A" ent="1" seq="28" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-122.5" psi="23.2" rama="Favored" rota="p-10" model="1" chain="A" resnum="45" said="A" ent="1" seq="29" icode=" " resname="ASP" altcode=" ">
+		<clash atom="OD2" dist="2.53" clashmag="0.42" cid="87"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-38.6" psi="-57.3" rama="Allowed" model="1" chain="A" resnum="46" said="A" ent="1" seq="30" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-64.2" psi="-13.4" rama="Favored" model="1" chain="A" resnum="47" said="A" ent="1" seq="31" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-89.3" psi="-16.6" rama="Favored" rota="mt-30" model="1" chain="A" resnum="48" said="A" ent="1" seq="32" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-69.6" psi="133.7" rama="Favored" rota="m" model="1" chain="A" resnum="49" said="A" ent="1" seq="33" icode=" " resname="CYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-96.4" psi="139.7" rama="Favored" rota="mm" model="1" chain="A" resnum="50" said="A" ent="1" seq="34" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="37.7" psi="62.7" rama="Favored" rota="m-20" model="1" chain="A" resnum="51" said="A" ent="1" seq="35" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-86.6" psi="140.7" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="52" said="A" ent="1" seq="36" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-151.4" psi="178.7" rama="Favored" rota="p90" model="1" chain="A" resnum="53" said="A" ent="1" seq="37" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-127.6" psi="144.6" rama="Favored" rota="mt" model="1" chain="A" resnum="54" said="A" ent="1" seq="38" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-107.9" psi="128.0" rama="Favored" rota="m" model="1" chain="A" resnum="55" said="A" ent="1" seq="39" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-115.5" psi="123.6" rama="Favored" rota="t" model="1" chain="A" resnum="56" said="A" ent="1" seq="40" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HG21" dist="1.47" clashmag="0.93" cid="2"/>
+		<clash atom="HG21" dist="2.19" clashmag="0.71" cid="11"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-134.2" psi="170.7" rama="Favored" rota="p" model="1" chain="A" resnum="57" said="A" ent="1" seq="41" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-135.9" psi="108.9" rama="Favored" rota="t" model="1" chain="A" resnum="58" said="A" ent="1" seq="42" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HB" dist="1.77" clashmag="0.67" cid="15"/>
+		<clash atom="HB" dist="2.43" clashmag="0.47" cid="58"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-109.0" psi="153.9" rama="Favored" rota="mmtt" model="1" chain="A" resnum="59" said="A" ent="1" seq="43" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HE3" dist="2.38" clashmag="0.57" cid="30"/>
+		<clash atom="HE3" dist="2.39" clashmag="0.57" cid="31"/>
+		<clash atom="O" dist="2.14" clashmag="0.47" cid="60"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-81.6" psi="-170.4" rama="Favored" rota="p30" model="1" chain="A" resnum="60" said="A" ent="1" seq="44" icode=" " resname="ASP" altcode=" ">
+		<clash atom="HB3" dist="2.02" clashmag="0.42" cid="91"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-63.2" psi="-29.6" rama="Favored" rota="mt" model="1" chain="A" resnum="61" said="A" ent="1" seq="45" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HG" dist="1.63" clashmag="0.77" cid="6"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup flippable-sidechain="1" num-H-reduce="6" phi="-80.1" psi="-4.8" rama="Favored" rota="m120" model="1" chain="A" resnum="62" said="A" ent="1" seq="46" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="82.1" psi="24.3" rama="Favored" model="1" chain="A" resnum="63" said="A" ent="1" seq="47" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-106.7" psi="141.1" rama="Favored" rota="mt" model="1" chain="A" resnum="64" said="A" ent="1" seq="48" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-55.6" psi="129.2" rama="Favored" rota="m-20" model="1" chain="A" resnum="65" said="A" ent="1" seq="49" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-102.4" psi="-9.9" rama="Favored" rota="mt" model="1" chain="A" resnum="66" said="A" ent="1" seq="50" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD21" dist="2.02" clashmag="0.42" cid="91"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-154.2" psi="166.2" rama="Favored" rota="OUTLIER" model="1" chain="A" resnum="67" said="A" ent="1" seq="51" icode=" " resname="THR" altcode=" ">
+		<clash atom="HG23" dist="1.77" clashmag="0.67" cid="15"/>
+		<clash atom="CG2" dist="2.43" clashmag="0.47" cid="58"/>
+		<clash atom="OG1" dist="2.18" clashmag="0.43" cid="84"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-66.3" psi="146.9" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="68" said="A" ent="1" seq="52" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-81.1" psi="145.3" rama="Favored" rota="t" model="1" chain="A" resnum="69" said="A" ent="1" seq="53" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-124.8" psi="152.0" rama="Favored" rota="mt-30" model="1" chain="A" resnum="70" said="A" ent="1" seq="54" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-126.5" psi="131.2" rama="Favored" rota="m-20" model="1" chain="A" resnum="71" said="A" ent="1" seq="55" icode=" " resname="ASP" altcode=" ">
+		<clash atom="N" dist="2.49" clashmag="0.45" cid="71"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-80.2" psi="153.4" rama="Favored" rota="p" model="1" chain="A" resnum="72" said="A" ent="1" seq="56" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-67.0" psi="165.3" rama="Favored" rota="Cg_exo" model="1" chain="A" resnum="73" said="A" ent="1" seq="57" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-56.5" psi="146.7" rama="Favored" rota="t" model="1" chain="A" resnum="74" said="A" ent="1" seq="58" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-57.2" psi="137.0" rama="Favored" model="1" chain="A" resnum="75" said="A" ent="1" seq="59" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-61.6" psi="-50.3" rama="Favored" rota="m" model="1" chain="A" resnum="76" said="A" ent="1" seq="60" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-139.0" psi="138.4" rama="Favored" rota="mmm180" model="1" chain="A" resnum="77" said="A" ent="1" seq="61" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-109.1" psi="165.5" rama="Favored" rota="mtmt" model="1" chain="A" resnum="78" said="A" ent="1" seq="62" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-156.5" psi="152.3" rama="Favored" rota="tt0" model="1" chain="A" resnum="79" said="A" ent="1" seq="63" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-36.2" psi="-47.8" rama="Allowed" rota="m-20" model="1" chain="A" resnum="80" said="A" ent="1" seq="64" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-120.2" psi="15.9" rama="Favored" rota="p" model="1" chain="A" resnum="81" said="A" ent="1" seq="65" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-151.4" psi="142.2" rama="Favored" rota="m-85" model="1" chain="A" resnum="82" said="A" ent="1" seq="66" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-117.2" psi="120.0" rama="Favored" rota="t" model="1" chain="A" resnum="83" said="A" ent="1" seq="67" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-96.8" psi="131.6" rama="Favored" rota="m80" model="1" chain="A" resnum="84" said="A" ent="1" seq="68" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-114.7" psi="-58.2" rama="Favored" rota="m-85" model="1" chain="A" resnum="85" said="A" ent="1" seq="69" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="50.6" psi="55.7" rama="Favored" rota="m-80" model="1" chain="A" resnum="86" said="A" ent="1" seq="70" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-128.3" psi="150.2" rama="Favored" rota="p" model="1" chain="A" resnum="87" said="A" ent="1" seq="71" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-99.0" psi="138.1" rama="Favored" rota="m-20" model="1" chain="A" resnum="88" said="A" ent="1" seq="72" icode=" " resname="ASP" altcode=" ">
+		<clash atom="OD1" dist="1.99" clashmag="0.62" cid="19"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-112.5" psi="136.1" rama="Favored" rota="mt" model="1" chain="A" resnum="89" said="A" ent="1" seq="73" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HD13" dist="1.47" clashmag="0.93" cid="2"/>
+		<clash atom="CD1" dist="2.19" clashmag="0.71" cid="11"/>
+		<clash atom="CD1" dist="2.39" clashmag="0.52" cid="45"/>
+		<clash atom="CD1" dist="2.99" clashmag="0.41" cid="101"/>
+		<clash atom="HD11" dist="1.97" clashmag="0.46" cid="66"/>
+		<clash atom="HD11" dist="2.46" clashmag="0.46" cid="68"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="6" phi="-105.3" psi="124.0" rama="Favored" rota="mm-40" model="1" chain="A" resnum="90" said="A" ent="1" seq="74" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-71.5" psi="122.5" rama="Favored" rota="tp" model="1" chain="A" resnum="91" said="A" ent="1" seq="75" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD22" dist="1.53" clashmag="0.88" cid="3"/>
+		<clash atom="HD21" dist="1.97" clashmag="0.46" cid="65"/>
+		<clash atom="HA" dist="1.74" clashmag="0.43" cid="83"/>
+		<clash atom="HD12" dist="1.74" clashmag="0.43" cid="83"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="8" phi="-75.4" psi="36.6" rama="Allowed" rota="mm-40" model="1" chain="A" resnum="92" said="A" ent="1" seq="76" icode=" " resname="GLN" altcode=" ">
+		<clash atom="C" dist="2.23" clashmag="0.58" cid="25"/>
+		<clash atom="HB2" dist="2.18" clashmag="0.43" cid="84"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-177.4" psi="142.4" rama="Allowed" rota="ttmt" model="1" chain="A" resnum="93" said="A" ent="1" seq="77" icode=" " resname="LYS" altcode=" ">
+		<clash atom="N" dist="2.20" clashmag="0.56" cid="33"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-68.2" psi="136.6" rama="Favored" rota="m80" model="1" chain="A" resnum="94" said="A" ent="1" seq="78" icode=" " resname="HIS" altcode=" ">
+		<clash atom="O" dist="2.14" clashmag="0.48" cid="55"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-42.1" psi="-58.5" rama="Allowed" rota="t" model="1" chain="A" resnum="95" said="A" ent="1" seq="79" icode=" " resname="VAL" altcode=" ">
+		<clash atom="C" dist="2.17" clashmag="0.47" cid="61"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="6" phi="-69.0" psi="27.8" rama="OUTLIER" rota="mp0" model="1" chain="A" resnum="96" said="A" ent="1" seq="80" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-134.9" psi="-0.5" rama="Favored" rota="mttt" model="1" chain="A" resnum="97" said="A" ent="1" seq="81" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HB2" dist="2.14" clashmag="0.48" cid="55"/>
+		<clash atom="H" dist="2.17" clashmag="0.47" cid="61"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-88.1" psi="134.6" rama="Favored" rota="mt" model="1" chain="A" resnum="98" said="A" ent="1" seq="82" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD13" dist="1.86" clashmag="0.57" cid="28"/>
+		<clash atom="HD13" dist="2.48" clashmag="0.53" cid="41"/>
+		<clash atom="HD13" dist="2.46" clashmag="0.46" cid="67"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-63.9" psi="157.8" rama="Favored" rota="p" model="1" chain="A" resnum="99" said="A" ent="1" seq="83" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-56.2" psi="-32.3" rama="Favored" model="1" chain="A" resnum="100" said="A" ent="1" seq="84" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-89.8" psi="2.2" rama="Favored" model="1" chain="A" resnum="101" said="A" ent="1" seq="85" icode=" " resname="GLY" altcode=" ">
+		<clash atom="HA3" dist="1.63" clashmag="0.77" cid="6"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-59.1" psi="158.8" rama="Favored" model="1" chain="A" resnum="102" said="A" ent="1" seq="86" icode=" " resname="ALA" altcode=" ">
+		<clash atom="HA" dist="2.14" clashmag="0.47" cid="60"/>
+		<clash atom="HB3" dist="2.62" clashmag="0.40" cid="105"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-150.7" psi="145.7" rama="Favored" model="1" chain="A" resnum="103" said="A" ent="1" seq="87" icode=" " resname="ALA" altcode=" ">
+		<clash atom="HB2" dist="2.45" clashmag="0.47" cid="62"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-103.4" psi="121.7" rama="Favored" rota="mt" model="1" chain="A" resnum="104" said="A" ent="1" seq="88" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HD11" dist="1.97" clashmag="0.46" cid="65"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-100.6" psi="140.6" rama="Favored" rota="m-85" model="1" chain="A" resnum="105" said="A" ent="1" seq="89" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-125.9" psi="118.4" rama="Favored" rota="m-85" model="1" chain="A" resnum="106" said="A" ent="1" seq="90" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-116.3" psi="122.9" rama="Favored" rota="mt-10" model="1" chain="A" resnum="107" said="A" ent="1" seq="91" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-83.5" psi="117.4" rama="Favored" rota="t80" model="1" chain="A" resnum="108" said="A" ent="1" seq="92" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-118.0" psi="140.3" rama="Favored" rota="mttt" model="1" chain="A" resnum="109" said="A" ent="1" seq="93" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-144.5" psi="161.7" rama="Favored" rota="p80" model="1" chain="A" resnum="110" said="A" ent="1" seq="94" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-89.5" psi="122.6" rama="Favored" rota="t80" model="1" chain="A" resnum="111" said="A" ent="1" seq="95" icode=" " resname="TYR" altcode=" ">
+		<clash atom="O" dist="2.14" clashmag="0.48" cid="57"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-84.2" psi="104.6" rama="Favored" rota="mmmm" model="1" chain="A" resnum="112" said="A" ent="1" seq="96" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-44.5" psi="-51.8" rama="Favored" rota="Cg_exo" model="1" chain="A" resnum="113" said="A" ent="1" seq="97" icode=" " resname="PRO" altcode=" ">
+		<clash atom="HD3" dist="2.14" clashmag="0.48" cid="57"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-77.7" psi="-53.1" rama="Favored" rota="mttt" model="1" chain="A" resnum="114" said="A" ent="1" seq="98" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-69.1" psi="-2.5" rama="Favored" rota="mmtt" model="1" chain="A" resnum="115" said="A" ent="1" seq="99" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="46.4" psi="54.7" rama="Favored" rota="mtp85" model="1" chain="A" resnum="116" said="A" ent="1" seq="100" icode=" " resname="ARG" altcode=" ">
+		<clash atom="HG2" dist="1.76" clashmag="0.50" cid="50"/>
+		<clash atom="HG2" dist="2.32" clashmag="0.43" cid="81"/>
+		<clash atom="HH11" dist="1.76" clashmag="0.50" cid="50"/>
+		<clash atom="NH1" dist="2.32" clashmag="0.43" cid="81"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-158.8" psi="173.0" rama="Favored" rota="p90" model="1" chain="A" resnum="117" said="A" ent="1" seq="101" icode=" " resname="PHE" altcode=" ">
+		<clash atom="CE2" dist="2.40" clashmag="0.57" cid="29"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-102.2" psi="123.7" rama="Favored" rota="m" model="1" chain="A" resnum="118" said="A" ent="1" seq="102" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-120.2" psi="158.1" rama="Favored" rota="p" model="1" chain="A" resnum="119" said="A" ent="1" seq="103" icode=" " resname="SER" altcode=" ">
+		<clash atom="HB3" dist="2.40" clashmag="0.57" cid="29"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-99.7" psi="115.3" rama="Favored" rota="m" model="1" chain="A" resnum="120" said="A" ent="1" seq="104" icode=" " resname="THR" altcode=" ">
+		<clash atom="O" dist="2.21" clashmag="0.41" cid="100"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-81.4" psi="-46.1" rama="Favored" rota="ttmt" model="1" chain="A" resnum="121" said="A" ent="1" seq="105" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HG2" dist="2.48" clashmag="0.54" cid="40"/>
+		<clash atom="NZ" dist="2.53" clashmag="0.42" cid="87"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-157.1" psi="170.1" rama="Favored" rota="p" model="1" chain="A" resnum="122" said="A" ent="1" seq="106" icode=" " resname="CYS" altcode=" ">
+		<clash atom="SG" dist="2.48" clashmag="0.54" cid="40"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-141.3" psi="154.4" rama="Favored" rota="p90" model="1" chain="A" resnum="123" said="A" ent="1" seq="107" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-133.4" psi="146.6" rama="Favored" model="1" chain="A" resnum="124" said="A" ent="1" seq="108" icode=" " resname="ALA" altcode=" ">
+		<clash atom="HB2" dist="2.03" clashmag="0.41" cid="95"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-141.7" psi="154.1" rama="Favored" rota="p90" model="1" chain="A" resnum="125" said="A" ent="1" seq="109" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-132.5" psi="144.8" rama="Favored" rota="ptp" model="1" chain="A" resnum="126" said="A" ent="1" seq="110" icode=" " resname="MET" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-100.2" psi="155.4" rama="Favored" rota="mt-10" model="1" chain="A" resnum="127" said="A" ent="1" seq="111" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-35.4" psi="-48.1" rama="Allowed" rota="mmt" model="1" chain="A" resnum="128" said="A" ent="1" seq="112" icode=" " resname="MET" altcode=" ">
+		<clash atom="HA" dist="2.17" clashmag="0.75" cid="8"/>
+		<clash atom="HA" dist="1.69" clashmag="0.74" cid="9"/>
+		<clash atom="CE" dist="2.17" clashmag="0.75" cid="8"/>
+		<clash atom="CE" dist="2.46" clashmag="0.46" cid="67"/>
+		<clash atom="CE" dist="2.94" clashmag="0.43" cid="85"/>
+		<clash atom="HE2" dist="1.69" clashmag="0.74" cid="9"/>
+		<clash atom="HE2" dist="1.82" clashmag="0.61" cid="22"/>
+		<clash atom="HE2" dist="2.40" clashmag="0.51" cid="47"/>
+		<clash atom="HE1" dist="1.86" clashmag="0.57" cid="28"/>
+		<clash atom="SD" dist="2.48" clashmag="0.53" cid="41"/>
+		<clash atom="SD" dist="2.62" clashmag="0.40" cid="105"/>
+		<clash atom="CA" dist="2.94" clashmag="0.43" cid="85"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-68.7" psi="-5.1" rama="Favored" rota="p30" model="1" chain="A" resnum="129" said="A" ent="1" seq="113" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-101.8" psi="5.9" rama="Favored" rota="mt-10" model="1" chain="A" resnum="130" said="A" ent="1" seq="114" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-85.4" psi="99.7" rama="Favored" rota="mt" model="1" chain="A" resnum="131" said="A" ent="1" seq="115" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HD12" dist="1.82" clashmag="0.61" cid="22"/>
+		<clash atom="CD1" dist="2.40" clashmag="0.51" cid="47"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-147.6" psi="155.3" rama="Favored" rota="OUTLIER" model="1" chain="A" resnum="132" said="A" ent="1" seq="116" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-65.4" psi="152.3" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="133" said="A" ent="1" seq="117" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="105.7" psi="165.1" rama="Favored" model="1" chain="A" resnum="134" said="A" ent="1" seq="118" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-60.7" psi="160.4" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="135" said="A" ent="1" seq="119" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-158.5" psi="132.6" rama="Allowed" rota="tt" model="1" chain="A" resnum="136" said="A" ent="1" seq="120" icode=" " resname="ILE" altcode=" ">
+		<clash atom="O" dist="2.20" clashmag="0.42" cid="92"/>
+		<clash atom="HG23" dist="2.20" clashmag="0.42" cid="92"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-114.6" psi="124.6" rama="Favored" rota="m" model="1" chain="A" resnum="137" said="A" ent="1" seq="121" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-112.1" psi="143.3" rama="Favored" rota="mt" model="1" chain="A" resnum="138" said="A" ent="1" seq="122" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-75.7" psi="165.9" rama="Favored" rota="pm0" model="1" chain="A" resnum="139" said="A" ent="1" seq="123" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-112.5" psi="134.3" rama="Favored" rota="mt" model="1" chain="A" resnum="140" said="A" ent="1" seq="124" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD12" dist="2.14" clashmag="0.46" cid="64"/>
+		<clash atom="HD23" dist="2.03" clashmag="0.41" cid="95"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-110.5" psi="149.9" rama="Favored" rota="m-85" model="1" chain="A" resnum="141" said="A" ent="1" seq="125" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-70.7" psi="135.6" rama="Favored" rota="mttt" model="1" chain="A" resnum="142" said="A" ent="1" seq="126" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup cis_peptide="yes" num-H-reduce="13" phi="-57.5" psi="157.4" rama="Favored" rota="pttt" model="1" chain="A" resnum="143" said="A" ent="1" seq="127" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HD3" dist="2.21" clashmag="0.41" cid="100"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-78.3" psi="145.6" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="144" said="A" ent="1" seq="128" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-56.5" psi="133.3" rama="Favored" rota="m" model="1" chain="A" resnum="145" said="A" ent="1" seq="129" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-108.3" psi="103.5" rama="Favored" rota="t0" model="1" chain="A" resnum="146" said="A" ent="1" seq="130" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-67.7" psi="-15.7" rama="Favored" rota="m-85" model="1" chain="A" resnum="147" said="A" ent="1" seq="131" icode=" " resname="PHE" altcode=" ">
+		<clash atom="CD1" dist="2.38" clashmag="0.57" cid="30"/>
+		<clash atom="CG" dist="2.39" clashmag="0.57" cid="31"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-95.9" psi="-3.4" rama="Favored" rota="mttm" model="1" chain="A" resnum="148" said="A" ent="1" seq="132" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="37.1" psi="58.2" rama="Allowed" rota="OUTLIER" model="1" chain="A" resnum="149" said="A" ent="1" seq="133" icode=" " resname="ARG" altcode=" ">
+		<clash atom="CZ" dist="2.45" clashmag="0.47" cid="62"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-103.9" psi="-32.4" rama="Favored" rota="mttm" model="1" chain="A" resnum="150" said="A" ent="1" seq="134" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-121.8" psi="117.8" rama="Favored" rota="mtpt" model="1" chain="A" resnum="151" said="A" ent="1" seq="135" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-130.3" psi="139.3" rama="Favored" rota="mt" model="1" chain="A" resnum="152" said="A" ent="1" seq="136" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-119.3" psi="118.0" rama="Favored" rota="mm-40" model="1" chain="A" resnum="153" said="A" ent="1" seq="137" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-60.2" psi="128.9" rama="Favored" rota="tp" model="1" chain="A" resnum="154" said="A" ent="1" seq="138" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-66.1" psi="-39.1" rama="Favored" rota="tp" model="1" chain="A" resnum="155" said="A" ent="1" seq="139" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-166.5" psi="136.9" rama="Favored" rota="t" model="1" chain="A" resnum="156" said="A" ent="1" seq="140" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-75.7" psi="-8.2" rama="Favored" rota="mttt" model="1" chain="A" resnum="157" said="A" ent="1" seq="141" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-65.0" psi="147.9" rama="Favored" rota="mttt" model="1" chain="A" resnum="158" said="A" ent="1" seq="142" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-75.2" psi="50.1" rama="Favored" rota="Cg_endo" model="1" chain="A" resnum="159" said="A" ent="1" seq="143" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-111.6" psi="105.8" rama="Favored" rota="mt" model="1" chain="A" resnum="160" said="A" ent="1" seq="144" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-118.7" psi="-174.6" rama="Favored" rota="m-85" model="1" chain="A" resnum="161" said="A" ent="1" seq="145" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-102.2" psi="127.1" rama="Favored" rota="tp" model="1" chain="A" resnum="162" said="A" ent="1" seq="146" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup flippable-sidechain="1" num-H-reduce="7" phi="-107.6" psi="120.5" rama="Favored" rota="m80" model="1" chain="A" resnum="163" said="A" ent="1" seq="147" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-128.2" psi="163.7" rama="Favored" rota="mt" model="1" chain="A" resnum="164" said="A" ent="1" seq="148" icode=" " resname="LEU" altcode=" ">
+		<clash atom="CD2" dist="2.49" clashmag="0.43" cid="82"/>
+		<clash atom="HD23" dist="2.01" clashmag="0.41" cid="99"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-138.9" psi="130.5" rama="Favored" rota="t60" model="1" chain="A" resnum="165" said="A" ent="1" seq="149" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-106.7" psi="138.6" rama="Favored" rota="mt-30" model="1" chain="A" resnum="166" said="A" ent="1" seq="150" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-125.3" psi="118.8" rama="Favored" rota="m" model="1" chain="A" resnum="167" said="A" ent="1" seq="151" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-102.3" psi="123.1" rama="Favored" rota="mp" model="1" chain="A" resnum="168" said="A" ent="1" seq="152" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD12" dist="2.29" clashmag="0.48" cid="54"/>
+		<clash atom="N" dist="2.29" clashmag="0.48" cid="54"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-106.7" psi="128.2" rama="Favored" rota="m-70" model="1" chain="A" resnum="169" said="A" ent="1" seq="153" icode=" " resname="HIS" altcode=" ">
+		<clash atom="O" dist="2.20" clashmag="0.42" cid="86"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" rota="ttmt" model="1" chain="A" resnum="170" said="A" ent="1" seq="154" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup model="1" chain="A" resnum="183" said="C" ent="2" seq="." icode=" " resname="HOH" altcode=" ">
+		<clash atom="O" dist="2.14" clashmag="0.46" cid="64"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup model="1" chain="A" resnum="198" said="C" ent="2" seq="." icode=" " resname="HOH" altcode=" ">
+		<clash atom="O" dist="2.12" clashmag="0.48" cid="53"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup model="1" chain="A" resnum="209" said="C" ent="2" seq="." icode=" " resname="HOH" altcode=" ">
+		<clash atom="O" dist="2.18" clashmag="0.44" cid="75"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="8" rota="t" model="1" chain="B" resnum="17" said="B" ent="1" seq="1" icode=" " resname="VAL" altcode=" ">
+		<clash atom="CG1" dist="1.88" clashmag="1.03" cid="0"/>
+		<clash atom="CG1" dist="2.67" clashmag="0.72" cid="10"/>
+		<clash atom="HG13" dist="1.43" clashmag="0.97" cid="1"/>
+		<clash atom="HG12" dist="2.21" clashmag="0.71" cid="13"/>
+		<clash atom="HG12" dist="1.72" clashmag="0.64" cid="17"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-65.3" psi="-170.2" rama="Allowed" rota="Cg_endo" model="1" chain="B" resnum="18" said="B" ent="1" seq="2" icode=" " resname="PRO" altcode=" ">
+		<clash atom="HD2" dist="1.88" clashmag="1.03" cid="0"/>
+		<clash atom="HD2" dist="1.43" clashmag="0.97" cid="1"/>
+		<clash atom="HD2" dist="1.72" clashmag="0.64" cid="17"/>
+		<clash atom="CD" dist="2.67" clashmag="0.72" cid="10"/>
+		<clash atom="CD" dist="2.21" clashmag="0.71" cid="13"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" phi="-120.3" psi="-172.7" rama="Favored" model="1" chain="B" resnum="19" said="B" ent="1" seq="3" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-139.1" psi="40.8" rama="Favored" rota="p" model="1" chain="B" resnum="20" said="B" ent="1" seq="4" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-76.4" psi="141.6" rama="Favored" rota="mt" model="1" chain="B" resnum="21" said="B" ent="1" seq="5" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD23" dist="1.91" clashmag="0.51" cid="49"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-100.2" psi="157.9" rama="Favored" rota="mt" model="1" chain="B" resnum="22" said="B" ent="1" seq="6" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-68.1" psi="156.5" rama="Favored" rota="Cg_exo" model="1" chain="B" resnum="23" said="B" ent="1" seq="7" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-58.4" psi="140.1" rama="Favored" rota="ttm180" model="1" chain="B" resnum="24" said="B" ent="1" seq="8" icode=" " resname="ARG" altcode=" ">
+		<clash atom="HD3" dist="1.98" clashmag="0.45" cid="70"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-69.8" psi="156.2" rama="Favored" rota="mt" model="1" chain="B" resnum="25" said="B" ent="1" seq="9" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-64.8" psi="149.2" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="26" said="B" ent="1" seq="10" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-72.7" psi="144.7" rama="Favored" rota="p" model="1" chain="B" resnum="27" said="B" ent="1" seq="11" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-126.0" psi="149.1" rama="Favored" rota="mt-10" model="1" chain="B" resnum="28" said="B" ent="1" seq="12" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-70.7" psi="124.9" rama="Favored" rota="Cg_exo" model="1" chain="B" resnum="29" said="B" ent="1" seq="13" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="75.8" psi="17.2" rama="Favored" model="1" chain="B" resnum="30" said="B" ent="1" seq="14" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-126.1" psi="157.1" rama="Favored" rota="mmm" model="1" chain="B" resnum="31" said="B" ent="1" seq="15" icode=" " resname="MET" altcode=" ">
+		<clash atom="HE1" dist="2.16" clashmag="0.76" cid="7"/>
+		<clash atom="HE1" dist="1.74" clashmag="0.69" cid="14"/>
+		<clash atom="HE1" dist="2.47" clashmag="0.44" cid="76"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-124.5" psi="135.6" rama="Favored" rota="m" model="1" chain="B" resnum="32" said="B" ent="1" seq="16" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-93.3" psi="125.4" rama="Favored" rota="mt" model="1" chain="B" resnum="33" said="B" ent="1" seq="17" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD13" dist="1.98" clashmag="0.45" cid="70"/>
+		<clash atom="HB2" dist="1.84" clashmag="0.42" cid="93"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-100.9" psi="124.3" rama="Favored" rota="tp" model="1" chain="B" resnum="34" said="B" ent="1" seq="18" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD23" dist="1.71" clashmag="0.71" cid="12"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-116.5" psi="120.3" rama="Favored" rota="m" model="1" chain="B" resnum="35" said="B" ent="1" seq="19" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-109.1" psi="128.1" rama="Favored" rota="mt" model="1" chain="B" resnum="36" said="B" ent="1" seq="20" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-97.0" psi="119.1" rama="Favored" rota="tpt180" model="1" chain="B" resnum="37" said="B" ent="1" seq="21" icode=" " resname="ARG" altcode=" ">
+		<clash atom="HD2" dist="2.01" clashmag="0.61" cid="21"/>
+		<clash atom="NH2" dist="2.32" clashmag="0.44" cid="74"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-93.4" psi="105.9" rama="Favored" rota="mt" model="1" chain="B" resnum="38" said="B" ent="1" seq="22" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-82.6" psi="-59.2" rama="Favored" rota="mt-10" model="1" chain="B" resnum="39" said="B" ent="1" seq="23" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-160.1" psi="167.4" rama="Favored" rota="pttt" model="1" chain="B" resnum="40" said="B" ent="1" seq="24" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-139.6" psi="133.4" rama="Favored" rota="tt" model="1" chain="B" resnum="41" said="B" ent="1" seq="25" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HG22" dist="1.81" clashmag="0.61" cid="20"/>
+		<clash atom="CG2" dist="2.37" clashmag="0.54" cid="39"/>
+		<clash atom="CG2" dist="2.97" clashmag="0.43" cid="80"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" phi="-88.6" psi="140.4" rama="Favored" model="1" chain="B" resnum="42" said="B" ent="1" seq="26" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-161.1" psi="144.0" rama="Favored" rota="mt" model="1" chain="B" resnum="43" said="B" ent="1" seq="27" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-60.5" psi="-46.0" rama="Favored" rota="mttt" model="1" chain="B" resnum="44" said="B" ent="1" seq="28" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HE3" dist="2.19" clashmag="0.42" cid="90"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-104.0" psi="34.6" rama="Favored" rota="p-10" model="1" chain="B" resnum="45" said="B" ent="1" seq="29" icode=" " resname="ASP" altcode=" ">
+		<clash atom="OD1" dist="2.16" clashmag="0.46" cid="69"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-43.9" psi="-72.2" rama="Allowed" model="1" chain="B" resnum="46" said="B" ent="1" seq="30" icode=" " resname="ALA" altcode=" ">
+		<clash atom="HB3" dist="2.03" clashmag="0.58" cid="26"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="3" phi="-58.3" psi="3.5" rama="Allowed" model="1" chain="B" resnum="47" said="B" ent="1" seq="31" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-99.5" psi="-12.4" rama="Favored" rota="mt-30" model="1" chain="B" resnum="48" said="B" ent="1" seq="32" icode=" " resname="GLN" altcode=" ">
+		<clash atom="O" dist="2.22" clashmag="0.40" cid="103"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-75.0" psi="134.3" rama="Favored" rota="m" model="1" chain="B" resnum="49" said="B" ent="1" seq="33" icode=" " resname="CYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-100.5" psi="131.8" rama="Favored" rota="mp" model="1" chain="B" resnum="50" said="B" ent="1" seq="34" icode=" " resname="ILE" altcode=" ">
+		<clash atom="N" dist="2.20" clashmag="0.56" cid="32"/>
+		<clash atom="HD12" dist="2.20" clashmag="0.56" cid="32"/>
+		<clash atom="HD12" dist="2.22" clashmag="0.40" cid="103"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="49.0" psi="60.5" rama="Favored" rota="m-20" model="1" chain="B" resnum="51" said="B" ent="1" seq="35" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-80.9" psi="138.9" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="52" said="B" ent="1" seq="36" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-150.3" psi="169.7" rama="Favored" rota="p90" model="1" chain="B" resnum="53" said="B" ent="1" seq="37" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-119.7" psi="144.2" rama="Favored" rota="mt" model="1" chain="B" resnum="54" said="B" ent="1" seq="38" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-108.5" psi="135.4" rama="Favored" rota="m" model="1" chain="B" resnum="55" said="B" ent="1" seq="39" icode=" " resname="THR" altcode=" ">
+		<clash atom="HB" dist="2.02" clashmag="0.40" cid="104"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-123.1" psi="130.4" rama="Favored" rota="t" model="1" chain="B" resnum="56" said="B" ent="1" seq="40" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HG11" dist="1.87" clashmag="0.56" cid="35"/>
+		<clash atom="HG11" dist="2.44" clashmag="0.48" cid="56"/>
+		<clash atom="HG21" dist="1.91" clashmag="0.53" cid="44"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-141.6" psi="166.1" rama="Favored" rota="p" model="1" chain="B" resnum="57" said="B" ent="1" seq="41" icode=" " resname="SER" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-131.2" psi="117.5" rama="Favored" rota="t" model="1" chain="B" resnum="58" said="B" ent="1" seq="42" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-128.6" psi="157.5" rama="Favored" rota="mttp" model="1" chain="B" resnum="59" said="B" ent="1" seq="43" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HD3" dist="2.04" clashmag="0.57" cid="27"/>
+		<clash atom="HD2" dist="2.41" clashmag="0.56" cid="34"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-88.2" psi="-174.2" rama="Favored" rota="p30" model="1" chain="B" resnum="60" said="B" ent="1" seq="44" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-56.7" psi="-25.2" rama="Favored" rota="mt" model="1" chain="B" resnum="61" said="B" ent="1" seq="45" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup flippable-sidechain="1" num-H-reduce="6" phi="-91.6" psi="14.5" rama="Favored" rota="m120" model="1" chain="B" resnum="62" said="B" ent="1" seq="46" icode=" " resname="ASN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="59.4" psi="28.8" rama="Favored" model="1" chain="B" resnum="63" said="B" ent="1" seq="47" icode=" " resname="GLY" altcode=" ">
+		<clash atom="O" dist="2.04" clashmag="0.57" cid="27"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-101.0" psi="134.2" rama="Favored" rota="mt" model="1" chain="B" resnum="64" said="B" ent="1" seq="48" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-52.9" psi="141.2" rama="Favored" rota="m-20" model="1" chain="B" resnum="65" said="B" ent="1" seq="49" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-119.8" psi="8.4" rama="Favored" rota="mt" model="1" chain="B" resnum="66" said="B" ent="1" seq="50" icode=" " resname="LEU" altcode=" ">
+		<clash atom="O" dist="2.58" clashmag="0.52" cid="46"/>
+		<clash atom="O" dist="2.13" clashmag="0.49" cid="52"/>
+		<clash atom="C" dist="2.38" clashmag="0.44" cid="72"/>
+		<clash atom="C" dist="2.88" clashmag="0.41" cid="97"/>
+		<clash atom="HD11" dist="2.16" clashmag="0.44" cid="73"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-172.9" psi="171.5" rama="Allowed" rota="p" model="1" chain="B" resnum="67" said="B" ent="1" seq="51" icode=" " resname="THR" altcode=" ">
+		<clash atom="CG2" dist="2.58" clashmag="0.52" cid="46"/>
+		<clash atom="CG2" dist="2.88" clashmag="0.41" cid="97"/>
+		<clash atom="HG22" dist="2.13" clashmag="0.49" cid="52"/>
+		<clash atom="HG23" dist="2.38" clashmag="0.44" cid="72"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-67.0" psi="157.0" rama="Favored" rota="Cg_exo" model="1" chain="B" resnum="68" said="B" ent="1" seq="52" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-87.7" psi="135.1" rama="Favored" rota="t" model="1" chain="B" resnum="69" said="B" ent="1" seq="53" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="8" phi="-120.6" psi="132.3" rama="Favored" rota="mt-30" model="1" chain="B" resnum="70" said="B" ent="1" seq="54" icode=" " resname="GLN" altcode=" ">
+		<clash atom="HB3" dist="1.91" clashmag="0.51" cid="49"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-108.1" psi="132.7" rama="Favored" rota="m-20" model="1" chain="B" resnum="71" said="B" ent="1" seq="55" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-76.4" psi="158.2" rama="Favored" rota="p" model="1" chain="B" resnum="72" said="B" ent="1" seq="56" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-72.7" psi="168.4" rama="Favored" rota="Cg_exo" model="1" chain="B" resnum="73" said="B" ent="1" seq="57" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-62.6" psi="145.1" rama="Favored" rota="t" model="1" chain="B" resnum="74" said="B" ent="1" seq="58" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-120.0" psi="94.9" rama="Favored" model="1" chain="B" resnum="75" said="B" ent="1" seq="59" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-86.4" psi="16.2" rama="Favored" rota="t" model="1" chain="B" resnum="76" said="B" ent="1" seq="60" icode=" " resname="SER" altcode=" ">
+		<clash atom="HB3" dist="1.65" clashmag="0.79" cid="5"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-99.6" psi="103.2" rama="Favored" rota="ttp180" model="1" chain="B" resnum="77" said="B" ent="1" seq="61" icode=" " resname="ARG" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-134.1" psi="159.8" rama="Favored" rota="pttt" model="1" chain="B" resnum="78" said="B" ent="1" seq="62" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-122.5" psi="-158.2" rama="Allowed" rota="mt-10" model="1" chain="B" resnum="79" said="B" ent="1" seq="63" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="4" phi="-75.1" psi="-45.2" rama="Favored" rota="m-20" model="1" chain="B" resnum="80" said="B" ent="1" seq="64" icode=" " resname="ASP" altcode=" ">
+		<clash atom="O" dist="2.03" clashmag="0.58" cid="26"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-116.3" psi="19.9" rama="Favored" rota="p" model="1" chain="B" resnum="81" said="B" ent="1" seq="65" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-155.5" psi="138.9" rama="Favored" rota="m-85" model="1" chain="B" resnum="82" said="B" ent="1" seq="66" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-119.0" psi="125.6" rama="Favored" rota="p" model="1" chain="B" resnum="83" said="B" ent="1" seq="67" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HG13" dist="1.81" clashmag="0.61" cid="20"/>
+		<clash atom="HG13" dist="2.37" clashmag="0.54" cid="39"/>
+		<clash atom="CG1" dist="2.97" clashmag="0.43" cid="80"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-94.2" psi="132.7" rama="Favored" rota="m80" model="1" chain="B" resnum="84" said="B" ent="1" seq="68" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-112.1" psi="-54.5" rama="Favored" rota="m-85" model="1" chain="B" resnum="85" said="B" ent="1" seq="69" icode=" " resname="PHE" altcode=" ">
+		<clash atom="HB3" dist="1.88" clashmag="0.56" cid="37"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="6" phi="48.2" psi="40.5" rama="Favored" rota="m120" model="1" chain="B" resnum="86" said="B" ent="1" seq="70" icode=" " resname="ASN" altcode=" ">
+		<clash atom="HB3" dist="2.32" clashmag="0.44" cid="74"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-114.1" psi="142.1" rama="Favored" rota="p" model="1" chain="B" resnum="87" said="B" ent="1" seq="71" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HG12" dist="1.88" clashmag="0.56" cid="37"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-99.2" psi="137.0" rama="Favored" rota="m-20" model="1" chain="B" resnum="88" said="B" ent="1" seq="72" icode=" " resname="ASP" altcode=" ">
+		<clash atom="OD1" dist="2.01" clashmag="0.61" cid="21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-120.3" psi="144.3" rama="Favored" rota="pt" model="1" chain="B" resnum="89" said="B" ent="1" seq="73" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HD12" dist="1.87" clashmag="0.56" cid="35"/>
+		<clash atom="HD13" dist="1.91" clashmag="0.53" cid="44"/>
+		<clash atom="CD1" dist="2.44" clashmag="0.48" cid="56"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="6" phi="-105.8" psi="133.7" rama="Favored" rota="mm-40" model="1" chain="B" resnum="90" said="B" ent="1" seq="74" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-71.2" psi="133.0" rama="Favored" rota="tp" model="1" chain="B" resnum="91" said="B" ent="1" seq="75" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD22" dist="1.71" clashmag="0.71" cid="12"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="8" phi="-89.0" psi="41.5" rama="Allowed" rota="mm-40" model="1" chain="B" resnum="92" said="B" ent="1" seq="76" icode=" " resname="GLN" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-172.6" psi="128.1" rama="Allowed" rota="tptp" model="1" chain="B" resnum="93" said="B" ent="1" seq="77" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-61.9" psi="137.8" rama="Favored" rota="m80" model="1" chain="B" resnum="94" said="B" ent="1" seq="78" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-41.4" psi="-55.0" rama="Allowed" rota="t" model="1" chain="B" resnum="95" said="B" ent="1" seq="79" icode=" " resname="VAL" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-57.2" psi="-11.6" rama="Allowed" rota="mp0" model="1" chain="B" resnum="96" said="B" ent="1" seq="80" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-105.9" psi="48.8" rama="Allowed" rota="mttt" model="1" chain="B" resnum="97" said="B" ent="1" seq="81" icode=" " resname="LYS" altcode=" ">
+		<clash atom="CE" dist="2.16" clashmag="0.76" cid="7"/>
+		<clash atom="HE3" dist="1.74" clashmag="0.69" cid="14"/>
+		<clash atom="CD" dist="2.47" clashmag="0.44" cid="76"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-125.9" psi="130.4" rama="Favored" rota="mt" model="1" chain="B" resnum="98" said="B" ent="1" seq="82" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-51.9" psi="136.2" rama="Favored" rota="p" model="1" chain="B" resnum="99" said="B" ent="1" seq="83" icode=" " resname="THR" altcode=" ">
+		<clash atom="OG1" dist="2.16" clashmag="0.44" cid="73"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-40.1" psi="-27.8" rama="OUTLIER" model="1" chain="B" resnum="100" said="B" ent="1" seq="84" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="-110.4" psi="18.9" rama="Favored" model="1" chain="B" resnum="101" said="B" ent="1" seq="85" icode=" " resname="GLY" altcode=" ">
+		<clash atom="O" dist="2.31" clashmag="0.47" cid="59"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-65.2" psi="154.9" rama="Favored" model="1" chain="B" resnum="102" said="B" ent="1" seq="86" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-142.5" psi="146.9" rama="Favored" model="1" chain="B" resnum="103" said="B" ent="1" seq="87" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-102.9" psi="117.0" rama="Favored" rota="mt" model="1" chain="B" resnum="104" said="B" ent="1" seq="88" icode=" " resname="ILE" altcode=" ">
+		<clash atom="O" dist="2.15" clashmag="0.47" cid="63"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-99.0" psi="154.1" rama="Favored" rota="m-85" model="1" chain="B" resnum="105" said="B" ent="1" seq="89" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-136.7" psi="111.3" rama="Favored" rota="m-85" model="1" chain="B" resnum="106" said="B" ent="1" seq="90" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-109.8" psi="121.4" rama="Favored" rota="mt-10" model="1" chain="B" resnum="107" said="B" ent="1" seq="91" icode=" " resname="GLU" altcode=" ">
+		<clash atom="HB2" dist="2.02" clashmag="0.40" cid="104"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-85.2" psi="127.1" rama="Favored" rota="t80" model="1" chain="B" resnum="108" said="B" ent="1" seq="92" icode=" " resname="PHE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-131.1" psi="151.2" rama="Favored" rota="mttt" model="1" chain="B" resnum="109" said="B" ent="1" seq="93" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-146.3" psi="171.4" rama="Favored" rota="p80" model="1" chain="B" resnum="110" said="B" ent="1" seq="94" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-93.5" psi="122.7" rama="Favored" rota="t80" model="1" chain="B" resnum="111" said="B" ent="1" seq="95" icode=" " resname="TYR" altcode=" ">
+		<clash atom="O" dist="2.08" clashmag="0.54" cid="38"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-90.4" psi="106.4" rama="Favored" rota="mttt" model="1" chain="B" resnum="112" said="B" ent="1" seq="96" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HE3" dist="1.97" clashmag="0.65" cid="16"/>
+		<clash atom="HD2" dist="1.82" clashmag="0.43" cid="79"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-49.8" psi="-55.6" rama="Favored" rota="Cg_exo" model="1" chain="B" resnum="113" said="B" ent="1" seq="97" icode=" " resname="PRO" altcode=" ">
+		<clash atom="HD3" dist="2.08" clashmag="0.54" cid="38"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-67.3" psi="-63.5" rama="Allowed" rota="mttp" model="1" chain="B" resnum="114" said="B" ent="1" seq="98" icode=" " resname="LYS" altcode=" ">
+		<clash atom="O" dist="2.12" clashmag="0.50" cid="51"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-53.3" psi="-33.9" rama="Favored" rota="mmtt" model="1" chain="B" resnum="115" said="B" ent="1" seq="99" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="74.1" psi="49.4" rama="Allowed" rota="mtp85" model="1" chain="B" resnum="116" said="B" ent="1" seq="100" icode=" " resname="ARG" altcode=" ">
+		<clash atom="HG3" dist="2.12" clashmag="0.50" cid="51"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-164.5" psi="170.9" rama="Favored" rota="OUTLIER" model="1" chain="B" resnum="117" said="B" ent="1" seq="101" icode=" " resname="PHE" altcode=" ">
+		<clash atom="HE2" dist="1.82" clashmag="0.43" cid="79"/>
+		<clash atom="C" dist="2.93" clashmag="0.42" cid="88"/>
+		<clash atom="C" dist="2.23" clashmag="0.41" cid="96"/>
+		<clash atom="CD2" dist="2.93" clashmag="0.42" cid="88"/>
+		<clash atom="HD2" dist="2.23" clashmag="0.41" cid="96"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-92.4" psi="139.8" rama="Favored" rota="m" model="1" chain="B" resnum="118" said="B" ent="1" seq="102" icode=" " resname="THR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="5" phi="-132.3" psi="150.9" rama="Favored" rota="p" model="1" chain="B" resnum="119" said="B" ent="1" seq="103" icode=" " resname="SER" altcode=" ">
+		<clash atom="OG" dist="1.97" clashmag="0.65" cid="16"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-90.9" psi="119.1" rama="Favored" rota="m" model="1" chain="B" resnum="120" said="B" ent="1" seq="104" icode=" " resname="THR" altcode=" ">
+		<clash atom="O" dist="1.81" clashmag="0.79" cid="4"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-77.1" psi="-47.3" rama="Favored" rota="tttp" model="1" chain="B" resnum="121" said="B" ent="1" seq="105" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HE2" dist="2.16" clashmag="0.46" cid="69"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-158.2" psi="177.5" rama="Favored" rota="p" model="1" chain="B" resnum="122" said="B" ent="1" seq="106" icode=" " resname="CYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-147.1" psi="165.8" rama="Favored" rota="p90" model="1" chain="B" resnum="123" said="B" ent="1" seq="107" icode=" " resname="PHE" altcode=" ">
+		<clash atom="CG" dist="2.53" clashmag="0.43" cid="78"/>
+		<clash atom="HE1" dist="2.03" clashmag="0.41" cid="94"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-145.9" psi="152.7" rama="Favored" model="1" chain="B" resnum="124" said="B" ent="1" seq="108" icode=" " resname="ALA" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-150.9" psi="150.5" rama="Favored" rota="p90" model="1" chain="B" resnum="125" said="B" ent="1" seq="109" icode=" " resname="PHE" altcode=" ">
+		<clash atom="HA" dist="2.15" clashmag="0.47" cid="63"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-124.5" psi="141.9" rama="Favored" rota="ptp" model="1" chain="B" resnum="126" said="B" ent="1" seq="110" icode=" " resname="MET" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-81.0" psi="165.8" rama="Favored" rota="mm-40" model="1" chain="B" resnum="127" said="B" ent="1" seq="111" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-57.9" psi="-50.2" rama="Favored" rota="mmt" model="1" chain="B" resnum="128" said="B" ent="1" seq="112" icode=" " resname="MET" altcode=" ">
+		<clash atom="C" dist="2.14" clashmag="0.51" cid="48"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-67.3" psi="17.8" rama="OUTLIER" rota="p30" model="1" chain="B" resnum="129" said="B" ent="1" seq="113" icode=" " resname="ASP" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-110.8" psi="-17.9" rama="Favored" rota="mt-10" model="1" chain="B" resnum="130" said="B" ent="1" seq="114" icode=" " resname="GLU" altcode=" ">
+		<clash atom="H" dist="2.14" clashmag="0.51" cid="48"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-63.3" psi="105.8" rama="Allowed" rota="mt" model="1" chain="B" resnum="131" said="B" ent="1" seq="115" icode=" " resname="ILE" altcode=" ">
+		<clash atom="HA" dist="1.65" clashmag="0.60" cid="23"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-147.6" psi="142.4" rama="Favored" rota="pttp" model="1" chain="B" resnum="132" said="B" ent="1" seq="116" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-58.0" psi="142.4" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="133" said="B" ent="1" seq="117" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="3" phi="114.8" psi="173.6" rama="Favored" model="1" chain="B" resnum="134" said="B" ent="1" seq="118" icode=" " resname="GLY" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-74.4" psi="157.0" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="135" said="B" ent="1" seq="119" icode=" " resname="PRO" altcode=" ">
+		<clash atom="HA" dist="1.83" clashmag="0.60" cid="24"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-150.4" psi="138.3" rama="Favored" rota="tt" model="1" chain="B" resnum="136" said="B" ent="1" seq="120" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-120.6" psi="119.4" rama="Favored" rota="m" model="1" chain="B" resnum="137" said="B" ent="1" seq="121" icode=" " resname="VAL" altcode=" ">
+		<clash atom="HG23" dist="2.09" clashmag="0.53" cid="42"/>
+		<clash atom="O" dist="2.09" clashmag="0.53" cid="42"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-109.5" psi="150.4" rama="Favored" rota="mt" model="1" chain="B" resnum="138" said="B" ent="1" seq="122" icode=" " resname="ILE" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="6" phi="-82.2" psi="166.7" rama="Favored" rota="pm0" model="1" chain="B" resnum="139" said="B" ent="1" seq="123" icode=" " resname="GLU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-114.0" psi="134.4" rama="Favored" rota="mt" model="1" chain="B" resnum="140" said="B" ent="1" seq="124" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-107.9" psi="151.2" rama="Favored" rota="m-85" model="1" chain="B" resnum="141" said="B" ent="1" seq="125" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-69.8" psi="148.8" rama="Favored" rota="mttt" model="1" chain="B" resnum="142" said="B" ent="1" seq="126" icode=" " resname="LYS" altcode=" ">
+		<clash atom="O" dist="2.03" clashmag="0.41" cid="94"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup cis_peptide="yes" num-H-reduce="13" phi="-78.0" psi="163.0" rama="Favored" rota="OUTLIER" model="1" chain="B" resnum="143" said="B" ent="1" seq="127" icode=" " resname="LYS" altcode=" ">
+		<clash atom="HG2" dist="1.81" clashmag="0.79" cid="4"/>
+		<clash atom="HA" dist="2.41" clashmag="0.41" cid="98"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-66.0" psi="156.7" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="144" said="B" ent="1" seq="128" icode=" " resname="PRO" altcode=" ">
+		<clash atom="C" dist="2.41" clashmag="0.41" cid="98"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-75.5" psi="135.6" rama="Favored" rota="m" model="1" chain="B" resnum="145" said="B" ent="1" seq="129" icode=" " resname="THR" altcode=" ">
+		<clash atom="HG23" dist="2.53" clashmag="0.43" cid="78"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="4" phi="-108.5" psi="91.1" rama="Favored" rota="t0" model="1" chain="B" resnum="146" said="B" ent="1" seq="130" icode=" " resname="ASP" altcode=" ">
+		<clash atom="OD2" dist="2.35" clashmag="0.44" cid="77"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="9" phi="-63.0" psi="-13.5" rama="Favored" rota="m-85" model="1" chain="B" resnum="147" said="B" ent="1" seq="131" icode=" " resname="PHE" altcode=" ">
+		<clash atom="CD1" dist="2.41" clashmag="0.56" cid="34"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-95.5" psi="-5.0" rama="Favored" rota="mttt" model="1" chain="B" resnum="148" said="B" ent="1" seq="132" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="40.0" psi="62.6" rama="Allowed" rota="OUTLIER" model="1" chain="B" resnum="149" said="B" ent="1" seq="133" icode=" " resname="ARG" altcode=" ">
+		<clash atom="NH2" dist="2.31" clashmag="0.47" cid="59"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-110.5" psi="-26.9" rama="Favored" rota="mmtt" model="1" chain="B" resnum="150" said="B" ent="1" seq="134" icode=" " resname="LYS" altcode=" ">
+		<clash atom="N" dist="2.35" clashmag="0.44" cid="77"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-132.1" psi="119.4" rama="Favored" rota="mtmt" model="1" chain="B" resnum="151" said="B" ent="1" seq="135" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-129.0" psi="131.4" rama="Favored" rota="mt" model="1" chain="B" resnum="152" said="B" ent="1" seq="136" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup flippable-sidechain="1" num-H-reduce="8" phi="-115.8" psi="111.5" rama="Favored" rota="mm100" model="1" chain="B" resnum="153" said="B" ent="1" seq="137" icode=" " resname="GLN" altcode=" ">
+		<clash atom="NE2" dist="2.20" clashmag="0.56" cid="36"/>
+		<clash atom="HA" dist="2.20" clashmag="0.56" cid="36"/>
+		<clash atom="HA" dist="1.74" clashmag="0.53" cid="43"/>
+		<clash atom="HE21" dist="1.74" clashmag="0.53" cid="43"/>
+		<clash atom="HE21" dist="2.30" clashmag="0.42" cid="89"/>
+		<clash atom="CA" dist="2.30" clashmag="0.42" cid="89"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-55.6" psi="136.3" rama="Favored" rota="tp" model="1" chain="B" resnum="154" said="B" ent="1" seq="138" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-69.7" psi="-39.6" rama="Favored" rota="tp" model="1" chain="B" resnum="155" said="B" ent="1" seq="139" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-167.1" psi="157.2" rama="Favored" rota="t" model="1" chain="B" resnum="156" said="B" ent="1" seq="140" icode=" " resname="THR" altcode=" ">
+		<clash atom="OG1" dist="2.19" clashmag="0.42" cid="90"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" phi="-91.8" psi="-14.2" rama="Favored" rota="mttt" model="1" chain="B" resnum="157" said="B" ent="1" seq="141" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="13" phi="-54.7" psi="154.0" rama="Favored" rota="mttt" model="1" chain="B" resnum="158" said="B" ent="1" seq="142" icode=" " resname="LYS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-80.7" psi="63.8" rama="Favored" rota="Cg_endo" model="1" chain="B" resnum="159" said="B" ent="1" seq="143" icode=" " resname="PRO" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-123.9" psi="97.4" rama="Favored" rota="mt" model="1" chain="B" resnum="160" said="B" ent="1" seq="144" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="9" phi="-112.7" psi="176.4" rama="Favored" rota="m-85" model="1" chain="B" resnum="161" said="B" ent="1" seq="145" icode=" " resname="TYR" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-97.6" psi="123.6" rama="Favored" rota="tp" model="1" chain="B" resnum="162" said="B" ent="1" seq="146" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-103.3" psi="114.6" rama="Favored" rota="m80" model="1" chain="B" resnum="163" said="B" ent="1" seq="147" icode=" " resname="HIS" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" phi="-120.7" psi="169.4" rama="Favored" rota="mt" model="1" chain="B" resnum="164" said="B" ent="1" seq="148" icode=" " resname="LEU" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="7" phi="-145.8" psi="129.2" rama="Favored" rota="t-80" model="1" chain="B" resnum="165" said="B" ent="1" seq="149" icode=" " resname="HIS" altcode=" ">
+		<clash atom="HA" dist="1.83" clashmag="0.60" cid="24"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup flippable-sidechain="1" num-H-reduce="8" phi="-102.3" psi="146.4" rama="Favored" rota="mt-30" model="1" chain="B" resnum="166" said="B" ent="1" seq="150" icode=" " resname="GLN" altcode=" ">
+		<clash atom="HE22" dist="1.65" clashmag="0.60" cid="23"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="5" phi="-136.8" psi="124.0" rama="Favored" rota="m" model="1" chain="B" resnum="167" said="B" ent="1" seq="151" icode=" " resname="SER" altcode=" ">
+		<clash atom="C" dist="2.42" clashmag="0.40" cid="102"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" phi="-113.7" psi="126.7" rama="Favored" rota="mp" model="1" chain="B" resnum="168" said="B" ent="1" seq="152" icode=" " resname="LEU" altcode=" ">
+		<clash atom="HD12" dist="2.42" clashmag="0.40" cid="102"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="7" phi="-108.3" psi="139.6" rama="Favored" rota="m-70" model="1" chain="B" resnum="169" said="B" ent="1" seq="153" icode=" " resname="HIS" altcode=" ">
+		<clash atom="HD2" dist="1.84" clashmag="0.42" cid="93"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="13" rota="mtpt" model="1" chain="B" resnum="170" said="B" ent="1" seq="154" icode=" " resname="LYS" altcode=" "/>
+	<ModelledEntityInstance bonds_rmsz="0.45" num_bonds_rmsz="1260" angles_rmsz="0.70" num_angles_rmsz="1699" absolute_sidechain_percentile="51.52" relative_sidechain_percentile="75.54" absolute_rama_percentile="21.91" relative_rama_percentile="43.04" said="A" model="1" chain="A" ent="1"/>
+	<ModelledEntityInstance bonds_rmsz="0.45" num_bonds_rmsz="1275" angles_rmsz="0.69" num_angles_rmsz="1721" absolute_sidechain_percentile="53.07" relative_sidechain_percentile="76.82" absolute_rama_percentile="11.70" relative_rama_percentile="24.43" said="B" model="1" chain="B" ent="1"/>
+	<programs>
+		<program name="validation-pipeline" version="2.36" properties="attemptedValidationSteps,protein-DNA-RNA-entities,PDB-resolution,pdbid,percentilebins,PDB-resolution-low,PDB-R,PDB-revision-date,XMLcreationDate,PDB-revision-number,PDB-Rfree,PDB-deposition-date"/>
+		<program name="molprobity" version="4.02b-467" properties="flippable-sidechain,bond-outlier,relative_rama_percentile,clashscore,relative_sidechain_percentile,rota,rama,cis_peptide,num_angles_rmsz,num_bonds_rmsz,bonds_rmsz,clash,angle-outlier,phi,absolute_rama_percentile,psi,angles_rmsz,percent-rama-outliers,absolute_sidechain_percentile,num-H-reduce,percent-rota-outliers"/>
+		<program name="xtriage" version="1.13" properties="centric_outliers,xtriage_input_columns,WilsonBestimate,IoverSigma,WilsonBaniso,TwinFraction,TransNCS,TwinL2,TwinL,acentric_outliers,numMillerIndices,DataAnisotropy"/>
+		<program name="eds" version="2.36" properties="bulk_solvent_b,EDS_resolution,percent-free-reflections,num-free-reflections,CCP4version,babinet_b,DataCompleteness,bulk_solvent_k,EDS_resolution_low,babinet_k,Fo_Fc_correlation,RefmacVersion,EDS_R"/>
+		<program name="dcc" version="&quot;2.27  (2023-04-10)&quot;" properties="DCC_refinement_program,B_factor_type,DCC_Rfree,DCC_R"/>
+		<program name="mogul" version="unknown" properties="no-ligands-for-mogul"/>
+		<program name="buster-report" version="unknown" properties="no-ligands-for-buster-report"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="numPDBids-relative-percentile-percent-rama-outliers,relative-percentile-clashscore,low-resol-relative-percentile-percent-rota-outliers,numPDBids-absolute-percentile-DCC_Rfree,relative-percentile-percent-rama-outliers,numPDBids-absolute-percentile-clashscore,numPDBids-absolute-percentile-percent-rota-outliers,numPDBids-relative-percentile-DCC_Rfree,relative-percentile-DCC_Rfree,absolute-percentile-percent-rota-outliers,absolute-percentile-percent-rama-outliers,low-resol-relative-percentile-percent-rama-outliers,absolute-percentile-DCC_Rfree,low-resol-relative-percentile-clashscore,low-resol-relative-percentile-DCC_Rfree,high-resol-relative-percentile-percent-rama-outliers,absolute-percentile-clashscore,numPDBids-relative-percentile-clashscore,high-resol-relative-percentile-DCC_Rfree,relative-percentile-percent-rota-outliers,high-resol-relative-percentile-clashscore,high-resol-relative-percentile-percent-rota-outliers,numPDBids-relative-percentile-percent-rota-outliers,numPDBids-absolute-percentile-percent-rama-outliers"/>
+	</programs>
+</wwPDB-validation-information>

@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+from src.data_parsers.ligand_stats_parser import parse_ligand_stats
 from src.data_parsers.xml_parser import _parse_xml_unsafe
 from src.models import ProteinDataFromXML
 from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
@@ -21,6 +22,7 @@ def test_parse_xml_extended(pdb_id: str):
 
 
 def unified_test_parse_xml(pdb_id: str):
+    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
     xml_file_path = os.path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
 
     if not os.path.exists(xml_file_path):
@@ -29,7 +31,8 @@ def unified_test_parse_xml(pdb_id: str):
                            "basic test suite only.")
 
     expected_protein_data = load_expected_xml_protein_data(pdb_id)
-    actual_protein_data = _parse_xml_unsafe(pdb_id, xml_file_path)
+    ligand_stats = parse_ligand_stats(path_to_ligand_stats)
+    actual_protein_data, _ = _parse_xml_unsafe(pdb_id, xml_file_path, ligand_stats)
 
     assert actual_protein_data
 

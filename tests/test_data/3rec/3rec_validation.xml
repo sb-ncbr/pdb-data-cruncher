@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.00.xsd">
+	<Entry percentilebins="all,nmr" attemptedValidationSteps="mogul,buster-report,molprobity,validation-pack,coreclust,chemicalshifts,percentiles,writepdf,writexml" PDB-deposition-date="1997-04-17" PDB-revision-date="2022-03-16" PDB-revision-number="4" protein-DNA-RNA-entities="1" PDB-resolution="NotAvailable" PDB-resolution-low="NotAvailable" PDB-R="NotAvailable" PDB-Rfree="NotAvailable" pdbid="3REC" no-ligands-for-mogul="yes" no-ligands-for-buster-report="yes" num-H-reduce="25" clashscore-full-length="0.00" bonds_rmsz="0.11" num_bonds_rmsz="42" angles_rmsz="0.45" num_angles_rmsz="63" nmr_models_consistency_flag="True" cyrange_error="Not enough models (&lt;3)" panav_version="Wang et al. (2010)" rci_version="v_1n_11_5_13_A (Berjanski et al., 2005)" shiftchecker_version="2.29" no-percentile-property="true" cs_only="yes" XMLcreationDate="Aug 21, 2022 -- 08:19 AM EDT"/>
+	<ModelledSubgroup num-H-reduce="13" model="1" chain="A" resnum="1" said="A" ent="1" seq="1" icode=" " resname="DT" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="2" said="A" ent="1" seq="2" icode=" " resname="DA" altcode=" "/>
+	<ModelledEntityInstance bonds_rmsz="0.11" num_bonds_rmsz="42" angles_rmsz="0.45" num_angles_rmsz="63" said="A" model="1" chain="A" ent="1"/>
+	<programs>
+		<program name="validation-pipeline" version="2.29" properties="percentilebins,cs_only,PDB-Rfree,protein-DNA-RNA-entities,PDB-R,pdbid,PDB-revision-date,attemptedValidationSteps,PDB-resolution-low,PDB-resolution,XMLcreationDate,PDB-deposition-date,PDB-revision-number"/>
+		<program name="mogul" version="unknown" properties="no-ligands-for-mogul"/>
+		<program name="buster-report" version="unknown" properties="no-ligands-for-buster-report"/>
+		<program name="molprobity" version="4.02b-467" properties="num_angles_rmsz,clashscore-full-length,angle-outlier,num_bonds_rmsz,bond-outlier,angles_rmsz,bonds_rmsz,num-H-reduce"/>
+		<program name="coreclust" version="unknown" properties="cyrange_error,nmr_models_consistency_flag"/>
+		<program name="chemicalshifts" version="2.29" properties="panav_version,rci_version,shiftchecker_version"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="no-percentile-property"/>
+	</programs>
+</wwPDB-validation-information>

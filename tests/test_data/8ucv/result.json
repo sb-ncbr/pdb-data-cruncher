@@ -1,0 +1,882 @@
+{
+  "Version": "1.1.23.12.27b",
+  "Errors": {},
+  "ValidationType": "Database",
+  "MotiveCount": 4,
+  "Models": [
+    {
+      "ModelName": "DGT",
+      "LongName": "2'-deoxyguanosine-5'-triphosphate",
+      "Formula": "C{10}H{16}N{5}O{13}P{3}",
+      "CoordinateSource": "CifModel",
+      "ModelNames": {
+        "1": "PG",
+        "2": "O1G",
+        "3": "O2G",
+        "4": "O3G",
+        "5": "O3B",
+        "6": "PB",
+        "7": "O1B",
+        "8": "O2B",
+        "9": "O3A",
+        "10": "PA",
+        "11": "O1A",
+        "12": "O2A",
+        "13": "O5'",
+        "14": "C5'",
+        "15": "C4'",
+        "16": "O4'",
+        "17": "C3'",
+        "18": "O3'",
+        "19": "C2'",
+        "20": "C1'",
+        "21": "N9",
+        "22": "C8",
+        "23": "N7",
+        "24": "C5",
+        "25": "C6",
+        "26": "O6",
+        "27": "N1",
+        "28": "C2",
+        "29": "N2",
+        "30": "N3",
+        "31": "C4"
+      },
+      "ModelAtomTypes": {
+        "1": "P",
+        "2": "O",
+        "3": "O",
+        "4": "O",
+        "5": "O",
+        "6": "P",
+        "7": "O",
+        "8": "O",
+        "9": "O",
+        "10": "P",
+        "11": "O",
+        "12": "O",
+        "13": "O",
+        "14": "C",
+        "15": "C",
+        "16": "O",
+        "17": "C",
+        "18": "O",
+        "19": "C",
+        "20": "C",
+        "21": "N",
+        "22": "C",
+        "23": "N",
+        "24": "C",
+        "25": "C",
+        "26": "O",
+        "27": "N",
+        "28": "C",
+        "29": "N",
+        "30": "N",
+        "31": "C"
+      },
+      "PlanarAtoms": [],
+      "ChiralAtoms": [
+        6,
+        10,
+        15,
+        17,
+        20
+      ],
+      "ChiralAtomsInfo": {
+        "Planar": [],
+        "Carbon": [
+          15,
+          17,
+          20
+        ],
+        "Metal": [],
+        "NonSingleBond": [
+          6,
+          10
+        ]
+      },
+      "AtomNamingEquivalence": {
+        "Charge": {
+          "H2'": "H2'",
+          "H2'A": "H2'",
+          "H5'": "H5'",
+          "H5'A": "H5'",
+          "HN2": "HN2",
+          "HN2A": "HN2",
+          "HO1A": "HO1A",
+          "HO1B": "HO1A",
+          "HO1G": "HO1A",
+          "HO2G": "HO1A",
+          "O1G": "O1G",
+          "O2G": "O1G"
+        },
+        "ChargeIgnoreBondTypes": {
+          "O1A": "O1A",
+          "O2A": "O1A",
+          "O1B": "O1B",
+          "O2B": "O1B",
+          "O1G": "O1G",
+          "O2G": "O1G",
+          "O3G": "O1G"
+        }
+      },
+      "ModelBonds": {
+        "1-2": 1,
+        "1-3": 1,
+        "1-4": 2,
+        "1-5": 1,
+        "5-6": 1,
+        "6-7": 1,
+        "6-9": 1,
+        "6-8": 2,
+        "9-10": 1,
+        "10-11": 1,
+        "10-12": 2,
+        "10-13": 1,
+        "13-14": 1,
+        "14-15": 1,
+        "15-16": 1,
+        "15-17": 1,
+        "17-18": 1,
+        "17-19": 1,
+        "19-20": 1,
+        "16-20": 1,
+        "20-21": 1,
+        "21-31": 1,
+        "21-22": 1,
+        "22-23": 2,
+        "23-24": 1,
+        "24-25": 1,
+        "24-31": 2,
+        "25-27": 1,
+        "25-26": 2,
+        "27-28": 1,
+        "28-30": 2,
+        "28-29": 1,
+        "30-31": 1
+      },
+      "Summary": {
+        "Analyzed": 1,
+        "HasAll": 1,
+        "HasAll_BadChirality": 1,
+        "HasAll_BadChirality_Carbon": 0,
+        "HasAll_BadChirality_Metal": 0,
+        "HasAll_BadChirality_NonSingleBond": 1,
+        "HasAll_BadChirality_Other": 0,
+        "HasAll_BadChirality_Planar": 0,
+        "HasAll_Foreign": 0,
+        "HasAll_GoodChirality": 0,
+        "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors": 1,
+        "HasAll_NameMismatch": 1,
+        "HasAll_NameMismatch_ChargeEquiv": 0,
+        "HasAll_NameMismatch_ChargeEquivIgnoreBondType": 1,
+        "HasAll_NameMismatch_NonChargeEquiv": 1,
+        "HasAll_NameMismatch_NonChargeEquivIgnoreBondType": 0,
+        "HasAll_Substitutions": 0,
+        "HasAll_WrongBonds": 0,
+        "HasAll_ZeroRmsd": 0,
+        "Has_AlternateLocation": 0,
+        "Has_NamingIssue_Duplicates": 0,
+        "Has_NamingIssue_NonBoundarySubstitutionOrForeign": 0,
+        "Has_NamingIssue_NonIsomorphic": 0,
+        "Missing": 0,
+        "Missing_Atoms": 0,
+        "Missing_Degenerate": 0,
+        "Missing_Rings": 0,
+        "NotAnalyzed": 0
+      },
+      "StructureNames": [
+        "8ucv"
+      ],
+      "NotAnalyzedNames": [],
+      "Entries": [
+        {
+          "ModelName": "DGT",
+          "Id": "8ucv_0_19059",
+          "State": "Validated",
+          "Flags": [
+            "Analyzed",
+            "HasAll",
+            "HasAll_BadChirality",
+            "HasAll_BadChirality_NonSingleBond",
+            "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors",
+            "HasAll_NameMismatch",
+            "HasAll_NameMismatch_ChargeEquivIgnoreBondType",
+            "HasAll_NameMismatch_NonChargeEquiv"
+          ],
+          "MainResidue": "DGT 1501 A",
+          "ResidueCount": 1,
+          "Residues": [
+            "DGT 1501 A"
+          ],
+          "MissingAtomCount": 0,
+          "MissingRingCount": 0,
+          "WrongBondCount": 0,
+          "HasBondDiscrepancy": false,
+          "NameMismatchCount": 2,
+          "ForeignAtomCount": 0,
+          "ChiralityMismatchCount": 1,
+          "SubstitutionCount": 0,
+          "UnmatchedMotiveAtomCount": 4,
+          "MissingAtoms": [],
+          "MissingRings": "",
+          "WrongBonds": [],
+          "NameMismatches": {
+            "7": "O2B O 19066",
+            "8": "O1B O 19065"
+          },
+          "NameMismatchFlags": {
+            "8": [
+              "ChargeEquivIgnoreBonds",
+              "NonChargeEquiv"
+            ],
+            "7": [
+              "ChargeEquivIgnoreBonds",
+              "NonChargeEquiv"
+            ]
+          },
+          "ForeignAtoms": {},
+          "ChiralityMismatches": {
+            "6": "PB P 19064"
+          },
+          "Substitutions": {},
+          "AlternateLocationCount": 0,
+          "DuplicateNames": [],
+          "NonBoundarySubstitutionAndForeignAtoms": [],
+          "UnmatchedModelNames": [],
+          "ModelRmsd": 2.143
+        }
+      ],
+      "Warnings": {},
+      "Errors": {}
+    },
+    {
+      "ModelName": "SF4",
+      "LongName": "iron/sulfur cluster",
+      "Formula": "Fe{4}S{4}",
+      "CoordinateSource": "CifModel",
+      "ModelNames": {
+        "1": "FE1",
+        "2": "FE2",
+        "3": "FE3",
+        "4": "FE4",
+        "5": "S1",
+        "6": "S2",
+        "7": "S3",
+        "8": "S4"
+      },
+      "ModelAtomTypes": {
+        "1": "Fe",
+        "2": "Fe",
+        "3": "Fe",
+        "4": "Fe",
+        "5": "S",
+        "6": "S",
+        "7": "S",
+        "8": "S"
+      },
+      "PlanarAtoms": [],
+      "ChiralAtoms": [],
+      "ChiralAtomsInfo": {
+        "Planar": [],
+        "Carbon": [],
+        "Metal": [],
+        "NonSingleBond": []
+      },
+      "AtomNamingEquivalence": {
+        "Charge": {
+          "FE1": "FE1",
+          "FE2": "FE1",
+          "FE3": "FE1",
+          "FE4": "FE1",
+          "S1": "S1",
+          "S2": "S1",
+          "S3": "S1",
+          "S4": "S1"
+        },
+        "ChargeIgnoreBondTypes": {
+          "FE1": "FE1",
+          "FE2": "FE1",
+          "FE3": "FE1",
+          "FE4": "FE1",
+          "S1": "S1",
+          "S2": "S1",
+          "S3": "S1",
+          "S4": "S1"
+        }
+      },
+      "ModelBonds": {
+        "1-6": 1,
+        "1-7": 1,
+        "1-8": 1,
+        "2-5": 1,
+        "2-7": 1,
+        "2-8": 1,
+        "3-5": 1,
+        "3-6": 1,
+        "3-8": 1,
+        "4-5": 1,
+        "4-6": 1,
+        "4-7": 1
+      },
+      "Summary": {
+        "Analyzed": 1,
+        "HasAll": 1,
+        "HasAll_BadChirality": 0,
+        "HasAll_BadChirality_Carbon": 0,
+        "HasAll_BadChirality_Metal": 0,
+        "HasAll_BadChirality_NonSingleBond": 0,
+        "HasAll_BadChirality_Other": 0,
+        "HasAll_BadChirality_Planar": 0,
+        "HasAll_Foreign": 0,
+        "HasAll_GoodChirality": 1,
+        "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors": 1,
+        "HasAll_NameMismatch": 1,
+        "HasAll_NameMismatch_ChargeEquiv": 1,
+        "HasAll_NameMismatch_ChargeEquivIgnoreBondType": 1,
+        "HasAll_NameMismatch_NonChargeEquiv": 0,
+        "HasAll_NameMismatch_NonChargeEquivIgnoreBondType": 0,
+        "HasAll_Substitutions": 0,
+        "HasAll_WrongBonds": 0,
+        "HasAll_ZeroRmsd": 0,
+        "Has_AlternateLocation": 0,
+        "Has_NamingIssue_Duplicates": 0,
+        "Has_NamingIssue_NonBoundarySubstitutionOrForeign": 0,
+        "Has_NamingIssue_NonIsomorphic": 0,
+        "Missing": 0,
+        "Missing_Atoms": 0,
+        "Missing_Degenerate": 0,
+        "Missing_Rings": 0,
+        "NotAnalyzed": 0
+      },
+      "StructureNames": [
+        "8ucv"
+      ],
+      "NotAnalyzedNames": [],
+      "Entries": [
+        {
+          "ModelName": "SF4",
+          "Id": "8ucv_1_19103",
+          "State": "Validated",
+          "Flags": [
+            "Analyzed",
+            "HasAll",
+            "HasAll_GoodChirality",
+            "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors",
+            "HasAll_NameMismatch",
+            "HasAll_NameMismatch_ChargeEquiv",
+            "HasAll_NameMismatch_ChargeEquivIgnoreBondType"
+          ],
+          "MainResidue": "SF4 601 B",
+          "ResidueCount": 1,
+          "Residues": [
+            "SF4 601 B"
+          ],
+          "MissingAtomCount": 0,
+          "MissingRingCount": 0,
+          "WrongBondCount": 0,
+          "HasBondDiscrepancy": false,
+          "NameMismatchCount": 8,
+          "ForeignAtomCount": 0,
+          "ChiralityMismatchCount": 0,
+          "SubstitutionCount": 0,
+          "UnmatchedMotiveAtomCount": 8,
+          "MissingAtoms": [],
+          "MissingRings": "",
+          "WrongBonds": [],
+          "NameMismatches": {
+            "1": "FE2 Fe 19104",
+            "2": "FE3 Fe 19105",
+            "3": "FE4 Fe 19106",
+            "4": "FE1 Fe 19103",
+            "5": "S2 S 19108",
+            "6": "S3 S 19109",
+            "7": "S4 S 19110",
+            "8": "S1 S 19107"
+          },
+          "NameMismatchFlags": {
+            "4": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "1": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "2": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "3": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "8": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "5": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "6": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ],
+            "7": [
+              "ChargeEquiv",
+              "ChargeEquivIgnoreBonds"
+            ]
+          },
+          "ForeignAtoms": {},
+          "ChiralityMismatches": {},
+          "Substitutions": {},
+          "AlternateLocationCount": 0,
+          "DuplicateNames": [],
+          "NonBoundarySubstitutionAndForeignAtoms": [],
+          "UnmatchedModelNames": [],
+          "ModelRmsd": 0.088
+        }
+      ],
+      "Warnings": {},
+      "Errors": {}
+    },
+    {
+      "ModelName": "GTP",
+      "LongName": "guanosine-5'-triphosphate",
+      "Formula": "C{10}H{16}N{5}O{14}P{3}",
+      "CoordinateSource": "CifModel",
+      "ModelNames": {
+        "1": "PG",
+        "2": "O1G",
+        "3": "O2G",
+        "4": "O3G",
+        "5": "O3B",
+        "6": "PB",
+        "7": "O1B",
+        "8": "O2B",
+        "9": "O3A",
+        "10": "PA",
+        "11": "O1A",
+        "12": "O2A",
+        "13": "O5'",
+        "14": "C5'",
+        "15": "C4'",
+        "16": "O4'",
+        "17": "C3'",
+        "18": "O3'",
+        "19": "C2'",
+        "20": "O2'",
+        "21": "C1'",
+        "22": "N9",
+        "23": "C8",
+        "24": "N7",
+        "25": "C5",
+        "26": "C6",
+        "27": "O6",
+        "28": "N1",
+        "29": "C2",
+        "30": "N2",
+        "31": "N3",
+        "32": "C4"
+      },
+      "ModelAtomTypes": {
+        "1": "P",
+        "2": "O",
+        "3": "O",
+        "4": "O",
+        "5": "O",
+        "6": "P",
+        "7": "O",
+        "8": "O",
+        "9": "O",
+        "10": "P",
+        "11": "O",
+        "12": "O",
+        "13": "O",
+        "14": "C",
+        "15": "C",
+        "16": "O",
+        "17": "C",
+        "18": "O",
+        "19": "C",
+        "20": "O",
+        "21": "C",
+        "22": "N",
+        "23": "C",
+        "24": "N",
+        "25": "C",
+        "26": "C",
+        "27": "O",
+        "28": "N",
+        "29": "C",
+        "30": "N",
+        "31": "N",
+        "32": "C"
+      },
+      "PlanarAtoms": [],
+      "ChiralAtoms": [
+        6,
+        10,
+        15,
+        17,
+        19,
+        21
+      ],
+      "ChiralAtomsInfo": {
+        "Planar": [],
+        "Carbon": [
+          15,
+          17,
+          19,
+          21
+        ],
+        "Metal": [],
+        "NonSingleBond": [
+          6,
+          10
+        ]
+      },
+      "AtomNamingEquivalence": {
+        "Charge": {
+          "H5'": "H5'",
+          "H5''": "H5'",
+          "H3'": "H3'",
+          "H4'": "H3'",
+          "HN21": "HN21",
+          "HN22": "HN21",
+          "HOA2": "HOA2",
+          "HOB2": "HOA2",
+          "HOG2": "HOA2",
+          "HOG3": "HOA2",
+          "O2G": "O2G",
+          "O3G": "O2G"
+        },
+        "ChargeIgnoreBondTypes": {
+          "O1A": "O1A",
+          "O2A": "O1A",
+          "O1B": "O1B",
+          "O2B": "O1B",
+          "O1G": "O1G",
+          "O2G": "O1G",
+          "O3G": "O1G"
+        }
+      },
+      "ModelBonds": {
+        "1-2": 2,
+        "1-3": 1,
+        "1-4": 1,
+        "1-5": 1,
+        "5-6": 1,
+        "6-7": 2,
+        "6-8": 1,
+        "6-9": 1,
+        "9-10": 1,
+        "10-11": 2,
+        "10-12": 1,
+        "10-13": 1,
+        "13-14": 1,
+        "14-15": 1,
+        "15-16": 1,
+        "15-17": 1,
+        "16-21": 1,
+        "17-18": 1,
+        "17-19": 1,
+        "19-20": 1,
+        "19-21": 1,
+        "21-22": 1,
+        "22-23": 1,
+        "22-32": 1,
+        "23-24": 2,
+        "24-25": 1,
+        "25-26": 1,
+        "25-32": 2,
+        "26-27": 2,
+        "26-28": 1,
+        "28-29": 1,
+        "29-30": 1,
+        "29-31": 2,
+        "31-32": 1
+      },
+      "Summary": {
+        "Analyzed": 1,
+        "HasAll": 1,
+        "HasAll_BadChirality": 0,
+        "HasAll_BadChirality_Carbon": 0,
+        "HasAll_BadChirality_Metal": 0,
+        "HasAll_BadChirality_NonSingleBond": 0,
+        "HasAll_BadChirality_Other": 0,
+        "HasAll_BadChirality_Planar": 0,
+        "HasAll_Foreign": 0,
+        "HasAll_GoodChirality": 1,
+        "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors": 1,
+        "HasAll_NameMismatch": 0,
+        "HasAll_NameMismatch_ChargeEquiv": 0,
+        "HasAll_NameMismatch_ChargeEquivIgnoreBondType": 0,
+        "HasAll_NameMismatch_NonChargeEquiv": 0,
+        "HasAll_NameMismatch_NonChargeEquivIgnoreBondType": 0,
+        "HasAll_Substitutions": 0,
+        "HasAll_WrongBonds": 0,
+        "HasAll_ZeroRmsd": 0,
+        "Has_AlternateLocation": 0,
+        "Has_NamingIssue_Duplicates": 0,
+        "Has_NamingIssue_NonBoundarySubstitutionOrForeign": 0,
+        "Has_NamingIssue_NonIsomorphic": 0,
+        "Missing": 0,
+        "Missing_Atoms": 0,
+        "Missing_Degenerate": 0,
+        "Missing_Rings": 0,
+        "NotAnalyzed": 0
+      },
+      "StructureNames": [
+        "8ucv"
+      ],
+      "NotAnalyzedNames": [],
+      "Entries": [
+        {
+          "ModelName": "GTP",
+          "Id": "8ucv_2_18120",
+          "State": "Validated",
+          "Flags": [
+            "Analyzed",
+            "HasAll",
+            "HasAll_GoodChirality",
+            "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors"
+          ],
+          "MainResidue": "GTP 1 D",
+          "ResidueCount": 1,
+          "Residues": [
+            "GTP 1 D"
+          ],
+          "MissingAtomCount": 0,
+          "MissingRingCount": 0,
+          "WrongBondCount": 0,
+          "HasBondDiscrepancy": false,
+          "NameMismatchCount": 0,
+          "ForeignAtomCount": 0,
+          "ChiralityMismatchCount": 0,
+          "SubstitutionCount": 0,
+          "UnmatchedMotiveAtomCount": 5,
+          "MissingAtoms": [],
+          "MissingRings": "",
+          "WrongBonds": [],
+          "NameMismatches": {},
+          "NameMismatchFlags": {},
+          "ForeignAtoms": {},
+          "ChiralityMismatches": {},
+          "Substitutions": {},
+          "AlternateLocationCount": 0,
+          "DuplicateNames": [],
+          "NonBoundarySubstitutionAndForeignAtoms": [],
+          "UnmatchedModelNames": [],
+          "ModelRmsd": 2.263
+        }
+      ],
+      "Warnings": {},
+      "Errors": {}
+    },
+    {
+      "ModelName": "DOC",
+      "LongName": "2',3'-dideoxycytidine-5'-monophosphate",
+      "Formula": "C{9}H{14}N{3}O{6}P{1}",
+      "CoordinateSource": "CifModel",
+      "ModelNames": {
+        "1": "N1",
+        "2": "C2",
+        "3": "N3",
+        "4": "C4",
+        "5": "C5",
+        "6": "C6",
+        "7": "O2",
+        "8": "N4",
+        "9": "C1'",
+        "10": "C2'",
+        "11": "C3'",
+        "12": "C4'",
+        "13": "O4'",
+        "14": "C5'",
+        "15": "O5'",
+        "16": "P",
+        "17": "OP1",
+        "18": "OP2",
+        "19": "OP3"
+      },
+      "ModelAtomTypes": {
+        "1": "N",
+        "2": "C",
+        "3": "N",
+        "4": "C",
+        "5": "C",
+        "6": "C",
+        "7": "O",
+        "8": "N",
+        "9": "C",
+        "10": "C",
+        "11": "C",
+        "12": "C",
+        "13": "O",
+        "14": "C",
+        "15": "O",
+        "16": "P",
+        "17": "O",
+        "18": "O",
+        "19": "O"
+      },
+      "PlanarAtoms": [],
+      "ChiralAtoms": [
+        9,
+        12
+      ],
+      "ChiralAtomsInfo": {
+        "Planar": [],
+        "Carbon": [
+          9,
+          12
+        ],
+        "Metal": [],
+        "NonSingleBond": []
+      },
+      "AtomNamingEquivalence": {
+        "Charge": {
+          "H3'1": "H3'1",
+          "H3'2": "H3'1",
+          "H2'": "H2'",
+          "H2''": "H2'",
+          "H5'": "H5'",
+          "H5''": "H5'",
+          "HN41": "HN41",
+          "HN42": "HN41",
+          "HOP2": "HOP2",
+          "HOP3": "HOP2",
+          "OP2": "OP2",
+          "OP3": "OP2"
+        },
+        "ChargeIgnoreBondTypes": {
+          "OP1": "OP1",
+          "OP2": "OP1",
+          "OP3": "OP1"
+        }
+      },
+      "ModelBonds": {
+        "1-2": 1,
+        "1-6": 1,
+        "1-9": 1,
+        "2-3": 1,
+        "2-7": 2,
+        "3-4": 2,
+        "4-5": 1,
+        "4-8": 1,
+        "5-6": 2,
+        "9-10": 1,
+        "9-13": 1,
+        "10-11": 1,
+        "11-12": 1,
+        "12-13": 1,
+        "12-14": 1,
+        "14-15": 1,
+        "15-16": 1,
+        "16-17": 2,
+        "16-18": 1,
+        "16-19": 1
+      },
+      "Summary": {
+        "Analyzed": 1,
+        "HasAll": 1,
+        "HasAll_BadChirality": 0,
+        "HasAll_BadChirality_Carbon": 0,
+        "HasAll_BadChirality_Metal": 0,
+        "HasAll_BadChirality_NonSingleBond": 0,
+        "HasAll_BadChirality_Other": 0,
+        "HasAll_BadChirality_Planar": 0,
+        "HasAll_Foreign": 1,
+        "HasAll_GoodChirality": 1,
+        "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors": 1,
+        "HasAll_NameMismatch": 1,
+        "HasAll_NameMismatch_ChargeEquiv": 0,
+        "HasAll_NameMismatch_ChargeEquivIgnoreBondType": 1,
+        "HasAll_NameMismatch_NonChargeEquiv": 1,
+        "HasAll_NameMismatch_NonChargeEquivIgnoreBondType": 0,
+        "HasAll_Substitutions": 0,
+        "HasAll_WrongBonds": 0,
+        "HasAll_ZeroRmsd": 0,
+        "Has_AlternateLocation": 0,
+        "Has_NamingIssue_Duplicates": 0,
+        "Has_NamingIssue_NonBoundarySubstitutionOrForeign": 0,
+        "Has_NamingIssue_NonIsomorphic": 0,
+        "Missing": 0,
+        "Missing_Atoms": 0,
+        "Missing_Degenerate": 0,
+        "Missing_Rings": 0,
+        "NotAnalyzed": 0
+      },
+      "StructureNames": [
+        "8ucv"
+      ],
+      "NotAnalyzedNames": [],
+      "Entries": [
+        {
+          "ModelName": "DOC",
+          "Id": "8ucv_3_19029",
+          "State": "Validated",
+          "Flags": [
+            "Analyzed",
+            "HasAll",
+            "HasAll_Foreign",
+            "HasAll_GoodChirality",
+            "HasAll_GoodChirality_IgnorePlanarAndNonSingleBondErrors",
+            "HasAll_NameMismatch",
+            "HasAll_NameMismatch_ChargeEquivIgnoreBondType",
+            "HasAll_NameMismatch_NonChargeEquiv"
+          ],
+          "MainResidue": "DOC 29 D",
+          "ResidueCount": 2,
+          "Residues": [
+            "DG 28 D",
+            "DOC 29 D"
+          ],
+          "MissingAtomCount": 0,
+          "MissingRingCount": 0,
+          "WrongBondCount": 0,
+          "HasBondDiscrepancy": false,
+          "NameMismatchCount": 2,
+          "ForeignAtomCount": 1,
+          "ChiralityMismatchCount": 0,
+          "SubstitutionCount": 0,
+          "UnmatchedMotiveAtomCount": 1,
+          "MissingAtoms": [],
+          "MissingRings": "",
+          "WrongBonds": [],
+          "NameMismatches": {
+            "17": "OP2 O 19046",
+            "18": "OP1 O 19045"
+          },
+          "NameMismatchFlags": {
+            "18": [
+              "ChargeEquivIgnoreBonds",
+              "NonChargeEquiv"
+            ],
+            "17": [
+              "ChargeEquivIgnoreBonds",
+              "NonChargeEquiv"
+            ]
+          },
+          "ForeignAtoms": {
+            "19": "O3' O 19004, DG 28 D"
+          },
+          "ChiralityMismatches": {},
+          "Substitutions": {},
+          "AlternateLocationCount": 0,
+          "DuplicateNames": [],
+          "NonBoundarySubstitutionAndForeignAtoms": [],
+          "UnmatchedModelNames": [
+            "OP3"
+          ],
+          "ModelRmsd": 0.607
+        }
+      ],
+      "Warnings": {},
+      "Errors": {}
+    }
+  ]
+}

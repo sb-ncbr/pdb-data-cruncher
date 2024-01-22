@@ -48,6 +48,7 @@ class Diagnostics:
         """
         return len(self.issues)
 
+    # TODO remove issue type altogether
     # pylint: disable=redefined-builtin
     def add_issue(self, type: IssueType, msg: str) -> None:
         """
