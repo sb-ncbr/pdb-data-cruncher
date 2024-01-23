@@ -42,7 +42,7 @@ def parse_pdbx(pdb_id: str, filepath: str) -> Optional[ProteinDataFromPDBx]:
         return None
     except Exception as ex:  # pylint: disable=broad-exception-caught
         # We want to catch broad exception here so unforseen data error doesn't kill the whole data processing.
-        logging.exception("[%s] Encountered unexpected issue: %s", pdb_id, ex)
+        logging.exception("[%s] PDBx parsing: Encountered unexpected issue: %s", pdb_id, ex)
         return None
 
 

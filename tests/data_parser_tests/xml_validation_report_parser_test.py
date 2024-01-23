@@ -3,7 +3,7 @@ import os
 import pytest
 
 from src.data_parsers.ligand_stats_parser import parse_ligand_stats
-from src.data_parsers.xml_parser import _parse_xml_unsafe
+from src.data_parsers.xml_validation_report_parser import _parse_xml_validation_report_unsafe
 from src.models import ProteinDataFromXML
 from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
 from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses, float_or_none
@@ -11,17 +11,17 @@ from tests.helpers import load_data_from_crunched_results_csv, compare_dataclass
 
 @pytest.mark.basic
 @pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
-def test_parse_xml_basic(pdb_id: str):
-    unified_test_parse_xml(pdb_id)
+def test_parse_xml_validation_report_basic(pdb_id: str):
+    unified_test_parse_xml_validation_report(pdb_id)
 
 
 @pytest.mark.extended
 @pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
-def test_parse_xml_extended(pdb_id: str):
-    unified_test_parse_xml(pdb_id)
+def test_parse_xml_validation_report_extended(pdb_id: str):
+    unified_test_parse_xml_validation_report(pdb_id)
 
 
-def unified_test_parse_xml(pdb_id: str):
+def unified_test_parse_xml_validation_report(pdb_id: str):
     path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
     xml_file_path = os.path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
 
@@ -32,7 +32,7 @@ def unified_test_parse_xml(pdb_id: str):
 
     expected_protein_data = load_expected_xml_protein_data(pdb_id)
     ligand_stats = parse_ligand_stats(path_to_ligand_stats)
-    actual_protein_data, _ = _parse_xml_unsafe(pdb_id, xml_file_path, ligand_stats)
+    actual_protein_data, _ = _parse_xml_validation_report_unsafe(pdb_id, xml_file_path, ligand_stats)
 
     assert actual_protein_data
 
@@ -62,16 +62,16 @@ def load_expected_xml_protein_data(pdb_id: str) -> ProteinDataFromXML:
     )
     return ProteinDataFromXML(
         pdb_id=pdb_id,
-        highest_chain_bonds_RMSZ=float_or_none(data["highestChainBondsRMSZ"]),
-        highest_chain_angles_RMSZ=float_or_none(data["highestChainAnglesRMSZ"]),
-        average_residue_RSR=float_or_none(data["averageResidueRSR"]),
-        average_residue_RSCC=float_or_none(data["averageResidueRSCC"]),
-        residue_RSCC_outlier_ratio=float_or_none(data["residueRSCCoutlierRatio"]),
-        average_ligand_RSR=float_or_none(data["averageLigandRSR"]),
-        average_ligand_RSCC=float_or_none(data["averageLigandRSCC"]),
-        ligand_RSCC_outlier_ratio=float_or_none(data["ligandRSCCoutlierRatio"]),
-        average_ligand_angle_RMSZ=float_or_none(data["averageLigandAngleRMSZ"]),
-        average_ligand_bond_RMSZ=float_or_none(data["averageLigandBondRMSZ"]),
-        average_ligand_RSCC_large_ligands=float_or_none(data["averageLigandRSCClargeLigs"]),
-        average_ligand_RSCC_small_ligands=float_or_none(data["averageLigandRSCCsmallLigs"]),
+        highest_chain_bonds_rmsz=float_or_none(data["highestChainBondsRMSZ"]),
+        highest_chain_angles_rmsz=float_or_none(data["highestChainAnglesRMSZ"]),
+        average_residue_rsr=float_or_none(data["averageResidueRSR"]),
+        average_residue_rscc=float_or_none(data["averageResidueRSCC"]),
+        residue_rscc_outlier_ratio=float_or_none(data["residueRSCCoutlierRatio"]),
+        average_ligand_rsr=float_or_none(data["averageLigandRSR"]),
+        average_ligand_rscc=float_or_none(data["averageLigandRSCC"]),
+        ligand_rscc_outlier_ratio=float_or_none(data["ligandRSCCoutlierRatio"]),
+        average_ligand_angle_rmsz=float_or_none(data["averageLigandAngleRMSZ"]),
+        average_ligand_bond_rmsz=float_or_none(data["averageLigandBondRMSZ"]),
+        average_ligand_rscc_large_ligands=float_or_none(data["averageLigandRSCClargeLigs"]),
+        average_ligand_rscc_small_ligands=float_or_none(data["averageLigandRSCCsmallLigs"]),
     )
