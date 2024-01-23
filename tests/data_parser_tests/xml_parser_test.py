@@ -72,6 +72,6 @@ def load_expected_xml_protein_data(pdb_id: str) -> ProteinDataFromXML:
         ligand_RSCC_outlier_ratio=float_or_none(data["ligandRSCCoutlierRatio"]),
         average_ligand_angle_RMSZ=float_or_none(data["averageLigandAngleRMSZ"]),
         average_ligand_bond_RMSZ=float_or_none(data["averageLigandBondRMSZ"]),
-        average_ligand_RSCC_large_ligands=float_or_none(data["averageLigandRSCCsmallLigs"]),
-        average_ligand_RSCC_small_ligands=float_or_none(data["averageLigandRSCClargeLigs"]),
+        average_ligand_RSCC_large_ligands=float_or_none(data["averageLigandRSCClargeLigs"]),
+        average_ligand_RSCC_small_ligands=float_or_none(data["averageLigandRSCCsmallLigs"]),
     )

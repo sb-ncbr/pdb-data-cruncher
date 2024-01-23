@@ -42,22 +42,22 @@ def process_modelled_subgroups(
     residue_count = 0
 
     ligand_rsr_sum = 0.0
-    no_ligand_rsr = True
+    has_ligand_rsr = False
     residue_rsr_sum = 0.0
-    no_residue_rsr = True
+    has_residue_rsr = False
     ligand_rscc_sum = 0.0
     ligand_rscc_outlier_count = 0
-    no_ligand_rscc = True
+    has_ligand_rscc = False
     ligand_rscc_sum_10_and_below = 0.0
     ligand_rscc_sum_11_and_above = 0.0
-    no_ligand_rscc_sum_10_and_below = True
-    no_ligand_rscc_sum_11_and_above = True
+    has_ligand_rscc_sum_10_and_below = False
+    has_ligand_rscc_sum_11_and_above = False
     residue_rscc_sum = 0.0
     residue_rscc_outlier_count = 0
-    no_residue_rscc = True
+    has_residue_rscc = False
     ligand_rmsz_sum_angles = 0.0
     ligand_rmsz_sum_bonds = 0.0
-    no_ligand_rmsz_angles = True
+    has_ligand_rmsz_angles = False
 
     for element in modelled_subgroups:
         if "mogul_bonds_rmsz" in element.attrib:  # it is ligand
@@ -72,7 +72,7 @@ def process_modelled_subgroups(
             if "mogul_angles_rmsz" in element.attrib:
                 mogul_angles_rmsz = to_float(element.get("mogul_angles_rmsz"))
                 if mogul_angles_rmsz:
-                    no_ligand_rmsz_angles = False
+                    has_ligand_rmsz_angles = True
                     ligand_rmsz_sum_angles += mogul_angles_rmsz
                 else:
                     record_extraction_error(diagnostics, element, "mogul_angles_rmsz")
@@ -80,7 +80,7 @@ def process_modelled_subgroups(
             if "rsr" in element.attrib:
                 rsr = to_float(element.get("rsr"))
                 if rsr:
-                    no_ligand_rsr = False
+                    has_ligand_rsr = True
                     ligand_rsr_sum += rsr
                 else:
                     record_extraction_error(diagnostics, element, "rsr")
@@ -89,7 +89,7 @@ def process_modelled_subgroups(
             if "rscc" in element.attrib:
                 rscc = to_float(element.get("rscc"))
                 if rscc:
-                    no_ligand_rscc = False
+                    has_ligand_rscc = True
                     ligand_rscc_sum += rscc
                     if rscc < 0.8:
                         ligand_rscc_outlier_count += 1
@@ -109,12 +109,12 @@ def process_modelled_subgroups(
                 ligand_count_11_and_above += 1
                 if rscc:
                     ligand_rscc_sum_11_and_above += rscc
-                    no_ligand_rscc_sum_11_and_above = False
+                    has_ligand_rscc_sum_11_and_above = True
             else:
                 ligand_count_10_and_below += 1
                 if rscc:
                     ligand_rscc_sum_10_and_below += rscc
-                    no_ligand_rscc_sum_10_and_below = False
+                    has_ligand_rscc_sum_10_and_below = True
             # END OF LIGAND TODO REFACTOR
         else:  # it is not ligand
             # START OF NOT LIGAND TODO REFACTOR
@@ -123,7 +123,7 @@ def process_modelled_subgroups(
             if "rsr" in element.attrib:
                 rsr = to_float(element.get("rsr"))
                 if rsr:
-                    no_residue_rsr = False
+                    has_residue_rsr = True
                     residue_rsr_sum += rsr
                 else:
                     record_extraction_error(diagnostics, element, "rsr")
@@ -131,7 +131,7 @@ def process_modelled_subgroups(
             if "rscc" in element.attrib:
                 rscc = to_float(element.get("rscc"))
                 if rscc:
-                    no_residue_rscc = False
+                    has_residue_rscc = True
                     residue_rscc_sum += rscc
                     if rscc < 0.8:
                         residue_rscc_outlier_count += 1
@@ -140,7 +140,28 @@ def process_modelled_subgroups(
             # END OF LIGAND TODO REFACTOR
 
     # LOOP ENDED
+    if residue_count > 0:
+        if has_residue_rsr:
+            data.average_residue_RSR = residue_rsr_sum / residue_count
+        if has_residue_rscc:
+            data.average_residue_RSCC = residue_rscc_sum / residue_count
+            data.residue_RSCC_outlier_ratio = residue_rscc_outlier_count / residue_count
 
+    if ligand_count > 0:
+        data.average_ligand_bond_RMSZ = ligand_rmsz_sum_bonds / ligand_count
+        if has_ligand_rsr:
+            data.average_ligand_RSR = ligand_rsr_sum / ligand_count
+        if has_ligand_rscc:
+            data.average_ligand_RSCC = ligand_rscc_sum / ligand_count
+            data.ligand_RSCC_outlier_ratio = ligand_rscc_outlier_count / ligand_count
+        if has_ligand_rmsz_angles:
+            data.average_ligand_angle_RMSZ = ligand_rmsz_sum_angles / ligand_count
+
+    if ligand_count_10_and_below > 0 and has_ligand_rscc_sum_10_and_below:
+        data.average_ligand_RSCC_small_ligands = ligand_rscc_sum_10_and_below / ligand_count_10_and_below
+
+    if ligand_count_11_and_above > 0 and has_ligand_rscc_sum_11_and_above:
+        data.average_ligand_RSCC_large_ligands = ligand_rscc_sum_11_and_above / ligand_count_11_and_above
 
 
 def process_modelled_entity_instances(
