@@ -1,0 +1,713 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v004.xsd">
+	<Entry B_factor_type="FULL" CCP4version="7.0.044 (Gargrove)" DCC_R="0.16" DCC_Rfree="0.22" DCC_refinement_program="REFMAC" DataAnisotropy="0.235" DataCompleteness="96.16" EDS_R="0.16" EDS_resolution="1.20" EDS_resolution_low="20.37" Fo_Fc_correlation="0.972" IoverSigma="2.60(1.20A)" PDB-R="0.17" PDB-Rfree="0.23" PDB-deposition-date="2010-10-06" PDB-resolution="1.20" PDB-resolution-low="30.00" PDB-revision-date="2017-11-08" PDB-revision-number="4" RNAsuiteness="0.00" RefmacVersion="5.8.0158" RestypesNotcheckedForBondAngleGeometry="MG,GF2,SR,CFZ,UFT,AF2" TransNCS="The largest off-origin peak in the Patterson function is 14.53% of the height of the origin peak. No significant pseudotranslation is detected." TwinFraction="-h,-k,l:0.027;h,-h-k,-l:0.487;-k,-h,-l:0.028" TwinL="0.515" TwinL2="0.349" WilsonBaniso="[13.021,13.021,10.187,-0.000,0.000,0.000]" WilsonBestimate="12.040" XMLcreationDate="Aug 20, 2020 -- 06:02 PM BST" absolute-percentile-DCC_Rfree="68.2" absolute-percentile-RNAsuiteness="4.4" absolute-percentile-clashscore="33.1" acentric_outliers="4" attemptedValidationSteps="molprobity,validation-pack,xtriage,eds,mogul,buster-report,percentiles,writexml" babinet_b="174.338" babinet_k="0.710" bulk_solvent_b="66.600" bulk_solvent_k="0.343" centric_outliers="0" clashscore="8.59" high-resol-relative-percentile-DCC_Rfree="1.18" high-resol-relative-percentile-RNAsuiteness="0.62" high-resol-relative-percentile-clashscore="1.18" low-resol-relative-percentile-DCC_Rfree="1.22" low-resol-relative-percentile-RNAsuiteness="2.34" low-resol-relative-percentile-clashscore="1.22" no-ligands-for-buster-report="yes" num-H-reduce="521" num-free-reflections="1998" numMillerIndices="39939" numPDBids-absolute-percentile-DCC_Rfree="130704" numPDBids-absolute-percentile-RNAsuiteness="3102" numPDBids-absolute-percentile-clashscore="141614" numPDBids-relative-percentile-DCC_Rfree="1223" numPDBids-relative-percentile-RNAsuiteness="1000" numPDBids-relative-percentile-clashscore="1286" pdbid="3P4A" percent-free-reflections="5.00" percentilebins="all,1.2,xray" protein-DNA-RNA-entities="1" relative-percentile-DCC_Rfree="7.9" relative-percentile-RNAsuiteness="7.3" relative-percentile-clashscore="15.7" xtriage_input_columns="intensity_meas,intensity_sigma"/>
+	<ModelledSubgroup NatomsEDS="17" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.31" mogul_bonds_rmsz="0.83" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="26.040" resname="CFZ" resnum="101" rscc="0.956" rsr="0.073" said="A" seq="1">
+		<mog-angle-outlier Zscore="3.24" atoms="C2,N3,C4" mean="116.34" mindiff="0.87" numobs="23" obsval="119.62" stdev="1.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="2.52" mogul_bonds_rmsz="1.27" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="17.650" resname="GF2" resnum="102" rscc="0.965" rsr="0.069" said="A" seq="2">
+		<mog-angle-outlier Zscore="4.72" atoms="C6,N1,C2" mean="115.93" mindiff="1.94" numobs="97" obsval="123.42" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.82" atoms="C2,N3,C4" mean="115.36" mindiff="1.65" numobs="28" obsval="110.99" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-8.28" atoms="C5,C6,N1" mean="123.43" mindiff="7.84" numobs="93" obsval="112.11" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.21" atoms="C3',C2',C1'" mean="103.13" mindiff="0.69" numobs="29" obsval="100.45" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.03" atoms="C2,N1" mean="1.35" mindiff="0.00" numobs="4699" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="3.88" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.17" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.30" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.37" mogul_bonds_rmsz="0.74" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="15.770" resname="AF2" resnum="103" rscc="0.975" rsr="0.062" said="A" seq="3">
+		<mog-angle-outlier Zscore="3.33" atoms="C5,C6,N6" mean="120.35" mindiff="1.14" numobs="41" obsval="125.41" stdev="1.52"/>
+		<mog-angle-outlier Zscore="-2.90" atoms="C3',C2',C1'" mean="103.13" mindiff="1.52" numobs="29" obsval="99.61" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.03" atoms="F,C2'" mean="1.40" mindiff="0.00" numobs="403" obsval="1.35" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.30" mogul_bonds_rmsz="0.91" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="14.830" resname="AF2" resnum="104" rscc="0.962" rsr="0.080" said="A" seq="4">
+		<clash atom="H2'" cid="8" clashmag="0.47" dist="1.96"/>
+		<mog-angle-outlier Zscore="2.39" atoms="C4,C5,N7" mean="109.40" mindiff="0.51" numobs="21" obsval="111.89" stdev="1.04"/>
+		<mog-angle-outlier Zscore="2.02" atoms="O4',C1',C2'" mean="105.79" mindiff="0.32" numobs="43" obsval="107.87" stdev="1.03"/>
+		<mog-bond-outlier Zscore="-2.22" atoms="C4,N3" mean="1.35" mindiff="0.00" numobs="269" obsval="1.32" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.31" mogul_bonds_rmsz="1.03" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="13.240" resname="UFT" resnum="105" rscc="0.980" rsr="0.069" said="A" seq="5">
+		<clash atom="H6" cid="8" clashmag="0.47" dist="1.96"/>
+		<mog-angle-outlier Zscore="-3.60" atoms="C5,C4,N3" mean="123.31" mindiff="0.73" numobs="358" obsval="115.39" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.17" atoms="C3',C2',C1'" mean="103.13" mindiff="0.63" numobs="29" obsval="100.50" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.58" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.69" mogul_bonds_rmsz="1.22" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="13.480" resname="UFT" resnum="106" rscc="0.980" rsr="0.063" said="A" seq="6">
+		<mog-angle-outlier Zscore="-3.55" atoms="C5,C4,N3" mean="123.31" mindiff="0.63" numobs="358" obsval="115.50" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-3.42" atoms="F2',C2',C1'" mean="109.08" mindiff="2.40" numobs="48" obsval="101.95" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.40" atoms="C3',C2',C1'" mean="103.13" mindiff="0.91" numobs="29" obsval="100.22" stdev="1.21"/>
+		<mog-bond-outlier Zscore="3.15" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.25" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.44" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="1.57" mogul_bonds_rmsz="0.91" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="12.440" resname="CFZ" resnum="107" rscc="0.986" rsr="0.057" said="A" seq="7">
+		<mog-angle-outlier Zscore="4.45" atoms="C2,N3,C4" mean="116.34" mindiff="2.11" numobs="23" obsval="120.86" stdev="1.01"/>
+		<mog-angle-outlier Zscore="2.37" atoms="N4,C4,N3" mean="116.49" mindiff="0.26" numobs="332" obsval="120.24" stdev="1.58"/>
+		<mog-angle-outlier Zscore="-2.41" atoms="C3',C2',C1'" mean="103.13" mindiff="0.92" numobs="29" obsval="100.21" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="A" ent="1" icode=" " model="1" mogul_angles_rmsz="2.03" mogul_bonds_rmsz="1.56" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="10.190" resname="GF2" resnum="108" rscc="0.986" rsr="0.054" said="A" seq="8">
+		<mog-angle-outlier Zscore="3.32" atoms="C6,N1,C2" mean="115.93" mindiff="0.28" numobs="97" obsval="121.21" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.07" atoms="C6,C5,C4" mean="120.80" mindiff="0.43" numobs="52" obsval="118.82" stdev="0.95"/>
+		<mog-angle-outlier Zscore="-7.20" atoms="C5,C6,N1" mean="123.43" mindiff="6.37" numobs="93" obsval="113.58" stdev="1.37"/>
+		<mog-bond-outlier Zscore="5.07" atoms="C6,N1" mean="1.33" mindiff="0.01" numobs="1173" obsval="1.41" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.00" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.31" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.16" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.44" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="2" icode=" " model="1" owab="32.080" resname="SR" resnum="705" rscc="0.994" rsr="0.232" said="G" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="13.560" resname="HOH" resnum="716" rscc="0.987" rsr="0.062" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="18.810" resname="HOH" resnum="731" rscc="0.989" rsr="0.089" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="17.060" resname="HOH" resnum="741" rscc="0.978" rsr="0.048" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="30.670" resname="HOH" resnum="751" rscc="0.971" rsr="0.270" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="20.120" resname="HOH" resnum="753" rscc="0.953" rsr="0.121" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="A" ent="4" icode=" " model="1" owab="15.350" resname="HOH" resnum="774" rscc="0.969" rsr="0.229" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="12.650" resname="HOH" resnum="794" rscc="0.991" rsr="0.128" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="33.500" resname="HOH" resnum="796" rscc="0.862" rsr="0.195" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="A" ent="4" icode=" " model="1" owab="20.840" resname="HOH" resnum="815" rscc="0.480" rsr="0.266" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="65.800" resname="HOH" resnum="816" rscc="0.880" rsr="0.213" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="24.920" resname="HOH" resnum="821" rscc="0.969" rsr="0.061" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="25.030" resname="HOH" resnum="824" rscc="0.925" rsr="0.133" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="21.330" resname="HOH" resnum="838" rscc="0.980" rsr="0.200" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="34.700" resname="HOH" resnum="842" rscc="0.863" rsr="0.172" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="33.250" resname="HOH" resnum="845" rscc="0.821" rsr="0.328" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="42.990" resname="HOH" resnum="854" rscc="0.862" rsr="0.167" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="A" ent="4" icode=" " model="1" owab="32.990" resname="HOH" resnum="859" rscc="0.663" rsr="0.146" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="28.920" resname="HOH" resnum="860" rscc="0.975" rsr="0.049" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="38.080" resname="HOH" resnum="863" rscc="0.933" rsr="0.123" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="35.050" resname="HOH" resnum="892" rscc="0.839" rsr="0.190" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="16.420" resname="HOH" resnum="899" rscc="0.967" rsr="0.061" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="42.750" resname="HOH" resnum="913" rscc="0.920" rsr="0.233" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="29.800" resname="HOH" resnum="919" rscc="0.917" rsr="0.168" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="35.180" resname="HOH" resnum="926" rscc="0.912" rsr="0.145" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="51.580" resname="HOH" resnum="928" rscc="0.759" rsr="0.269" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="34.880" resname="HOH" resnum="930" rscc="0.971" rsr="0.101" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="26.810" resname="HOH" resnum="933" rscc="0.888" rsr="0.151" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="47.880" resname="HOH" resnum="934" rscc="0.914" rsr="0.129" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="27.160" resname="HOH" resnum="936" rscc="0.869" rsr="0.306" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="33.470" resname="HOH" resnum="946" rscc="0.935" rsr="0.284" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="47.120" resname="HOH" resnum="954" rscc="0.784" rsr="0.136" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="12.200" resname="HOH" resnum="961" rscc="0.981" rsr="0.074" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="30.830" resname="HOH" resnum="964" rscc="0.966" rsr="0.061" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="37.770" resname="HOH" resnum="966" rscc="0.942" rsr="0.184" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="51.390" resname="HOH" resnum="970" rscc="0.709" rsr="0.219" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="35.450" resname="HOH" resnum="975" rscc="0.872" rsr="0.141" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="53.390" resname="HOH" resnum="990" rscc="0.698" rsr="0.146" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="39.580" resname="HOH" resnum="993" rscc="0.889" rsr="0.119" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="A" ent="4" icode=" " model="1" owab="73.060" resname="HOH" resnum="1009" rscc="-0.165" rsr="0.481" said="R" seq="."/>
+	<ModelledSubgroup NatomsEDS="17" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.39" mogul_bonds_rmsz="1.03" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="13.250" resname="CFZ" resnum="209" rscc="0.980" rsr="0.056" said="B" seq="1">
+		<clash atom="H2'" cid="5" clashmag="0.55" dist="1.87"/>
+		<mog-angle-outlier Zscore="2.33" atoms="O4',C1',C2'" mean="105.79" mindiff="0.22" numobs="43" obsval="108.19" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-3.44" atoms="F2',C2',C1'" mean="109.08" mindiff="2.44" numobs="48" obsval="101.91" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.78" atoms="C3',C2',C1'" mean="103.13" mindiff="1.37" numobs="29" obsval="99.76" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.14" atoms="C6,C5" mean="1.38" mindiff="0.00" numobs="10000" obsval="1.33" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="2.64" mogul_bonds_rmsz="1.56" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="12.300" resname="GF2" resnum="210" rscc="0.977" rsr="0.069" said="B" seq="2">
+		<clash atom="H8" cid="5" clashmag="0.55" dist="1.87"/>
+		<mog-angle-outlier Zscore="4.76" atoms="C6,N1,C2" mean="115.93" mindiff="2.00" numobs="97" obsval="123.49" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.57" atoms="C2,N3,C4" mean="115.36" mindiff="1.37" numobs="28" obsval="111.28" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-8.47" atoms="C5,C6,N1" mean="123.43" mindiff="8.10" numobs="93" obsval="111.85" stdev="1.37"/>
+		<mog-angle-outlier Zscore="2.45" atoms="O4',C1',C2'" mean="105.79" mindiff="0.09" numobs="43" obsval="108.32" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.34" atoms="F,C2',C1'" mean="109.08" mindiff="0.13" numobs="48" obsval="104.21" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.73" atoms="C3',C2',C1'" mean="103.13" mindiff="1.31" numobs="29" obsval="99.83" stdev="1.21"/>
+		<mog-bond-outlier Zscore="3.76" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.17" atoms="C2',C1'" mean="1.53" mindiff="0.01" numobs="48" obsval="1.50" stdev="0.01"/>
+		<mog-bond-outlier Zscore="3.94" atoms="O4',C1'" mean="1.41" mindiff="0.03" numobs="20" obsval="1.46" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.66" mogul_bonds_rmsz="0.85" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="12.970" resname="AF2" resnum="211" rscc="0.982" rsr="0.055" said="B" seq="3">
+		<mog-angle-outlier Zscore="2.58" atoms="C5,C6,N6" mean="120.35" mindiff="0.44" numobs="41" obsval="124.27" stdev="1.52"/>
+		<mog-angle-outlier Zscore="2.95" atoms="O4',C1',C2'" mean="105.79" mindiff="0.42" numobs="43" obsval="108.83" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-3.22" atoms="F,C2',C1'" mean="109.08" mindiff="1.97" numobs="48" obsval="102.37" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.75" atoms="C3',C2',C1'" mean="103.13" mindiff="1.33" numobs="29" obsval="99.80" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.01" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.43" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.50" mogul_bonds_rmsz="0.91" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="13.960" resname="AF2" resnum="212" rscc="0.979" rsr="0.059" said="B" seq="4">
+		<mog-angle-outlier Zscore="-2.15" atoms="C5,C6,N1" mean="120.35" mindiff="1.62" numobs="41" obsval="115.47" stdev="2.27"/>
+		<mog-angle-outlier Zscore="4.19" atoms="C5,C6,N6" mean="120.35" mindiff="0.16" numobs="41" obsval="126.71" stdev="1.52"/>
+		<mog-angle-outlier Zscore="2.18" atoms="O4',C1',C2'" mean="105.79" mindiff="0.37" numobs="43" obsval="108.04" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.92" atoms="C3',C2',C1'" mean="103.13" mindiff="1.54" numobs="29" obsval="99.60" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.78" atoms="C8,N7" mean="1.34" mindiff="0.01" numobs="73" obsval="1.29" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.62" mogul_bonds_rmsz="1.19" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="16.360" resname="UFT" resnum="213" rscc="0.975" rsr="0.061" said="B" seq="5">
+		<clash atom="H2'" cid="4" clashmag="0.58" dist="1.84"/>
+		<clash atom="H2'" cid="9" clashmag="0.45" dist="2.47"/>
+		<mog-angle-outlier Zscore="-2.09" atoms="C6,N1,C2" mean="121.20" mindiff="0.93" numobs="27" obsval="117.88" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-4.06" atoms="C5,C4,N3" mean="123.31" mindiff="1.75" numobs="358" obsval="114.37" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.73" atoms="F2',C2',C1'" mean="109.08" mindiff="0.96" numobs="48" obsval="103.38" stdev="2.08"/>
+		<mog-bond-outlier Zscore="3.39" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.57" mogul_bonds_rmsz="1.17" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="16.310" resname="UFT" resnum="214" rscc="0.968" rsr="0.079" said="B" seq="6">
+		<clash atom="C6" cid="9" clashmag="0.45" dist="2.47"/>
+		<clash atom="H6" cid="4" clashmag="0.58" dist="1.84"/>
+		<mog-angle-outlier Zscore="-3.87" atoms="C5,C4,N3" mean="123.31" mindiff="1.32" numobs="358" obsval="114.80" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.30" atoms="F2',C2',C1'" mean="109.08" mindiff="0.06" numobs="48" obsval="104.29" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.28" atoms="C3',C2',C1'" mean="103.13" mindiff="0.77" numobs="29" obsval="100.36" stdev="1.21"/>
+		<mog-angle-outlier Zscore="2.07" atoms="O4',C1',C2'" mean="105.79" mindiff="0.37" numobs="43" obsval="107.92" stdev="1.03"/>
+		<mog-bond-outlier Zscore="2.22" atoms="C6,N1" mean="1.35" mindiff="0.00" numobs="56" obsval="1.38" stdev="0.01"/>
+		<mog-bond-outlier Zscore="2.96" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="1.73" mogul_bonds_rmsz="0.67" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="14.500" resname="CFZ" resnum="215" rscc="0.978" rsr="0.062" said="B" seq="7">
+		<mog-angle-outlier Zscore="5.18" atoms="C2,N3,C4" mean="116.34" mindiff="2.84" numobs="23" obsval="121.59" stdev="1.01"/>
+		<mog-angle-outlier Zscore="2.52" atoms="O4',C1',C2'" mean="105.79" mindiff="0.03" numobs="43" obsval="108.39" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-3.15" atoms="C3',C2',C1'" mean="103.13" mindiff="1.82" numobs="29" obsval="99.31" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="B" ent="1" icode=" " model="1" mogul_angles_rmsz="2.43" mogul_bonds_rmsz="1.29" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="18.260" resname="GF2" resnum="216" rscc="0.972" rsr="0.074" said="B" seq="8">
+		<mog-angle-outlier Zscore="4.71" atoms="C6,N1,C2" mean="115.93" mindiff="1.93" numobs="97" obsval="123.42" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.91" atoms="C2,N3,C4" mean="115.36" mindiff="0.62" numobs="28" obsval="112.03" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-8.11" atoms="C5,C6,N1" mean="123.43" mindiff="7.60" numobs="93" obsval="112.34" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.80" atoms="C3',C2',C1'" mean="103.13" mindiff="1.40" numobs="29" obsval="99.74" stdev="1.21"/>
+		<mog-bond-outlier Zscore="3.96" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.48" atoms="C8,N7" mean="1.34" mindiff="0.01" numobs="73" obsval="1.30" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="B" ent="2" icode=" " model="1" owab="18.910" resname="SR" resnum="704" rscc="0.996" rsr="0.144" said="H" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="3" icode=" " model="1" owab="19.980" resname="MG" resnum="711" rscc="0.993" rsr="0.235" said="I" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="4" icode=" " model="1" owab="13.440" resname="HOH" resnum="723" rscc="0.986" rsr="0.085" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="4" icode=" " model="1" owab="18.700" resname="HOH" resnum="736" rscc="0.990" rsr="0.072" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="15.650" resname="HOH" resnum="737" rscc="0.970" rsr="0.127" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="18.090" resname="HOH" resnum="739" rscc="0.988" rsr="0.121" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="18.860" resname="HOH" resnum="757" rscc="0.988" rsr="0.093" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="23.690" resname="HOH" resnum="760" rscc="0.967" rsr="0.137" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="20.940" resname="HOH" resnum="773" rscc="0.949" rsr="0.171" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="25.490" resname="HOH" resnum="776" rscc="0.973" rsr="0.105" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="B" ent="4" icode=" " model="1" owab="15.710" resname="HOH" resnum="779" rscc="0.954" rsr="0.122" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="27.900" resname="HOH" resnum="790" rscc="0.896" rsr="0.186" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="30.700" resname="HOH" resnum="791" rscc="0.854" rsr="0.172" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="39.680" resname="HOH" resnum="792" rscc="0.924" rsr="0.098" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="21.840" resname="HOH" resnum="793" rscc="0.968" rsr="0.127" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="14.300" resname="HOH" resnum="795" rscc="0.976" rsr="0.311" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="23.420" resname="HOH" resnum="801" rscc="0.975" rsr="0.059" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="24.540" resname="HOH" resnum="808" rscc="0.968" rsr="0.080" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="25.650" resname="HOH" resnum="822" rscc="0.976" rsr="0.059" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="31.030" resname="HOH" resnum="823" rscc="0.976" rsr="0.105" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="17.320" resname="HOH" resnum="826" rscc="0.966" rsr="0.081" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="4" icode=" " model="1" owab="30.870" resname="HOH" resnum="828" rscc="0.874" rsr="0.182" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="21.450" resname="HOH" resnum="831" rscc="0.981" rsr="0.068" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="32.550" resname="HOH" resnum="834" rscc="0.832" rsr="0.151" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="40.930" resname="HOH" resnum="836" rscc="0.830" rsr="0.182" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="40.510" resname="HOH" resnum="840" rscc="0.961" rsr="0.145" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="35.640" resname="HOH" resnum="846" rscc="0.794" rsr="0.207" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="32.730" resname="HOH" resnum="851" rscc="0.981" rsr="0.241" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="24.260" resname="HOH" resnum="855" rscc="0.982" rsr="0.123" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="33.420" resname="HOH" resnum="869" rscc="0.910" rsr="0.174" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="4" icode=" " model="1" owab="15.990" resname="HOH" resnum="871" rscc="0.995" rsr="0.082" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="43.630" resname="HOH" resnum="881" rscc="0.781" rsr="0.277" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="37.330" resname="HOH" resnum="889" rscc="0.834" rsr="0.556" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="36.930" resname="HOH" resnum="891" rscc="0.684" rsr="0.177" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.400" chain="B" ent="4" icode=" " model="1" owab="90.990" resname="HOH" resnum="896" rscc="0.840" rsr="0.299" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="51.940" resname="HOH" resnum="908" rscc="0.825" rsr="0.214" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="37.700" resname="HOH" resnum="925" rscc="0.881" rsr="0.378" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="26.310" resname="HOH" resnum="927" rscc="0.955" rsr="0.086" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="B" ent="4" icode=" " model="1" owab="38.310" resname="HOH" resnum="929" rscc="0.914" rsr="0.090" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.400" chain="B" ent="4" icode=" " model="1" owab="15.420" resname="HOH" resnum="939" rscc="0.900" rsr="0.214" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="58.120" resname="HOH" resnum="953" rscc="0.637" rsr="0.393" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="35.600" resname="HOH" resnum="959" rscc="0.929" rsr="0.106" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="37.910" resname="HOH" resnum="967" rscc="0.882" rsr="0.142" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="61.020" resname="HOH" resnum="968" rscc="0.834" rsr="0.228" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="69.930" resname="HOH" resnum="971" rscc="0.825" rsr="0.376" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="44.500" resname="HOH" resnum="974" rscc="0.677" rsr="0.123" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="12.590" resname="HOH" resnum="980" rscc="0.994" rsr="0.079" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="57.630" resname="HOH" resnum="991" rscc="0.816" rsr="0.195" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="27.420" resname="HOH" resnum="996" rscc="0.955" rsr="0.062" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="50.550" resname="HOH" resnum="997" rscc="0.894" rsr="0.249" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="38.930" resname="HOH" resnum="998" rscc="0.865" rsr="0.143" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="B" ent="4" icode=" " model="1" owab="38.250" resname="HOH" resnum="1003" rscc="0.852" rsr="0.285" said="S" seq="."/>
+	<ModelledSubgroup NatomsEDS="17" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.85" mogul_bonds_rmsz="1.10" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="11.100" resname="CFZ" resnum="301" rscc="0.982" rsr="0.057" said="C" seq="1">
+		<clash atom="H2'" cid="6" clashmag="0.50" dist="1.93"/>
+		<mog-angle-outlier Zscore="5.60" atoms="C2,N3,C4" mean="116.34" mindiff="3.26" numobs="23" obsval="122.01" stdev="1.01"/>
+		<mog-angle-outlier Zscore="-2.66" atoms="F2',C2',C1'" mean="109.08" mindiff="0.80" numobs="48" obsval="103.54" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.63" atoms="C3',C2',C1'" mean="103.13" mindiff="1.18" numobs="29" obsval="99.95" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.63" atoms="C2,N3" mean="1.38" mindiff="0.00" numobs="22" obsval="1.33" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="2.73" mogul_bonds_rmsz="1.21" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="10.010" resname="GF2" resnum="302" rscc="0.983" rsr="0.061" said="C" seq="2">
+		<clash atom="H8" cid="6" clashmag="0.50" dist="1.93"/>
+		<mog-angle-outlier Zscore="6.11" atoms="C6,N1,C2" mean="115.93" mindiff="4.15" numobs="97" obsval="125.63" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.94" atoms="N3,C2,N1" mean="127.22" mindiff="2.15" numobs="51" obsval="121.97" stdev="1.33"/>
+		<mog-angle-outlier Zscore="-2.73" atoms="C6,C5,C4" mean="120.80" mindiff="1.06" numobs="52" obsval="118.19" stdev="0.95"/>
+		<mog-angle-outlier Zscore="-8.04" atoms="C5,C6,N1" mean="123.43" mindiff="7.52" numobs="93" obsval="112.43" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.59" atoms="C3',C2',C1'" mean="103.13" mindiff="1.13" numobs="29" obsval="100.00" stdev="1.21"/>
+		<mog-bond-outlier Zscore="4.06" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.40" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.01" mogul_bonds_rmsz="0.82" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="10.970" resname="AF2" resnum="303" rscc="0.984" rsr="0.060" said="C" seq="3">
+		<mog-angle-outlier Zscore="-2.63" atoms="C3',C2',C1'" mean="103.13" mindiff="1.19" numobs="29" obsval="99.95" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.35" mogul_bonds_rmsz="0.81" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="17.580" resname="AF2" resnum="304" rscc="0.981" rsr="0.067" said="C" seq="4">
+		<mog-angle-outlier Zscore="2.18" atoms="C4,C5,N7" mean="109.40" mindiff="0.29" numobs="21" obsval="111.68" stdev="1.04"/>
+		<mog-angle-outlier Zscore="-2.09" atoms="C5,C6,N1" mean="120.35" mindiff="1.75" numobs="41" obsval="115.61" stdev="2.27"/>
+		<mog-angle-outlier Zscore="2.36" atoms="O4',C1',C2'" mean="105.79" mindiff="0.19" numobs="43" obsval="108.22" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.52" atoms="C3',C2',C1'" mean="103.13" mindiff="1.06" numobs="29" obsval="100.08" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.65" mogul_bonds_rmsz="1.30" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="19.360" resname="UFT" resnum="305" rscc="0.977" rsr="0.068" said="C" seq="5">
+		<mog-angle-outlier Zscore="-3.83" atoms="C5,C4,N3" mean="123.31" mindiff="1.23" numobs="358" obsval="114.89" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.09" atoms="C3',C2',C1'" mean="103.13" mindiff="0.53" numobs="29" obsval="100.60" stdev="1.21"/>
+		<mog-angle-outlier Zscore="2.90" atoms="O4',C1',C2'" mean="105.79" mindiff="0.37" numobs="43" obsval="108.78" stdev="1.03"/>
+		<mog-bond-outlier Zscore="2.30" atoms="C6,N1" mean="1.35" mindiff="0.00" numobs="56" obsval="1.38" stdev="0.01"/>
+		<mog-bond-outlier Zscore="3.09" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="40" altcode="A" avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.72" mogul_bonds_rmsz="1.27" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="21.980" resname="UFT" resnum="306" rscc="0.942" rsr="0.113" said="C" seq="6">
+		<mog-torsion-outlier atoms="C3',C4',C5',O5'" local_density="2.66" mean="93.49" mindiff="1.25" numobs="451" obsval="-159.65" stdev="32.41"/>
+		<mog-angle-outlier Zscore="-3.08" atoms="C5,C4,N3" mean="123.31" mindiff="0.02" numobs="358" obsval="116.54" stdev="2.20"/>
+		<mog-angle-outlier Zscore="3.12" atoms="O4',C1',C2'" mean="105.79" mindiff="0.60" numobs="43" obsval="109.01" stdev="1.03"/>
+		<mog-angle-outlier Zscore="2.05" atoms="O3',C3',C2'" mean="111.57" mindiff="3.47" numobs="35" obsval="119.25" stdev="3.74"/>
+		<mog-bond-outlier Zscore="3.01" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="40" altcode="B" avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.30" mogul_bonds_rmsz="1.16" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="21.980" resname="UFT" resnum="306" rscc="0.942" rsr="0.113" said="C" seq="6">
+		<clash atom="H6" cid="0" clashmag="0.70" dist="1.72"/>
+		<clash atom="H5'A" cid="0" clashmag="0.70" dist="1.72"/>
+		<mog-torsion-outlier atoms="O4',C4',C5',O5'" local_density="0.44" mean="41.40" mindiff="1.40" numobs="451" obsval="105.72" stdev="9.88"/>
+		<mog-torsion-outlier atoms="C3',C4',C5',O5'" local_density="0.00" mean="75.42" mindiff="23.19" numobs="451" obsval="-135.20" stdev="17.28"/>
+		<mog-angle-outlier Zscore="-4.00" atoms="C5,C4,N3" mean="123.31" mindiff="1.61" numobs="358" obsval="114.52" stdev="2.20"/>
+		<mog-bond-outlier Zscore="3.04" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="25" altcode="A" avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.60" mogul_bonds_rmsz="0.90" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="3" owab="16.210" resname="CFZ" resnum="307" rscc="0.953" rsr="0.085" said="C" seq="7">
+		<mog-angle-outlier Zscore="4.59" atoms="C2,N3,C4" mean="116.34" mindiff="2.24" numobs="23" obsval="120.99" stdev="1.01"/>
+		<mog-angle-outlier Zscore="-2.33" atoms="F2',C2',C1'" mean="109.08" mindiff="0.12" numobs="48" obsval="104.22" stdev="2.08"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="25" altcode="B" avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="1.62" mogul_bonds_rmsz="0.88" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="3" owab="16.210" resname="CFZ" resnum="307" rscc="0.953" rsr="0.085" said="C" seq="7">
+		<mog-angle-outlier Zscore="4.59" atoms="C2,N3,C4" mean="116.34" mindiff="2.24" numobs="23" obsval="120.99" stdev="1.01"/>
+		<mog-angle-outlier Zscore="-2.33" atoms="F2',C2',C1'" mean="109.08" mindiff="0.12" numobs="48" obsval="104.22" stdev="2.08"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="C" ent="1" icode=" " model="1" mogul_angles_rmsz="2.51" mogul_bonds_rmsz="1.20" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="12.180" resname="GF2" resnum="308" rscc="0.979" rsr="0.062" said="C" seq="8">
+		<mog-angle-outlier Zscore="5.53" atoms="C6,N1,C2" mean="115.93" mindiff="3.23" numobs="97" obsval="124.72" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.28" atoms="N3,C2,N1" mean="127.22" mindiff="1.28" numobs="51" obsval="122.85" stdev="1.33"/>
+		<mog-angle-outlier Zscore="-2.08" atoms="C2,N3,C4" mean="115.36" mindiff="0.24" numobs="28" obsval="112.98" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-7.98" atoms="C5,C6,N1" mean="123.43" mindiff="7.43" numobs="93" obsval="112.52" stdev="1.37"/>
+		<mog-angle-outlier Zscore="2.06" atoms="O4',C1',C2'" mean="105.79" mindiff="0.37" numobs="43" obsval="107.92" stdev="1.03"/>
+		<mog-bond-outlier Zscore="2.73" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+		<mog-bond-outlier Zscore="3.01" atoms="O4',C1'" mean="1.41" mindiff="0.02" numobs="20" obsval="1.45" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="2" icode=" " model="1" owab="21.060" resname="SR" resnum="701" rscc="0.994" rsr="0.237" said="J" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="2" icode=" " model="1" owab="23.110" resname="SR" resnum="707" rscc="0.997" rsr="0.228" said="K" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="13.970" resname="HOH" resnum="714" rscc="0.993" rsr="0.047" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="25.560" resname="HOH" resnum="721" rscc="0.979" rsr="0.113" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="14.990" resname="HOH" resnum="724" rscc="0.997" rsr="0.050" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="14.890" resname="HOH" resnum="728" rscc="0.988" rsr="0.085" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="C" ent="4" icode=" " model="1" owab="14.260" resname="HOH" resnum="729" rscc="0.977" rsr="0.070" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="13.060" resname="HOH" resnum="732" rscc="0.992" rsr="0.055" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="13.730" resname="HOH" resnum="734" rscc="0.996" rsr="0.126" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="C" ent="4" icode=" " model="1" owab="15.750" resname="HOH" resnum="740" rscc="0.979" rsr="0.066" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="15.750" resname="HOH" resnum="744" rscc="0.975" rsr="0.115" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="20.410" resname="HOH" resnum="747" rscc="0.987" rsr="0.064" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="32.980" resname="HOH" resnum="752" rscc="0.874" rsr="0.115" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="15.870" resname="HOH" resnum="754" rscc="0.986" rsr="0.145" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="32.770" resname="HOH" resnum="761" rscc="0.956" rsr="0.140" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="18.880" resname="HOH" resnum="762" rscc="0.977" rsr="0.083" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="21.290" resname="HOH" resnum="765" rscc="0.965" rsr="0.072" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="C" ent="4" icode=" " model="1" owab="24.780" resname="HOH" resnum="768" rscc="0.878" rsr="0.323" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="C" ent="4" icode=" " model="1" owab="16.790" resname="HOH" resnum="770" rscc="0.969" rsr="0.173" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="26.670" resname="HOH" resnum="771" rscc="0.971" rsr="0.153" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="C" ent="4" icode=" " model="1" owab="16.920" resname="HOH" resnum="780" rscc="0.946" rsr="0.094" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="24.800" resname="HOH" resnum="786" rscc="0.929" rsr="0.133" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="32.110" resname="HOH" resnum="797" rscc="0.938" rsr="0.112" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="C" ent="4" icode=" " model="1" owab="17.410" resname="HOH" resnum="800" rscc="0.954" rsr="0.172" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="20.370" resname="HOH" resnum="805" rscc="0.974" rsr="0.081" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="32.660" resname="HOH" resnum="807" rscc="0.934" rsr="0.099" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="27.440" resname="HOH" resnum="814" rscc="0.934" rsr="0.083" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="27.530" resname="HOH" resnum="818" rscc="0.934" rsr="0.151" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="25.140" resname="HOH" resnum="819" rscc="0.962" rsr="0.094" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="35.170" resname="HOH" resnum="825" rscc="0.854" rsr="0.189" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="27.440" resname="HOH" resnum="830" rscc="0.941" rsr="0.148" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="37.290" resname="HOH" resnum="832" rscc="0.853" rsr="0.126" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="59.090" resname="HOH" resnum="833" rscc="0.556" rsr="0.256" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="31.500" resname="HOH" resnum="844" rscc="0.924" rsr="0.152" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="20.280" resname="HOH" resnum="847" rscc="0.983" rsr="0.191" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="C" ent="4" icode=" " model="1" owab="31.250" resname="HOH" resnum="849" rscc="0.919" rsr="0.557" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="27.460" resname="HOH" resnum="853" rscc="0.891" rsr="0.141" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="35.000" resname="HOH" resnum="856" rscc="0.836" rsr="0.170" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="36.210" resname="HOH" resnum="857" rscc="0.904" rsr="0.197" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="49.100" resname="HOH" resnum="858" rscc="0.647" rsr="0.167" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="35.690" resname="HOH" resnum="866" rscc="0.920" rsr="0.186" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="30.180" resname="HOH" resnum="875" rscc="0.915" rsr="0.089" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="49.720" resname="HOH" resnum="886" rscc="0.747" rsr="0.235" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="33.590" resname="HOH" resnum="890" rscc="0.927" rsr="0.118" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="51.980" resname="HOH" resnum="895" rscc="0.711" rsr="0.428" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="23.970" resname="HOH" resnum="900" rscc="0.966" rsr="0.056" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="35.820" resname="HOH" resnum="907" rscc="0.885" rsr="0.115" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="36.890" resname="HOH" resnum="910" rscc="0.822" rsr="0.223" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="49.300" resname="HOH" resnum="912" rscc="0.789" rsr="0.192" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="42.600" resname="HOH" resnum="921" rscc="0.937" rsr="0.110" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="41.580" resname="HOH" resnum="940" rscc="0.939" rsr="0.095" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="44.550" resname="HOH" resnum="973" rscc="0.756" rsr="0.171" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="C" ent="4" icode=" " model="1" owab="12.830" resname="HOH" resnum="976" rscc="0.952" rsr="0.142" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="C" ent="4" icode=" " model="1" owab="17.510" resname="HOH" resnum="977" rscc="0.891" rsr="0.296" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="C" ent="4" icode=" " model="1" owab="14.650" resname="HOH" resnum="978" rscc="0.969" rsr="0.144" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="C" ent="4" icode=" " model="1" owab="12.070" resname="HOH" resnum="979" rscc="0.959" rsr="0.220" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="51.030" resname="HOH" resnum="984" rscc="0.572" rsr="0.344" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="35.030" resname="HOH" resnum="985" rscc="0.734" rsr="0.124" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="C" ent="4" icode=" " model="1" owab="42.000" resname="HOH" resnum="1002" rscc="0.800" rsr="0.133" said="T" seq="."/>
+	<ModelledSubgroup NatomsEDS="34" altcode="A" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.58" mogul_bonds_rmsz="1.04" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="10.900" resname="CFZ" resnum="409" rscc="0.979" rsr="0.067" said="D" seq="1">
+		<clash atom="H2'" cid="12" clashmag="0.42" dist="2.01"/>
+		<mog-angle-outlier Zscore="4.29" atoms="C2,N3,C4" mean="116.34" mindiff="1.94" numobs="23" obsval="120.69" stdev="1.01"/>
+		<mog-angle-outlier Zscore="-2.77" atoms="C3',C2',C1'" mean="103.13" mindiff="1.35" numobs="29" obsval="99.78" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.14" atoms="C2,N3" mean="1.38" mindiff="0.00" numobs="22" obsval="1.33" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.02" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.43" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="34" altcode="B" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.32" mogul_bonds_rmsz="0.86" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="10.900" resname="CFZ" resnum="409" rscc="0.979" rsr="0.067" said="D" seq="1">
+		<clash atom="H2'" cid="1" clashmag="0.65" dist="1.79"/>
+		<clash atom="H2'" cid="10" clashmag="0.44" dist="2.46"/>
+		<mog-angle-outlier Zscore="3.51" atoms="C2,N3,C4" mean="116.34" mindiff="1.15" numobs="23" obsval="119.90" stdev="1.01"/>
+		<mog-angle-outlier Zscore="2.50" atoms="O4',C1',C2'" mean="105.79" mindiff="0.04" numobs="43" obsval="108.37" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.07" atoms="C3',C2',C1'" mean="103.13" mindiff="0.51" numobs="29" obsval="100.62" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="46" altcode="A" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="2.47" mogul_bonds_rmsz="1.31" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="9.700" resname="GF2" resnum="410" rscc="0.986" rsr="0.067" said="D" seq="2">
+		<clash atom="H8" cid="12" clashmag="0.42" dist="2.01"/>
+		<mog-angle-outlier Zscore="4.70" atoms="C6,N1,C2" mean="115.93" mindiff="1.91" numobs="97" obsval="123.39" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.11" atoms="C2,N3,C4" mean="115.36" mindiff="0.84" numobs="28" obsval="111.81" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-7.99" atoms="C5,C6,N1" mean="123.43" mindiff="7.45" numobs="93" obsval="112.50" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-3.34" atoms="C3',C2',C1'" mean="103.13" mindiff="2.05" numobs="29" obsval="99.08" stdev="1.21"/>
+		<mog-bond-outlier Zscore="4.18" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.40" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.09" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.31" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="46" altcode="B" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="2.51" mogul_bonds_rmsz="1.22" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="9.700" resname="GF2" resnum="410" rscc="0.986" rsr="0.067" said="D" seq="2">
+		<clash atom="H8" cid="1" clashmag="0.65" dist="1.79"/>
+		<clash atom="C8" cid="10" clashmag="0.44" dist="2.46"/>
+		<mog-angle-outlier Zscore="5.19" atoms="C6,N1,C2" mean="115.93" mindiff="2.69" numobs="97" obsval="124.18" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.26" atoms="N3,C2,N1" mean="127.22" mindiff="0.08" numobs="51" obsval="124.21" stdev="1.33"/>
+		<mog-angle-outlier Zscore="-2.33" atoms="C2,N3,C4" mean="115.36" mindiff="0.05" numobs="28" obsval="112.69" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-8.35" atoms="C5,C6,N1" mean="123.43" mindiff="7.93" numobs="93" obsval="112.02" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.49" atoms="C3',C2',C1'" mean="103.13" mindiff="1.02" numobs="29" obsval="100.11" stdev="1.21"/>
+		<mog-bond-outlier Zscore="3.92" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.28" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.30" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="27" altcode="A" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.18" mogul_bonds_rmsz="0.83" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="3" owab="10.420" resname="AF2" resnum="411" rscc="0.987" rsr="0.058" said="D" seq="3">
+		<mog-angle-outlier Zscore="-2.92" atoms="C3',C2',C1'" mean="103.13" mindiff="1.54" numobs="29" obsval="99.59" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.52" atoms="C2,N3" mean="1.32" mindiff="0.00" numobs="173" obsval="1.36" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="27" altcode="B" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.20" mogul_bonds_rmsz="0.84" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="3" owab="10.420" resname="AF2" resnum="411" rscc="0.987" rsr="0.058" said="D" seq="3">
+		<mog-angle-outlier Zscore="-2.92" atoms="C3',C2',C1'" mean="103.13" mindiff="1.54" numobs="29" obsval="99.59" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.52" atoms="C2,N3" mean="1.32" mindiff="0.00" numobs="173" obsval="1.36" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.60" mogul_bonds_rmsz="0.79" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="16.840" resname="AF2" resnum="412" rscc="0.982" rsr="0.066" said="D" seq="4">
+		<mog-angle-outlier Zscore="2.88" atoms="C4,C5,N7" mean="109.40" mindiff="1.01" numobs="21" obsval="112.40" stdev="1.04"/>
+		<mog-angle-outlier Zscore="2.61" atoms="N6,C6,N1" mean="118.57" mindiff="0.26" numobs="33" obsval="123.99" stdev="2.08"/>
+		<mog-angle-outlier Zscore="3.30" atoms="O4',C1',C2'" mean="105.79" mindiff="0.78" numobs="43" obsval="109.19" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.86" atoms="C3',C2',C1'" mean="103.13" mindiff="1.46" numobs="29" obsval="99.67" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="40" altcode="A" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.62" mogul_bonds_rmsz="1.26" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="18.810" resname="UFT" resnum="413" rscc="0.976" rsr="0.085" said="D" seq="5">
+		<mog-angle-outlier Zscore="-3.77" atoms="C5,C4,N3" mean="123.31" mindiff="1.11" numobs="358" obsval="115.01" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.15" atoms="C3',C2',C1'" mean="103.13" mindiff="0.61" numobs="29" obsval="100.52" stdev="1.21"/>
+		<mog-angle-outlier Zscore="3.11" atoms="O4',C1',C2'" mean="105.79" mindiff="0.58" numobs="43" obsval="108.99" stdev="1.03"/>
+		<mog-bond-outlier Zscore="3.20" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.06" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.43" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="40" altcode="B" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.43" mogul_bonds_rmsz="1.19" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="18.810" resname="UFT" resnum="413" rscc="0.976" rsr="0.085" said="D" seq="5">
+		<mog-angle-outlier Zscore="-3.78" atoms="C5,C4,N3" mean="123.31" mindiff="1.13" numobs="358" obsval="114.99" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.21" atoms="F2',C2',C3'" mean="109.22" mindiff="1.73" numobs="35" obsval="104.59" stdev="2.09"/>
+		<mog-angle-outlier Zscore="2.19" atoms="O4',C1',C2'" mean="105.79" mindiff="0.36" numobs="43" obsval="108.05" stdev="1.03"/>
+		<mog-bond-outlier Zscore="3.26" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="25" altcode="A" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="2.15" mogul_bonds_rmsz="1.23" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="3" owab="22.980" resname="UFT" resnum="414" rscc="0.934" rsr="0.105" said="D" seq="6">
+		<mog-angle-outlier Zscore="-3.94" atoms="C5,C4,N3" mean="123.31" mindiff="1.49" numobs="358" obsval="114.63" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-4.19" atoms="F2',C2',C1'" mean="109.08" mindiff="3.99" numobs="48" obsval="100.35" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.52" atoms="F2',C2',C3'" mean="109.22" mindiff="1.16" numobs="35" obsval="103.95" stdev="2.09"/>
+		<mog-angle-outlier Zscore="-3.38" atoms="C2',C3',C4'" mean="102.40" mindiff="1.68" numobs="29" obsval="98.03" stdev="1.29"/>
+		<mog-bond-outlier Zscore="-2.92" atoms="C6,C5" mean="1.38" mindiff="0.00" numobs="10000" obsval="1.31" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.75" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="25" altcode="B" avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="2.13" mogul_bonds_rmsz="1.22" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="3" owab="22.980" resname="UFT" resnum="414" rscc="0.934" rsr="0.105" said="D" seq="6">
+		<mog-angle-outlier Zscore="-3.94" atoms="C5,C4,N3" mean="123.31" mindiff="1.49" numobs="358" obsval="114.63" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-4.19" atoms="F2',C2',C1'" mean="109.08" mindiff="3.99" numobs="48" obsval="100.35" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.52" atoms="F2',C2',C3'" mean="109.22" mindiff="1.16" numobs="35" obsval="103.95" stdev="2.09"/>
+		<mog-angle-outlier Zscore="-3.38" atoms="C2',C3',C4'" mean="102.40" mindiff="1.68" numobs="29" obsval="98.03" stdev="1.29"/>
+		<mog-bond-outlier Zscore="-2.92" atoms="C6,C5" mean="1.38" mindiff="0.00" numobs="10000" obsval="1.31" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.75" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="1.72" mogul_bonds_rmsz="1.06" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="17.070" resname="CFZ" resnum="415" rscc="0.962" rsr="0.078" said="D" seq="7">
+		<clash atom="H6" cid="7" clashmag="0.47" dist="1.97"/>
+		<mog-angle-outlier Zscore="5.09" atoms="C2,N3,C4" mean="116.34" mindiff="2.75" numobs="23" obsval="121.50" stdev="1.01"/>
+		<mog-angle-outlier Zscore="2.10" atoms="N4,C4,N3" mean="116.49" mindiff="0.16" numobs="332" obsval="119.82" stdev="1.58"/>
+		<mog-bond-outlier Zscore="-2.12" atoms="C4,N3" mean="1.35" mindiff="0.00" numobs="332" obsval="1.32" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="D" ent="1" icode=" " model="1" mogul_angles_rmsz="2.68" mogul_bonds_rmsz="1.38" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="12.300" resname="GF2" resnum="416" rscc="0.973" rsr="0.074" said="D" seq="8">
+		<mog-angle-outlier Zscore="5.74" atoms="C6,N1,C2" mean="115.93" mindiff="3.57" numobs="97" obsval="125.06" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.89" atoms="N3,C2,N1" mean="127.22" mindiff="0.75" numobs="51" obsval="123.37" stdev="1.33"/>
+		<mog-angle-outlier Zscore="-3.12" atoms="C2,N3,C4" mean="115.36" mindiff="0.85" numobs="28" obsval="111.80" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-2.30" atoms="C6,C5,C4" mean="120.80" mindiff="0.65" numobs="52" obsval="118.60" stdev="0.95"/>
+		<mog-angle-outlier Zscore="-8.40" atoms="C5,C6,N1" mean="123.43" mindiff="8.01" numobs="93" obsval="111.94" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.34" atoms="F,C2',C1'" mean="109.08" mindiff="0.15" numobs="48" obsval="104.20" stdev="2.08"/>
+		<mog-bond-outlier Zscore="3.53" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="3.00" atoms="O4',C1'" mean="1.41" mindiff="0.02" numobs="20" obsval="1.45" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="2" icode=" " model="1" owab="20.700" resname="SR" resnum="702" rscc="0.990" rsr="0.222" said="L" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="2" icode=" " model="1" owab="23.310" resname="SR" resnum="708" rscc="0.997" rsr="0.224" said="M" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="13.490" resname="HOH" resnum="715" rscc="0.991" rsr="0.107" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="D" ent="4" icode=" " model="1" owab="14.930" resname="HOH" resnum="717" rscc="0.939" rsr="0.113" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="14.430" resname="HOH" resnum="720" rscc="0.982" rsr="0.080" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="12.560" resname="HOH" resnum="725" rscc="0.992" rsr="0.041" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="12.860" resname="HOH" resnum="733" rscc="0.995" rsr="0.040" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="14.690" resname="HOH" resnum="738" rscc="0.985" rsr="0.053" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="D" ent="4" icode=" " model="1" owab="15.080" resname="HOH" resnum="743" rscc="0.993" rsr="0.069" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="15.560" resname="HOH" resnum="745" rscc="0.984" rsr="0.130" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="16.200" resname="HOH" resnum="746" rscc="0.993" rsr="0.165" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="21.600" resname="HOH" resnum="748" rscc="0.994" rsr="0.040" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="27.120" resname="HOH" resnum="758" rscc="0.961" rsr="0.110" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="22.300" resname="HOH" resnum="764" rscc="0.973" rsr="0.085" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="D" ent="4" icode=" " model="1" owab="27.340" resname="HOH" resnum="767" rscc="0.871" rsr="0.224" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="26.430" resname="HOH" resnum="782" rscc="0.986" rsr="0.129" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="26.530" resname="HOH" resnum="783" rscc="0.967" rsr="0.111" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="18.840" resname="HOH" resnum="784" rscc="0.973" rsr="0.140" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="21.730" resname="HOH" resnum="785" rscc="0.936" rsr="0.091" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="21.530" resname="HOH" resnum="798" rscc="0.984" rsr="0.058" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="33.380" resname="HOH" resnum="802" rscc="0.950" rsr="0.207" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="27.820" resname="HOH" resnum="803" rscc="0.950" rsr="0.133" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="27.830" resname="HOH" resnum="809" rscc="0.963" rsr="0.103" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="23.930" resname="HOH" resnum="812" rscc="0.908" rsr="0.129" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="30.330" resname="HOH" resnum="817" rscc="0.941" rsr="0.108" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="30.410" resname="HOH" resnum="820" rscc="0.961" rsr="0.064" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="30.720" resname="HOH" resnum="835" rscc="0.981" rsr="0.263" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="27.660" resname="HOH" resnum="839" rscc="0.848" rsr="0.155" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="43.980" resname="HOH" resnum="848" rscc="0.974" rsr="0.063" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="23.010" resname="HOH" resnum="861" rscc="0.923" rsr="0.175" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="34.690" resname="HOH" resnum="862" rscc="0.921" rsr="0.119" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="D" ent="4" icode=" " model="1" owab="26.410" resname="HOH" resnum="867" rscc="0.896" rsr="0.193" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="34.580" resname="HOH" resnum="878" rscc="0.868" rsr="0.166" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="28.700" resname="HOH" resnum="883" rscc="0.972" rsr="0.113" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="32.090" resname="HOH" resnum="885" rscc="0.972" rsr="0.115" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="28.100" resname="HOH" resnum="887" rscc="0.952" rsr="0.105" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="23.900" resname="HOH" resnum="903" rscc="0.968" rsr="0.095" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="30.060" resname="HOH" resnum="909" rscc="0.901" rsr="0.160" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="23.520" resname="HOH" resnum="914" rscc="0.983" rsr="0.086" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="35.260" resname="HOH" resnum="916" rscc="0.948" rsr="0.097" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="37.280" resname="HOH" resnum="918" rscc="0.863" rsr="0.162" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="30.080" resname="HOH" resnum="920" rscc="0.920" rsr="0.133" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="37.270" resname="HOH" resnum="932" rscc="0.772" rsr="0.380" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="38.130" resname="HOH" resnum="935" rscc="0.941" rsr="0.260" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="29.000" resname="HOH" resnum="950" rscc="0.902" rsr="0.147" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="46.880" resname="HOH" resnum="951" rscc="0.856" rsr="0.234" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="43.400" resname="HOH" resnum="952" rscc="0.699" rsr="0.133" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="45.770" resname="HOH" resnum="955" rscc="0.722" rsr="0.219" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="27.430" resname="HOH" resnum="957" rscc="0.914" rsr="0.091" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="39.740" resname="HOH" resnum="963" rscc="0.881" rsr="0.167" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="34.890" resname="HOH" resnum="972" rscc="0.882" rsr="0.119" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="36.850" resname="HOH" resnum="988" rscc="0.740" rsr="0.150" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="74.040" resname="HOH" resnum="1006" rscc="0.695" rsr="0.607" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="46.270" resname="HOH" resnum="1007" rscc="0.854" rsr="0.380" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="D" ent="4" icode=" " model="1" owab="55.790" resname="HOH" resnum="1008" rscc="0.783" rsr="0.187" said="U" seq="."/>
+	<ModelledSubgroup NatomsEDS="17" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.62" mogul_bonds_rmsz="1.13" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="13.010" resname="CFZ" resnum="501" rscc="0.973" rsr="0.067" said="E" seq="1">
+		<clash atom="H2'" cid="3" clashmag="0.58" dist="1.86"/>
+		<mog-angle-outlier Zscore="2.96" atoms="C2,N3,C4" mean="116.34" mindiff="0.59" numobs="23" obsval="119.34" stdev="1.01"/>
+		<mog-angle-outlier Zscore="3.56" atoms="O4',C1',C2'" mean="105.79" mindiff="1.05" numobs="43" obsval="109.46" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-3.51" atoms="F2',C2',C1'" mean="109.08" mindiff="2.58" numobs="48" obsval="101.76" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.51" atoms="C3',C2',C1'" mean="103.13" mindiff="1.05" numobs="29" obsval="100.09" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.18" atoms="C6,C5" mean="1.38" mindiff="0.00" numobs="10000" obsval="1.33" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.03" atoms="O4',C1'" mean="1.41" mindiff="0.00" numobs="20" obsval="1.43" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="2.80" mogul_bonds_rmsz="1.74" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="12.050" resname="GF2" resnum="502" rscc="0.982" rsr="0.059" said="E" seq="2">
+		<clash atom="H8" cid="3" clashmag="0.58" dist="1.86"/>
+		<mog-angle-outlier Zscore="4.92" atoms="C6,N1,C2" mean="115.93" mindiff="2.26" numobs="97" obsval="123.75" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.31" atoms="C2,N3,C4" mean="115.36" mindiff="1.07" numobs="28" obsval="111.58" stdev="1.14"/>
+		<mog-angle-outlier Zscore="2.60" atoms="C4,C5,N7" mean="109.40" mindiff="0.73" numobs="21" obsval="112.11" stdev="1.04"/>
+		<mog-angle-outlier Zscore="-8.19" atoms="C5,C6,N1" mean="123.43" mindiff="7.73" numobs="93" obsval="112.22" stdev="1.37"/>
+		<mog-angle-outlier Zscore="3.69" atoms="O4',C1',C2'" mean="105.79" mindiff="1.18" numobs="43" obsval="109.59" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.94" atoms="F,C2',C1'" mean="109.08" mindiff="1.39" numobs="48" obsval="102.95" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-3.42" atoms="C3',C2',C1'" mean="103.13" mindiff="2.15" numobs="29" obsval="98.98" stdev="1.21"/>
+		<mog-bond-outlier Zscore="4.28" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.40" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.06" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.31" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.33" atoms="C2',C1'" mean="1.53" mindiff="0.01" numobs="48" obsval="1.50" stdev="0.01"/>
+		<mog-bond-outlier Zscore="4.57" atoms="O4',C1'" mean="1.41" mindiff="0.04" numobs="20" obsval="1.47" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.42" mogul_bonds_rmsz="0.86" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="12.810" resname="AF2" resnum="503" rscc="0.975" rsr="0.066" said="E" seq="3">
+		<mog-angle-outlier Zscore="-2.09" atoms="C5,C6,N1" mean="120.35" mindiff="1.76" numobs="41" obsval="115.62" stdev="2.27"/>
+		<mog-angle-outlier Zscore="2.34" atoms="C5,C6,N6" mean="120.35" mindiff="0.08" numobs="41" obsval="123.90" stdev="1.52"/>
+		<mog-angle-outlier Zscore="2.46" atoms="O4',C1',C2'" mean="105.79" mindiff="0.09" numobs="43" obsval="108.32" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.83" atoms="F,C2',C1'" mean="109.08" mindiff="1.17" numobs="48" obsval="103.17" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.19" atoms="C3',C2',C1'" mean="103.13" mindiff="0.66" numobs="29" obsval="100.47" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.26" atoms="O4',C1'" mean="1.41" mindiff="0.01" numobs="20" obsval="1.44" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.39" mogul_bonds_rmsz="0.83" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="14.040" resname="AF2" resnum="504" rscc="0.980" rsr="0.062" said="E" seq="4">
+		<mog-angle-outlier Zscore="-2.26" atoms="C5,C6,N1" mean="120.35" mindiff="1.36" numobs="41" obsval="115.22" stdev="2.27"/>
+		<mog-angle-outlier Zscore="2.89" atoms="C5,C6,N6" mean="120.35" mindiff="0.92" numobs="41" obsval="124.75" stdev="1.52"/>
+		<mog-angle-outlier Zscore="-3.02" atoms="C3',C2',C1'" mean="103.13" mindiff="1.66" numobs="29" obsval="99.48" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.54" mogul_bonds_rmsz="1.19" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="16.330" resname="UFT" resnum="505" rscc="0.969" rsr="0.076" said="E" seq="5">
+		<clash atom="H2'" cid="11" clashmag="0.43" dist="1.99"/>
+		<mog-angle-outlier Zscore="-2.46" atoms="C6,N1,C2" mean="121.20" mindiff="1.52" numobs="27" obsval="117.29" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-3.72" atoms="C5,C4,N3" mean="123.31" mindiff="1.00" numobs="358" obsval="115.13" stdev="2.20"/>
+		<mog-bond-outlier Zscore="3.70" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.42" mogul_bonds_rmsz="1.01" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="16.210" resname="UFT" resnum="506" rscc="0.973" rsr="0.072" said="E" seq="6">
+		<clash atom="H6" cid="11" clashmag="0.43" dist="1.99"/>
+		<mog-angle-outlier Zscore="-3.05" atoms="C5,C4,N3" mean="123.31" mindiff="0.08" numobs="358" obsval="116.60" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.35" atoms="F2',C2',C1'" mean="109.08" mindiff="0.17" numobs="48" obsval="104.18" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.13" atoms="C3',C2',C1'" mean="103.13" mindiff="0.58" numobs="29" obsval="100.55" stdev="1.21"/>
+		<mog-bond-outlier Zscore="2.55" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="1.58" mogul_bonds_rmsz="0.80" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="14.380" resname="CFZ" resnum="507" rscc="0.979" rsr="0.063" said="E" seq="7">
+		<mog-angle-outlier Zscore="4.49" atoms="C2,N3,C4" mean="116.34" mindiff="2.14" numobs="23" obsval="120.89" stdev="1.01"/>
+		<mog-angle-outlier Zscore="-3.23" atoms="C3',C2',C1'" mean="103.13" mindiff="1.91" numobs="29" obsval="99.22" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="E" ent="1" icode=" " model="1" mogul_angles_rmsz="2.53" mogul_bonds_rmsz="1.25" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="18.580" resname="GF2" resnum="508" rscc="0.977" rsr="0.066" said="E" seq="8">
+		<mog-angle-outlier Zscore="4.68" atoms="C6,N1,C2" mean="115.93" mindiff="1.88" numobs="97" obsval="123.37" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.99" atoms="C2,N3,C4" mean="115.36" mindiff="0.71" numobs="28" obsval="111.94" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-8.86" atoms="C5,C6,N1" mean="123.43" mindiff="8.64" numobs="93" obsval="111.31" stdev="1.37"/>
+		<mog-angle-outlier Zscore="2.09" atoms="O4',C1',C2'" mean="105.79" mindiff="0.39" numobs="43" obsval="107.94" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.89" atoms="C3',C2',C1'" mean="103.13" mindiff="1.50" numobs="29" obsval="99.63" stdev="1.21"/>
+		<mog-bond-outlier Zscore="3.79" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.39" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.06" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.31" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="E" ent="2" icode=" " model="1" owab="18.950" resname="SR" resnum="703" rscc="0.996" rsr="0.151" said="N" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="E" ent="2" icode=" " model="1" owab="28.710" resname="SR" resnum="709" rscc="0.974" rsr="0.143" said="O" seq=".">
+		<clash atom="SR" cid="2" clashmag="0.61" dist="1.89"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="E" ent="3" icode=" " model="1" owab="21.660" resname="MG" resnum="712" rscc="0.992" rsr="0.247" said="P" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="E" ent="4" icode=" " model="1" owab="38.840" resname="HOH" resnum="710" rscc="0.730" rsr="0.123" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="11.710" resname="HOH" resnum="719" rscc="0.995" rsr="0.049" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="16.610" resname="HOH" resnum="726" rscc="0.981" rsr="0.124" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="E" ent="4" icode=" " model="1" owab="22.860" resname="HOH" resnum="735" rscc="0.993" rsr="0.047" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="26.570" resname="HOH" resnum="756" rscc="0.958" rsr="0.137" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="20.390" resname="HOH" resnum="772" rscc="0.984" rsr="0.214" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="22.120" resname="HOH" resnum="775" rscc="0.917" rsr="0.107" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="28.290" resname="HOH" resnum="778" rscc="0.967" rsr="0.083" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="31.050" resname="HOH" resnum="781" rscc="0.890" rsr="0.156" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="21.130" resname="HOH" resnum="787" rscc="0.979" rsr="0.069" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="24.550" resname="HOH" resnum="788" rscc="0.977" rsr="0.181" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="24.130" resname="HOH" resnum="789" rscc="0.972" rsr="0.067" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="27.310" resname="HOH" resnum="799" rscc="0.979" rsr="0.050" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="23.010" resname="HOH" resnum="804" rscc="0.983" rsr="0.102" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="23.120" resname="HOH" resnum="810" rscc="0.986" rsr="0.063" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="17.740" resname="HOH" resnum="827" rscc="0.958" rsr="0.088" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="26.860" resname="HOH" resnum="829" rscc="0.951" rsr="0.145" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="E" ent="4" icode=" " model="1" owab="28.140" resname="HOH" resnum="837" rscc="0.977" rsr="0.147" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="39.440" resname="HOH" resnum="841" rscc="0.909" rsr="0.121" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="33.910" resname="HOH" resnum="852" rscc="0.684" rsr="0.432" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="33.140" resname="HOH" resnum="864" rscc="0.909" rsr="0.135" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="E" ent="4" icode=" " model="1" owab="28.310" resname="HOH" resnum="873" rscc="0.945" rsr="0.206" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="34.790" resname="HOH" resnum="874" rscc="0.912" rsr="0.125" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="34.180" resname="HOH" resnum="879" rscc="0.976" rsr="0.267" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="38.900" resname="HOH" resnum="880" rscc="0.518" rsr="0.260" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="59.620" resname="HOH" resnum="884" rscc="0.710" rsr="0.329" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="E" ent="4" icode=" " model="1" owab="40.290" resname="HOH" resnum="893" rscc="0.818" rsr="0.300" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="E" ent="4" icode=" " model="1" owab="22.970" resname="HOH" resnum="897" rscc="0.884" rsr="0.157" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="37.160" resname="HOH" resnum="898" rscc="0.828" rsr="0.180" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="26.340" resname="HOH" resnum="904" rscc="0.886" rsr="0.105" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="25.010" resname="HOH" resnum="906" rscc="0.976" rsr="0.096" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="54.640" resname="HOH" resnum="911" rscc="0.635" rsr="0.174" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="32.110" resname="HOH" resnum="922" rscc="0.828" rsr="0.104" said="V" seq=".">
+		<clash atom="O" cid="2" clashmag="0.61" dist="1.89"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="35.040" resname="HOH" resnum="924" rscc="0.834" rsr="0.212" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="E" ent="4" icode=" " model="1" owab="22.730" resname="HOH" resnum="937" rscc="0.792" rsr="0.255" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="50.940" resname="HOH" resnum="938" rscc="0.758" rsr="0.369" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="35.130" resname="HOH" resnum="944" rscc="0.897" rsr="0.117" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="71.340" resname="HOH" resnum="947" rscc="0.654" rsr="0.400" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="40.600" resname="HOH" resnum="948" rscc="0.871" rsr="0.223" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="E" ent="4" icode=" " model="1" owab="33.630" resname="HOH" resnum="949" rscc="0.919" rsr="0.174" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.660" chain="E" ent="4" icode=" " model="1" owab="40.650" resname="HOH" resnum="965" rscc="0.709" rsr="0.286" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="38.180" resname="HOH" resnum="969" rscc="0.946" rsr="0.123" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="E" ent="4" icode=" " model="1" owab="13.500" resname="HOH" resnum="981" rscc="0.995" rsr="0.045" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.170" chain="E" ent="4" icode=" " model="1" owab="50.270" resname="HOH" resnum="987" rscc="0.942" rsr="0.465" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="E" ent="4" icode=" " model="1" owab="15.610" resname="HOH" resnum="989" rscc="0.978" rsr="0.081" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="E" ent="4" icode=" " model="1" owab="63.550" resname="HOH" resnum="1004" rscc="0.962" rsr="0.186" said="V" seq="."/>
+	<ModelledSubgroup NatomsEDS="17" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.22" mogul_bonds_rmsz="0.66" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="23.600" resname="CFZ" resnum="609" rscc="0.951" rsr="0.073" said="F" seq="1">
+		<mog-torsion-outlier atoms="C3',C4',C5',O5'" local_density="4.96" mean="56.07" mindiff="0.89" numobs="1833" obsval="35.33" stdev="54.25"/>
+		<mog-angle-outlier Zscore="3.45" atoms="C2,N3,C4" mean="116.34" mindiff="1.09" numobs="23" obsval="119.84" stdev="1.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="2.34" mogul_bonds_rmsz="1.33" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="17.960" resname="GF2" resnum="610" rscc="0.963" rsr="0.075" said="F" seq="2">
+		<mog-angle-outlier Zscore="4.27" atoms="C6,N1,C2" mean="115.93" mindiff="1.23" numobs="97" obsval="122.72" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.07" atoms="C2,N3,C4" mean="115.36" mindiff="0.22" numobs="28" obsval="112.99" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-2.56" atoms="C6,C5,C4" mean="120.80" mindiff="0.90" numobs="52" obsval="118.35" stdev="0.95"/>
+		<mog-angle-outlier Zscore="-7.42" atoms="C5,C6,N1" mean="123.43" mindiff="6.67" numobs="93" obsval="113.28" stdev="1.37"/>
+		<mog-angle-outlier Zscore="-2.46" atoms="C3',C2',C1'" mean="103.13" mindiff="0.99" numobs="29" obsval="100.15" stdev="1.21"/>
+		<mog-bond-outlier Zscore="4.34" atoms="C6,N1" mean="1.33" mindiff="0.01" numobs="1173" obsval="1.40" stdev="0.02"/>
+		<mog-bond-outlier Zscore="-2.14" atoms="C8,N7" mean="1.34" mindiff="0.00" numobs="73" obsval="1.30" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.23" mogul_bonds_rmsz="0.80" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="15.300" resname="AF2" resnum="611" rscc="0.971" rsr="0.069" said="F" seq="3">
+		<mog-angle-outlier Zscore="2.38" atoms="C5,C6,N6" mean="120.35" mindiff="0.14" numobs="41" obsval="123.96" stdev="1.52"/>
+		<mog-angle-outlier Zscore="2.50" atoms="O4',C1',C2'" mean="105.79" mindiff="0.04" numobs="43" obsval="108.37" stdev="1.03"/>
+		<mog-angle-outlier Zscore="-2.99" atoms="C3',C2',C1'" mean="103.13" mindiff="1.63" numobs="29" obsval="99.51" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="22" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.34" mogul_bonds_rmsz="0.92" mogul_rmsz_numangles="18" mogul_rmsz_numbonds="18" num-H-reduce="10" owab="14.790" resname="AF2" resnum="612" rscc="0.959" rsr="0.081" said="F" seq="4">
+		<clash atom="H2'" cid="13" clashmag="0.42" dist="2.00"/>
+		<mog-angle-outlier Zscore="-2.20" atoms="N3,C2,N1" mean="128.68" mindiff="0.07" numobs="136" obsval="125.25" stdev="1.56"/>
+		<mog-angle-outlier Zscore="2.34" atoms="C5,C6,N6" mean="120.35" mindiff="0.09" numobs="41" obsval="123.91" stdev="1.52"/>
+		<mog-angle-outlier Zscore="2.24" atoms="O4',C1',C2'" mean="105.79" mindiff="0.31" numobs="43" obsval="108.10" stdev="1.03"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.45" mogul_bonds_rmsz="1.16" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="13.340" resname="UFT" resnum="613" rscc="0.977" rsr="0.067" said="F" seq="5">
+		<clash atom="H6" cid="13" clashmag="0.42" dist="2.00"/>
+		<mog-angle-outlier Zscore="-3.49" atoms="C5,C4,N3" mean="123.31" mindiff="0.50" numobs="358" obsval="115.62" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.80" atoms="C3',C2',C1'" mean="103.13" mindiff="1.40" numobs="29" obsval="99.74" stdev="1.21"/>
+		<mog-angle-outlier Zscore="2.05" atoms="O4',C1',C2'" mean="105.79" mindiff="0.35" numobs="43" obsval="107.90" stdev="1.03"/>
+		<mog-bond-outlier Zscore="3.16" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.38" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.65" mogul_bonds_rmsz="1.39" mogul_rmsz_numangles="14" mogul_rmsz_numbonds="14" num-H-reduce="9" owab="13.380" resname="UFT" resnum="614" rscc="0.984" rsr="0.055" said="F" seq="6">
+		<mog-angle-outlier Zscore="-4.05" atoms="C5,C4,N3" mean="123.31" mindiff="1.73" numobs="358" obsval="114.39" stdev="2.20"/>
+		<mog-angle-outlier Zscore="-2.39" atoms="F2',C2',C1'" mean="109.08" mindiff="0.25" numobs="48" obsval="104.09" stdev="2.08"/>
+		<mog-angle-outlier Zscore="-2.62" atoms="C3',C2',C1'" mean="103.13" mindiff="1.18" numobs="29" obsval="99.95" stdev="1.21"/>
+		<mog-bond-outlier Zscore="-2.53" atoms="C6,C5" mean="1.38" mindiff="0.00" numobs="10000" obsval="1.32" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.56" atoms="C4,N3" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.37" stdev="0.02"/>
+		<mog-bond-outlier Zscore="2.95" atoms="O4',C1'" mean="1.41" mindiff="0.01" numobs="20" obsval="1.45" stdev="0.01"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="20" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="1.64" mogul_bonds_rmsz="0.90" mogul_rmsz_numangles="17" mogul_rmsz_numbonds="15" num-H-reduce="10" owab="12.230" resname="CFZ" resnum="615" rscc="0.988" rsr="0.055" said="F" seq="7">
+		<mog-angle-outlier Zscore="5.05" atoms="C2,N3,C4" mean="116.34" mindiff="2.71" numobs="23" obsval="121.46" stdev="1.01"/>
+		<mog-angle-outlier Zscore="2.01" atoms="N4,C4,N3" mean="116.49" mindiff="0.13" numobs="332" obsval="119.67" stdev="1.58"/>
+		<mog-angle-outlier Zscore="-2.38" atoms="C3',C2',C1'" mean="103.13" mindiff="0.89" numobs="29" obsval="100.25" stdev="1.21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="23" altcode=" " avgoccu="1.000" chain="F" ent="1" icode=" " model="1" mogul_angles_rmsz="2.15" mogul_bonds_rmsz="1.29" mogul_rmsz_numangles="20" mogul_rmsz_numbonds="18" num-H-reduce="11" owab="10.110" resname="GF2" resnum="616" rscc="0.987" rsr="0.052" said="F" seq="8">
+		<mog-angle-outlier Zscore="3.89" atoms="C6,N1,C2" mean="115.93" mindiff="0.62" numobs="97" obsval="122.11" stdev="1.59"/>
+		<mog-angle-outlier Zscore="-2.53" atoms="C2,N3,C4" mean="115.36" mindiff="0.18" numobs="28" obsval="112.46" stdev="1.14"/>
+		<mog-angle-outlier Zscore="-7.37" atoms="C5,C6,N1" mean="123.43" mindiff="6.60" numobs="93" obsval="113.35" stdev="1.37"/>
+		<mog-bond-outlier Zscore="4.27" atoms="C6,N1" mean="1.33" mindiff="0.00" numobs="1173" obsval="1.40" stdev="0.02"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="F" ent="2" icode=" " model="1" owab="18.730" resname="SR" resnum="706" rscc="0.994" rsr="0.282" said="Q" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="12.490" resname="HOH" resnum="713" rscc="0.993" rsr="0.101" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="13.160" resname="HOH" resnum="718" rscc="0.993" rsr="0.037" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="15.830" resname="HOH" resnum="722" rscc="0.994" rsr="0.040" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="F" ent="4" icode=" " model="1" owab="14.530" resname="HOH" resnum="727" rscc="0.995" rsr="0.198" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="17.070" resname="HOH" resnum="742" rscc="0.978" rsr="0.140" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="17.010" resname="HOH" resnum="749" rscc="0.982" rsr="0.081" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="20.310" resname="HOH" resnum="750" rscc="0.986" rsr="0.127" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="F" ent="4" icode=" " model="1" owab="8.630" resname="HOH" resnum="755" rscc="0.929" rsr="0.278" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="21.530" resname="HOH" resnum="759" rscc="0.895" rsr="0.113" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="20.430" resname="HOH" resnum="763" rscc="0.968" rsr="0.144" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="18.970" resname="HOH" resnum="766" rscc="0.990" rsr="0.034" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="24.170" resname="HOH" resnum="769" rscc="0.964" rsr="0.077" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.600" chain="F" ent="4" icode=" " model="1" owab="12.850" resname="HOH" resnum="777" rscc="0.950" rsr="0.148" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="22.290" resname="HOH" resnum="806" rscc="0.976" rsr="0.053" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="65.900" resname="HOH" resnum="811" rscc="0.812" rsr="0.221" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="24.790" resname="HOH" resnum="813" rscc="0.970" rsr="0.121" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="40.210" resname="HOH" resnum="843" rscc="0.919" rsr="0.151" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="31.880" resname="HOH" resnum="850" rscc="0.899" rsr="0.280" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="41.460" resname="HOH" resnum="865" rscc="0.786" rsr="0.192" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="38.480" resname="HOH" resnum="868" rscc="0.854" rsr="0.208" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="25.910" resname="HOH" resnum="870" rscc="0.919" rsr="0.080" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="33.780" resname="HOH" resnum="872" rscc="0.846" rsr="0.127" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="44.490" resname="HOH" resnum="876" rscc="0.634" rsr="0.132" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="31.120" resname="HOH" resnum="877" rscc="0.962" rsr="0.152" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="31.310" resname="HOH" resnum="882" rscc="0.942" rsr="0.209" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="39.740" resname="HOH" resnum="888" rscc="0.876" rsr="0.158" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.400" chain="F" ent="4" icode=" " model="1" owab="10.750" resname="HOH" resnum="894" rscc="0.965" rsr="0.186" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="17.650" resname="HOH" resnum="901" rscc="0.952" rsr="0.076" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="29.270" resname="HOH" resnum="902" rscc="0.886" rsr="0.157" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="36.230" resname="HOH" resnum="905" rscc="0.889" rsr="0.106" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="27.570" resname="HOH" resnum="915" rscc="0.945" rsr="0.111" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="38.130" resname="HOH" resnum="917" rscc="0.852" rsr="0.134" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="40.610" resname="HOH" resnum="923" rscc="0.892" rsr="0.236" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="33.080" resname="HOH" resnum="931" rscc="0.941" rsr="0.144" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="37.650" resname="HOH" resnum="942" rscc="0.775" rsr="0.148" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.330" chain="F" ent="4" icode=" " model="1" owab="28.250" resname="HOH" resnum="943" rscc="0.827" rsr="0.188" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="25.270" resname="HOH" resnum="945" rscc="0.957" rsr="0.199" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="48.500" resname="HOH" resnum="956" rscc="0.732" rsr="0.193" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="55.500" resname="HOH" resnum="958" rscc="0.855" rsr="0.134" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="40.750" resname="HOH" resnum="960" rscc="0.820" rsr="0.164" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="11.800" resname="HOH" resnum="962" rscc="0.982" rsr="0.065" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="28.130" resname="HOH" resnum="982" rscc="0.783" rsr="0.344" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="37.870" resname="HOH" resnum="983" rscc="0.842" rsr="0.251" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="45.620" resname="HOH" resnum="986" rscc="0.831" rsr="0.138" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="51.410" resname="HOH" resnum="992" rscc="0.763" rsr="0.528" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="39.060" resname="HOH" resnum="994" rscc="0.886" rsr="0.099" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="33.980" resname="HOH" resnum="995" rscc="0.754" rsr="0.214" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="40.570" resname="HOH" resnum="999" rscc="0.857" rsr="0.108" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.500" chain="F" ent="4" icode=" " model="1" owab="19.850" resname="HOH" resnum="1000" rscc="0.941" rsr="0.202" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="0.150" chain="F" ent="4" icode=" " model="1" owab="0.880" resname="HOH" resnum="1001" rscc="0.947" rsr="0.306" said="W" seq="."/>
+	<ModelledSubgroup NatomsEDS="1" altcode=" " avgoccu="1.000" chain="F" ent="4" icode=" " model="1" owab="44.770" resname="HOH" resnum="1005" rscc="0.702" rsr="0.503" said="W" seq="."/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="A" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="A"/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="B" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="B"/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="C" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="C"/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="D" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="D"/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="E" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="E"/>
+	<ModelledEntityInstance absolute_RSRZ_percentile="NotAvailable" chain="F" ent="1" model="1" relative_RSRZ_percentile="NotAvailable" said="F"/>
+	<programs>
+		<program name="molprobity" properties="clashscore,RNAsuiteness,RestypesNotcheckedForBondAngleGeometry,num-H-reduce,clash" version="4.02b-467"/>
+		<program name="percentiles" properties="numPDBids-absolute-percentile-clashscore,high-resol-relative-percentile-clashscore,relative-percentile-clashscore,high-resol-relative-percentile-DCC_Rfree,numPDBids-absolute-percentile-RNAsuiteness,low-resol-relative-percentile-clashscore,numPDBids-relative-percentile-DCC_Rfree,low-resol-relative-percentile-DCC_Rfree,numPDBids-relative-percentile-RNAsuiteness,absolute-percentile-DCC_Rfree,numPDBids-absolute-percentile-DCC_Rfree,low-resol-relative-percentile-RNAsuiteness,relative-percentile-RNAsuiteness,relative-percentile-DCC_Rfree,numPDBids-relative-percentile-clashscore,absolute-percentile-RNAsuiteness,high-resol-relative-percentile-RNAsuiteness,absolute-percentile-clashscore" version="20191225.v01 (using entries in the PDB archive December 25th 2019)"/>
+		<program name="dcc" properties="DCC_R,DCC_refinement_program,B_factor_type,DCC_Rfree" version="2.26  (2020-01-20)"/>
+		<program name="mogul" properties="mogul_rmsz_numangles,mogul_angles_rmsz,mogul-torsion-outlier,mogul-angle-outlier,mogul-bond-outlier,mogul_bonds_rmsz,mogul-ring-outlier,mogul_rmsz_numbonds" version="1.8.5 (274361), CSD as541be (2020)"/>
+		<program name="buster-report" properties="no-ligands-for-buster-report" version="unknown"/>
+		<program name="eds" properties="num-free-reflections,rscc,rsr,NatomsEDS,relative_RSRZ_percentile,RefmacVersion,owab,EDS_R,babinet_k,bulk_solvent_k,percent-free-reflections,DataCompleteness,avgoccu,EDS_resolution_low,EDS_resolution,CCP4version,absolute_RSRZ_percentile,Fo_Fc_correlation,babinet_b,bulk_solvent_b" version="2.13.1"/>
+		<program name="xtriage" properties="xtriage_input_columns,numMillerIndices,TwinFraction,DataAnisotropy,TransNCS,centric_outliers,TwinL,acentric_outliers,WilsonBestimate,TwinL2,IoverSigma,WilsonBaniso" version="1.13"/>
+		<program name="validation-pipeline" properties="PDB-revision-date,PDB-resolution,protein-DNA-RNA-entities,PDB-Rfree,PDB-R,percentilebins,PDB-resolution-low,pdbid,PDB-revision-number,attemptedValidationSteps,XMLcreationDate,PDB-deposition-date" version="2.13.1"/>
+	</programs>
+</wwPDB-validation-information>

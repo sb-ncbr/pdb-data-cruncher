@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.00.xsd">
+	<Entry percentilebins="all,nmr" attemptedValidationSteps="mogul,buster-report,molprobity,validation-pack,coreclust,chemicalshifts,percentiles,writepdf,writexml" PDB-deposition-date="1999-11-16" PDB-revision-date="2022-03-23" PDB-revision-number="4" protein-DNA-RNA-entities="" PDB-resolution="NotAvailable" PDB-resolution-low="NotAvailable" PDB-R="NotAvailable" PDB-Rfree="NotAvailable" pdbid="1DEY" ligands-for-buster-report="yes" num-H-reduce="84" clashscore-full-length="16.57" RestypesNotcheckedForBondAngleGeometry="CO,BLM" nmr_models_consistency_flag="True" cyrange_error="Not enough models (&lt;3)" panav_version="Wang et al. (2010)" rci_version="v_1n_11_5_13_A (Berjanski et al., 2005)" shiftchecker_version="2.27" clashscore="0.00" absolute-percentile-clashscore="99.9" numPDBids-absolute-percentile-clashscore="158937" relative-percentile-clashscore="100.0" numPDBids-relative-percentile-clashscore="12864" cs_only="yes" XMLcreationDate="Mar 17, 2022 -- 08:00 AM EDT"/>
+	<ModelledSubgroup mogul_bonds_rmsz="1.45" mogul_rmsz_numbonds="92" mogul_angles_rmsz="1.84" mogul_rmsz_numangles="108" num-H-reduce="84" model="1" chain="A" resnum="1" said="A" ent="1" seq="." icode=" " resname="BLM" altcode=" ">
+		<mog-bond-outlier atoms="C9,C8" numobs="32" mean="1.43" stdev="0.02" mindiff="0.05" Zscore="4.17" obsval="1.53"/>
+		<mog-bond-outlier atoms="C8,NE" numobs="1002" mean="1.35" stdev="0.01" mindiff="0.01" Zscore="-3.56" obsval="1.29"/>
+		<mog-bond-outlier atoms="C8,NF" numobs="2213" mean="1.34" stdev="0.03" mindiff="0.00" Zscore="2.66" obsval="1.40"/>
+		<mog-bond-outlier atoms="C10,NG" numobs="909" mean="1.34" stdev="0.02" mindiff="0.02" Zscore="4.20" obsval="1.43"/>
+		<mog-bond-outlier atoms="C7,NG" numobs="54" mean="1.34" stdev="0.02" mindiff="0.03" Zscore="-3.76" obsval="1.27"/>
+		<mog-bond-outlier atoms="C7,NE" numobs="54" mean="1.34" stdev="0.02" mindiff="0.05" Zscore="6.27" obsval="1.45"/>
+		<mog-bond-outlier atoms="C7,C6" numobs="22" mean="1.50" stdev="0.02" mindiff="0.02" Zscore="2.49" obsval="1.55"/>
+		<mog-bond-outlier atoms="C13,NH" numobs="3170" mean="1.45" stdev="0.02" mindiff="0.00" Zscore="3.12" obsval="1.52"/>
+		<mog-bond-outlier atoms="C42,C43" numobs="29" mean="1.49" stdev="0.01" mindiff="0.01" Zscore="2.92" obsval="1.51"/>
+		<mog-bond-outlier atoms="C45,NN" numobs="27" mean="1.37" stdev="0.03" mindiff="0.03" Zscore="2.35" obsval="1.44"/>
+		<mog-bond-outlier atoms="C48,NO" numobs="27" mean="1.37" stdev="0.03" mindiff="0.04" Zscore="2.44" obsval="1.45"/>
+		<mog-bond-outlier atoms="C46,NO" numobs="20" mean="1.31" stdev="0.01" mindiff="0.01" Zscore="-2.19" obsval="1.28"/>
+		<mog-angle-outlier atoms="C3,C2,C1" numobs="51" mean="108.66" stdev="1.76" mindiff="1.55" Zscore="3.98" obsval="115.66"/>
+		<mog-angle-outlier atoms="C1,C2,NB" numobs="80" mean="109.45" stdev="3.81" mindiff="0.56" Zscore="2.18" obsval="117.78"/>
+		<mog-angle-outlier atoms="C9,C10,NG" numobs="40" mean="123.31" stdev="1.07" mindiff="7.01" Zscore="-9.12" obsval="113.58"/>
+		<mog-angle-outlier atoms="C9,C10,C12" numobs="20" mean="123.14" stdev="1.95" mindiff="5.01" Zscore="4.86" obsval="132.60"/>
+		<mog-angle-outlier atoms="C12,C10,NG" numobs="72" mean="115.99" stdev="0.93" mindiff="0.23" Zscore="-2.44" obsval="113.71"/>
+		<mog-angle-outlier atoms="NE,C7,NG" numobs="23" mean="126.00" stdev="1.44" mindiff="4.31" Zscore="-5.18" obsval="118.53"/>
+		<mog-angle-outlier atoms="C5,C6,C7" numobs="22" mean="110.64" stdev="1.65" mindiff="3.23" Zscore="4.55" obsval="118.16"/>
+		<mog-angle-outlier atoms="C13,NH,C12" numobs="220" mean="121.52" stdev="1.81" mindiff="0.80" Zscore="-2.83" obsval="116.41"/>
+		<mog-angle-outlier atoms="C30,C13,NH" numobs="1215" mean="110.36" stdev="2.72" mindiff="0.28" Zscore="3.02" obsval="118.59"/>
+		<mog-angle-outlier atoms="C14,C13,NH" numobs="23" mean="110.20" stdev="1.09" mindiff="0.01" Zscore="2.33" obsval="112.75"/>
+		<mog-angle-outlier atoms="CB,C31,NK" numobs="177" mean="109.70" stdev="1.72" mindiff="0.11" Zscore="-2.13" obsval="106.02"/>
+		<mog-angle-outlier atoms="C64,O56,C57" numobs="6840" mean="117.96" stdev="2.47" mindiff="0.04" Zscore="4.13" obsval="128.19"/>
+		<mog-angle-outlier atoms="OH1,C63,C57" numobs="1858" mean="109.10" stdev="2.03" mindiff="0.01" Zscore="2.02" obsval="113.19"/>
+		<mog-angle-outlier atoms="O56,C57,C58" numobs="5382" mean="107.28" stdev="2.66" mindiff="0.20" Zscore="5.53" obsval="122.00"/>
+		<mog-angle-outlier atoms="C64,C69,C68" numobs="134" mean="110.07" stdev="1.76" mindiff="0.36" Zscore="-2.68" obsval="105.35"/>
+		<mog-angle-outlier atoms="C67,C68,C69" numobs="124" mean="110.85" stdev="1.44" mindiff="0.01" Zscore="-2.49" obsval="107.26"/>
+		<mog-angle-outlier atoms="O68,C68,C67" numobs="163" mean="107.70" stdev="2.28" mindiff="3.63" Zscore="3.97" obsval="116.76"/>
+		<mog-angle-outlier atoms="O64,C65,C67" numobs="1535" mean="109.69" stdev="1.82" mindiff="0.01" Zscore="2.58" obsval="114.38"/>
+		<mog-torsion-outlier atoms="NA,C1,C2,C3" numobs="121" mean="60.51" stdev="21.56" mindiff="17.27" local_density="0.00" obsval="170.55"/>
+		<mog-torsion-outlier atoms="O1,C1,C2,C3" numobs="121" mean="58.61" stdev="21.01" mindiff="15.75" local_density="0.00" obsval="-10.86"/>
+		<mog-torsion-outlier atoms="O1,C1,C2,NB" numobs="80" mean="73.15" stdev="31.28" mindiff="1.88" local_density="2.50" obsval="-133.52"/>
+		<mog-torsion-outlier atoms="C5,C6,NC,C3" numobs="64" mean="33.29" stdev="14.67" mindiff="2.74" local_density="4.69" obsval="136.51"/>
+		<mog-torsion-outlier atoms="C7,C6,NC,C3" numobs="41" mean="32.28" stdev="13.97" mindiff="16.47" local_density="0.00" obsval="-93.96"/>
+		<mog-torsion-outlier atoms="C5,C6,C7,NG" numobs="25" mean="34.78" stdev="20.97" mindiff="5.57" local_density="4.00" obsval="106.78"/>
+		<mog-torsion-outlier atoms="C30,C13,C14,C27" numobs="40" mean="68.04" stdev="34.55" mindiff="7.44" local_density="2.50" obsval="-78.46"/>
+		<mog-torsion-outlier atoms="C30,C13,C14,OH1" numobs="40" mean="78.70" stdev="27.25" mindiff="11.51" local_density="0.00" obsval="151.72"/>
+		<mog-torsion-outlier atoms="C27,C14,OH1,C63" numobs="60" mean="47.97" stdev="18.06" mindiff="8.29" local_density="3.33" obsval="127.29"/>
+		<mog-torsion-outlier atoms="O62,C63,OH1,C14" numobs="7276" mean="49.66" stdev="13.90" mindiff="0.14" local_density="1.36" obsval="-55.95"/>
+		<mog-torsion-outlier atoms="C57,C63,OH1,C14" numobs="7202" mean="45.92" stdev="13.93" mindiff="0.02" local_density="2.76" obsval="179.23"/>
+		<mog-torsion-outlier atoms="NL,C37,C40,O40" numobs="1253" mean="51.78" stdev="19.40" mindiff="1.67" local_density="0.56" obsval="-106.78"/>
+		<mog-torsion-outlier atoms="NL,C37,C40,NM" numobs="1241" mean="51.29" stdev="21.21" mindiff="0.01" local_density="0.73" obsval="71.29"/>
+		<mog-torsion-outlier atoms="O62,C60,C61,O61" numobs="6600" mean="109.95" stdev="15.67" mindiff="0.00" local_density="1.23" obsval="176.53"/>
+		<mog-torsion-outlier atoms="C58,C57,O56,C64" numobs="10000" mean="99.13" stdev="15.98" mindiff="1.49" local_density="0.02" obsval="20.25"/>
+		<mog-torsion-outlier atoms="C69,C64,O56,C57" numobs="7202" mean="58.52" stdev="13.91" mindiff="1.80" local_density="0.07" obsval="-74.79"/>
+		<mog-torsion-outlier atoms="O64,C64,O56,C57" numobs="7276" mean="60.99" stdev="14.10" mindiff="2.94" local_density="0.04" obsval="166.54"/>
+		<mog-torsion-outlier atoms="C67,C68,O68,C70" numobs="40" mean="49.05" stdev="22.10" mindiff="4.21" local_density="2.50" obsval="72.20"/>
+		<mog-torsion-outlier atoms="O64,C65,C66,O66" numobs="6600" mean="112.26" stdev="15.67" mindiff="0.00" local_density="1.12" obsval="-178.84"/>
+		<mog-torsion-outlier atoms="NQ,C70,O68,C68" numobs="30" mean="80.19" stdev="5.12" mindiff="65.75" local_density="0.00" obsval="-92.15"/>
+		<mog-torsion-outlier atoms="O70,C70,O68,C68" numobs="449" mean="80.63" stdev="5.01" mindiff="57.72" local_density="0.00" obsval="87.81"/>
+		<clash atom="C7" dist="1.97" clashmag="0.72" cid="0"/>
+		<clash atom="C7" dist="2.97" clashmag="0.41" cid="2"/>
+		<clash atom="HNQ2" dist="1.97" clashmag="0.72" cid="0"/>
+		<clash atom="NO" dist="2.62" clashmag="0.48" cid="1"/>
+		<clash atom="NA" dist="2.62" clashmag="0.48" cid="1"/>
+		<clash atom="C1" dist="2.97" clashmag="0.41" cid="2"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup mogul-ignore="yes" model="1" chain="A" resnum="2" said="B" ent="2" seq="." icode=" " resname="CO" altcode=" "/>
+	<programs>
+		<program name="validation-pipeline" version="2.27" properties="PDB-Rfree,PDB-resolution,percentilebins,pdbid,PDB-revision-date,cs_only,XMLcreationDate,attemptedValidationSteps,PDB-R,PDB-deposition-date,PDB-revision-number,protein-DNA-RNA-entities,PDB-resolution-low"/>
+		<program name="mogul" version="1.8.5 (274361), CSD as541be (2020)" properties="mogul_rmsz_numangles,mogul_rmsz_numbonds,mogul-ignore,mogul-torsion-outlier,mogul-bond-outlier,mogul-angle-outlier,mogul-ring-outlier,mogul_bonds_rmsz,mogul_angles_rmsz"/>
+		<program name="buster-report" version="1.1.7 (2018)" properties="ligands-for-buster-report"/>
+		<program name="molprobity" version="4.02b-467" properties="RestypesNotcheckedForBondAngleGeometry,clash,num-H-reduce,clashscore-full-length"/>
+		<program name="coreclust" version="unknown" properties="nmr_models_consistency_flag,cyrange_error"/>
+		<program name="chemicalshifts" version="2.27" properties="rci_version,shiftchecker_version,panav_version"/>
+		<program name="nmrwriter" version="2.27" properties="clashscore"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="numPDBids-relative-percentile-clashscore,numPDBids-absolute-percentile-clashscore,relative-percentile-clashscore,absolute-percentile-clashscore"/>
+	</programs>
+</wwPDB-validation-information>

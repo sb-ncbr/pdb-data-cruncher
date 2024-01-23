@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.02.xsd">
+	<Entry percentilebins="all,1.924,xray" attemptedValidationSteps="molprobity,validation-pack,xtriage,eds,mogul,buster-report,percentiles,writexml" PDB-deposition-date="2018-08-30" PDB-revision-date="2019-02-06" PDB-revision-number="2" protein-DNA-RNA-entities="1" PDB-resolution="1.92" PDB-resolution-low="62.92" PDB-R="0.2012" PDB-Rfree="0.2422" pdbid="5QEJ" no-ligands-for-mogul="yes" no-ligands-for-buster-report="yes" no-percentile-property="true" XMLcreationDate="Oct 29, 2023 -- 06:26 AM EDT"/>
+	<programs>
+		<program name="validation-pipeline" version="2.35.1" properties="PDB-R,PDB-revision-number,percentilebins,PDB-resolution-low,attemptedValidationSteps,pdbid,PDB-resolution,XMLcreationDate,PDB-deposition-date,PDB-Rfree,protein-DNA-RNA-entities,PDB-revision-date"/>
+		<program name="mogul" version="unknown" properties="no-ligands-for-mogul"/>
+		<program name="buster-report" version="unknown" properties="no-ligands-for-buster-report"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="no-percentile-property"/>
+	</programs>
+</wwPDB-validation-information>

@@ -1,0 +1,28 @@
+{
+    "8ucv": {
+        "appears_without_citation": {
+            "Articles": [],
+            "Reviews": []
+        },
+        "cited_by": {
+            "Articles": [],
+            "Reviews": []
+        },
+        "uniprot_publications": {
+            "Articles": [
+                {
+                    "pubmed_id": "10886370",
+                    "title": "Central role for cdc45 in establishing an initiation complex of DNA replication in Xenopus egg extracts.",
+                    "journal": "Genes Cells",
+                    "volume": "5",
+                    "citation_type": "Journal Article",
+                    "year": "2000",
+                    "pages": "439-452",
+                    "authors": "Mimura S., Masuda T., Matsui T., Takisawa H.",
+                    "accession": "Q9DE46"
+                }
+            ],
+            "Reviews": []
+        }
+    }
+}

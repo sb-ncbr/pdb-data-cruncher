@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<wwPDB-validation-information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://wwpdb.org/validation/schema/wwpdb_validation_v6.00.xsd">
+	<Entry percentilebins="all,nmr" attemptedValidationSteps="mogul,buster-report,molprobity,validation-pack,coreclust,chemicalshifts,percentiles,writepdf,writexml" PDB-deposition-date="2001-02-20" PDB-revision-date="2022-02-23" PDB-revision-number="4" protein-DNA-RNA-entities="1" PDB-resolution="NotAvailable" PDB-resolution-low="NotAvailable" PDB-R="NotAvailable" PDB-Rfree="NotAvailable" pdbid="1I4C" no-ligands-for-mogul="yes" no-ligands-for-buster-report="yes" num-H-reduce="142" clashscore-full-length="55.42" RNAsuiteness="0.12" bonds_rmsz="227.47" num_bonds_rmsz="304" angles_rmsz="6.20" num_angles_rmsz="472" nmr_models_consistency_flag="True" cyrange_error="Not enough models (&lt;3)" panav_version="Wang et al. (2010)" rci_version="v_1n_11_5_13_A (Berjanski et al., 2005)" shiftchecker_version="2.26" absolute-percentile-RNAsuiteness="8.9" numPDBids-absolute-percentile-RNAsuiteness="4643" relative-percentile-RNAsuiteness="20.4" numPDBids-relative-percentile-RNAsuiteness="676" cs_only="yes" XMLcreationDate="Feb 14, 2022 -- 12:44 AM EST"/>
+	<ModelledSubgroup num-H-reduce="12" RNApucker="outlier" model="1" chain="A" resnum="1" said="A" ent="1" seq="1" icode=" " resname="G" altcode=" ">
+		<chiral-outlier problem="WRONG HAND" atom="C4'"/>
+		<chiral-outlier problem="WRONG HAND" atom="C2'"/>
+		<chiral-outlier problem="WRONG HAND" atom="C1'"/>
+		<chiral-outlier problem="WRONG HAND" atom="C3'"/>
+		<plane-outlier type="sidechain" planeRMSD="1.09"/>
+		<clash atom="N9" dist="2.49" clashmag="0.74" cid="0"/>
+		<clash atom="C2'" dist="2.49" clashmag="0.74" cid="0"/>
+		<clash atom="C1'" dist="2.36" clashmag="0.73" cid="1"/>
+		<clash atom="C1'" dist="2.15" clashmag="0.71" cid="5"/>
+		<clash atom="C1'" dist="2.43" clashmag="0.67" cid="6"/>
+		<clash atom="O2'" dist="2.43" clashmag="0.67" cid="6"/>
+		<bond-outlier atom0="C1'" atom1="N9" obs="20.417" z="1262.27" mean="1.483" stdev="0.015"/>
+		<bond-outlier atom0="C2'" atom1="C1'" obs="20.352" z="1711.16" mean="1.529" stdev="0.011"/>
+		<bond-outlier atom0="C2'" atom1="O2'" obs="20.274" z="1450.94" mean="1.412" stdev="0.013"/>
+		<bond-outlier atom0="C4'" atom1="C3'" obs="20.136" z="1691.69" mean="1.527" stdev="0.011"/>
+		<bond-outlier atom0="O5'" atom1="C5'" obs="19.616" z="1136.00" mean="1.440" stdev="0.016"/>
+		<angle-outlier atom0="C3'" atom1="C2'" atom2="C1'" obs="80.293" z="-26.51" mean="101.500" stdev="0.800"/>
+		<angle-outlier atom0="C1'" atom1="C2'" atom2="O2'" obs="6.863" z="-34.58" mean="110.600" stdev="3.000"/>
+		<angle-outlier atom0="C3'" atom1="C2'" atom2="O2'" obs="80.745" z="-11.23" mean="113.300" stdev="2.900"/>
+		<angle-outlier atom0="C4'" atom1="C3'" atom2="O3'" obs="95.947" z="-6.41" mean="109.400" stdev="2.100"/>
+		<angle-outlier atom0="C4" atom1="N9" atom2="C1'" obs="74.637" z="-39.90" mean="126.500" stdev="1.300"/>
+		<angle-outlier atom0="C5'" atom1="C4'" atom2="C3'" obs="82.327" z="-21.05" mean="116.000" stdev="1.600"/>
+		<angle-outlier atom0="C8" atom1="N9" atom2="C1'" obs="72.579" z="-41.86" mean="127.000" stdev="1.300"/>
+		<angle-outlier atom0="N9" atom1="C1'" atom2="C2'" obs="7.006" z="-82.30" mean="114.000" stdev="1.300"/>
+		<angle-outlier atom0="O5'" atom1="C5'" atom2="C4'" obs="101.067" z="-5.60" mean="111.700" stdev="1.900"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="NotAvailable" RNAscore="0.00" model="1" chain="A" resnum="2" said="A" ent="1" seq="2" icode=" " resname="G" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="10" RNAsuite="NonRotameric" RNAscore="0.00" model="1" chain="A" resnum="3" said="A" ent="1" seq="3" icode=" " resname="U" altcode=" "/>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="Rotameric" RNAscore="0.62" model="1" chain="A" resnum="4" said="A" ent="1" seq="4" icode=" " resname="G" altcode=" ">
+		<clash atom="H2'" dist="1.83" clashmag="0.72" cid="4"/>
+		<clash atom="C6" dist="2.84" clashmag="0.45" cid="18"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="Triaged/NotBinned" RNAscore="0.00" RNApucker="outlier" model="1" chain="A" resnum="5" said="A" ent="1" seq="5" icode=" " resname="C" altcode=" ">
+		<clash atom="O2'" dist="1.83" clashmag="0.73" cid="2"/>
+		<clash atom="O2'" dist="2.60" clashmag="0.46" cid="17"/>
+		<clash atom="O4'" dist="1.83" clashmag="0.72" cid="4"/>
+		<clash atom="N3" dist="2.84" clashmag="0.45" cid="18"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="10" RNAsuite="Triaged/NotBinned" RNAscore="0.00" model="1" chain="A" resnum="6" said="A" ent="1" seq="6" icode=" " resname="U" altcode=" ">
+		<clash atom="H2'" dist="1.83" clashmag="0.73" cid="2"/>
+		<clash atom="O2'" dist="2.42" clashmag="0.52" cid="10"/>
+		<clash atom="O2'" dist="2.36" clashmag="0.42" cid="19"/>
+		<clash atom="C2'" dist="2.60" clashmag="0.46" cid="17"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="10" RNAsuite="Triaged/NotBinned" RNAscore="0.00" model="1" chain="A" resnum="7" said="A" ent="1" seq="7" icode=" " resname="U" altcode=" ">
+		<clash atom="OP2" dist="2.36" clashmag="0.73" cid="1"/>
+		<clash atom="H3'" dist="1.84" clashmag="0.72" cid="3"/>
+		<clash atom="H5'" dist="2.15" clashmag="0.71" cid="5"/>
+		<clash atom="H6" dist="1.84" clashmag="0.55" cid="8"/>
+		<clash atom="O5'" dist="1.84" clashmag="0.55" cid="8"/>
+		<clash atom="O5'" dist="2.66" clashmag="0.48" cid="13"/>
+		<clash atom="C6" dist="2.66" clashmag="0.48" cid="13"/>
+		<clash atom="O2'" dist="2.09" clashmag="0.48" cid="15"/>
+		<clash atom="H5''" dist="2.31" clashmag="0.41" cid="21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="Triaged/NotBinned" RNAscore="0.00" RNApucker="outlier" model="1" chain="A" resnum="8" said="A" ent="1" seq="8" icode=" " resname="A" altcode=" ">
+		<clash atom="O4'" dist="1.84" clashmag="0.72" cid="3"/>
+		<clash atom="O2'" dist="2.42" clashmag="0.52" cid="11"/>
+		<clash atom="H5'" dist="2.09" clashmag="0.48" cid="15"/>
+		<clash atom="N3" dist="2.31" clashmag="0.41" cid="21"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="NonRotameric" RNAscore="0.00" model="1" chain="A" resnum="9" said="A" ent="1" seq="9" icode=" " resname="G" altcode=" ">
+		<clash atom="N2" dist="2.42" clashmag="0.52" cid="10"/>
+		<clash atom="N7" dist="2.42" clashmag="0.52" cid="11"/>
+		<clash atom="O2'" dist="2.61" clashmag="0.51" cid="12"/>
+		<clash atom="O2'" dist="2.39" clashmag="0.40" cid="22"/>
+		<clash atom="C4" dist="3.07" clashmag="0.41" cid="20"/>
+		<angle-outlier atom0="OP2" atom1="P" atom2="O3'" obs="44.836" z="-27.44" mean="105.200" stdev="2.200" link="yes"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="NonRotameric" RNAscore="0.00" model="1" chain="A" resnum="10" said="A" ent="1" seq="10" icode=" " resname="C" altcode=" ">
+		<clash atom="N4" dist="2.53" clashmag="0.56" cid="7"/>
+		<clash atom="C5" dist="2.61" clashmag="0.51" cid="12"/>
+		<clash atom="C4" dist="2.82" clashmag="0.48" cid="16"/>
+		<clash atom="C4" dist="3.07" clashmag="0.41" cid="20"/>
+		<clash atom="O2" dist="2.36" clashmag="0.42" cid="19"/>
+		<clash atom="OP1" dist="2.39" clashmag="0.40" cid="22"/>
+		<bond-outlier atom0="P" atom1="OP2" obs="19.573" z="1063.99" mean="1.485" stdev="0.017"/>
+		<angle-outlier atom0="O5'" atom1="P" atom2="OP2" obs="74.119" z="-30.48" mean="110.700" stdev="1.200"/>
+		<angle-outlier atom0="OP1" atom1="P" atom2="OP2" obs="85.219" z="-22.92" mean="119.600" stdev="1.500"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="Rotameric" RNAscore="0.08" model="1" chain="A" resnum="11" said="A" ent="1" seq="11" icode=" " resname="A" altcode=" ">
+		<clash atom="N6" dist="2.53" clashmag="0.56" cid="7"/>
+		<clash atom="N7" dist="2.82" clashmag="0.48" cid="16"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="11" RNAsuite="Rotameric" RNAscore="0.04" model="1" chain="A" resnum="12" said="A" ent="1" seq="12" icode=" " resname="C" altcode=" ">
+		<clash atom="C4" dist="2.96" clashmag="0.54" cid="9"/>
+		<clash atom="H2'" dist="2.08" clashmag="0.48" cid="14"/>
+	</ModelledSubgroup>
+	<ModelledSubgroup num-H-reduce="12" model="1" chain="A" resnum="13" said="A" ent="1" seq="13" icode=" " resname="C" altcode=" ">
+		<chiral-outlier problem="WRONG HAND" atom="C3'"/>
+		<clash atom="C4" dist="2.96" clashmag="0.54" cid="9"/>
+		<clash atom="O4'" dist="2.08" clashmag="0.48" cid="14"/>
+		<bond-outlier atom0="C2'" atom1="O2'" obs="19.673" z="1404.69" mean="1.412" stdev="0.013"/>
+		<bond-outlier atom0="C3'" atom1="O3'" obs="20.432" z="1358.20" mean="1.417" stdev="0.014"/>
+		<angle-outlier atom0="C2'" atom1="C3'" atom2="O3'" obs="87.863" z="-9.84" mean="109.500" stdev="2.200"/>
+		<angle-outlier atom0="C1'" atom1="C2'" atom2="O2'" obs="12.143" z="-32.82" mean="110.600" stdev="3.000"/>
+		<angle-outlier atom0="C3'" atom1="C2'" atom2="O2'" obs="94.896" z="-6.35" mean="113.300" stdev="2.900"/>
+		<angle-outlier atom0="C4'" atom1="C3'" atom2="O3'" obs="26.586" z="-39.44" mean="109.400" stdev="2.100"/>
+	</ModelledSubgroup>
+	<ModelledEntityInstance bonds_rmsz="227.47" num_bonds_rmsz="304" angles_rmsz="6.20" num_angles_rmsz="472" said="A" model="1" chain="A" ent="1"/>
+	<programs>
+		<program name="validation-pipeline" version="2.26" properties="cs_only,PDB-revision-date,PDB-deposition-date,protein-DNA-RNA-entities,XMLcreationDate,attemptedValidationSteps,PDB-resolution-low,PDB-Rfree,PDB-revision-number,PDB-R,pdbid,PDB-resolution,percentilebins"/>
+		<program name="mogul" version="unknown" properties="no-ligands-for-mogul"/>
+		<program name="buster-report" version="unknown" properties="no-ligands-for-buster-report"/>
+		<program name="validation-pack" version="unknown" properties="chiral-outlier,plane-outlier"/>
+		<program name="molprobity" version="4.02b-467" properties="clashscore-full-length,RNAsuiteness,num_angles_rmsz,RNApucker,angles_rmsz,bond-outlier,bonds_rmsz,num_bonds_rmsz,clash,RNAscore,num-H-reduce,angle-outlier,RNAsuite"/>
+		<program name="coreclust" version="unknown" properties="nmr_models_consistency_flag,cyrange_error"/>
+		<program name="chemicalshifts" version="2.26" properties="panav_version,rci_version,shiftchecker_version"/>
+		<program name="percentiles" version="20191225.v01 (using entries in the PDB archive December 25th 2019)" properties="absolute-percentile-RNAsuiteness,relative-percentile-RNAsuiteness,numPDBids-absolute-percentile-RNAsuiteness,numPDBids-relative-percentile-RNAsuiteness"/>
+	</programs>
+</wwPDB-validation-information>

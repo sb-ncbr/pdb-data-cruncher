@@ -31,12 +31,15 @@ expected_protein_data_sets = {
 }
 
 
+@pytest.mark.old
 @pytest.mark.parametrize("pdb_id", ["8jip"])
 def test_parse_rest(pdb_id):
-    config = Config(path_to_rest_jsons="./tests/test_data/")
-    ligand_stats = parse_ligand_stats("./tests/test_data/ligandStats.csv")
+    config = Config(path_to_rest_jsons="./tests/test_data_2/")
+    ligand_stats = parse_ligand_stats("./tests/test_data_2/ligandStats.csv")
     protein_data = Manager.load_and_parse_json(pdb_id, ligand_stats, config)
     expected_protein_data = expected_protein_data_sets[pdb_id]
+
+    assert protein_data
 
     differences = compare_dataclasses(protein_data, expected_protein_data)
     differences_messages = " ".join([f"{diff[0]}: expected {diff[2]}, got {diff[1]}" for diff in differences])
