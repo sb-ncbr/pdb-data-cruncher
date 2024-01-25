@@ -48,7 +48,7 @@ class ProteinDataFromPDBx:
     experimental_method: Optional[str] = None  # _exptl.method
     citation_journal_abbreviation: Optional[str] = None  # _citation.journal_abbrev
     crystal_grow_methods: Optional[list[str]] = None  # _exptl_crystal_grow.method
-    crystal_grow_temperature: Optional[float] = None  # _exptl_crystal_grow.temp
+    crystal_grow_temperatures: Optional[list[float]] = None  # _exptl_crystal_grow.temp
     crystal_grow_ph: Optional[float] = None  # _exptl_crystal_grow.pH
     diffraction_ambient_temperature: Optional[float] = None  # _diffrn.ambient_temp
     software_name: Optional[list[str]] = None  # _software.name

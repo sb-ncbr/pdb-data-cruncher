@@ -1,197 +1,114 @@
+import os
+
 import pytest
 
 from src.models import ProteinDataFromPDBx
-from src.data_parsers.pdbx_parser import _parse_pdbx_unsafe
-from tests.helpers import compare_dataclasses
+from src.data_parsers.pdbx_parser import parse_pdbx
+from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses, int_or_none, float_or_none
+from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
 
 
-# small testing protein
-protein_data_8jip = ProteinDataFromPDBx(
-    pdb_id="8jip",
-    atom_count_without_hetatms=9336,
-    aa_count=1385,
-    all_atom_count=9399,
-    all_atom_count_ln=9.14836,
-    hetatm_count=63,
-    hetatm_count_no_water=63,
-    hetatm_count_metal=0,
-    hetatm_count_no_metal=63,
-    hetatm_count_no_water_no_metal=63,
-    ligand_count=1,
-    ligand_count_no_water=1,
-    ligand_count_metal=0,
-    ligand_count_no_metal=1,
-    ligand_count_no_water_no_metal=1,
-    ligand_ratio=63,
-    ligand_ratio_no_water=63,
-    ligand_ratio_metal=None,
-    ligand_ratio_no_metal=63,
-    ligand_ratio_no_water_no_metal=63,
-    structure_weight=157.421,
-    polymer_weight=157.035,
-    nonpolymer_weight=385.538,
-    nonpolymer_weight_no_water=385.538,
-    water_weight=0,
-    struct_keywords_text=[
-        "G protein-coupled receptor",
-        "ligand recognition",
-        "receptor activation",
-        "unimolecular dual agonist",
-        "STRUCTURAL PROTEIN",
-    ],
-    em_3d_reconstruction_resolution=2.85,
-    experimental_method="ELECTRON MICROSCOPY",
-    struct_keywords_pdbx="STRUCTURAL PROTEIN",
-    gene_source_scientific_name=["Homo sapiens", "Homo sapiens", "Rattus norvegicus", "Bos taurus", "Escherichia coli"],
-    host_organism_scientific_name=[
-        "Spodoptera frugiperda",
-        "Spodoptera frugiperda",
-        "Spodoptera frugiperda",
-        "Spodoptera frugiperda",
-        "Escherichia coli",
-    ],
-)
+@pytest.mark.basic
+@pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
+def test_parse_pdbx_basic(pdb_id: str):
+    unified_test_parse_pdbx(pdb_id)
 
 
-# has water molecules
-protein_data_1cbs = ProteinDataFromPDBx(
-    pdb_id="1cbs",
-    atom_count_without_hetatms=1091,
-    aa_count=137,
-    all_atom_count=1213,
-    all_atom_count_ln=7.10085,
-    hetatm_count=122,
-    hetatm_count_no_water=22,
-    hetatm_count_metal=0,
-    hetatm_count_no_metal=122,
-    hetatm_count_no_water_no_metal=22,
-    ligand_count=101,
-    ligand_count_no_water=1,
-    ligand_count_metal=0,
-    ligand_count_no_metal=101,
-    ligand_count_no_water_no_metal=1,
-    ligand_ratio=1.20792,
-    ligand_ratio_no_water=22,
-    ligand_ratio_metal=None,
-    ligand_ratio_no_metal=1.20792,
-    ligand_ratio_no_water_no_metal=22,
-    structure_weight=17.6837,
-    polymer_weight=15.5818,
-    nonpolymer_weight=2101.93,
-    nonpolymer_weight_no_water=300.435,
-    water_weight=1801.5,
-    struct_keywords_text=["RETINOIC-ACID TRANSPORT"],
-    experimental_method="X-RAY DIFFRACTION",
-    software_name=["X-PLOR", "X-PLOR", "X-PLOR"],
-    struct_keywords_pdbx="RETINOIC-ACID TRANSPORT",
-    refinement_resolution_high=1.8,
-    gene_source_scientific_name=["Homo sapiens"],
-    host_organism_scientific_name=["Escherichia coli BL21(DE3)"],
-)
+@pytest.mark.extended
+@pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
+def test_parse_pdbx_extended(pdb_id: str):
+    unified_test_parse_pdbx(pdb_id)
 
 
-# has some issues in the structure
-protein_data_6n6n = ProteinDataFromPDBx(
-    pdb_id="6n6n",
-    atom_count_without_hetatms=9514,
-    aa_count=303,
-    all_atom_count=10121,
-    all_atom_count_ln=9.22237,
-    hetatm_count=607,
-    hetatm_count_no_water=118,
-    hetatm_count_metal=5,
-    hetatm_count_no_metal=602,
-    hetatm_count_no_water_no_metal=113,
-    ligand_count=498,
-    ligand_count_no_water=9,
-    ligand_count_metal=5,
-    ligand_count_no_metal=493,
-    ligand_count_no_water_no_metal=4,
-    ligand_ratio=1.21888,
-    ligand_ratio_no_water=13.1111,
-    ligand_ratio_metal=1,
-    ligand_ratio_no_metal=1.2211,
-    ligand_ratio_no_water_no_metal=28.25,
-    structure_weight=76.3265,
-    polymer_weight=66.2021,
-    nonpolymer_weight=10124.4,
-    nonpolymer_weight_no_water=1315.08,
-    water_weight=8809.34,
-    struct_keywords_text=["FtsY", "SRP", "Signal recognition particle receptor", "SR", "TRANSPORT PROTEIN"],
-    experimental_method="X-RAY DIFFRACTION",
-    software_name=["PHENIX", "XDS", "Aimless", "MOLREP"],
-    struct_keywords_pdbx="TRANSPORT PROTEIN",
-    reflections_resolution_high=1.877,
-    refinement_resolution_high=1.877,
-    diffraction_ambient_temperature=100,
-    gene_source_scientific_name=["Escherichia coli (strain K12)"],
-    host_organism_scientific_name=["Escherichia coli 'BL21-Gold(DE3)pLysS AG'"],
-    crystal_grow_methods=["VAPOR DIFFUSION", "SITTING DROP"],
-    crystal_grow_temperature=297.15,
-    crystal_grow_ph=5.8,
-)
+def unified_test_parse_pdbx(pdb_id: str):
+    # arrange
+    path_to_pdbx_file = os.path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}.cif")
+    assert os.path.exists(path_to_pdbx_file)
+    expected_protein_data = load_expected_pdbx_protein_data(pdb_id)
 
+    # act
+    actual_protein_data = parse_pdbx(pdb_id, path_to_pdbx_file)
 
-# larger sample but no hetatm
-protein_data_1a5j = ProteinDataFromPDBx(
-    pdb_id="1a5j",
-    atom_count_without_hetatms=59136,
-    aa_count=110,
-    all_atom_count=59136,
-    all_atom_count_ln=10.9876,
-    hetatm_count=0,
-    hetatm_count_no_water=0,
-    hetatm_count_metal=0,
-    hetatm_count_no_metal=0,
-    hetatm_count_no_water_no_metal=0,
-    ligand_count=0,
-    ligand_count_no_water=0,
-    ligand_count_metal=0,
-    ligand_count_no_metal=0,
-    ligand_count_no_water_no_metal=0,
-    ligand_ratio=None,
-    ligand_ratio_no_water=None,
-    ligand_ratio_metal=None,
-    ligand_ratio_no_metal=None,
-    ligand_ratio_no_water_no_metal=None,
-    structure_weight=12.9589,
-    polymer_weight=12.9589,
-    nonpolymer_weight=0,
-    nonpolymer_weight_no_water=0,
-    water_weight=0,
-    struct_keywords_text=["DNA-BINDING PROTEIN", "PROTOONCOGENE PRODUCT", "DNA BINDING PROTEIN"],
-    experimental_method="SOLUTION NMR",
-    software_name=["DYANA", "DYANA"],
-    struct_keywords_pdbx="DNA BINDING PROTEIN",
-    gene_source_scientific_name=["Gallus gallus"],
-    host_organism_scientific_name=["Escherichia coli"],
-)
-
-
-expected_protein_data_sets = {
-    "8jip": protein_data_8jip,
-    "1cbs": protein_data_1cbs,
-    "6n6n": protein_data_6n6n,
-    "1a5j": protein_data_1a5j,
-}
-
-
-@pytest.mark.old
-@pytest.mark.parametrize("pdb_id", ["8jip", "1cbs", "6n6n", "1a5j"])
-def test_pdbx_parser(pdb_id):
-    protein_data, _ = _parse_pdbx_unsafe(pdb_id, f"./tests/test_data_2/{pdb_id}.cif")
-    expected_protein_data = expected_protein_data_sets[pdb_id]
-
-    assert protein_data
-
+    # assert
+    assert actual_protein_data
     differences = compare_dataclasses(
-        protein_data,
+        actual_protein_data,
         expected_protein_data,
-        ignored_fields=[  # ignored fields that are not compared
+        # TODO these may not be used at all, check after all data collection
+        ignored_fields=[
+            "struct_keywords_text",
+            "struct_keywords_pdbx",
+            "refinement_resolution_high",
+            "reflections_resolution_high",
+            "experimental_method",
             "citation_journal_abbreviation",
-        ],
-        float_precision=1e-1,
+            "crystal_grow_methods",
+            "crystal_grow_temperatures",
+            "crystal_grow_ph",
+            "diffraction_ambient_temperature",
+            "software_name",
+            "gene_source_scientific_name",
+            "host_organism_scientific_name",
+            "em_3d_reconstruction_resolution",
+        ],  # these do not directly influence crunched_results
     )
-    differences_messages = " ".join([f"{diff[0]}: expected {diff[1]}, got {diff[2]}" for diff in differences])
+    assert not differences.count, differences.get_difference_description()
 
-    assert not differences, differences_messages
+
+def load_expected_pdbx_protein_data(pdb_id: str):
+    data = load_data_from_crunched_results_csv(
+        pdb_id,
+        [
+            "atomCount",
+            "aaCount",
+            "allAtomCount",
+            "allAtomCountLn",
+            "hetatmCount",
+            "hetatmCountNowater",
+            "hetatmCountMetal",
+            "hetatmCountNometal",
+            "hetatmCountNowaterNometal",
+            "ligandCount",
+            "ligandCountNowater",
+            "ligandCountMetal",
+            "ligandCountNometal",
+            "ligandCountNowaterNometal",
+            "ligandRatio",
+            "ligandRatioNowater",
+            "ligandRatioMetal",
+            "ligandRatioNometal",
+            "ligandRatioNowaterNometal",
+            "StructureWeight",
+            "PolymerWeight",
+            "NonpolymerWeightNowater",
+            "WaterWeight",
+            "NonpolymerWeight",
+        ],
+    )
+    return ProteinDataFromPDBx(
+        pdb_id=pdb_id,
+        atom_count_without_hetatms=int_or_none(data["atomCount"]),
+        aa_count=int_or_none(data["aaCount"]),
+        all_atom_count=int_or_none(data["allAtomCount"]),
+        all_atom_count_ln=float_or_none(data["allAtomCountLn"]),
+        hetatm_count=int_or_none(data["hetatmCount"]),
+        hetatm_count_no_water=int_or_none(data["hetatmCountNowater"]),
+        hetatm_count_metal=int_or_none(data["hetatmCountMetal"]),
+        hetatm_count_no_metal=int_or_none(data["hetatmCountNometal"]),
+        hetatm_count_no_water_no_metal=int_or_none(data["hetatmCountNowaterNometal"]),
+        ligand_count=int_or_none(data["ligandCount"]),
+        ligand_count_no_water=int_or_none(data["ligandCountNowater"]),
+        ligand_count_metal=int_or_none(data["ligandCountMetal"]),
+        ligand_count_no_metal=int_or_none(data["ligandCountNometal"]),
+        ligand_count_no_water_no_metal=int_or_none(data["ligandCountNowaterNometal"]),
+        ligand_ratio=float_or_none(data["ligandRatio"]),
+        ligand_ratio_no_water=float_or_none(data["ligandRatioNowater"]),
+        ligand_ratio_metal=float_or_none(data["ligandRatioMetal"]),
+        ligand_ratio_no_metal=float_or_none(data["ligandRatioNometal"]),
+        ligand_ratio_no_water_no_metal=float_or_none(data["ligandRatioNowaterNometal"]),
+        structure_weight=float_or_none(data["StructureWeight"]),
+        polymer_weight=float_or_none(data["PolymerWeight"]),
+        nonpolymer_weight_no_water=float_or_none(data["NonpolymerWeightNowater"]),
+        water_weight=float_or_none(data["WaterWeight"]),
+        nonpolymer_weight=float_or_none(data["NonpolymerWeight"]),
+    )

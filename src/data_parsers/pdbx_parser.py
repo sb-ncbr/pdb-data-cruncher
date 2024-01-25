@@ -6,6 +6,7 @@ from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
 from src.models import ProteinDataFromPDBx, Diagnostics
 from src.exception import PDBxParsingError
+from src.utils import to_float
 
 
 # turning off black formatter to keep the elements more readable
@@ -89,6 +90,7 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> N
     :param data: Protein data instance in which the collected information is stored.
     """
     encountered_ligands = {}  # collects element of ligands for futher processing
+    alt_hetatm_count_metal = 0
     for atom_type, symbol, residue_name_label, residue_id, residue_name, residue_chain in zip(
         mmcif_dict["_atom_site.group_PDB"],  # ATOM or HETATM
         mmcif_dict["_atom_site.type_symbol"],  # element symbol
@@ -100,6 +102,8 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> N
         if atom_type == "ATOM":
             data.atom_count_without_hetatms += 1
         if atom_type == "HETATM":
+            if symbol.lower() in METAL_ELEMENT_NAMES:
+                alt_hetatm_count_metal += 1
             ligand_identifier = (residue_id, residue_name, residue_chain)
             if ligand_identifier in encountered_ligands:
                 encountered_ligands[ligand_identifier].append((symbol, residue_name_label))
@@ -144,13 +148,13 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
             molecule_count = int(molecule_count_str)
         except (TypeError, ValueError) as ex:
             diagnostics.add(f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
-                                  f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+                            f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
             continue
         try:
             raw_weight = float(formula_weight_str)
         except (TypeError, ValueError) as ex:
             diagnostics.add(f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
-                                  f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+                            f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
             continue
 
         if entity_type == "polymer":
@@ -161,7 +165,7 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
             data.water_weight += raw_weight * molecule_count
         else:
             diagnostics.add(f"Entity with id {entity_id} has unexpected entity type {entity_type}. "
-                                  f"Its weight is not processed.")
+                            f"Its weight is not processed.")
     data.polymer_weight /= 1000  # Da -> kDa adjustment
     # TODO is this alright? :point_up:
     data.nonpolymer_weight = data.nonpolymer_weight_no_water + data.water_weight
@@ -189,18 +193,20 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
     data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
     data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
-    data.diffraction_ambient_temperature = _get_first_int(mmcif_dict, "_diffrn.ambient_temp")
-    data.crystal_grow_temperature = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
+    data.crystal_grow_temperatures = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
     data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
 
     # get those that need other kind of small change
     data.aa_count = len(mmcif_dict.get("_entity_poly_seq.entity_id", []))
     struct_keywords_text = _get_first_item(mmcif_dict, "_struct_keywords.text")
-    crystal_growth_methods = _get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
     if struct_keywords_text:
         data.struct_keywords_text = [value.strip() for value in struct_keywords_text.split(",")]
+    crystal_growth_methods = _get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
     if crystal_growth_methods:
         data.crystal_grow_methods = [value.strip() for value in crystal_growth_methods.split(",")]
+    ambient_temperatures = mmcif_dict.get("_diffrn.ambient_temp")
+    if ambient_temperatures:
+        data.diffraction_ambient_temperature = [to_float(value) for value in ambient_temperatures if to_float(value)]
 
 
 def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
