@@ -4,32 +4,6 @@ from enum import Enum
 from typing import Optional
 
 
-class IssueType(Enum):
-    """
-    Type of issue.
-    """
-
-    DATA_ITEM_ERROR = 0
-    UNCATEGORIZED = 99
-
-    def __str__(self) -> str:
-        """
-        Overrides default transformation to string. Returns the name of issue type in lowercase.
-        :return: Name of issue type in lowercase.
-        """
-        return self.name.lower()
-
-
-@dataclass
-class Issue:
-    """
-    Class holding information about one issue.
-    """
-
-    type: IssueType = IssueType.UNCATEGORIZED
-    message: str = ""
-
-
 @dataclass
 class Diagnostics:
     """
@@ -38,7 +12,7 @@ class Diagnostics:
     or handled in some way at the end.
     """
 
-    issues: list[Issue] = field(default_factory=list)
+    issue_messages: list[str] = field(default_factory=list)
 
     @property
     def total_issues(self) -> int:
@@ -46,17 +20,14 @@ class Diagnostics:
         Gets the number of issues collected.
         :return: Number of issues collected.
         """
-        return len(self.issues)
+        return len(self.issue_messages)
 
-    # TODO remove issue type altogether
-    # pylint: disable=redefined-builtin
-    def add_issue(self, type: IssueType, msg: str) -> None:
+    def add(self, issue_message: str) -> None:
         """
-        Creates new issue from given information, and adds it to diagnostics.
-        :param type: Type of issue.
-        :param msg: Message describing the issue (for logging purposes).
+        Adds given issue message to the diagnostics.
+        :param issue_message: Message describing the issue (for logging purposes).
         """
-        self.issues.append(Issue(type=type, message=msg))
+        self.issue_messages.append(issue_message)
 
     def process_into_logging(self, action_name: str, pdb_id: Optional[str]) -> None:
         """
@@ -72,7 +43,7 @@ class Diagnostics:
                 line_start_info,
                 self.total_issues,
             )
-            for issue in self.issues:
-                logging.info("%s: %s", line_start_info, issue.message)
+            for issue_message in self.issue_messages:
+                logging.info("%s: %s", line_start_info, issue_message)
         else:
             logging.debug("%s finished with no issues", line_start_info)

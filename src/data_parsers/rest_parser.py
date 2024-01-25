@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
-from src.models import LigandInfo, ProteinDataFromRest, Diagnostics, IssueType
+from src.models import LigandInfo, ProteinDataFromRest, Diagnostics
 
 
 @dataclass(slots=True)
@@ -133,10 +133,8 @@ def _parse_molecules(
             molecule_id = int(single_molecule_json.get("entity_id"))
             molecule_weight = float(single_molecule_json.get("weight"))
         except (TypeError, ValueError):  # raised if conversion gets None or otherwise not a valid number in string
-            diagnostics.add_issue(
-                IssueType.DATA_ITEM_ERROR,
-                "Ignored a molecule in molecule json. Its id or weight is missing or it isn't a valid number.",
-            )
+            diagnostics.add(
+                "Ignored a molecule in molecule json. Its id or weight is missing or it isn't a valid number.")
             continue
 
         if molecule_id in entity_counts.biopolymers.keys():  # molecule is biopolymer
@@ -149,17 +147,12 @@ def _parse_molecules(
                 if chemp_comp_id in ligand_infos.keys()
             ]
             if len(suitable_chem_comp_ids) == 0:
-                diagnostics.add_issue(
-                    IssueType.DATA_ITEM_ERROR,
-                    f"Ligand {molecule_id} in molecule json does not have any valid chem_com_id. "
-                    f"This ligand will be ignored for the purpose of calculating ligand flexibility.",
-                )
+                diagnostics.add(f"Ligand {molecule_id} in molecule json does not have any valid chem_com_id. "
+                                      f"This ligand will be ignored for the purpose of calculating ligand flexibility.")
             elif len(suitable_chem_comp_ids) > 1:
-                diagnostics.add_issue(
-                    IssueType.DATA_ITEM_ERROR,
+                diagnostics.add(
                     f"Ligand {molecule_id} in molecule json has more than one chem_comp_ids: {suitable_chem_comp_ids}. "
-                    f"Only the first is taken into account.",
-                )
+                    f"Only the first is taken into account.")
             else:
                 # if valid chem comp id was found, ligand flexibility can be counter (if not, it isn't counted into
                 # total flexibility calculation)
@@ -260,11 +253,9 @@ def _parse_preferred_assembly(
             molecule_type = entity_json["molecule_type"].lower()  # lower for case-insensitive comparisons
             number_of_copies = int(entity_json["number_of_copies"])
         except (KeyError, ValueError):
-            diagnostics.add_issue(
-                IssueType.DATA_ITEM_ERROR,
+            diagnostics.add(
                 "Ignored an entity in assembly json. Missing or invalid type of entity-id, molecule_type or "
-                "number_of_copies.",
-            )
+                "number_of_copies.")
             continue
 
         if molecule_type in [type_name.lower() for type_name in BIOPOLYMER_MOLECULE_TYPES]:
@@ -276,10 +267,8 @@ def _parse_preferred_assembly(
         elif molecule_type == "other":
             pass  # ignore "other" type
         else:
-            diagnostics.add_issue(
-                IssueType.DATA_ITEM_ERROR,
-                f"Ignored entity {entity_id} in assembly json. Unknown molecule type '{molecule_type}'.",
-            )
+            diagnostics.add(
+                f"Ignored entity {entity_id} in assembly json. Unknown molecule type '{molecule_type}'.")
 
     total_ligand_count = sum(ligand_entity_count.values())
     protein_data.assembly_biopolymer_count = sum(biopolymer_entity_count.values())

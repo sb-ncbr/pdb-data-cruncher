@@ -4,7 +4,7 @@ from xml.etree.ElementTree import parse as parse_element_tree
 from xml.etree.ElementTree import Element, ParseError
 from typing import Optional
 
-from src.models import ProteinDataFromXML, Diagnostics, IssueType, LigandInfo
+from src.models import ProteinDataFromXML, Diagnostics, LigandInfo
 from src.utils import to_float
 
 
@@ -267,13 +267,10 @@ def _process_subgroup_ligand_sizes(
     ligand_id = element.get("resname")
     ligand_info = ligand_infos.get(ligand_id)
     if not ligand_id:
-        diagnostics.add_issue(
-            IssueType.DATA_ITEM_ERROR,
-            "Element has no resname, even though it was determined to be ligand because "
-            "of mogul_bonds_rmsz presence.",
-        )
+        diagnostics.add("Element has no resname, even though it was determined to be ligand because "
+                              "of mogul_bonds_rmsz presence.")
     elif not ligand_info:
-        diagnostics.add_issue(IssueType.DATA_ITEM_ERROR, f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
+        diagnostics.add(f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
     elif ligand_info.heavy_atom_count > 10:
         subgroups_data.ligand_count_11_and_above += 1
         if rscc:
@@ -354,7 +351,5 @@ def _record_extraction_failure(diagnostics: Diagnostics, element: Element, attri
     :param element: Element that the attribute is extracted from.
     :param attribute_name: Name of the attribute that failed to extract.
     """
-    diagnostics.add_issue(
-        IssueType.DATA_ITEM_ERROR,
-        f"Attribue {attribute_name} failed to convert to float. " f"Value: '{element.get(attribute_name)}'",
-    )
+    diagnostics.add(
+        f"Attribue {attribute_name} failed to convert to float. " f"Value: '{element.get(attribute_name)}'")
