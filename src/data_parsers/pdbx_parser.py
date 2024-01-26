@@ -162,19 +162,18 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
             continue
 
         if entity_type == "polymer":
-            data.polymer_weight += raw_weight * molecule_count
+            data.polymer_weight_kda += (raw_weight * molecule_count) / 1000  # Da -> kDa adjustment
         elif entity_type == "non-polymer":
-            data.nonpolymer_weight_no_water += raw_weight * molecule_count
+            data.nonpolymer_weight_no_water_da += raw_weight * molecule_count
         elif entity_type == "water":
-            data.water_weight += raw_weight * molecule_count
+            data.water_weight_da += raw_weight * molecule_count
         else:
             diagnostics.add(
                 f"Entity with id {entity_id} has unexpected entity type {entity_type}. " f"Its weight is not processed."
             )
-    data.polymer_weight /= 1000  # Da -> kDa adjustment
-    # TODO is this alright? :point_up:
-    data.nonpolymer_weight = data.nonpolymer_weight_no_water + data.water_weight
-    data.structure_weight = data.polymer_weight + (data.nonpolymer_weight / 1000)
+
+    data.nonpolymer_weight_da = data.nonpolymer_weight_no_water_da + data.water_weight_da
+    data.structure_weight_kda = data.polymer_weight_kda + (data.nonpolymer_weight_da / 1000)
 
 
 def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:

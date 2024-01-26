@@ -34,11 +34,11 @@ class ProteinDataFromPDBx:
     ligand_ratio_no_metal: Optional[float] = None
     ligand_ratio_no_water_no_metal: Optional[float] = None
     # weights
-    structure_weight: Optional[float] = None
-    polymer_weight: float = 0.0
-    nonpolymer_weight_no_water: float = 0.0
-    water_weight: float = 0.0
-    nonpolymer_weight: Optional[float] = None
+    structure_weight_kda: Optional[float] = None
+    polymer_weight_kda: float = 0.0
+    nonpolymer_weight_no_water_da: float = 0.0
+    water_weight_da: float = 0.0
+    nonpolymer_weight_da: Optional[float] = None
     # additional data for future processing
     struct_keywords_text: Optional[list[str]] = None  # _struct_keywords.text
     struct_keywords_pdbx: Optional[str] = None  # _struct_keywords.pdbx_keywords

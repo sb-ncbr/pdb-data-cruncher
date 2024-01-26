@@ -74,8 +74,8 @@ def load_expected_rest_protein_data(pdb_id: str) -> ProteinDataFromRest:
         assembly_water_count=int_or_none(data["AssemblyWaterCount"]),
         assembly_unique_biopolymer_count=int_or_none(data["AssemblyUniqueBiopolymerCount"]),
         assembly_unique_ligand_count=int_or_none(data["AssemblyUniqueLigandCount"]),
-        assembly_biopolymer_weight=float_or_none(data["AssemblyBiopolymerWeight"]),
-        assembly_ligand_weight=float_or_none(data["AssemblyLigandWeight"]),
-        assembly_water_weight=float_or_none(data["AssemblyWaterWeight"]),
+        assembly_biopolymer_weight_kda=float_or_none(data["AssemblyBiopolymerWeight"]),
+        assembly_ligand_weight_da=float_or_none(data["AssemblyLigandWeight"]),
+        assembly_water_weight_da=float_or_none(data["AssemblyWaterWeight"]),
         assembly_ligand_flexibility=float_or_none(data["AssemblyLigandFlexibility"]),
     )

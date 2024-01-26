@@ -173,9 +173,9 @@ def _parse_molecules(
             _process_water_molecule(molecule_id, molecule_weight, entity_counts, total_weights)
 
     # save results into protein_data
-    protein_data.assembly_biopolymer_weight = total_weights.biopolymers / 1000.0
-    protein_data.assembly_ligand_weight = total_weights.ligands
-    protein_data.assembly_water_weight = total_weights.water
+    protein_data.assembly_biopolymer_weight_kda = total_weights.biopolymers / 1000.0
+    protein_data.assembly_ligand_weight_da = total_weights.ligands
+    protein_data.assembly_water_weight_da = total_weights.water
     if ligand_flexibility_stats.count > 0:
         protein_data.assembly_ligand_flexibility = ligand_flexibility_stats.raw / ligand_flexibility_stats.count
 
