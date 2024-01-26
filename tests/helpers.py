@@ -1,5 +1,5 @@
 import csv
-import dataclasses
+from dataclasses import dataclass, field, asdict
 from typing import Optional, Any
 
 import pytest
@@ -7,34 +7,62 @@ import pytest
 from tests.test_constants import CRUNCHED_RESULTS_CSV_PATH
 
 
+@dataclass
+class Difference:
+    """
+    One difference (in one field) between two dataclasses.
+    """
+
+    field_name: str
+    expected_value: Optional[Any]
+    actual_value: Optional[Any]
+
+
+@dataclass
+class Differences:
+    """
+    Class holding information about differences between two dataclasses.
+    """
+
+    items: list[Difference] = field(default_factory=list)
+
+    @property
+    def count(self):
+        return len(self.items)
+
+    def get_difference_description(self) -> str:
+        return " | ".join(
+            [f"{diff.field_name}: expected {diff.expected_value}, got {diff.actual_value}" for diff in self.items]
+        )
+
+
 def compare_dataclasses(
-    actual: dataclasses.dataclass,
-    expected: dataclasses.dataclass,
+    actual: dataclass,
+    expected: dataclass,
     ignored_fields: Optional[list[str]] = None,
     float_precision: float = 1e-3,
-) -> list[tuple[str, Any, Any]]:
+) -> Differences:
     """
     Compares all fields of given dataclasses. Takes into account imprecise nature of floats.
     :param actual: Dataclass instance produced by the test.
     :param expected: Expected value of dataclass instance.
     :param ignored_fields: List of field names to ignore.
     :param float_precision: Maximum difference of floats that will still be considered as the same value.
-    :return: List of tuples consisting of differences in classes in format
-    (field_name, actual_value and expect_values).
+    :return: Found differences object.
     """
-    differences = []
+    differences = Differences()
     ignored_fields = ignored_fields if ignored_fields else []
 
-    for field_name, actual_value in dataclasses.asdict(actual).items():
+    for field_name, actual_value in asdict(actual).items():
         expected_value = getattr(expected, field_name, None)
         if field_name in ignored_fields:
             continue
         if isinstance(actual_value, float):
             if expected_value != pytest.approx(actual_value, rel=float_precision):
-                differences.append((field_name, expected_value, actual_value))
+                differences.items.append(Difference(field_name, expected_value, actual_value))
         else:
             if actual_value != expected_value:
-                differences.append((field_name, expected_value, actual_value))
+                differences.items.append(Difference(field_name, expected_value, actual_value))
 
     return differences
 
@@ -71,7 +99,7 @@ def load_data_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[
 
     if len(extracted_fields) != len(fields):
         not_found_fields = [field_name for field_name in fields if field_name not in extracted_fields]
-        raise RuntimeError(f"One or multiple fields not found in csv file: {not_found_fields}")
+        raise RuntimeError(f"{len(not_found_fields)} fields not found in csv file: {not_found_fields}")
 
     return extracted_fields
 

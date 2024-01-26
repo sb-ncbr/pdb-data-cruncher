@@ -20,9 +20,9 @@ class ProteinDataFromRest:
     assembly_water_count: Optional[int] = None
     assembly_unique_biopolymer_count: Optional[int] = None
     assembly_unique_ligand_count: Optional[int] = None
-    assembly_biopolymer_weight: Optional[float] = None
-    assembly_ligand_weight: Optional[float] = None
-    assembly_water_weight: Optional[float] = None
+    assembly_biopolymer_weight_kda: Optional[float] = None
+    assembly_ligand_weight_da: Optional[float] = None
+    assembly_water_weight_da: Optional[float] = None
     assembly_ligand_flexibility: Optional[float] = None
 
     @property

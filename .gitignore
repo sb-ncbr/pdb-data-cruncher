@@ -9,6 +9,7 @@ temp/
 tests/test_data/*
 # with the exception of these predefined test data sets
 !tests/test_data/crunched_results.csv
+!tests/test_data/ligandStats.csv
 !tests/test_data/1dey
 !tests/test_data/1i4c
 !tests/test_data/1vcr

@@ -39,6 +39,9 @@ max-line-length = 120
 line-length = 120
 
 [tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "WARNING"
+log_cli_format = "%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
 markers = [
     "old",
     "basic",
