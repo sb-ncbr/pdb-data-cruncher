@@ -147,14 +147,18 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
         try:
             molecule_count = int(molecule_count_str)
         except (TypeError, ValueError) as ex:
-            diagnostics.add(f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
-                            f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+            diagnostics.add(
+                f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
+                f"This entity is ignored for the purpose of counting weights. Reason: {ex}"
+            )
             continue
         try:
             raw_weight = float(formula_weight_str)
         except (TypeError, ValueError) as ex:
-            diagnostics.add(f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
-                            f"This entity is ignored for the purpose of counting weights. Reason: {ex}")
+            diagnostics.add(
+                f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
+                f"This entity is ignored for the purpose of counting weights. Reason: {ex}"
+            )
             continue
 
         if entity_type == "polymer":
@@ -164,8 +168,9 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
         elif entity_type == "water":
             data.water_weight += raw_weight * molecule_count
         else:
-            diagnostics.add(f"Entity with id {entity_id} has unexpected entity type {entity_type}. "
-                            f"Its weight is not processed.")
+            diagnostics.add(
+                f"Entity with id {entity_id} has unexpected entity type {entity_type}. " f"Its weight is not processed."
+            )
     data.polymer_weight /= 1000  # Da -> kDa adjustment
     # TODO is this alright? :point_up:
     data.nonpolymer_weight = data.nonpolymer_weight_no_water + data.water_weight

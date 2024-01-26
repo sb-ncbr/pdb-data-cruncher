@@ -5,6 +5,7 @@ from typing import Any, Optional
 from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
 from src.models import LigandInfo, ProteinDataFromRest, Diagnostics
+from src.utils import to_float, to_int
 
 
 @dataclass(slots=True)
@@ -16,6 +17,27 @@ class EntityCounts:
     biopolymers: dict[int, int] = field(default_factory=dict)
     ligands: dict[int, int] = field(default_factory=dict)
     waters: dict[int, int] = field(default_factory=dict)
+
+
+@dataclass(slots=True)
+class TotalEntityWeights:
+    """
+    Internal class only. Holds information about weights for use in calculating protein data.
+    """
+
+    biopolymers: float = 0.0
+    ligands: float = 0.0
+    water: float = 0.0
+
+
+@dataclass(slots=True)
+class LigandFlexibilityStats:
+    """
+    Internal class only. Holds information about ligand flexibility for use in calculating protein data.
+    """
+
+    raw: float = 0.0
+    count: int = 0
 
 
 def parse_rest(
@@ -120,54 +142,118 @@ def _parse_molecules(
     if pdb_id not in protein_molecules_json.keys():
         raise RestParsingError("Given molecules json doesn't have currently processed pdb_id.")
 
-    # setup data structures
-    total_biopolymer_weight: float = 0.0
-    total_ligand_weight: float = 0.0
-    total_water_weight: float = 0.0
-    ligand_flexibility_raw: float = 0.0
-    total_ligand_count_with_flexibility: int = 0
+    # setup intermediary data structures
+    total_weights = TotalEntityWeights()
+    ligand_flexibility_stats = LigandFlexibilityStats()
 
     # parse molecules one by one
     for single_molecule_json in protein_molecules_json.get(pdb_id):
-        try:
-            molecule_id = int(single_molecule_json.get("entity_id"))
-            molecule_weight = float(single_molecule_json.get("weight"))
-        except (TypeError, ValueError):  # raised if conversion gets None or otherwise not a valid number in string
+        molecule_id = to_int(single_molecule_json.get("entity_id"))
+        molecule_weight = to_float(single_molecule_json.get("weight"))
+        if not molecule_id or not molecule_weight:
             diagnostics.add(
-                "Ignored a molecule in molecule json. Its id or weight is missing or it isn't a valid number.")
+                "Ignored a molecule in molecule json. Its id or weight is missing or it isn't a valid number."
+            )
             continue
 
         if molecule_id in entity_counts.biopolymers.keys():  # molecule is biopolymer
-            total_biopolymer_weight += molecule_weight * entity_counts.biopolymers.get(molecule_id)
+            _process_biopolymer_molecule(molecule_id, molecule_weight, entity_counts, total_weights)
         if molecule_id in entity_counts.ligands.keys():  # molecule is ligand
-            total_ligand_weight += molecule_weight * entity_counts.ligands.get(molecule_id)
-            suitable_chem_comp_ids = [
-                chemp_comp_id
-                for chemp_comp_id in single_molecule_json.get("chem_comp_ids", [])
-                if chemp_comp_id in ligand_infos.keys()
-            ]
-            if len(suitable_chem_comp_ids) == 0:
-                diagnostics.add(f"Ligand {molecule_id} in molecule json does not have any valid chem_com_id. "
-                                      f"This ligand will be ignored for the purpose of calculating ligand flexibility.")
-            elif len(suitable_chem_comp_ids) > 1:
-                diagnostics.add(
-                    f"Ligand {molecule_id} in molecule json has more than one chem_comp_ids: {suitable_chem_comp_ids}. "
-                    f"Only the first is taken into account.")
-            else:
-                # if valid chem comp id was found, ligand flexibility can be counter (if not, it isn't counted into
-                # total flexibility calculation)
-                ligand_info = ligand_infos.get(suitable_chem_comp_ids[0])
-                total_ligand_count_with_flexibility += 1
-                ligand_flexibility_raw += ligand_info.flexibility * entity_counts.ligands.get(molecule_id)
+            _process_ligand_molecule(
+                molecule_id,
+                molecule_weight,
+                entity_counts,
+                ligand_infos,
+                single_molecule_json,
+                total_weights,
+                ligand_flexibility_stats,
+                diagnostics,
+            )
         if molecule_id in entity_counts.waters.keys():  # molecule is water
-            total_water_weight += molecule_weight * entity_counts.waters.get(molecule_id)
+            _process_water_molecule(molecule_id, molecule_weight, entity_counts, total_weights)
 
     # save results into protein_data
-    protein_data.assembly_biopolymer_weight = total_biopolymer_weight / 1000.0
-    protein_data.assembly_ligand_weight = total_ligand_weight
-    protein_data.assembly_water_weight = total_water_weight
-    if total_ligand_count_with_flexibility > 0:
-        protein_data.assembly_ligand_flexibility = ligand_flexibility_raw / total_ligand_count_with_flexibility
+    protein_data.assembly_biopolymer_weight = total_weights.biopolymers / 1000.0
+    protein_data.assembly_ligand_weight = total_weights.ligands
+    protein_data.assembly_water_weight = total_weights.water
+    if ligand_flexibility_stats.count > 0:
+        protein_data.assembly_ligand_flexibility = ligand_flexibility_stats.raw / ligand_flexibility_stats.count
+
+
+def _process_biopolymer_molecule(
+    molecule_id: int, molecule_weight: float, entity_counts: EntityCounts, total_weights: TotalEntityWeights
+) -> None:
+    """
+    Add total weight of this biopolymer molecule into total weights.
+    :param molecule_id: Id of the molecule.
+    :param molecule_weight: Weight of the molecule.
+    :param entity_counts: Data about counts for all molecules.
+    :param total_weights: Data about weights for all molecules.
+    """
+    total_weights.biopolymers += molecule_weight * entity_counts.biopolymers.get(molecule_id)
+
+
+def _process_ligand_molecule(
+    molecule_id: int,
+    molecule_weight: float,
+    entity_counts: EntityCounts,
+    ligand_infos: dict[str, LigandInfo],
+    single_molecule_json: Any,
+    total_weights: TotalEntityWeights,
+    ligand_flexibility_stats: LigandFlexibilityStats,
+    diagnostics: Diagnostics,
+) -> None:
+    """
+    Add total weight of this ligand molecule into total weights. Add information about its flexibility into ligand
+    flexibility stats.
+    :param molecule_id: Id of the molecule.
+    :param molecule_weight: Weight of the molecule.
+    :param entity_counts: Data about counts for all molecules.
+    :param ligand_infos: General information about ligand types.
+    :param single_molecule_json: Part of the molecule json concerning only this molecule.
+    :param total_weights: Data about weights for all molecules.
+    :param ligand_flexibility_stats: Data about total ligand flexibility stats.
+    :param diagnostics: Dataclass holding information about non-critical data errors.
+    """
+    total_weights.ligands += molecule_weight * entity_counts.ligands.get(molecule_id)
+    suitable_chem_comp_ids = [
+        chemp_comp_id
+        for chemp_comp_id in single_molecule_json.get("chem_comp_ids", [])
+        if chemp_comp_id in ligand_infos.keys()
+    ]
+    if len(suitable_chem_comp_ids) == 0:
+        diagnostics.add(
+            f"Ligand {molecule_id} in molecule json does not have any valid chem_com_id. "
+            f"This ligand will be ignored for the purpose of calculating ligand flexibility."
+        )
+    elif len(suitable_chem_comp_ids) > 1:
+        diagnostics.add(
+            f"Ligand {molecule_id} in molecule json has more than one chem_comp_ids: "
+            f"{suitable_chem_comp_ids}. Only the first is taken into account."
+        )
+    else:
+        # if valid chem comp id was found, ligand flexibility can be counted (if not, it isn't counted into
+        # total flexibility calculation)
+        ligand_info = ligand_infos.get(suitable_chem_comp_ids[0])
+        ligand_count = entity_counts.ligands.get(molecule_id)
+        if ligand_info:
+            ligand_flexibility_stats.count += ligand_count
+            ligand_flexibility_stats.raw += ligand_info.flexibility * ligand_count
+        else:
+            diagnostics.add(f"Ligand with ID '{suitable_chem_comp_ids[0]}' was not found in ligand infos.")
+
+
+def _process_water_molecule(
+    molecule_id: int, molecule_weight: float, entity_counts: EntityCounts, total_weights: TotalEntityWeights
+) -> None:
+    """
+    Add total weight of this water molecule into total weights.
+    :param molecule_id: Id of the molecule.
+    :param molecule_weight: Weight of the molecule.
+    :param entity_counts: Data about counts for all molecules.
+    :param total_weights: Data about weights for all molecules.
+    """
+    total_weights.water += molecule_weight * entity_counts.waters.get(molecule_id)
 
 
 def _parse_protein_summary(pdb_id: str, protein_summary_json: Any, protein_data: ProteinDataFromRest) -> str:
@@ -255,7 +341,8 @@ def _parse_preferred_assembly(
         except (KeyError, ValueError):
             diagnostics.add(
                 "Ignored an entity in assembly json. Missing or invalid type of entity-id, molecule_type or "
-                "number_of_copies.")
+                "number_of_copies."
+            )
             continue
 
         if molecule_type in [type_name.lower() for type_name in BIOPOLYMER_MOLECULE_TYPES]:
@@ -267,8 +354,7 @@ def _parse_preferred_assembly(
         elif molecule_type == "other":
             pass  # ignore "other" type
         else:
-            diagnostics.add(
-                f"Ignored entity {entity_id} in assembly json. Unknown molecule type '{molecule_type}'.")
+            diagnostics.add(f"Ignored entity {entity_id} in assembly json. Unknown molecule type '{molecule_type}'.")
 
     total_ligand_count = sum(ligand_entity_count.values())
     protein_data.assembly_biopolymer_count = sum(biopolymer_entity_count.values())
