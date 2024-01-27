@@ -9,6 +9,9 @@ from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST
 from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses, float_or_none
 
 
+PDB_IDS_WITHOUT_XML_VALIDATION_REPORT = ["8ckb"]
+
+
 @pytest.mark.basic
 @pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
 def test_parse_xml_validation_report_basic(pdb_id: str):
@@ -22,9 +25,31 @@ def test_parse_xml_validation_report_extended(pdb_id: str):
 
 
 def unified_test_parse_xml_validation_report(pdb_id: str):
+    if pdb_id in PDB_IDS_WITHOUT_XML_VALIDATION_REPORT:
+        # for some proteins, there is no xml validation file and that is valid
+        assert_correct_parse_xml_without_validation_report(pdb_id)
+    else:
+        assert_correct_parse_xml_with_validation_report(pdb_id)
+
+
+def assert_correct_parse_xml_without_validation_report(pdb_id: str):
+    # arrange
+    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
+    nonexistent_xml_file_path = os.path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
+
+    # act
+    ligand_stats = parse_ligand_stats(path_to_ligand_stats)
+    actual_protein_data = parse_xml_validation_report(pdb_id, nonexistent_xml_file_path, ligand_stats)
+
+    # assert
+    assert not actual_protein_data
+
+
+def assert_correct_parse_xml_with_validation_report(pdb_id: str):
     # arrange
     path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
     xml_file_path = os.path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
+
     assert os.path.exists(xml_file_path)
     expected_protein_data = load_expected_xml_protein_data(pdb_id)
 

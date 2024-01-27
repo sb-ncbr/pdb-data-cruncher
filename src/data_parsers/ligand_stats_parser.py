@@ -31,7 +31,7 @@ def parse_ligand_stats(ligand_stats_csv_path: str) -> dict[str, LigandInfo]:
             except ParsingError as ex:
                 logging.warning("Skipping ligand stats row '%s', reason: %s", row, str(ex))
 
-    logging.info("Finished parsing ligand stats. Loaded %s ligands.", len(ligand_stats_dict))
+    logging.debug("Finished parsing ligand stats. Loaded %s ligands.", len(ligand_stats_dict))
     return ligand_stats_dict
 
 
