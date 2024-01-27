@@ -193,7 +193,7 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
     data.experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
 
-    # get first item as number (there is always just one item and it's a number)
+    # get first item as number (there is always just one item, and it's a number)
     data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
     data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
     data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")

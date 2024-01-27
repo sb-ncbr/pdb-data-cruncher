@@ -186,7 +186,7 @@ def _process_subgroup_mogul_bonds_rmsz(
     :param diagnostics: Class holding diagnostics about non-ciritical data issues.
     """
     mogul_bonds_rmsz = to_float(element.get("mogul_bonds_rmsz"))
-    if mogul_bonds_rmsz:
+    if mogul_bonds_rmsz is not None:
         subgroups_data.ligand_rmsz_sum_bonds += mogul_bonds_rmsz
     else:
         _record_extraction_failure(diagnostics, element, "mogul_bonds_rmsz")
@@ -203,7 +203,7 @@ def _process_subgroup_mogul_angles_rmsz(
     """
     if "mogul_angles_rmsz" in element.attrib:
         mogul_angles_rmsz = to_float(element.get("mogul_angles_rmsz"))
-        if mogul_angles_rmsz:
+        if mogul_angles_rmsz is not None:
             subgroups_data.has_ligand_rmsz_angles = True
             subgroups_data.ligand_rmsz_sum_angles += mogul_angles_rmsz
         else:
@@ -219,7 +219,7 @@ def _process_subgroup_rsr(element: Element, subgroups_data: ModelledSubgroupsDat
     """
     if "rsr" in element.attrib:
         rsr = to_float(element.get("rsr"))
-        if rsr:
+        if rsr is not None:
             subgroups_data.has_ligand_rsr = True
             subgroups_data.ligand_rsr_sum += rsr
         else:
@@ -239,7 +239,7 @@ def _process_subgroups_rscc(
     rscc = None
     if "rscc" in element.attrib:
         rscc = to_float(element.get("rscc"))
-        if rscc:
+        if rscc is not None:
             subgroups_data.has_ligand_rscc = True
             subgroups_data.ligand_rscc_sum += rscc
             if rscc < 0.8:
@@ -275,12 +275,12 @@ def _process_subgroup_ligand_sizes(
         diagnostics.add(f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
     elif ligand_info.heavy_atom_count > 10:
         subgroups_data.ligand_count_11_and_above += 1
-        if rscc:
+        if rscc is not None:
             subgroups_data.ligand_rscc_sum_11_and_above += rscc
             subgroups_data.has_ligand_rscc_sum_11_and_above = True
     else:
         subgroups_data.ligand_count_10_and_below += 1
-        if rscc:
+        if rscc is not None:
             subgroups_data.ligand_rscc_sum_10_and_below += rscc
             subgroups_data.has_ligand_rscc_sum_10_and_below = True
 
@@ -298,7 +298,7 @@ def _process_residue_modelled_subgroup(
 
     if "rsr" in element.attrib:
         rsr = to_float(element.get("rsr"))
-        if rsr:
+        if rsr is not None:
             subgroups_data.has_residue_rsr = True
             subgroups_data.residue_rsr_sum += rsr
         else:
@@ -306,7 +306,7 @@ def _process_residue_modelled_subgroup(
 
     if "rscc" in element.attrib:
         rscc = to_float(element.get("rscc"))
-        if rscc:
+        if rscc is not None:
             subgroups_data.has_residue_rscc = True
             subgroups_data.residue_rscc_sum += rscc
             if rscc < 0.8:
@@ -330,14 +330,14 @@ def _process_modelled_entity_instances(
     for element in modelled_entity_instances:
         if "bonds_rmsz" in element.attrib:
             bonds_rmsz = to_float(element.get("bonds_rmsz"))
-            if not bonds_rmsz:
+            if bonds_rmsz is None:
                 _record_extraction_failure(diagnostics, element, "bonds_rmsz")
             elif highest_chain_bonds_rmsz is None or bonds_rmsz > highest_chain_bonds_rmsz:
                 highest_chain_bonds_rmsz = bonds_rmsz
 
         if "angles_rmsz" in element.attrib:
             angles_rmsz = to_float(element.get("angles_rmsz"))
-            if not angles_rmsz:
+            if angles_rmsz is None:
                 _record_extraction_failure(diagnostics, element, "angles_rmsz")
             elif highest_chain_angles_rmsz is None or angles_rmsz > highest_chain_angles_rmsz:
                 highest_chain_angles_rmsz = angles_rmsz
