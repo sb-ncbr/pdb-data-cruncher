@@ -149,9 +149,9 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
         except (TypeError, ValueError) as ex:
             diagnostics.add(
                 f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
-                f"This entity is ignored for the purpose of counting weights. Reason: {ex}"
+                f"For further processing, it is assumed that the count was 1. Reason: {ex}"
             )
-            continue
+            molecule_count = 1
         try:
             raw_weight = float(formula_weight_str)
         except (TypeError, ValueError) as ex:
