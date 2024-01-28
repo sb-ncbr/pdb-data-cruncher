@@ -9,17 +9,15 @@ BASIC_TEST_PDB_IDS = [
     "2qz5",
     "3p4a",
     "3rec",
-    "4v4a",
-    "4v43",
     "5dh6",
     "5j7v",
     "5qej",
     "5zck",
-    "7pin",
     "8ucv",
     "103d",
 ]
 EXTENDED_TEST_PDB_IDS = [
+    "1kvp",
     "1htq",
     "3zpm",
     "5tga",
@@ -27,6 +25,9 @@ EXTENDED_TEST_PDB_IDS = [
     "7as5",
     "7y7a",
     "8ckb",
+    "4v4a",
+    "4v43",
+    "7pin",
 ]
 CRUNCHED_RESULTS_CSV_PATH = os.path.join(os.path.curdir, "tests", "test_data", "crunched_results.csv")
 TEST_DATA_PATH = os.path.join(os.path.curdir, "tests", "test_data")
