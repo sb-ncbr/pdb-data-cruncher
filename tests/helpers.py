@@ -102,21 +102,3 @@ def load_data_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[
         raise RuntimeError(f"{len(not_found_fields)} fields not found in csv file: {not_found_fields}")
 
     return extracted_fields
-
-
-def float_or_none(string_value: Optional[str]) -> Optional[float]:
-    """
-    If None, returns None, if not None, converts to float.
-    :param string_value: Value to convert.
-    :return: Converted value, or None.
-    """
-    return float(string_value) if string_value else None
-
-
-def int_or_none(string_value: Optional[str]) -> Optional[int]:
-    """
-    If None, returns None, if not None, converts to int.
-    :param string_value: Value to convert.
-    :return: Converted value, or None.
-    """
-    return int(string_value) if string_value else None
