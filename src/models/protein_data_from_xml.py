@@ -8,6 +8,7 @@ class ProteinDataFromXML:
     """
     Class for holding protein data collected from XML validation report.
     """
+
     pdb_id: Optional[str] = None
 
     highest_chain_bonds_rmsz: Optional[float] = None

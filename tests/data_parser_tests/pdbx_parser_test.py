@@ -4,8 +4,9 @@ import pytest
 
 from src.models import ProteinDataFromPDBx
 from src.data_parsers.pdbx_parser import parse_pdbx
-from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses, int_or_none, float_or_none
+from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses
 from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
+from src.utils import to_int, to_float
 
 
 @pytest.mark.basic
@@ -87,28 +88,28 @@ def load_expected_pdbx_protein_data(pdb_id: str):
     )
     return ProteinDataFromPDBx(
         pdb_id=pdb_id,
-        atom_count_without_hetatms=int_or_none(data["atomCount"]),
-        aa_count=int_or_none(data["aaCount"]),
-        all_atom_count=int_or_none(data["allAtomCount"]),
-        all_atom_count_ln=float_or_none(data["allAtomCountLn"]),
-        hetatm_count=int_or_none(data["hetatmCount"]),
-        hetatm_count_no_water=int_or_none(data["hetatmCountNowater"]),
-        hetatm_count_metal=int_or_none(data["hetatmCountMetal"]),
-        hetatm_count_no_metal=int_or_none(data["hetatmCountNometal"]),
-        hetatm_count_no_water_no_metal=int_or_none(data["hetatmCountNowaterNometal"]),
-        ligand_count=int_or_none(data["ligandCount"]),
-        ligand_count_no_water=int_or_none(data["ligandCountNowater"]),
-        ligand_count_metal=int_or_none(data["ligandCountMetal"]),
-        ligand_count_no_metal=int_or_none(data["ligandCountNometal"]),
-        ligand_count_no_water_no_metal=int_or_none(data["ligandCountNowaterNometal"]),
-        ligand_ratio=float_or_none(data["ligandRatio"]),
-        ligand_ratio_no_water=float_or_none(data["ligandRatioNowater"]),
-        ligand_ratio_metal=float_or_none(data["ligandRatioMetal"]),
-        ligand_ratio_no_metal=float_or_none(data["ligandRatioNometal"]),
-        ligand_ratio_no_water_no_metal=float_or_none(data["ligandRatioNowaterNometal"]),
-        structure_weight_kda=float_or_none(data["StructureWeight"]),
-        polymer_weight_kda=float_or_none(data["PolymerWeight"]),
-        nonpolymer_weight_no_water_da=float_or_none(data["NonpolymerWeightNowater"]),
-        water_weight_da=float_or_none(data["WaterWeight"]),
-        nonpolymer_weight_da=float_or_none(data["NonpolymerWeight"]),
+        atom_count_without_hetatms=to_int(data["atomCount"]),
+        aa_count=to_int(data["aaCount"]),
+        all_atom_count=to_int(data["allAtomCount"]),
+        all_atom_count_ln=to_float(data["allAtomCountLn"]),
+        hetatm_count=to_int(data["hetatmCount"]),
+        hetatm_count_no_water=to_int(data["hetatmCountNowater"]),
+        hetatm_count_metal=to_int(data["hetatmCountMetal"]),
+        hetatm_count_no_metal=to_int(data["hetatmCountNometal"]),
+        hetatm_count_no_water_no_metal=to_int(data["hetatmCountNowaterNometal"]),
+        ligand_count=to_int(data["ligandCount"]),
+        ligand_count_no_water=to_int(data["ligandCountNowater"]),
+        ligand_count_metal=to_int(data["ligandCountMetal"]),
+        ligand_count_no_metal=to_int(data["ligandCountNometal"]),
+        ligand_count_no_water_no_metal=to_int(data["ligandCountNowaterNometal"]),
+        ligand_ratio=to_float(data["ligandRatio"]),
+        ligand_ratio_no_water=to_float(data["ligandRatioNowater"]),
+        ligand_ratio_metal=to_float(data["ligandRatioMetal"]),
+        ligand_ratio_no_metal=to_float(data["ligandRatioNometal"]),
+        ligand_ratio_no_water_no_metal=to_float(data["ligandRatioNowaterNometal"]),
+        structure_weight_kda=to_float(data["StructureWeight"]),
+        polymer_weight_kda=to_float(data["PolymerWeight"]),
+        nonpolymer_weight_no_water_da=to_float(data["NonpolymerWeightNowater"]),
+        water_weight_da=to_float(data["WaterWeight"]),
+        nonpolymer_weight_da=to_float(data["NonpolymerWeight"]),
     )

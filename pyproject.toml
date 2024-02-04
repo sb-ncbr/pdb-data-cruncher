@@ -20,6 +20,7 @@ pylint = "^3.0.2"
 pytest = "^7.4.3"
 setuptools = "^68.2.2"
 pytest-mock = "^3.12.0"
+pytest-cov = "^4.1.0"
 flake8 = "^6.1.0"
 black = "^23.11.0"
 flake8-pyproject = "^1.2.3"
@@ -40,7 +41,7 @@ line-length = 120
 
 [tool.pytest.ini_options]
 log_cli = true
-log_cli_level = "WARNING"
+log_cli_level = "INFO"
 log_cli_format = "%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
 markers = [
     "old",

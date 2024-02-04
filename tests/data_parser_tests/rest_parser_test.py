@@ -6,8 +6,9 @@ from src.data_loaders.json_file_loader import load_json_file
 from src.data_parsers.ligand_stats_parser import parse_ligand_stats
 from src.data_parsers.rest_parser import parse_rest
 from src.models import ProteinDataFromRest
+from src.utils import to_float, to_int
 from tests.helpers import compare_dataclasses
-from tests.helpers import int_or_none, float_or_none, load_data_from_crunched_results_csv
+from tests.helpers import load_data_from_crunched_results_csv
 from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
 
 
@@ -68,14 +69,14 @@ def load_expected_rest_protein_data(pdb_id: str) -> ProteinDataFromRest:
     return ProteinDataFromRest(
         pdb_id=pdb_id,
         release_date=data["releaseDate"],
-        molecular_weight=float_or_none(data["AssemblyTotalWeight"]),
-        assembly_biopolymer_count=int_or_none(data["AssemblyBiopolymerCount"]),
-        assembly_ligand_count=int_or_none(data["AssemblyLigandCount"]),
-        assembly_water_count=int_or_none(data["AssemblyWaterCount"]),
-        assembly_unique_biopolymer_count=int_or_none(data["AssemblyUniqueBiopolymerCount"]),
-        assembly_unique_ligand_count=int_or_none(data["AssemblyUniqueLigandCount"]),
-        assembly_biopolymer_weight_kda=float_or_none(data["AssemblyBiopolymerWeight"]),
-        assembly_ligand_weight_da=float_or_none(data["AssemblyLigandWeight"]),
-        assembly_water_weight_da=float_or_none(data["AssemblyWaterWeight"]),
-        assembly_ligand_flexibility=float_or_none(data["AssemblyLigandFlexibility"]),
+        molecular_weight=to_float(data["AssemblyTotalWeight"]),
+        assembly_biopolymer_count=to_int(data["AssemblyBiopolymerCount"]),
+        assembly_ligand_count=to_int(data["AssemblyLigandCount"]),
+        assembly_water_count=to_int(data["AssemblyWaterCount"]),
+        assembly_unique_biopolymer_count=to_int(data["AssemblyUniqueBiopolymerCount"]),
+        assembly_unique_ligand_count=to_int(data["AssemblyUniqueLigandCount"]),
+        assembly_biopolymer_weight_kda=to_float(data["AssemblyBiopolymerWeight"]),
+        assembly_ligand_weight_da=to_float(data["AssemblyLigandWeight"]),
+        assembly_water_weight_da=to_float(data["AssemblyWaterWeight"]),
+        assembly_ligand_flexibility=to_float(data["AssemblyLigandFlexibility"]),
     )

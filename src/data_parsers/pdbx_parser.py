@@ -6,8 +6,7 @@ from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
 from src.models import ProteinDataFromPDBx, Diagnostics
 from src.exception import PDBxParsingError
-from src.utils import to_float
-
+from src.utils import to_float, to_int
 
 # turning off black formatter to keep the elements more readable
 # fmt: off
@@ -144,20 +143,18 @@ def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diag
         mmcif_dict.get("_entity.pdbx_number_of_molecules"),
         mmcif_dict.get("_entity.formula_weight"),
     ):
-        try:
-            molecule_count = int(molecule_count_str)
-        except (TypeError, ValueError) as ex:
+        molecule_count = to_int(molecule_count_str)
+        raw_weight = to_float(formula_weight_str)
+        if molecule_count is None:
             diagnostics.add(
-                f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules. "
-                f"This entity is ignored for the purpose of counting weights. Reason: {ex}"
+                f"Entity with id {entity_id} has invalid item _entity.pdbx_number_of_molecules "
+                f"('{molecule_count_str}'). For further processing, it is assumed that the count was 1."
             )
-            continue
-        try:
-            raw_weight = float(formula_weight_str)
-        except (TypeError, ValueError) as ex:
+            molecule_count = 1
+        if raw_weight is None:
             diagnostics.add(
-                f"Entity with id {entity_id} has invalid item _entity.formula_weight. "
-                f"This entity is ignored for the purpose of counting weights. Reason: {ex}"
+                f"Entity with id {entity_id} has invalid item _entity.formula_weight ('{formula_weight_str}'). "
+                f"This entity is ignored for the purpose of counting weights."
             )
             continue
 
@@ -193,7 +190,7 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
     data.experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
 
-    # get first item as number (there is always just one item and it's a number)
+    # get first item as number (there is always just one item, and it's a number)
     data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
     data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
     data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
@@ -252,10 +249,7 @@ def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
     extracted value cannot be converted into valid float.
     :raises PDBxParsingError: When multiple items are found in list under given key.
     """
-    try:
-        return float(_get_first_item(mmcif_dict, key))
-    except (TypeError, ValueError):
-        return None
+    return to_float(_get_first_item(mmcif_dict, key))
 
 
 def _get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
@@ -268,10 +262,7 @@ def _get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
     extracted value cannot be converted into valid int.
     :raises PDBxParsingError: When multiple items are found in list under given key.
     """
-    try:
-        return int(_get_first_item(mmcif_dict, key))
-    except (TypeError, ValueError):
-        return None
+    return to_int(_get_first_item(mmcif_dict, key))
 
 
 def _get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
