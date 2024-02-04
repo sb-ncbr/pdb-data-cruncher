@@ -57,7 +57,7 @@ def compare_dataclasses(
         expected_value = getattr(expected, field_name, None)
         if field_name in ignored_fields:
             continue
-        if isinstance(actual_value, float):
+        if isinstance(actual_value, float) or isinstance(expected_value, float):
             if expected_value != pytest.approx(actual_value, rel=float_precision):
                 differences.items.append(Difference(field_name, expected_value, actual_value))
         else:
