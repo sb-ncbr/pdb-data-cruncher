@@ -1,6 +1,7 @@
 import logging
 import math
-from typing import Optional
+from dataclasses import dataclass, field
+from typing import Optional, Generator
 
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
@@ -22,6 +23,49 @@ METAL_ELEMENT_NAMES = {
         "al", "ga", "in", "sn", "tl", "pb", "bi", "po", "fl"
 }
 # fmt: on
+
+
+@dataclass
+class AtomSiteItem:
+    """
+    Holding relevant information from _atom_site for further processing.
+    """
+
+    is_hetatm: bool
+    element_symbol: str
+    residue_name_label: str
+    residue_name_auth: str
+    residue_id_auth: str
+    residue_chain_id: str
+    model_number: str
+
+
+@dataclass
+class LigandIdentifier:
+    """
+    Unique combination of atom_site values to identify ligand for the purposes of PDBx parsing.
+    """
+
+    residue_id_auth: str
+    residue_name_auth: str
+    residue_chain_id: str
+
+    def __hash__(self):
+        """
+        Redefine hash for the purposes of using the instance as dictionary key.
+        :return: Hash of the dataclass instance.
+        """
+        return hash((self.residue_id_auth, self.residue_name_auth, self.residue_chain_id))
+
+
+@dataclass
+class EncounteredLigand:
+    """
+    Ligand found during PDBx parsing, collects information about its atoms that is then processed.
+    """
+
+    id: LigandIdentifier
+    atoms: list[AtomSiteItem] = field(default_factory=list)
 
 
 # pylint: disable=duplicate-code  # the code duplicate evaluation did not make sense in this case
@@ -59,7 +103,7 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
     mmcif_dict = MMCIF2Dict(filepath)
 
     _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
-    _extract_atom_counts(mmcif_dict, protein_data)
+    _extract_atom_and_ligand_counts(mmcif_dict, protein_data)
     _calculate_additional_counts_and_ratios(protein_data)
     _extract_straightforward_data(mmcif_dict, protein_data)
     _extract_weight_data(mmcif_dict, protein_data, diagnostics)
@@ -82,44 +126,71 @@ def _check_pdb_id_from_mmcif(mmcif_dict: MMCIF2Dict, expected_pdb_id: str) -> No
         )
 
 
-def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
+def _extract_atom_and_ligand_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
     """
     Extracts and stores protein data about atom/hetatm counts and ligand counts.
     :param mmcif_dict: Holds data extracted from mmcif file.
     :param data: Protein data instance in which the collected information is stored.
     """
-    encountered_ligands = {}  # collects element of ligands for futher processing
-    alt_hetatm_count_metal = 0
-    for atom_type, symbol, residue_name_label, residue_id, residue_name, residue_chain in zip(
-        mmcif_dict["_atom_site.group_PDB"],  # ATOM or HETATM
-        mmcif_dict["_atom_site.type_symbol"],  # element symbol
-        mmcif_dict["_atom_site.label_comp_id"],  # residue name label
-        mmcif_dict["_atom_site.auth_seq_id"],  # residue ids (by author)
-        mmcif_dict["_atom_site.auth_comp_id"],  # residue names (by author)
-        mmcif_dict["_atom_site.auth_asym_id"],  # residue chain ids (by author)
-    ):
-        if atom_type == "ATOM":
-            data.atom_count_without_hetatms += 1
-        if atom_type == "HETATM":
-            if symbol.lower() in METAL_ELEMENT_NAMES:
-                alt_hetatm_count_metal += 1
-            ligand_identifier = (residue_id, residue_name, residue_chain)
-            if ligand_identifier in encountered_ligands:
-                encountered_ligands[ligand_identifier].append((symbol, residue_name_label))
-            else:
-                encountered_ligands[ligand_identifier] = [(symbol, residue_name_label)]
+    encountered_ligands = _extract_atom_counts(mmcif_dict, data)
+    _calculate_ligand_counts(encountered_ligands, data)
 
+
+def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> list[EncounteredLigand]:
+    """
+    Extract atom (and hetatm) counts from mmcif and collect information about unique ligands encountered.
+    :param mmcif_dict: Holds data extracted from mmcif file.
+    :param data: Protein data instance in which the collected information is stored.
+    :return: List of unique encountered ligands with atoms they have inside.
+    """
+    encountered_ligands = {}
+    # in the case of multiple structure models in _atom_site, count with only the first one
+    try:
+        only_relevant_model_number = mmcif_dict["_atom_site.pdbx_PDB_model_num"][0]
+    except (IndexError, KeyError) as ex:
+        raise PDBxParsingError("Required item _atom_site.pdbx_PDB_model_num not found in mmcif file or empty.") from ex
+
+    atom_item_generator = _atomsite_item_generator(mmcif_dict)
+    atom_item = next(atom_item_generator, None)
+    while atom_item is not None:
+        if atom_item.model_number != only_relevant_model_number:
+            atom_item = next(atom_item_generator, None)
+            continue
+
+        if atom_item.is_hetatm:  # is HETATM
+            ligand_identifier = LigandIdentifier(
+                residue_id_auth=atom_item.residue_id_auth,
+                residue_name_auth=atom_item.residue_name_auth,
+                residue_chain_id=atom_item.residue_chain_id,
+            )
+            if ligand_identifier in encountered_ligands:
+                encountered_ligands[ligand_identifier].atoms.append(atom_item)
+            else:
+                encountered_ligands[ligand_identifier] = EncounteredLigand(id=ligand_identifier, atoms=[atom_item])
+        else:  # is ATOM
+            data.atom_count_without_hetatms += 1
+        atom_item = next(atom_item_generator, None)
+
+    return list(encountered_ligands.values())
+
+
+def _calculate_ligand_counts(encountered_ligands: list[EncounteredLigand], data: ProteinDataFromPDBx) -> None:
+    """
+    Go through the extracted ligands and get relevant counts from them.
+    :param encountered_ligands: List of unique encountered ligands with atoms they have inside.
+    :param data: Protein data instance in which the collected information is stored.
+    """
     # goes through the collected ligand (hetatm) groups
-    for ligand_contents_list in encountered_ligands.values():
+    for encountered_ligand in encountered_ligands:
         has_water = False
         has_metal = False
-        for symbol, residue_name_label in ligand_contents_list:
-            if residue_name_label == "HOH":
+        for atom_item in encountered_ligand.atoms:
+            if atom_item.residue_name_label == "HOH":
                 has_water = True
-            if symbol.lower() in METAL_ELEMENT_NAMES:
+            if atom_item.element_symbol.lower() in METAL_ELEMENT_NAMES:
                 has_metal = True
 
-        hetatms_in_this_ligand = len(ligand_contents_list)
+        hetatms_in_this_ligand = len(encountered_ligand.atoms)
         data.ligand_count += 1
         data.hetatm_count += hetatms_in_this_ligand
         if not has_water:
@@ -128,6 +199,38 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> N
         if has_metal:
             data.ligand_count_metal += 1
             data.hetatm_count_metal += hetatms_in_this_ligand
+
+
+def _atomsite_item_generator(mmcif_dict: MMCIF2Dict) -> Generator[AtomSiteItem, None, None]:
+    """
+    Takes relevant information from _atom_site in mmcif and generates items from it for further processing.
+    :param mmcif_dict: Holds loaded mmcif data.
+    :return: Generated AtomSiteItem, or None.
+    """
+    try:
+        atom_type_iter = iter(mmcif_dict["_atom_site.group_PDB"])  # ATOM or HETATM
+        symbol_type_iter = iter(mmcif_dict["_atom_site.type_symbol"])  # element symbol
+        residue_name_label_iter = iter(mmcif_dict["_atom_site.label_comp_id"])  # residue name label
+        residue_id_auth_iter = iter(mmcif_dict["_atom_site.auth_seq_id"])  # residue ids (by author)
+        residue_name_auth_iter = iter(mmcif_dict["_atom_site.auth_comp_id"])  # residue names (by author)
+        residue_chain_id_iter = iter(mmcif_dict["_atom_site.auth_asym_id"])  # residue chain ids (by author)
+        model_num_iter = iter(mmcif_dict["_atom_site.pdbx_PDB_model_num"])  # models number
+    except KeyError as ex:
+        raise PDBxParsingError("Required _atom_site item not found in mmcif, cannot proceed with parsing.") from ex
+
+    while True:
+        try:
+            yield AtomSiteItem(
+                is_hetatm=(next(atom_type_iter) == "HETATM"),
+                element_symbol=next(symbol_type_iter),
+                residue_name_label=next(residue_name_label_iter),
+                residue_name_auth=next(residue_name_auth_iter),
+                residue_id_auth=next(residue_id_auth_iter),
+                residue_chain_id=next(residue_chain_id_iter),
+                model_number=next(model_num_iter),
+            )
+        except StopIteration:  # raised when the first list runs out of items
+            return
 
 
 def _extract_weight_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx, diagnostics: Diagnostics):
