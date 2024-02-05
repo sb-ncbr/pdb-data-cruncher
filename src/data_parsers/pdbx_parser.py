@@ -31,6 +31,7 @@ class AtomSiteItem:
     Holding relevant information from _atom_site for further processing.
     """
 
+    atom_id: str
     is_hetatm: bool
     element_symbol: str
     residue_name_label: str
@@ -38,6 +39,7 @@ class AtomSiteItem:
     residue_id_auth: str
     residue_chain_id: str
     model_number: str
+    occupancy: float
 
 
 @dataclass
@@ -150,12 +152,20 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
     except (IndexError, KeyError) as ex:
         raise PDBxParsingError("Required item _atom_site.pdbx_PDB_model_num not found in mmcif file or empty.") from ex
 
-    atom_item_generator = _atomsite_item_generator(mmcif_dict)
-    atom_item = next(atom_item_generator, None)
-    while atom_item is not None:
+    unrelevant_model_number_present = False
+    processed_unsure_atom_ids = set()
+    repeated_atom_ids = []
+
+    for atom_item in _atomsite_item_generator(mmcif_dict):
         if atom_item.model_number != only_relevant_model_number:
-            atom_item = next(atom_item_generator, None)
+            unrelevant_model_number_present = True
             continue
+
+        if atom_item.occupancy != 1.0:  # atom could be present twice with different positions
+            if atom_item.atom_id in processed_unsure_atom_ids:  # atom with this id was already processed
+                repeated_atom_ids.append(atom_item.atom_id)
+                continue
+            processed_unsure_atom_ids.add(atom_item.atom_id)
 
         if atom_item.is_hetatm:  # is HETATM
             ligand_identifier = LigandIdentifier(
@@ -169,7 +179,14 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
                 encountered_ligands[ligand_identifier] = EncounteredLigand(id=ligand_identifier, atoms=[atom_item])
         else:  # is ATOM
             data.atom_count_without_hetatms += 1
-        atom_item = next(atom_item_generator, None)
+
+    if unrelevant_model_number_present:
+        logging.info("[%s] Multiple model numbers present in mmcif file atom site. Only those with model number %s "
+                     "were counted.", data.pdb_id, only_relevant_model_number)
+    if len(processed_unsure_atom_ids) > 0:
+        logging.info("[%s] %s atoms with unique _atom_site.id had occupancy lower than 1.0. %s atoms were skipped "
+                     "because they had the same id as already processed atom. Ids of those skipped atoms: %s.",
+                     data.pdb_id, len(processed_unsure_atom_ids), len(repeated_atom_ids), repeated_atom_ids)
 
     return list(encountered_ligands.values())
 
@@ -208,19 +225,22 @@ def _atomsite_item_generator(mmcif_dict: MMCIF2Dict) -> Generator[AtomSiteItem, 
     :return: Generated AtomSiteItem, or None.
     """
     try:
+        atom_id_iter = iter(mmcif_dict["_atom_site.id"])
         atom_type_iter = iter(mmcif_dict["_atom_site.group_PDB"])  # ATOM or HETATM
         symbol_type_iter = iter(mmcif_dict["_atom_site.type_symbol"])  # element symbol
         residue_name_label_iter = iter(mmcif_dict["_atom_site.label_comp_id"])  # residue name label
         residue_id_auth_iter = iter(mmcif_dict["_atom_site.auth_seq_id"])  # residue ids (by author)
         residue_name_auth_iter = iter(mmcif_dict["_atom_site.auth_comp_id"])  # residue names (by author)
         residue_chain_id_iter = iter(mmcif_dict["_atom_site.auth_asym_id"])  # residue chain ids (by author)
-        model_num_iter = iter(mmcif_dict["_atom_site.pdbx_PDB_model_num"])  # models number
+        model_num_iter = iter(mmcif_dict["_atom_site.pdbx_PDB_model_num"])  # model numbers
+        occupancy_iter = iter(mmcif_dict["_atom_site.occupancy"])
     except KeyError as ex:
         raise PDBxParsingError("Required _atom_site item not found in mmcif, cannot proceed with parsing.") from ex
 
     while True:
         try:
             yield AtomSiteItem(
+                atom_id=next(atom_id_iter),
                 is_hetatm=(next(atom_type_iter) == "HETATM"),
                 element_symbol=next(symbol_type_iter),
                 residue_name_label=next(residue_name_label_iter),
@@ -228,6 +248,7 @@ def _atomsite_item_generator(mmcif_dict: MMCIF2Dict) -> Generator[AtomSiteItem, 
                 residue_id_auth=next(residue_id_auth_iter),
                 residue_chain_id=next(residue_chain_id_iter),
                 model_number=next(model_num_iter),
+                occupancy=to_float(next(occupancy_iter)),
             )
         except StopIteration:  # raised when the first list runs out of items
             return
