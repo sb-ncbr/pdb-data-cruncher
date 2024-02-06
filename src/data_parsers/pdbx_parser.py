@@ -8,23 +8,10 @@ from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 from src.models import ProteinDataFromPDBx, Diagnostics
 from src.exception import PDBxParsingError
 from src.utils import to_float, to_int
-
-# turning off black formatter to keep the elements more readable
-# fmt: off
-METAL_ELEMENT_NAMES = {
-        "li", "na", "k", "rb", "cs", "fr",
-        "be", "mg", "ca", "sr", "ba", "ra",
-        "lu", "la", "ce", "pr", "nd", "pm", "sm", "eu", "gd", "tb", "dy", "ho", "er", "tm", "yb",
-        "lr", "ac", "th", "pa", "u", "np", "pu", "am", "cm", "bk", "cf", "es", "fm", "md", "no",
-        "sc", "ti", "v", "cr", "mn", "fe", "co", "ni", "cu", "zn",
-        "y", "zr", "nb", "mo", "tc", "ru", "rh", "pd", "ag", "cd",
-        "hf", "ta", "w", "re", "os", "ir", "pt", "au", "hg",
-        "rf", "db", "sg", "bh", "hs", "cn",
-        "al", "ga", "in", "sn", "tl", "pb", "bi", "po", "fl"
-}
-# fmt: on
+from src.constants import METAL_ELEMENT_NAMES
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass
 class AtomSiteItem:
     """
@@ -181,12 +168,21 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             data.atom_count_without_hetatms += 1
 
     if unrelevant_model_number_present:
-        logging.info("[%s] Multiple model numbers present in mmcif file atom site. Only those with model number %s "
-                     "were counted.", data.pdb_id, only_relevant_model_number)
+        logging.info(
+            "[%s] Multiple model numbers present in mmcif file atom site. Only those with model number %s "
+            "were counted.",
+            data.pdb_id,
+            only_relevant_model_number,
+        )
     if len(processed_unsure_atom_ids) > 0:
-        logging.info("[%s] %s atoms with unique _atom_site.id had occupancy lower than 1.0. %s atoms were skipped "
-                     "because they had the same id as already processed atom. Ids of those skipped atoms: %s.",
-                     data.pdb_id, len(processed_unsure_atom_ids), len(repeated_atom_ids), repeated_atom_ids)
+        logging.info(
+            "[%s] %s atoms with unique _atom_site.id had occupancy lower than 1.0. %s atoms were skipped "
+            "because they had the same id as already processed atom. Ids of those skipped atoms: %s.",
+            data.pdb_id,
+            len(processed_unsure_atom_ids),
+            len(repeated_atom_ids),
+            repeated_atom_ids,
+        )
 
     return list(encountered_ligands.values())
 

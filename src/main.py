@@ -78,44 +78,18 @@ def main():
     logging.debug("App finished running successfully")
 
 
-# TODO setup logging into two seperate files like this (one errors or warnings only, second all)
-# # Create the root logger
-# root_logger = logging.getLogger()
-# root_logger.setLevel(logging.DEBUG)  # Set the root logger level to the lowest level you want to capture
-#
-# # Create a handler for errors_only.txt with a filter for ERROR level
-# error_handler = logging.FileHandler('errors_only.txt')
-# error_handler.setLevel(logging.ERROR)
-# error_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-# error_handler.addFilter(lambda record: record.levelno == logging.ERROR)
-#
-# # Create a handler for all_errors.txt
-# all_errors_handler = logging.FileHandler('all_errors.txt')
-# all_errors_handler.setLevel(logging.DEBUG)
-# all_errors_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-#
-# # Add both handlers to the root logger
-# root_logger.addHandler(error_handler)
-# root_logger.addHandler(all_errors_handler)
-#
-# # Example usage
-# logging.error("This message will be logged to errors_only.txt and all_errors.txt")
-# logging.warning("This message will only be logged to all_errors.txt")
-# logging.info("This message will only be logged to all_errors.txt")
-
-
 def run_current_test(config: Config):
     """
     Temporary testing function.
     :param config: App config.
     """
-    # ligand_information = parse_ligand_stats("./temp/ligandStats.csv")
-    # result = Manager.load_and_parse_json("8jip", ligand_information, config)
-    # print(result)
-    # result = parse_pdb("1cbs", config)
-    # result = parse_pdbx("8jip", config)
-    result = Manager.load_and_parse_pdbx("6n6n", config)
-    print(result)
+    pdb_id = "8ucv"
+    ligand_information = Manager.load_and_parse_ligand_stats(config)
+    rest_data = Manager.load_and_parse_rest(pdb_id, ligand_information, config)
+    pdbx_data = Manager.load_and_parse_pdbx(pdb_id, config)
+    xml_data = Manager.load_and_parse_xml_validation_report(pdb_id, ligand_information, config)
+    vdb_data = Manager.load_and_parse_validator_db_result(pdb_id, config)
+    print("OK")
 
 
 if __name__ == "__main__":
