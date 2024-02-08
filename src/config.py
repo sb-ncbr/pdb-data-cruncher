@@ -52,6 +52,8 @@ class Config:
 
     # FILE config
     temporary_files_folder_path: str = "./temp/"
-    path_to_rest_jsons: str = "./temp/"
-    path_to_pdb_files: str = "./temp/"
-    path_to_ligand_stats_csv: str = "./temp/ligandStats.csv"
+    path_to_rest_jsons: str = "./temp/structured/PDBe_REST_API_JSON/"
+    path_to_pdb_files: str = "./temp/structured/PDBe_updated_mmCIF/"
+    path_to_xml_reports: str = "./temp/structured/ValRep_XML/"
+    path_to_validator_db_results: str = "./temp/structured/MotiveValidator_JSON/"
+    path_to_ligand_stats_csv: str = "./temp/structured/ligandStats.csv"

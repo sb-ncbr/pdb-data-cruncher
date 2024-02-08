@@ -5,7 +5,6 @@ from src.models import LigandInfo
 from src.exception import ParsingError
 
 
-# TODO raises OSError if file cannot be opened/read from, catch and process wherever this gets called
 def parse_ligand_stats(ligand_stats_csv_path: str) -> dict[str, LigandInfo]:
     """
     Takes a csv with ligand stats and loads it into a dictionary.
