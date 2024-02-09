@@ -6,7 +6,7 @@ from src.data_loaders.json_file_loader import load_json_file
 from src.data_parsers.validator_db_result_parser import parse_validator_db_result
 from src.models import ProteinDataFromVDB
 from src.utils import to_float, to_int
-from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
+from tests.test_constants import *
 from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses
 
 
@@ -19,12 +19,13 @@ def test_parse_validator_db_result_basic(pdb_id: str):
 @pytest.mark.extended
 @pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
 def test_parse_validator_db_result_extended(pdb_id: str):
-    unified_test_parse_validator_db_result(pdb_id)
+    unified_test_parse_validator_db_result(pdb_id, True)
 
 
-def unified_test_parse_validator_db_result(pdb_id: str):
+def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
     # arrange
-    path_to_result_json = os.path.join(TEST_DATA_PATH, pdb_id, "result.json")
+    test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
+    path_to_result_json = os.path.join(test_data_root, pdb_id, "result.json")
     expected_protein_data = load_expected_validator_db_protein_data(pdb_id)
 
     # act

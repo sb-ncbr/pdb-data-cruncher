@@ -31,3 +31,5 @@ EXTENDED_TEST_PDB_IDS = [
 ]
 CRUNCHED_RESULTS_CSV_PATH = os.path.join(os.path.curdir, "tests", "test_data", "crunched_results.csv")
 TEST_DATA_PATH = os.path.join(os.path.curdir, "tests", "test_data")
+BASIC_TEST_DATA_PATH = os.path.join(TEST_DATA_PATH, "basic")
+EXTENDED_TEST_DATA_PATH = os.path.join(TEST_DATA_PATH, "extended")
