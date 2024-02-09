@@ -105,9 +105,9 @@ class ParsingManger:
     def load_all_protein_data(pdb_id: str, config: Config) -> ProteinDataComplete:
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
         ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
-        protein_data.data_from_vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
-        protein_data.data_from_pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
-        protein_data.data_from_xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
-        protein_data.data_from_rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
+        protein_data.vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
+        protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
+        protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
+        protein_data.rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
         logging.debug(f"[{pdb_id}] All protein data loaded")
         return protein_data

@@ -2,6 +2,7 @@ import logging
 import argparse
 
 from src.data_extraction.parsing_manger import ParsingManger
+from src.data_processing.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.config import Config, RunModeType
 
 
@@ -73,6 +74,7 @@ def run_current_test(config: Config):
     """
     pdb_id = "8ucv"
     data = ParsingManger.load_all_protein_data(pdb_id, config)
+    calculate_inferred_protein_data(data)
     print("OK")
 
 

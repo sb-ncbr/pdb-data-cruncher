@@ -1,7 +1,14 @@
 import csv
 
 from tests.test_constants import CRUNCHED_RESULTS_CSV_PATH
-from src.models import ProteinDataFromXML, ProteinDataFromVDB, ProteinDataFromPDBx, ProteinDataFromRest
+from src.models import (
+    ProteinDataFromXML,
+    ProteinDataFromVDB,
+    ProteinDataFromPDBx,
+    ProteinDataFromRest,
+    ProteinDataInferred,
+    ProteinDataComplete
+)
 from src.utils import to_int, to_float
 
 
@@ -201,4 +208,39 @@ def load_expected_xml_protein_data(pdb_id: str) -> ProteinDataFromXML:
         average_ligand_bond_rmsz=to_float(data["averageLigandBondRMSZ"]),
         average_ligand_rscc_large_ligands=to_float(data["averageLigandRSCClargeLigs"]),
         average_ligand_rscc_small_ligands=to_float(data["averageLigandRSCCsmallLigs"]),
+    )
+
+
+def load_expected_inferred_data(pdb_id: str) -> ProteinDataInferred:
+    data = load_data_from_crunched_results_csv(
+        pdb_id,
+        [
+            "aaLigandCount",
+            "aaLigandCountNowater",
+            "aaLigandCountFiltered",
+            "combinedGeometryQuality",
+            "combinedXrayQualityMetric",
+            "combinedOverallQualityMetric",
+            "resolution",
+        ],
+    )
+    return ProteinDataInferred(
+        aa_ligand_count=to_int(data["aaLigandCount"]),
+        aa_ligand_count_no_water=to_int(data["aaLigandCountNowater"]),
+        aa_ligand_count_filtered=to_int(data["aaLigandCountFiltered"]),
+        combined_geometry_quality=to_float(data["combinedGeometryQuality"]),
+        combined_x_ray_quality_metric=to_float(data["combinedXrayQualityMetric"]),
+        combined_overall_quality_metric=to_float(data["combinedOverallQualityMetric"]),
+        resolution=to_float(data["resolution"]),
+    )
+
+
+def load_complete_protein_data(pdb_id: str) -> ProteinDataComplete:
+    return ProteinDataComplete(
+        pdb_id=pdb_id,
+        pdbx=load_expected_pdbx_protein_data(pdb_id),
+        rest=load_expected_rest_protein_data(pdb_id),
+        vdb=load_expected_validator_db_protein_data(pdb_id),
+        xml=load_expected_xml_protein_data(pdb_id),
+        inferred=load_expected_inferred_data(pdb_id)
     )
