@@ -51,7 +51,6 @@ class Config:
     http_requests_timeout_s: int = 10
 
     # FILE config
-    temporary_files_folder_path: str = "./temp/"
     path_to_rest_jsons: str = "./temp/structured/PDBe_REST_API_JSON/"
     path_to_pdb_files: str = "./temp/structured/PDBe_updated_mmCIF/"
     path_to_xml_reports: str = "./temp/structured/ValRep_XML/"

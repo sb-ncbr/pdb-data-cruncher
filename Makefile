@@ -19,9 +19,12 @@ flake8:
 pytest:
 	poetry run pytest -k "basic"
 
+docker-tests:
+	docker-compose build pdb-data-cruncher-tests
+	docker-compose up
+
 pytest-extended:
 	poetry run pytest
-
 
 pytest-coverage:
 	poetry run pytest -k "basic" --cov=src
@@ -30,4 +33,4 @@ pytest-coverage:
 check: pylint flake8 pytest
 
 
-.PHONY: pylint pylint_tests pylint-no-todo pytest test_run check flake8
+.PHONY: pylint pylint_tests pylint-no-todo pytest test_run check flake8 docker-tests

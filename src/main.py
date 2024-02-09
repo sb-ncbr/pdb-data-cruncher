@@ -1,16 +1,8 @@
 import logging
 import argparse
-import os
 
-# TODO clean up imports once main.py is redone
-# pylint: disable=unused-import
 from src.manager import Manager
-from src.exception import ParsingError
 from src.config import Config, RunModeType
-from src.data_parsers.ligand_stats_parser import parse_ligand_stats
-from src.data_parsers.rest_parser import parse_rest
-from src.data_parsers.pdbx_parser import parse_pdbx
-from src.data_loaders.json_file_loader import load_json_file
 
 
 def parse_arguments_into_config() -> Config:
@@ -66,10 +58,6 @@ def main():
     """
     config = create_config_from_parsed_arguments()
     configure_logging(config)
-
-    if not os.path.exists(config.temporary_files_folder_path):
-        os.mkdir(config.temporary_files_folder_path)
-        logging.info("Created folder %s for temporary files.", config.temporary_files_folder_path)
 
     # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:

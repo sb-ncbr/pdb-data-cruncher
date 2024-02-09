@@ -1,4 +1,4 @@
-import os
+from os import path
 
 import pytest
 
@@ -9,7 +9,7 @@ from src.models import ProteinDataFromRest
 from src.utils import to_float, to_int
 from tests.helpers import compare_dataclasses
 from tests.helpers import load_data_from_crunched_results_csv
-from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS, TEST_DATA_PATH
+from tests.test_constants import *
 
 
 @pytest.mark.basic
@@ -21,15 +21,16 @@ def test_parse_rest_basic(pdb_id: str):
 @pytest.mark.extended
 @pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
 def test_parse_rest_extended(pdb_id: str):
-    unified_test_parse_rest(pdb_id)
+    unified_test_parse_rest(pdb_id, extended=True)
 
 
-def unified_test_parse_rest(pdb_id: str):
+def unified_test_parse_rest(pdb_id: str, extended: bool = False):
     # arrange
-    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
-    path_to_summary_json = os.path.join(TEST_DATA_PATH, pdb_id, "summary", f"{pdb_id}.json")
-    path_to_assembly_json = os.path.join(TEST_DATA_PATH, pdb_id, "assembly", f"{pdb_id}.json")
-    path_to_molecules_json = os.path.join(TEST_DATA_PATH, pdb_id, "molecules", f"{pdb_id}.json")
+    test_file_path_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
+    path_to_summary_json = path.join(test_file_path_root, pdb_id, "summary", f"{pdb_id}.json")
+    path_to_assembly_json = path.join(test_file_path_root, pdb_id, "assembly", f"{pdb_id}.json")
+    path_to_molecules_json = path.join(test_file_path_root, pdb_id, "molecules", f"{pdb_id}.json")
+    path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
     expected_protein_data = load_expected_rest_protein_data(pdb_id)
 
     # act
