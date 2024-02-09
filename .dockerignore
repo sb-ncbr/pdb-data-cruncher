@@ -1,3 +1,4 @@
 local_testing_scripts
 temp
 .git
+tests/test_data/extended

@@ -1,6 +1,6 @@
 import pytest
 
-from src.data_parsers.ligand_stats_parser import parse_ligand_stats
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.models import LigandInfo
 
 

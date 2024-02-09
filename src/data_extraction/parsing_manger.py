@@ -2,18 +2,19 @@ import logging
 from os import path
 from typing import Optional
 
+from models import ProteinDataComplete
 from src.config import Config
 from src.models import LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB
-from src.data_loaders.json_file_loader import load_json_file
-from src.data_parsers.ligand_stats_parser import parse_ligand_stats
-from src.data_parsers.rest_parser import parse_rest
-from src.data_parsers.pdbx_parser import parse_pdbx
-from src.data_parsers.xml_validation_report_parser import parse_xml_validation_report
-from src.data_parsers.validator_db_result_parser import parse_validator_db_result
+from src.data_extraction.json_file_loader import load_json_file
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats
+from src.data_extraction.rest_parser import parse_rest
+from src.data_extraction.pdbx_parser import parse_pdbx
+from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
+from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.exception import ParsingError
 
 
-class Manager:
+class ParsingManger:
     """
     Class with static methods only aggregating file loading and parsing operations into logical groups
     for easier handling.
@@ -99,3 +100,14 @@ class Manager:
             return None
 
         return parse_validator_db_result(pdb_id, result_json)
+
+    @staticmethod
+    def load_all_protein_data(pdb_id: str, config: Config) -> ProteinDataComplete:
+        protein_data = ProteinDataComplete(pdb_id=pdb_id)
+        ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
+        protein_data.data_from_vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
+        protein_data.data_from_pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
+        protein_data.data_from_xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
+        protein_data.data_from_rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
+        logging.debug(f"[{pdb_id}] All protein data loaded")
+        return protein_data
