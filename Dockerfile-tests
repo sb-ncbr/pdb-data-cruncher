@@ -1,0 +1,14 @@
+FROM python:3.10-buster
+
+WORKDIR /app/
+
+COPY Makefile .
+COPY poetry.lock .
+COPY pyproject.toml .
+COPY readme.md .
+COPY src src
+COPY tests tests
+
+RUN pip install poetry
+RUN poetry install
+CMD ["make", "pytest"]
