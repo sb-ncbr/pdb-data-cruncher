@@ -1,4 +1,4 @@
-import os
+from os import path
 
 import pytest
 
@@ -36,8 +36,8 @@ def unified_test_parse_xml_validation_report(pdb_id: str, extended: bool = False
 def assert_correct_parse_xml_without_validation_report(pdb_id: str, extended: bool = False):
     # arrange
     test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    nonexistent_xml_file_path = os.path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
-    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
+    nonexistent_xml_file_path = path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
+    path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
 
     # act
     ligand_stats = parse_ligand_stats(path_to_ligand_stats)
@@ -50,10 +50,10 @@ def assert_correct_parse_xml_without_validation_report(pdb_id: str, extended: bo
 def assert_correct_parse_xml_with_validation_report(pdb_id: str, extended: bool = False):
     # arrange
     test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    xml_file_path = os.path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
-    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
+    xml_file_path = path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
+    path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
 
-    assert os.path.exists(xml_file_path)
+    assert path.exists(xml_file_path)
     expected_protein_data = load_expected_xml_protein_data(pdb_id)
 
     # act

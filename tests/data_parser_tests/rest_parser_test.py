@@ -1,4 +1,4 @@
-import os
+from os import path
 
 import pytest
 
@@ -27,10 +27,10 @@ def test_parse_rest_extended(pdb_id: str):
 def unified_test_parse_rest(pdb_id: str, extended: bool = False):
     # arrange
     test_file_path_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    path_to_summary_json = os.path.join(test_file_path_root, pdb_id, "summary", f"{pdb_id}.json")
-    path_to_assembly_json = os.path.join(test_file_path_root, pdb_id, "assembly", f"{pdb_id}.json")
-    path_to_molecules_json = os.path.join(test_file_path_root, pdb_id, "molecules", f"{pdb_id}.json")
-    path_to_ligand_stats = os.path.join(TEST_DATA_PATH, "ligandStats.csv")
+    path_to_summary_json = path.join(test_file_path_root, pdb_id, "summary", f"{pdb_id}.json")
+    path_to_assembly_json = path.join(test_file_path_root, pdb_id, "assembly", f"{pdb_id}.json")
+    path_to_molecules_json = path.join(test_file_path_root, pdb_id, "molecules", f"{pdb_id}.json")
+    path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
     expected_protein_data = load_expected_rest_protein_data(pdb_id)
 
     # act

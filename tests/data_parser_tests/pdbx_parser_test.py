@@ -1,4 +1,4 @@
-import os
+from os import path
 
 import pytest
 
@@ -24,8 +24,8 @@ def test_parse_pdbx_extended(pdb_id: str):
 def unified_test_parse_pdbx(pdb_id: str, extended: bool = False):
     # arrange
     test_data_root_path = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    path_to_pdbx_file = os.path.join(test_data_root_path, pdb_id, f"{pdb_id}.cif")
-    assert os.path.exists(path_to_pdbx_file)
+    path_to_pdbx_file = path.join(test_data_root_path, pdb_id, f"{pdb_id}.cif")
+    assert path.exists(path_to_pdbx_file)
     expected_protein_data = load_expected_pdbx_protein_data(pdb_id)
 
     # act

@@ -1,4 +1,4 @@
-import os.path
+from os import path
 
 BASIC_TEST_PDB_IDS = [
     "1dey",
@@ -29,7 +29,7 @@ EXTENDED_TEST_PDB_IDS = [
     "4v43",
     "7pin",
 ]
-CRUNCHED_RESULTS_CSV_PATH = os.path.join(os.path.curdir, "tests", "test_data", "crunched_results.csv")
-TEST_DATA_PATH = os.path.join(os.path.curdir, "tests", "test_data")
-BASIC_TEST_DATA_PATH = os.path.join(TEST_DATA_PATH, "basic")
-EXTENDED_TEST_DATA_PATH = os.path.join(TEST_DATA_PATH, "extended")
+CRUNCHED_RESULTS_CSV_PATH = path.join(path.curdir, "tests", "test_data", "crunched_results.csv")
+TEST_DATA_PATH = path.join(path.curdir, "tests", "test_data")
+BASIC_TEST_DATA_PATH = path.join(TEST_DATA_PATH, "basic")
+EXTENDED_TEST_DATA_PATH = path.join(TEST_DATA_PATH, "extended")

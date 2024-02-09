@@ -1,4 +1,4 @@
-import os
+from os import path
 
 import pytest
 
@@ -25,7 +25,7 @@ def test_parse_validator_db_result_extended(pdb_id: str):
 def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
     # arrange
     test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    path_to_result_json = os.path.join(test_data_root, pdb_id, "result.json")
+    path_to_result_json = path.join(test_data_root, pdb_id, "result.json")
     expected_protein_data = load_expected_validator_db_protein_data(pdb_id)
 
     # act
