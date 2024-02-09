@@ -3,7 +3,7 @@ from typing import Optional
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass
+@dataclass(slots=True)
 class ProteinDataFromXML:
     """
     Class for holding protein data collected from XML validation report.

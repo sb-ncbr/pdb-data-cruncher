@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 
-@dataclass
+@dataclass(slots=True)
 class Diagnostics:
     """
     Class for collecting issues with data processing or other task, that are not critical issues

@@ -9,7 +9,7 @@ from src.utils import to_float
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass
+@dataclass(slots=True)
 class ModelledSubgroupsData:
     """
     Class holding information extracted from ModelledSubgroup elements form XML, to be processed into protein data.

@@ -4,7 +4,7 @@ from typing import Optional, Any
 import pytest
 
 
-@dataclass
+@dataclass(slots=True)
 class Difference:
     """
     One difference (in one field) between two dataclasses.
@@ -15,7 +15,7 @@ class Difference:
     actual_value: Optional[Any]
 
 
-@dataclass
+@dataclass(slots=True)
 class Differences:
     """
     Class holding information about differences between two dataclasses.

@@ -12,7 +12,7 @@ from src.constants import METAL_ELEMENT_NAMES
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass
+@dataclass(slots=True)
 class AtomSiteItem:
     """
     Holding relevant information from _atom_site for further processing.
@@ -29,7 +29,7 @@ class AtomSiteItem:
     occupancy: float
 
 
-@dataclass
+@dataclass(slots=True)
 class LigandIdentifier:
     """
     Unique combination of atom_site values to identify ligand for the purposes of PDBx parsing.
@@ -47,7 +47,7 @@ class LigandIdentifier:
         return hash((self.residue_id_auth, self.residue_name_auth, self.residue_chain_id))
 
 
-@dataclass
+@dataclass(slots=True)
 class EncounteredLigand:
     """
     Ligand found during PDBx parsing, collects information about its atoms that is then processed.
