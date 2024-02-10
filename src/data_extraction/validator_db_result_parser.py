@@ -186,7 +186,7 @@ def _extract_raw_data_from_model_summary(
 def _process_raw_data(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
     # straightforward items
     protein_data.hetatm_count_filtered = raw_data.atom_count
-    protein_data.ligand_carbon_chiral_atom_count_filtered = raw_data.carbon_chiral_count
+    protein_data.ligand_carbon_chira_atom_count_filtered = raw_data.carbon_chiral_count
     protein_data.ligand_count_filtered = raw_data.motive_count
     protein_data.hetatm_count_filtered_metal = raw_data.atom_count_in_metal_ligands
     protein_data.ligand_count_filtered_metal = raw_data.motive_count_in_metal_ligands
@@ -224,11 +224,11 @@ def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: Pro
 
     if raw_data.carbon_chiral_count > 0:
         carbon_chiral_problems_ratio = raw_data.wrong_carbon_chiral_count / raw_data.carbon_chiral_count
-        protein_data.chiral_problems_precise = carbon_chiral_problems_ratio
+        protein_data.chira_problems_precise = carbon_chiral_problems_ratio
         both_problems_ratio = carbon_chiral_problems_ratio + missing_atom_ratio
         protein_data.missing_carbon_chiral_errors_precise = both_problems_ratio
     else:
-        protein_data.chiral_problems_precise = 0
+        protein_data.chira_problems_precise = 0
         protein_data.missing_carbon_chiral_errors_precise = 0
 
 

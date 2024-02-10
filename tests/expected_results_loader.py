@@ -1,4 +1,6 @@
 import csv
+from dataclasses import dataclass, asdict
+from typing import get_type_hints, Optional
 
 from tests.test_constants import CRUNCHED_RESULTS_CSV_PATH
 from src.models import (
@@ -10,9 +12,10 @@ from src.models import (
     ProteinDataComplete
 )
 from src.utils import to_int, to_float
+from src.models import CSV_OUTPUT_ATTRIBUTE_NAMES
 
 
-def load_data_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[str, str]:
+def load_chosen_items_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[str, str]:
     """
     Loads data from crunched_results.csv and returns only relevant field values.
     :param pdb_id: PDB ID of structure data to load.
@@ -49,190 +52,71 @@ def load_data_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[
     return extracted_fields
 
 
+def find_field_name_in_csv_attributes(searched_attribute_name: str):
+    for field_name, attribute_name in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
+        if attribute_name == searched_attribute_name:
+            return field_name
+
+
+def fill_protein_data_with_crunched_csv_data(pdb_id: str, protein_data: dataclass) -> None:
+    """
+    Loads fields into dataclass protein data from crunched csv based on the attribute and field names. The field does
+    not get loaded if the translation is not included in CSV_OUTPUT_ATTRIBUTES_NAMES.
+    :param pdb_id: Protein id.
+    :param protein_data: Protein data class to load info into (has to be one of the basic ones, not complete).
+    """
+    csv_attributes_to_extract = {}
+    typing_hints = get_type_hints(protein_data)
+    for field_name in asdict(protein_data).keys():  # for every field in given dataclass
+        if field_name in CSV_OUTPUT_ATTRIBUTE_NAMES:  # if that field is in csv output names
+            expected_type = typing_hints[field_name]  # get its type based on type hints
+            type_into = None
+            if expected_type == float or expected_type == Optional[float]:
+                type_into = float
+            elif expected_type == int or expected_type == Optional[int]:
+                type_into = int
+            attribute_name = CSV_OUTPUT_ATTRIBUTE_NAMES[field_name]
+            csv_attributes_to_extract[attribute_name] = type_into  # and save it for extraction
+
+    data = load_chosen_items_from_crunched_results_csv(pdb_id, list(csv_attributes_to_extract.keys()))
+    for csv_attribute_name, type_into in csv_attributes_to_extract.items():
+        value = data[csv_attribute_name]
+        if type_into == int:
+            value = to_int(value)
+        if type_into == float:
+            value = to_float(value)
+        field_name = find_field_name_in_csv_attributes(csv_attribute_name)
+        setattr(protein_data, field_name, value)  # set attribute with that name in protein data
+
+
 def load_expected_pdbx_protein_data(pdb_id: str):
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "atomCount",
-            "aaCount",
-            "allAtomCount",
-            "allAtomCountLn",
-            "hetatmCount",
-            "hetatmCountNowater",
-            "hetatmCountMetal",
-            "hetatmCountNometal",
-            "hetatmCountNowaterNometal",
-            "ligandCount",
-            "ligandCountNowater",
-            "ligandCountMetal",
-            "ligandCountNometal",
-            "ligandCountNowaterNometal",
-            "ligandRatio",
-            "ligandRatioNowater",
-            "ligandRatioMetal",
-            "ligandRatioNometal",
-            "ligandRatioNowaterNometal",
-            "StructureWeight",
-            "PolymerWeight",
-            "NonpolymerWeightNowater",
-            "WaterWeight",
-            "NonpolymerWeight",
-        ],
-    )
-    return ProteinDataFromPDBx(
-        pdb_id=pdb_id,
-        atom_count_without_hetatms=to_int(data["atomCount"]),
-        aa_count=to_int(data["aaCount"]),
-        all_atom_count=to_int(data["allAtomCount"]),
-        all_atom_count_ln=to_float(data["allAtomCountLn"]),
-        hetatm_count=to_int(data["hetatmCount"]),
-        hetatm_count_no_water=to_int(data["hetatmCountNowater"]),
-        hetatm_count_metal=to_int(data["hetatmCountMetal"]),
-        hetatm_count_no_metal=to_int(data["hetatmCountNometal"]),
-        hetatm_count_no_water_no_metal=to_int(data["hetatmCountNowaterNometal"]),
-        ligand_count=to_int(data["ligandCount"]),
-        ligand_count_no_water=to_int(data["ligandCountNowater"]),
-        ligand_count_metal=to_int(data["ligandCountMetal"]),
-        ligand_count_no_metal=to_int(data["ligandCountNometal"]),
-        ligand_count_no_water_no_metal=to_int(data["ligandCountNowaterNometal"]),
-        ligand_ratio=to_float(data["ligandRatio"]),
-        ligand_ratio_no_water=to_float(data["ligandRatioNowater"]),
-        ligand_ratio_metal=to_float(data["ligandRatioMetal"]),
-        ligand_ratio_no_metal=to_float(data["ligandRatioNometal"]),
-        ligand_ratio_no_water_no_metal=to_float(data["ligandRatioNowaterNometal"]),
-        structure_weight_kda=to_float(data["StructureWeight"]),
-        polymer_weight_kda=to_float(data["PolymerWeight"]),
-        nonpolymer_weight_no_water_da=to_float(data["NonpolymerWeightNowater"]),
-        water_weight_da=to_float(data["WaterWeight"]),
-        nonpolymer_weight_da=to_float(data["NonpolymerWeight"]),
-    )
+    protein_data = ProteinDataFromPDBx(pdb_id=pdb_id)
+    fill_protein_data_with_crunched_csv_data(pdb_id, protein_data)
+    return protein_data
 
 
 def load_expected_rest_protein_data(pdb_id: str) -> ProteinDataFromRest:
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "releaseDate",
-            "AssemblyTotalWeight",
-            "AssemblyBiopolymerCount",
-            "AssemblyLigandCount",
-            "AssemblyWaterCount",
-            "AssemblyUniqueBiopolymerCount",
-            "AssemblyUniqueLigandCount",
-            "AssemblyBiopolymerWeight",
-            "AssemblyLigandWeight",
-            "AssemblyWaterWeight",
-            "AssemblyLigandFlexibility",
-        ],
-    )
-    return ProteinDataFromRest(
-        pdb_id=pdb_id,
-        release_date=data["releaseDate"],
-        molecular_weight=to_float(data["AssemblyTotalWeight"]),
-        assembly_biopolymer_count=to_int(data["AssemblyBiopolymerCount"]),
-        assembly_ligand_count=to_int(data["AssemblyLigandCount"]),
-        assembly_water_count=to_int(data["AssemblyWaterCount"]),
-        assembly_unique_biopolymer_count=to_int(data["AssemblyUniqueBiopolymerCount"]),
-        assembly_unique_ligand_count=to_int(data["AssemblyUniqueLigandCount"]),
-        assembly_biopolymer_weight_kda=to_float(data["AssemblyBiopolymerWeight"]),
-        assembly_ligand_weight_da=to_float(data["AssemblyLigandWeight"]),
-        assembly_water_weight_da=to_float(data["AssemblyWaterWeight"]),
-        assembly_ligand_flexibility=to_float(data["AssemblyLigandFlexibility"]),
-    )
+    protein_data = ProteinDataFromRest(pdb_id=pdb_id)
+    fill_protein_data_with_crunched_csv_data(pdb_id, protein_data)
+    return protein_data
 
 
 def load_expected_validator_db_protein_data(pdb_id: str) -> ProteinDataFromVDB:
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "hetatmCountFiltered",
-            "ligandCarbonChiraAtomCountFiltered",
-            "ligandCountFiltered",
-            "hetatmCountFilteredMetal",
-            "ligandCountFilteredMetal",
-            "hetatmCountFilteredNometal",
-            "ligandCountFilteredNometal",
-            "ligandRatioFiltered",
-            "ligandRatioFilteredMetal",
-            "ligandRatioFilteredNometal",
-            "ligandBondRotationFreedom",
-            "ChiraProblemsPrecise",
-        ]
-    )
-    return ProteinDataFromVDB(
-        pdb_id=pdb_id,
-        hetatm_count_filtered=to_int(data["hetatmCountFiltered"]),
-        ligand_carbon_chiral_atom_count_filtered=to_int(data["ligandCarbonChiraAtomCountFiltered"]),
-        ligand_count_filtered=to_int(data["ligandCountFiltered"]),
-        hetatm_count_filtered_metal=to_int(data["hetatmCountFilteredMetal"]),
-        ligand_count_filtered_metal=to_int(data["ligandCountFilteredMetal"]),
-        hetatm_count_filtered_no_metal=to_int(data["hetatmCountFilteredNometal"]),
-        ligand_count_filtered_no_metal=to_int(data["ligandCountFilteredNometal"]),
-        ligand_ratio_filtered=to_float(data["ligandRatioFiltered"]),
-        ligand_ratio_filtered_metal=to_float(data["ligandRatioFilteredMetal"]),
-        ligand_ratio_filtered_no_metal=to_float(data["ligandRatioFilteredNometal"]),
-        ligand_bond_rotation_freedom=to_float(data["ligandBondRotationFreedom"]),
-        chiral_problems_precise=to_float(data["ChiraProblemsPrecise"])
-    )
+    protein_data = ProteinDataFromVDB(pdb_id=pdb_id)
+    fill_protein_data_with_crunched_csv_data(pdb_id, protein_data)
+    return protein_data
 
 
 def load_expected_xml_protein_data(pdb_id: str) -> ProteinDataFromXML:
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "highestChainBondsRMSZ",
-            "highestChainAnglesRMSZ",
-            "averageResidueRSR",
-            "averageResidueRSCC",
-            "residueRSCCoutlierRatio",
-            "averageLigandRSR",
-            "averageLigandRSCC",
-            "ligandRSCCoutlierRatio",
-            "averageLigandAngleRMSZ",
-            "averageLigandBondRMSZ",
-            "averageLigandRSCCsmallLigs",
-            "averageLigandRSCClargeLigs",
-        ],
-    )
-    return ProteinDataFromXML(
-        pdb_id=pdb_id,
-        highest_chain_bonds_rmsz=to_float(data["highestChainBondsRMSZ"]),
-        highest_chain_angles_rmsz=to_float(data["highestChainAnglesRMSZ"]),
-        average_residue_rsr=to_float(data["averageResidueRSR"]),
-        average_residue_rscc=to_float(data["averageResidueRSCC"]),
-        residue_rscc_outlier_ratio=to_float(data["residueRSCCoutlierRatio"]),
-        average_ligand_rsr=to_float(data["averageLigandRSR"]),
-        average_ligand_rscc=to_float(data["averageLigandRSCC"]),
-        ligand_rscc_outlier_ratio=to_float(data["ligandRSCCoutlierRatio"]),
-        average_ligand_angle_rmsz=to_float(data["averageLigandAngleRMSZ"]),
-        average_ligand_bond_rmsz=to_float(data["averageLigandBondRMSZ"]),
-        average_ligand_rscc_large_ligands=to_float(data["averageLigandRSCClargeLigs"]),
-        average_ligand_rscc_small_ligands=to_float(data["averageLigandRSCCsmallLigs"]),
-    )
+    protein_data = ProteinDataFromXML(pdb_id=pdb_id)
+    fill_protein_data_with_crunched_csv_data(pdb_id, protein_data)
+    return protein_data
 
 
 def load_expected_inferred_data(pdb_id: str) -> ProteinDataInferred:
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "aaLigandCount",
-            "aaLigandCountNowater",
-            "aaLigandCountFiltered",
-            "combinedGeometryQuality",
-            "combinedXrayQualityMetric",
-            "combinedOverallQualityMetric",
-            "resolution",
-        ],
-    )
-    return ProteinDataInferred(
-        aa_ligand_count=to_int(data["aaLigandCount"]),
-        aa_ligand_count_no_water=to_int(data["aaLigandCountNowater"]),
-        aa_ligand_count_filtered=to_int(data["aaLigandCountFiltered"]),
-        combined_geometry_quality=to_float(data["combinedGeometryQuality"]),
-        combined_x_ray_quality_metric=to_float(data["combinedXrayQualityMetric"]),
-        combined_overall_quality_metric=to_float(data["combinedOverallQualityMetric"]),
-        resolution=to_float(data["resolution"]),
-    )
+    protein_data = ProteinDataInferred()
+    fill_protein_data_with_crunched_csv_data(pdb_id, protein_data)
+    return protein_data
 
 
 def load_complete_protein_data(pdb_id: str) -> ProteinDataComplete:

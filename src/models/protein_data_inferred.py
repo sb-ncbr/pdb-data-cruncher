@@ -4,6 +4,9 @@ from typing import Optional
 
 @dataclass(slots=True)
 class ProteinDataInferred:
+    """
+    Class holding protein data calculated from other collected protein data.
+    """
     aa_ligand_count: Optional[int] = None
     aa_ligand_count_no_water: Optional[int] = None
     aa_ligand_count_filtered: Optional[int] = None

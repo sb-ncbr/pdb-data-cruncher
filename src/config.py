@@ -36,6 +36,7 @@ class RunModeType(Enum):
     TEST = 99
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass(frozen=True)
 class Config:
     """

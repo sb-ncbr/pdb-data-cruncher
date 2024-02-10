@@ -10,6 +10,9 @@ from src.models.protein_data_inferred import ProteinDataInferred
 
 @dataclass(slots=True)
 class ProteinDataComplete:
+    """
+    Class holding all collected protein data.
+    """
     pdb_id: str
     vdb: Optional[ProteinDataFromVDB] = None
     xml: Optional[ProteinDataFromXML] = None

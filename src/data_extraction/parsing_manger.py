@@ -103,11 +103,17 @@ class ParsingManger:
 
     @staticmethod
     def load_all_protein_data(pdb_id: str, config: Config) -> ProteinDataComplete:
+        """
+        Extract all protein data from all the sources.
+        :param pdb_id: Protein id.
+        :param config: App config.
+        :return: Collected protein data.
+        """
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
         ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
         protein_data.vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
         protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
         protein_data.rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
-        logging.debug(f"[{pdb_id}] All protein data loaded")
+        logging.debug("[%s] All protein data loaded", pdb_id)
         return protein_data

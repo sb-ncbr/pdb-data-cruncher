@@ -27,7 +27,7 @@ class ProteinDataFromVDB:
     pdb_id: Optional[str] = None
     # filtered counts
     hetatm_count_filtered: Optional[int] = 0
-    ligand_carbon_chiral_atom_count_filtered: Optional[int] = 0
+    ligand_carbon_chira_atom_count_filtered: Optional[int] = 0
     ligand_count_filtered: Optional[int] = 0
     hetatm_count_filtered_metal: Optional[int] = 0
     ligand_count_filtered_metal: Optional[int] = 0
@@ -40,7 +40,7 @@ class ProteinDataFromVDB:
     # other
     ligand_bond_rotation_freedom: Optional[float] = None
     missing_precise: Optional[float] = None
-    chiral_problems_precise: Optional[float] = None
+    chira_problems_precise: Optional[float] = None
     missing_carbon_chiral_errors_precise: Optional[float] = None
     # additional counts
     analyzed_count: Optional[int] = None
