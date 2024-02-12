@@ -96,6 +96,7 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
     _calculate_additional_counts_and_ratios(protein_data)
     _extract_straightforward_data(mmcif_dict, protein_data)
     _extract_weight_data(mmcif_dict, protein_data, diagnostics)
+    _calculate_resolution(protein_data)
 
     return protein_data, diagnostics
 
@@ -357,6 +358,19 @@ def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
         data.ligand_ratio_no_metal = data.hetatm_count_no_metal / data.ligand_count_no_metal
     if data.ligand_count_no_water_no_metal > 0:
         data.ligand_ratio_no_water_no_metal = data.hetatm_count_no_water_no_metal / data.ligand_count_no_water_no_metal
+
+
+def _calculate_resolution(data: ProteinDataFromPDBx) -> None:
+    """
+    Determines structure resolution from the three possible locations.
+    :param data: Collected data about this protein.
+    """
+    if data.refinement_resolution_high is not None:
+        data.resolution = data.refinement_resolution_high
+    elif data.reflections_resolution_high is not None:
+        data.resolution = data.reflections_resolution_high
+    elif data.em_3d_reconstruction_resolution is not None:
+        data.resolution = data.em_3d_reconstruction_resolution
 
 
 def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:

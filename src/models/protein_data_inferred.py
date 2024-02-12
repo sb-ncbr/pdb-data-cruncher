@@ -13,4 +13,3 @@ class ProteinDataInferred:
     combined_geometry_quality: Optional[float] = None
     combined_x_ray_quality_metric: Optional[float] = None
     combined_overall_quality_metric: Optional[float] = None
-    resolution: Optional[float] = None

@@ -39,12 +39,11 @@ class ProteinDataFromPDBx:
     nonpolymer_weight_no_water_da: float = 0.0
     water_weight_da: float = 0.0
     nonpolymer_weight_da: Optional[float] = None
+    # other
+    resolution: Optional[float] = None
     # additional data for future processing
     struct_keywords_text: Optional[list[str]] = None  # _struct_keywords.text
     struct_keywords_pdbx: Optional[str] = None  # _struct_keywords.pdbx_keywords
-    em_3d_reconstruction_resolution: Optional[float] = None  # _em_3d_reconstruction.resolution
-    refinement_resolution_high: Optional[float] = None  # _refine.ls_d_res_high
-    reflections_resolution_high: Optional[float] = None  # _reflns.d_resolution_high
     experimental_method: Optional[str] = None  # _exptl.method
     citation_journal_abbreviation: Optional[str] = None  # _citation.journal_abbrev
     crystal_grow_methods: Optional[list[str]] = None  # _exptl_crystal_grow.method
@@ -54,3 +53,8 @@ class ProteinDataFromPDBx:
     software_name: Optional[list[str]] = None  # _software.name
     gene_source_scientific_name: Optional[list[str]] = None  # _entity_src_gen.pdbx_gene_src_scientific_name
     host_organism_scientific_name: Optional[list[str]] = None  # _entity_src_gen.pdbx_host_org_scientific_name
+    # TODO these three are used for calculating resolution - they may not be used for anything else though
+    em_3d_reconstruction_resolution: Optional[float] = None  # _em_3d_reconstruction.resolution
+    refinement_resolution_high: Optional[float] = None  # _refine.ls_d_res_high
+    reflections_resolution_high: Optional[float] = None  # _reflns.d_resolution_high
+
