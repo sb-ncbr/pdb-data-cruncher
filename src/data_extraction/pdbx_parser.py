@@ -141,8 +141,7 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
         raise PDBxParsingError("Required item _atom_site.pdbx_PDB_model_num not found in mmcif file or empty.") from ex
 
     unrelevant_model_number_present = False
-    processed_unsure_atom_ids = set()
-    repeated_atom_ids = []
+    processed_unsure_atoms = {}
 
     for atom_item in _atomsite_item_generator(mmcif_dict):
         if atom_item.model_number != only_relevant_model_number:
@@ -150,10 +149,11 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             continue
 
         if atom_item.occupancy != 1.0:  # atom could be present twice with different positions
-            if atom_item.atom_id in processed_unsure_atom_ids:  # atom with this id was already processed
-                repeated_atom_ids.append(atom_item.atom_id)
+            if atom_item.atom_id in processed_unsure_atoms.keys():  # atom with this id was already processed
+                processed_unsure_atoms[atom_item.atom_id].append(atom_item.occupancy)
                 continue
-            processed_unsure_atom_ids.add(atom_item.atom_id)
+
+            processed_unsure_atoms[atom_item.atom_id] = [atom_item.occupancy]
 
         if atom_item.is_hetatm:  # is HETATM
             ligand_identifier = LigandIdentifier(
@@ -175,15 +175,8 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             data.pdb_id,
             only_relevant_model_number,
         )
-    if len(processed_unsure_atom_ids) > 0:
-        logging.info(
-            "[%s] %s atoms with unique _atom_site.id had occupancy lower than 1.0. %s atoms were skipped "
-            "because they had the same id as already processed atom. Ids of those skipped atoms: %s.",
-            data.pdb_id,
-            len(processed_unsure_atom_ids),
-            len(repeated_atom_ids),
-            repeated_atom_ids,
-        )
+
+    _log_incomplete_atom_occupancies(data.pdb_id, processed_unsure_atoms)
 
     return list(encountered_ligands.values())
 
@@ -371,6 +364,24 @@ def _calculate_resolution(data: ProteinDataFromPDBx) -> None:
         data.resolution = data.reflections_resolution_high
     elif data.em_3d_reconstruction_resolution is not None:
         data.resolution = data.em_3d_reconstruction_resolution
+
+
+def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[str, list[float]]) -> None:
+    """
+    Goes through given atoms with less than 1.0 occupancies, and checks, and logs all that do not have other
+    instances that would complete their occupancy to 1.0.
+    :param pdb_id: Protein Id.
+    :param processed_unsure_atoms: Dictionary with atom_id key and list of occupancy values.
+    """
+    incomplete_atom_count = 0
+    for atom_id, instance_occupancies in processed_unsure_atoms.items():
+        if sum(instance_occupancies) != 1.0:
+            logging.debug("[%s] Atom with id %s has total occupancies on positions less than 1.0. "
+                          "Occupancies: '%s'", pdb_id, atom_id, instance_occupancies)
+            incomplete_atom_count += 1
+    if incomplete_atom_count > 0:
+        logging.info("[%s] %s atoms have sum of their occupancy less than 1.0 across their possible occurrences.",
+                     pdb_id, incomplete_atom_count)
 
 
 def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
