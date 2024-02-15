@@ -1,3 +1,6 @@
+CSV_INVALID_VALUE_STRING = "nan"
+
+
 """
 Translates property name of protein data into the name it will have in the final csv.
 """
@@ -114,3 +117,6 @@ CSV_OUTPUT_ATTRIBUTE_NAMES = {
     "residue_rscc_outlier_ratio": "residueRSCCoutlierRatio",
     "resolution": "resolution",
 }
+
+
+CSV_ATTRIBUTE_ORDER = list(CSV_OUTPUT_ATTRIBUTE_NAMES.values())

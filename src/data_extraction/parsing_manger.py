@@ -68,7 +68,7 @@ class ParsingManger:
         :param config: App configuration.
         :return: Instance of ProteinDataFromPDBx loaded with protein data, or None in case of a serious error.
         """
-        filepath = path.join(config.path_to_pdb_files, f"{pdb_id}.cif")
+        filepath = path.join(config.path_to_pdbx_files, f"{pdb_id}.cif")
         return parse_pdbx(pdb_id, filepath)
 
     @staticmethod
