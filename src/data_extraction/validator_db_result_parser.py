@@ -15,7 +15,7 @@ class SummaryCounts:
 
     analyzed: int = 0
     not_analyzed: int = 0
-    has_all_bad_chirality_c: int = 0
+    has_all_bad_chirality_carbon: int = 0
     missing_atoms: int = 0
     missing_rings: int = 0
 
@@ -166,7 +166,7 @@ def _extract_raw_data_from_model_summary(
 
     has_all_bad_chirality_carbon = to_int(summary_json.get("HasAll_BadChirality_Carbon"))
     if has_all_bad_chirality_carbon is not None:
-        raw_data.summary_counts.has_all_bad_chirality_c += has_all_bad_chirality_carbon
+        raw_data.summary_counts.has_all_bad_chirality_carbon += has_all_bad_chirality_carbon
     else:
         diagnostics.add(f"Model {model_name} has invalid 'HasAll_BadChirality_Carbon' field.")
 
@@ -226,26 +226,26 @@ def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: Pro
         carbon_chiral_problems_ratio = raw_data.wrong_carbon_chiral_count / raw_data.carbon_chiral_count
         protein_data.chira_problems_precise = carbon_chiral_problems_ratio
         both_problems_ratio = carbon_chiral_problems_ratio + missing_atom_ratio
-        protein_data.missing_carbon_chiral_errors_precise = both_problems_ratio
+        protein_data.missing_carbon_chira_errors_precise = both_problems_ratio
     else:
         protein_data.chira_problems_precise = 0
-        protein_data.missing_carbon_chiral_errors_precise = 0
+        protein_data.missing_carbon_chira_errors_precise = 0
 
 
 def _calculate_ligand_quality_ratios_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
     missing_atoms_and_rings = raw_data.summary_counts.missing_rings + raw_data.summary_counts.missing_atoms
     has_all_good_chirality_ignore_all_except_carbon = (
-        raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_c - missing_atoms_and_rings
+            raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_carbon - missing_atoms_and_rings
     )
 
-    protein_data.ligand_quality_ratios.analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
-    protein_data.ligand_quality_ratios.not_analyzed = raw_data.summary_counts.not_analyzed / raw_data.motive_count
-    protein_data.ligand_quality_ratios.has_all_good_chirality_c_only = (
+    protein_data.ligand_quality_ratio_analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
+    protein_data.ligand_quality_ratio_not_analyzed = raw_data.summary_counts.not_analyzed / raw_data.motive_count
+    protein_data.ligand_quality_ratio_good_chirality_carbon = (
         has_all_good_chirality_ignore_all_except_carbon / raw_data.motive_count
     )
-    protein_data.ligand_quality_ratios.has_all_bad_chirality_c = (
-        raw_data.summary_counts.has_all_bad_chirality_c / raw_data.motive_count
+    protein_data.ligand_quality_ratio_bad_chirality_carbon = (
+            raw_data.summary_counts.has_all_bad_chirality_carbon / raw_data.motive_count
     )
-    protein_data.ligand_quality_ratios.missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
-    protein_data.ligand_quality_ratios.missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
-    protein_data.ligand_quality_ratios.missing_atoms_and_rings = missing_atoms_and_rings / raw_data.motive_count
+    protein_data.ligand_quality_ratio_missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
+    protein_data.ligand_quality_ratio_missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
+    protein_data.ligand_quality_missing_atoms_and_rings = missing_atoms_and_rings / raw_data.motive_count

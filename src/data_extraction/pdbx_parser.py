@@ -302,7 +302,9 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
 
     # get first item as string (there is always just one item)
     data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
-    data.experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
+    experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
+    if experimental_method is not None:
+        data.experimental_method = experimental_method.upper()
 
     # get first item as number (there is always just one item, and it's a number)
     data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")

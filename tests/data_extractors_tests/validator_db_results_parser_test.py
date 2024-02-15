@@ -35,14 +35,11 @@ def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
         actual_protein_data,
         expected_protein_data,
         ignored_fields=[
+            # TODO are these even needed?
             "missing_precise",
-            "missing_carbon_chiral_errors_precise",
-            "analyzed",
-            "not_analyzed",
-            "has_all_bad_chirality_carbon",
-            "missing_atoms",
-            "missing_rings",
-            "ligand_quality_ratios"
+            "ligand_quality_ratio_analyzed",
+            "ligand_quality_ratio_not_analyzed",
+            "ligand_quality_ratio_missing_atoms",
         ]
     )
     assert not differences.count, differences.get_difference_description()
