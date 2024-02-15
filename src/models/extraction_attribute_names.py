@@ -3,7 +3,6 @@ Translates name of attribute in XML validation report Entry element to a name of
 in ProteinDataFromXML. Only the float values.
 """
 XML_ENTRY_ATTRIBUTE_TO_PROPERTY = {
-    "clashscore": "clashscore",
     "percent-rama-outliers": "percent_rama_outliers",
     "percent-rota-outliers": "percent_rota_outliers",
     "absolute-percentile-clashscore": "absolute_percentile_clashscore",

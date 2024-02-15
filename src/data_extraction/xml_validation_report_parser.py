@@ -105,10 +105,14 @@ def _extract_entry_information(
         diagnostics.add("No 'Entry' element present in XML.")
         return
 
+    clashscore = to_float(entry_element.get("clashscore"))
+    if clashscore is not None and clashscore != -1.0:  # -1.0 is value that makes no sense for clashscore
+        protein_data.clashscore = clashscore
+
     # for each attribute, it extracts it, retypes if neccessary, and stores into protein data
     for xml_attribute_name, protein_data_field_name in XML_ENTRY_ATTRIBUTE_TO_PROPERTY.items():
         attribute_value = entry_element.get(xml_attribute_name)
-        if attribute_value is None:
+        if attribute_value is None or attribute_value == "NotAvailable":
             continue
 
         protein_data_item_type = get_clean_type_hint(protein_data, protein_data_field_name)
