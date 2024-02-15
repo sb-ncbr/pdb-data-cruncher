@@ -1,6 +1,6 @@
 import pytest
 
-from src.data_processing.inferred_protein_data_calculator import calculate_inferred_protein_data
+from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.models import ProteinDataComplete
 from tests.test_constants import *
 from tests.expected_results_loader import (

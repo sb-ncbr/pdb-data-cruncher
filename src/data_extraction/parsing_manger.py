@@ -11,6 +11,7 @@ from src.data_extraction.rest_parser import parse_rest
 from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
+from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.exception import ParsingError
 
 
@@ -115,5 +116,6 @@ class ParsingManger:
         protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
         protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
         protein_data.rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
+        calculate_inferred_protein_data(protein_data)
         logging.debug("[%s] All protein data loaded", pdb_id)
         return protein_data

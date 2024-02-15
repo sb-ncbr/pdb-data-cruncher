@@ -13,6 +13,8 @@ class ProteinDataFromPDBx:
     # general counts
     atom_count_without_hetatms: int = 0
     aa_count: int = 0
+    aa_ligand_count: Optional[int] = None
+    aa_ligand_count_no_water: Optional[int] = None
     all_atom_count: Optional[int] = None
     all_atom_count_ln: Optional[float] = None
     # hetero atom counts

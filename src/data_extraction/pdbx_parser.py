@@ -93,9 +93,9 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
 
     _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
     _extract_atom_and_ligand_counts(mmcif_dict, protein_data)
-    _calculate_additional_counts_and_ratios(protein_data)
     _extract_straightforward_data(mmcif_dict, protein_data)
     _extract_weight_data(mmcif_dict, protein_data, diagnostics)
+    _calculate_additional_counts_and_ratios(protein_data)
     _calculate_resolution(protein_data)
 
     return protein_data, diagnostics
@@ -351,6 +351,9 @@ def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
         data.ligand_ratio_no_metal = data.hetatm_count_no_metal / data.ligand_count_no_metal
     if data.ligand_count_no_water_no_metal > 0:
         data.ligand_ratio_no_water_no_metal = data.hetatm_count_no_water_no_metal / data.ligand_count_no_water_no_metal
+
+    data.aa_ligand_count = data.ligand_count + data.aa_count
+    data.aa_ligand_count_no_water = data.ligand_count_no_water + data.aa_count
 
 
 def _calculate_resolution(data: ProteinDataFromPDBx) -> None:

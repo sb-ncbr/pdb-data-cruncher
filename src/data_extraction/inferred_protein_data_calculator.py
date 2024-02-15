@@ -4,10 +4,12 @@ from src.models import ProteinDataComplete, ProteinDataInferred
 
 
 def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
+    """
+    Calculates protein data that need multiple sources.
+    :param data: All the collected protein data so far.
+    """
     data.inferred = ProteinDataInferred()
 
-    data.inferred.aa_ligand_count = data.pdbx.ligand_count + data.pdbx.aa_count
-    data.inferred.aa_ligand_count_no_water = data.pdbx.ligand_count_no_water + data.pdbx.aa_count
     if data.vdb.ligand_count_filtered is not None:
         data.inferred.aa_ligand_count_filtered = data.vdb.ligand_count_filtered + data.pdbx.aa_count
 
