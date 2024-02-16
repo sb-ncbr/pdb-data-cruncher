@@ -27,12 +27,6 @@ class ProteinDataFromVDB:
     missing_precise: Optional[float] = None
     chira_problems_precise: Optional[float] = None
     missing_carbon_chira_errors_precise: Optional[float] = None
-    # additional counts
-    analyzed_count: Optional[int] = None
-    not_analyzed_count: Optional[int] = None
-    has_all_bad_chirality_carbon_count: Optional[int] = None
-    missing_atoms: Optional[int] = None
-    missing_rings: Optional[int] = None
     # quality ratios
     ligand_quality_ratio_analyzed: Optional[float] = None
     ligand_quality_ratio_not_analyzed: Optional[float] = None

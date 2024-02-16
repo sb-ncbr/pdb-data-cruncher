@@ -36,7 +36,7 @@ def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
         expected_protein_data,
         ignored_fields=[
             # TODO are these even needed?
-            "missing_precise",
+            "ligand_quality_ratio_missing_rings",
             "ligand_quality_ratio_analyzed",
             "ligand_quality_ratio_not_analyzed",
             "ligand_quality_ratio_missing_atoms",

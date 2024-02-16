@@ -12,7 +12,7 @@ class Difference:
     One difference (in one field) between two dataclasses.
     """
 
-    field_name: str
+    item_name: str
     expected_value: Optional[Any]
     actual_value: Optional[Any]
 
@@ -31,7 +31,7 @@ class Differences:
 
     def get_difference_description(self) -> str:
         return " | ".join(
-            [f"{diff.field_name}: expected {diff.expected_value}, got {diff.actual_value}" for diff in self.items]
+            [f"{diff.item_name}: expected {diff.expected_value}, got {diff.actual_value}" for diff in self.items]
         )
 
 

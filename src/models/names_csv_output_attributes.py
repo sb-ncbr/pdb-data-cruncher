@@ -36,7 +36,7 @@ CSV_OUTPUT_ATTRIBUTE_NAMES = {
     "ligand_quality_binary_good_chirality_carbon": "GoodLigandRatioBinary",
     "missing_carbon_chira_errors_precise": "LigandTopologyCarbonChiraProblemsPrecise",
     "ligand_quality_binary_missing_atoms_and_rings": "LigandTopologyCarbonChiraProblemsPreciseBinary",
-    "ligand_quality_ratio_missing_rings": "LigandTopologyProblemsPrecise",
+    "missing_precise": "LigandTopologyProblemsPrecise",
     "missing_precise_binary": "LigandTopologyProblemsPreciseBinary",
     "nonpolymer_weight_da": "NonpolymerWeight",
     "nonpolymer_weight_no_water_da": "NonpolymerWeightNowater",
