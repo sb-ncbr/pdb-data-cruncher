@@ -56,7 +56,7 @@ class ProteinDataFromPDBx:
     gene_source_scientific_name: Optional[list[str]] = None  # _entity_src_gen.pdbx_gene_src_scientific_name
     host_organism_scientific_name: Optional[list[str]] = None  # _entity_src_gen.pdbx_host_org_scientific_name
     # TODO these three are used for calculating resolution - they may not be used for anything else though
-    em_3d_reconstruction_resolution: Optional[float] = None  # _em_3d_reconstruction.resolution
-    refinement_resolution_high: Optional[float] = None  # _refine.ls_d_res_high
-    reflections_resolution_high: Optional[float] = None  # _reflns.d_resolution_high
+    # em_3d_reconstruction_resolution: Optional[float] = None  # _em_3d_reconstruction.resolution
+    # refinement_resolution_high: Optional[float] = None  # _refine.ls_d_res_high
+    # reflections_resolution_high: Optional[float] = None  # _reflns.d_resolution_high
 

@@ -94,9 +94,9 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
     _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
     _extract_atom_and_ligand_counts(mmcif_dict, protein_data)
     _extract_straightforward_data(mmcif_dict, protein_data)
+    _extract_data_resolution(mmcif_dict, protein_data)
     _extract_weight_data(mmcif_dict, protein_data, diagnostics)
     _calculate_additional_counts_and_ratios(protein_data)
-    _calculate_resolution(protein_data)
 
     return protein_data, diagnostics
 
@@ -307,9 +307,6 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
         data.experimental_method = experimental_method.upper()
 
     # get first item as number (there is always just one item, and it's a number)
-    data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
-    data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
-    data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
     data.crystal_grow_temperatures = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
     data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
 
@@ -324,6 +321,24 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     ambient_temperatures = mmcif_dict.get("_diffrn.ambient_temp")
     if ambient_temperatures:
         data.diffraction_ambient_temperature = [to_float(value) for value in ambient_temperatures if to_float(value)]
+
+
+def _extract_data_resolution(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
+    """
+    Extracts and determines structure resolution from the three possible locations.
+    :param mmcif_dict: Contains data from the mmcif file.
+    :param data: Collected data about this protein.
+    """
+    em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
+    refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
+    reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
+
+    if refinement_resolution_high is not None:
+        data.resolution = refinement_resolution_high
+    elif reflections_resolution_high is not None:
+        data.resolution = reflections_resolution_high
+    elif em_3d_reconstruction_resolution is not None:
+        data.resolution = em_3d_reconstruction_resolution
 
 
 def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
@@ -356,19 +371,6 @@ def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
 
     data.aa_ligand_count = data.ligand_count + data.aa_count
     data.aa_ligand_count_no_water = data.ligand_count_no_water + data.aa_count
-
-
-def _calculate_resolution(data: ProteinDataFromPDBx) -> None:
-    """
-    Determines structure resolution from the three possible locations.
-    :param data: Collected data about this protein.
-    """
-    if data.refinement_resolution_high is not None:
-        data.resolution = data.refinement_resolution_high
-    elif data.reflections_resolution_high is not None:
-        data.resolution = data.reflections_resolution_high
-    elif data.em_3d_reconstruction_resolution is not None:
-        data.resolution = data.em_3d_reconstruction_resolution
 
 
 def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[str, list[float]]) -> None:

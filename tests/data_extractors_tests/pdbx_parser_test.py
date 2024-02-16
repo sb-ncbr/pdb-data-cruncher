@@ -37,8 +37,6 @@ def unified_test_parse_pdbx(pdb_id: str, extended: bool = False):
         ignored_fields=[
             "struct_keywords_text",
             "struct_keywords_pdbx",
-            "refinement_resolution_high",
-            "reflections_resolution_high",
             "experimental_method",
             "citation_journal_abbreviation",
             "crystal_grow_methods",
@@ -48,7 +46,6 @@ def unified_test_parse_pdbx(pdb_id: str, extended: bool = False):
             "software_name",
             "gene_source_scientific_name",
             "host_organism_scientific_name",
-            "em_3d_reconstruction_resolution",
         ],  # these do not directly influence crunched_results
     )
     assert not differences.count, differences.get_difference_description()
