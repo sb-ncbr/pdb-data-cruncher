@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional, Any, get_type_hints, Union, get_args
 
 
 def to_float(value_to_convert: Any, default: Optional[float] = None) -> Optional[float]:
@@ -9,6 +9,8 @@ def to_float(value_to_convert: Any, default: Optional[float] = None) -> Optional
     :param default: Value to return when conversion fails.
     :return: Converted float, or default value.
     """
+    if value_to_convert is None:
+        return None
     if isinstance(value_to_convert, float):
         return value_to_convert
     try:
@@ -25,6 +27,8 @@ def to_int(value_to_convert: Any, default: Optional[int] = None) -> Optional[int
     :param default: Value to return when conversion fails.
     :return: Converted int, or default value.
     """
+    if value_to_convert is None:
+        return None
     if isinstance(value_to_convert, int):
         return value_to_convert
     if "e" in value_to_convert:  # to handle scientific notation
@@ -37,3 +41,19 @@ def to_int(value_to_convert: Any, default: Optional[int] = None) -> Optional[int
             return int(value_to_convert)
         except (ValueError, TypeError):
             return default
+
+
+def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
+    """
+    Get the type hint for object's field.
+    :param instance: Any object.
+    :param field_name: Name of the object's field to inspect.
+    :return: Type of the field, or None.
+    """
+    try:
+        type_hint = get_type_hints(instance)[field_name]
+        if type_hint.__origin__ == Union:  # Union in this code comes from Optional (given type, or None)
+            return get_args(type_hint)[0]
+        return type_hint
+    except (IndexError, KeyError):
+        return None

@@ -12,7 +12,7 @@ from src.constants import METAL_ELEMENT_NAMES
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass
+@dataclass(slots=True)
 class AtomSiteItem:
     """
     Holding relevant information from _atom_site for further processing.
@@ -29,7 +29,7 @@ class AtomSiteItem:
     occupancy: float
 
 
-@dataclass
+@dataclass(slots=True)
 class LigandIdentifier:
     """
     Unique combination of atom_site values to identify ligand for the purposes of PDBx parsing.
@@ -47,7 +47,7 @@ class LigandIdentifier:
         return hash((self.residue_id_auth, self.residue_name_auth, self.residue_chain_id))
 
 
-@dataclass
+@dataclass(slots=True)
 class EncounteredLigand:
     """
     Ligand found during PDBx parsing, collects information about its atoms that is then processed.
@@ -93,9 +93,10 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
 
     _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
     _extract_atom_and_ligand_counts(mmcif_dict, protein_data)
-    _calculate_additional_counts_and_ratios(protein_data)
     _extract_straightforward_data(mmcif_dict, protein_data)
+    _extract_data_resolution(mmcif_dict, protein_data)
     _extract_weight_data(mmcif_dict, protein_data, diagnostics)
+    _calculate_additional_counts_and_ratios(protein_data)
 
     return protein_data, diagnostics
 
@@ -140,8 +141,7 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
         raise PDBxParsingError("Required item _atom_site.pdbx_PDB_model_num not found in mmcif file or empty.") from ex
 
     unrelevant_model_number_present = False
-    processed_unsure_atom_ids = set()
-    repeated_atom_ids = []
+    processed_unsure_atoms = {}
 
     for atom_item in _atomsite_item_generator(mmcif_dict):
         if atom_item.model_number != only_relevant_model_number:
@@ -149,10 +149,11 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             continue
 
         if atom_item.occupancy != 1.0:  # atom could be present twice with different positions
-            if atom_item.atom_id in processed_unsure_atom_ids:  # atom with this id was already processed
-                repeated_atom_ids.append(atom_item.atom_id)
+            if atom_item.atom_id in processed_unsure_atoms.keys():  # atom with this id was already processed
+                processed_unsure_atoms[atom_item.atom_id].append(atom_item.occupancy)
                 continue
-            processed_unsure_atom_ids.add(atom_item.atom_id)
+
+            processed_unsure_atoms[atom_item.atom_id] = [atom_item.occupancy]
 
         if atom_item.is_hetatm:  # is HETATM
             ligand_identifier = LigandIdentifier(
@@ -174,15 +175,8 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             data.pdb_id,
             only_relevant_model_number,
         )
-    if len(processed_unsure_atom_ids) > 0:
-        logging.info(
-            "[%s] %s atoms with unique _atom_site.id had occupancy lower than 1.0. %s atoms were skipped "
-            "because they had the same id as already processed atom. Ids of those skipped atoms: %s.",
-            data.pdb_id,
-            len(processed_unsure_atom_ids),
-            len(repeated_atom_ids),
-            repeated_atom_ids,
-        )
+
+    _log_incomplete_atom_occupancies(data.pdb_id, processed_unsure_atoms)
 
     return list(encountered_ligands.values())
 
@@ -308,12 +302,11 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
 
     # get first item as string (there is always just one item)
     data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
-    data.experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
+    experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
+    if experimental_method is not None:
+        data.experimental_method = experimental_method.upper()
 
     # get first item as number (there is always just one item, and it's a number)
-    data.em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
-    data.refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
-    data.reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
     data.crystal_grow_temperatures = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
     data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
 
@@ -328,6 +321,24 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     ambient_temperatures = mmcif_dict.get("_diffrn.ambient_temp")
     if ambient_temperatures:
         data.diffraction_ambient_temperature = [to_float(value) for value in ambient_temperatures if to_float(value)]
+
+
+def _extract_data_resolution(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
+    """
+    Extracts and determines structure resolution from the three possible locations.
+    :param mmcif_dict: Contains data from the mmcif file.
+    :param data: Collected data about this protein.
+    """
+    em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
+    refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
+    reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
+
+    if refinement_resolution_high is not None:
+        data.resolution = refinement_resolution_high
+    elif reflections_resolution_high is not None:
+        data.resolution = reflections_resolution_high
+    elif em_3d_reconstruction_resolution is not None:
+        data.resolution = em_3d_reconstruction_resolution
 
 
 def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
@@ -357,6 +368,27 @@ def _calculate_additional_counts_and_ratios(data: ProteinDataFromPDBx) -> None:
         data.ligand_ratio_no_metal = data.hetatm_count_no_metal / data.ligand_count_no_metal
     if data.ligand_count_no_water_no_metal > 0:
         data.ligand_ratio_no_water_no_metal = data.hetatm_count_no_water_no_metal / data.ligand_count_no_water_no_metal
+
+    data.aa_ligand_count = data.ligand_count + data.aa_count
+    data.aa_ligand_count_no_water = data.ligand_count_no_water + data.aa_count
+
+
+def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[str, list[float]]) -> None:
+    """
+    Goes through given atoms with less than 1.0 occupancies, and checks, and logs all that do not have other
+    instances that would complete their occupancy to 1.0.
+    :param pdb_id: Protein Id.
+    :param processed_unsure_atoms: Dictionary with atom_id key and list of occupancy values.
+    """
+    incomplete_atom_count = 0
+    for atom_id, instance_occupancies in processed_unsure_atoms.items():
+        if sum(instance_occupancies) != 1.0:
+            logging.debug("[%s] Atom with id %s has total occupancies on positions less than 1.0. "
+                          "Occupancies: '%s'", pdb_id, atom_id, instance_occupancies)
+            incomplete_atom_count += 1
+    if incomplete_atom_count > 0:
+        logging.info("[%s] %s atoms have sum of their occupancy less than 1.0 across their possible occurrences.",
+                     pdb_id, incomplete_atom_count)
 
 
 def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:

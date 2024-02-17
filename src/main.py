@@ -1,7 +1,7 @@
 import logging
 import argparse
 
-from src.manager import Manager
+from src.data_extraction.parsing_manger import ParsingManger
 from src.config import Config, RunModeType
 
 
@@ -71,12 +71,11 @@ def run_current_test(config: Config):
     Temporary testing function.
     :param config: App config.
     """
-    pdb_id = "8ucv"
-    ligand_information = Manager.load_and_parse_ligand_stats(config)
-    rest_data = Manager.load_and_parse_rest(pdb_id, ligand_information, config)
-    pdbx_data = Manager.load_and_parse_pdbx(pdb_id, config)
-    xml_data = Manager.load_and_parse_xml_validation_report(pdb_id, ligand_information, config)
-    vdb_data = Manager.load_and_parse_validator_db_result(pdb_id, config)
+    pdb_ids = ["1dey", "2pde", "3rec", "8ucv"]
+    collected_data = []
+    for pdb_id in pdb_ids:
+        collected_data.append(ParsingManger.load_all_protein_data(pdb_id, config))
+    ParsingManger.store_protein_data_into_crunched_csv(collected_data, config)
     print("OK")
 
 

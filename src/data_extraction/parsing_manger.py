@@ -3,17 +3,21 @@ from os import path
 from typing import Optional
 
 from src.config import Config
-from src.models import LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB
-from src.data_loaders.json_file_loader import load_json_file
-from src.data_parsers.ligand_stats_parser import parse_ligand_stats
-from src.data_parsers.rest_parser import parse_rest
-from src.data_parsers.pdbx_parser import parse_pdbx
-from src.data_parsers.xml_validation_report_parser import parse_xml_validation_report
-from src.data_parsers.validator_db_result_parser import parse_validator_db_result
+from src.models import (
+    LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB, ProteinDataComplete
+)
+from src.data_extraction.json_file_loader import load_json_file
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats
+from src.data_extraction.rest_parser import parse_rest
+from src.data_extraction.pdbx_parser import parse_pdbx
+from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
+from src.data_extraction.validator_db_result_parser import parse_validator_db_result
+from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
+from src.data_extraction.crunched_data_csv_writer import create_crunched_csv_file
 from src.exception import ParsingError
 
 
-class Manager:
+class ParsingManger:
     """
     Class with static methods only aggregating file loading and parsing operations into logical groups
     for easier handling.
@@ -23,7 +27,7 @@ class Manager:
     def load_and_parse_ligand_stats(config: Config) -> Optional[dict[str, LigandInfo]]:
         """
         Load and parse ligand stats csv.
-        :param config: App configuration (with valid path_to_ligand_stats_csv.
+        :param config: App configuration (with valid path_to_ligand_stats_csv).
         :return: Loaded ligand information, or None in case of serious error.
         """
         try:
@@ -66,7 +70,7 @@ class Manager:
         :param config: App configuration.
         :return: Instance of ProteinDataFromPDBx loaded with protein data, or None in case of a serious error.
         """
-        filepath = path.join(config.path_to_pdb_files, f"{pdb_id}.cif")
+        filepath = path.join(config.path_to_pdbx_files, f"{pdb_id}.cif")
         return parse_pdbx(pdb_id, filepath)
 
     @staticmethod
@@ -99,3 +103,32 @@ class Manager:
             return None
 
         return parse_validator_db_result(pdb_id, result_json)
+
+    @staticmethod
+    def load_all_protein_data(pdb_id: str, config: Config) -> ProteinDataComplete:
+        """
+        Extract all protein data from all the sources.
+        :param pdb_id: Protein id.
+        :param config: App config.
+        :return: Collected protein data.
+        """
+        protein_data = ProteinDataComplete(pdb_id=pdb_id)
+        ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
+        protein_data.vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
+        protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
+        protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
+        protein_data.rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
+        calculate_inferred_protein_data(protein_data)
+        logging.debug("[%s] All protein data loaded", pdb_id)
+        return protein_data
+
+    @staticmethod
+    def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
+        """
+        Takes list of protein data and creates crunched csv from it.
+        :param protein_data_list: List of collected ProteinDataComplete.
+        :param config: App config.
+        :raise IrrecoverableError: If crunched csv cannot be created.
+        """
+        protein_data_as_dicts = [data.as_dict_for_csv() for data in protein_data_list]
+        create_crunched_csv_file(protein_data_as_dicts, config.crunched_data_csv_path)

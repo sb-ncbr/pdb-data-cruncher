@@ -1,14 +1,10 @@
-from os import path
-
 import pytest
 
-from src.data_parsers.ligand_stats_parser import parse_ligand_stats
-from src.data_parsers.xml_validation_report_parser import parse_xml_validation_report
-from src.models import ProteinDataFromXML
-from src.utils import to_float
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats
+from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from tests.test_constants import *
-from tests.helpers import load_data_from_crunched_results_csv, compare_dataclasses
-
+from tests.utils import compare_dataclasses
+from tests.expected_results_loader import load_expected_xml_protein_data
 
 PDB_IDS_WITHOUT_XML_VALIDATION_REPORT = ["8ckb"]
 
@@ -64,38 +60,3 @@ def assert_correct_parse_xml_with_validation_report(pdb_id: str, extended: bool 
     assert actual_protein_data
     differences = compare_dataclasses(actual_protein_data, expected_protein_data)
     assert not differences.count, differences.get_difference_description()
-
-
-def load_expected_xml_protein_data(pdb_id: str) -> ProteinDataFromXML:
-    data = load_data_from_crunched_results_csv(
-        pdb_id,
-        [
-            "highestChainBondsRMSZ",
-            "highestChainAnglesRMSZ",
-            "averageResidueRSR",
-            "averageResidueRSCC",
-            "residueRSCCoutlierRatio",
-            "averageLigandRSR",
-            "averageLigandRSCC",
-            "ligandRSCCoutlierRatio",
-            "averageLigandAngleRMSZ",
-            "averageLigandBondRMSZ",
-            "averageLigandRSCCsmallLigs",
-            "averageLigandRSCClargeLigs",
-        ],
-    )
-    return ProteinDataFromXML(
-        pdb_id=pdb_id,
-        highest_chain_bonds_rmsz=to_float(data["highestChainBondsRMSZ"]),
-        highest_chain_angles_rmsz=to_float(data["highestChainAnglesRMSZ"]),
-        average_residue_rsr=to_float(data["averageResidueRSR"]),
-        average_residue_rscc=to_float(data["averageResidueRSCC"]),
-        residue_rscc_outlier_ratio=to_float(data["residueRSCCoutlierRatio"]),
-        average_ligand_rsr=to_float(data["averageLigandRSR"]),
-        average_ligand_rscc=to_float(data["averageLigandRSCC"]),
-        ligand_rscc_outlier_ratio=to_float(data["ligandRSCCoutlierRatio"]),
-        average_ligand_angle_rmsz=to_float(data["averageLigandAngleRMSZ"]),
-        average_ligand_bond_rmsz=to_float(data["averageLigandBondRMSZ"]),
-        average_ligand_rscc_large_ligands=to_float(data["averageLigandRSCClargeLigs"]),
-        average_ligand_rscc_small_ligands=to_float(data["averageLigandRSCCsmallLigs"]),
-    )

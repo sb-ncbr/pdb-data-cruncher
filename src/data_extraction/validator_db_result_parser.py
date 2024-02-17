@@ -15,7 +15,7 @@ class SummaryCounts:
 
     analyzed: int = 0
     not_analyzed: int = 0
-    has_all_bad_chirality_c: int = 0
+    has_all_bad_chirality_carbon: int = 0
     missing_atoms: int = 0
     missing_rings: int = 0
 
@@ -28,10 +28,10 @@ class RawDataFromVDB:
     """
 
     atom_count: int = 0
-    carbon_chiral_count: int = 0
+    total_carbon_chira_count: int = 0
     atom_count_in_metal_ligands: int = 0
     missing_atoms: int = 0
-    wrong_carbon_chiral_count: int = 0
+    wrong_carbon_chira_count: int = 0
     motive_count: int = 0
     motive_count_in_metal_ligands: int = 0
     bond_count: int = 0
@@ -115,7 +115,7 @@ def _extract_raw_data_from_model_entries(
     model_atom_count = len(model_json.get("ModelAtomTypes", {}))
     model_carbon_chiral_atom_count = len(model_json.get("ChiralAtomsInfo", {}).get("Carbon", []))
     raw_data.atom_count += len(entry_jsons) * model_atom_count
-    raw_data.carbon_chiral_count += len(entry_jsons) * model_carbon_chiral_atom_count
+    raw_data.total_carbon_chira_count += len(entry_jsons) * model_carbon_chiral_atom_count
 
     if _contains_metal(model_json):
         raw_data.atom_count_in_metal_ligands += len(entry_jsons) * model_atom_count
@@ -126,7 +126,7 @@ def _extract_raw_data_from_model_entries(
         for chirality_problem in entry_json.get("ChiralityMismatches", {}).values():
             chirality_problem_split = [item for item in chirality_problem.split(" ") if item]  # skips empty parts
             if len(chirality_problem_split) > 1 and chirality_problem_split[1] == "C":
-                raw_data.wrong_carbon_chiral_count += 1
+                raw_data.wrong_carbon_chira_count += 1
 
 
 def _contains_metal(model_json: dict[str, Any]) -> bool:
@@ -166,7 +166,7 @@ def _extract_raw_data_from_model_summary(
 
     has_all_bad_chirality_carbon = to_int(summary_json.get("HasAll_BadChirality_Carbon"))
     if has_all_bad_chirality_carbon is not None:
-        raw_data.summary_counts.has_all_bad_chirality_c += has_all_bad_chirality_carbon
+        raw_data.summary_counts.has_all_bad_chirality_carbon += has_all_bad_chirality_carbon
     else:
         diagnostics.add(f"Model {model_name} has invalid 'HasAll_BadChirality_Carbon' field.")
 
@@ -178,7 +178,7 @@ def _extract_raw_data_from_model_summary(
 
     missing_rings = to_int(summary_json.get("Missing_Rings"))
     if missing_rings is not None:
-        raw_data.summary_counts.analyzed += missing_rings
+        raw_data.summary_counts.missing_rings += missing_rings
     else:
         diagnostics.add(f"Model {model_name} has invalid 'Missing_Rings' field.")
 
@@ -186,7 +186,7 @@ def _extract_raw_data_from_model_summary(
 def _process_raw_data(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
     # straightforward items
     protein_data.hetatm_count_filtered = raw_data.atom_count
-    protein_data.ligand_carbon_chiral_atom_count_filtered = raw_data.carbon_chiral_count
+    protein_data.ligand_carbon_chira_atom_count_filtered = raw_data.total_carbon_chira_count
     protein_data.ligand_count_filtered = raw_data.motive_count
     protein_data.hetatm_count_filtered_metal = raw_data.atom_count_in_metal_ligands
     protein_data.ligand_count_filtered_metal = raw_data.motive_count_in_metal_ligands
@@ -217,35 +217,35 @@ def _process_raw_data(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB
 
 
 def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
-    missing_atom_ratio = 0
+    missing_atom_ratio = 0.0
     if raw_data.atom_count > 0:
-        missing_atom_ratio = raw_data.summary_counts.missing_atoms / raw_data.atom_count
+        missing_atom_ratio = raw_data.missing_atoms / raw_data.atom_count
         protein_data.missing_precise = missing_atom_ratio
 
-    if raw_data.carbon_chiral_count > 0:
-        carbon_chiral_problems_ratio = raw_data.wrong_carbon_chiral_count / raw_data.carbon_chiral_count
-        protein_data.chiral_problems_precise = carbon_chiral_problems_ratio
-        both_problems_ratio = carbon_chiral_problems_ratio + missing_atom_ratio
-        protein_data.missing_carbon_chiral_errors_precise = both_problems_ratio
+    if raw_data.total_carbon_chira_count > 0:
+        carbon_chira_problems_ratio = raw_data.wrong_carbon_chira_count / raw_data.total_carbon_chira_count
+        protein_data.chira_problems_precise = carbon_chira_problems_ratio
+        both_problems_ratio = carbon_chira_problems_ratio + missing_atom_ratio
+        protein_data.missing_carbon_chira_errors_precise = both_problems_ratio
     else:
-        protein_data.chiral_problems_precise = 0
-        protein_data.missing_carbon_chiral_errors_precise = 0
+        protein_data.chira_problems_precise = 0.0
+        protein_data.missing_carbon_chira_errors_precise = 0.0
 
 
 def _calculate_ligand_quality_ratios_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
     missing_atoms_and_rings = raw_data.summary_counts.missing_rings + raw_data.summary_counts.missing_atoms
     has_all_good_chirality_ignore_all_except_carbon = (
-        raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_c - missing_atoms_and_rings
+            raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_carbon - missing_atoms_and_rings
     )
 
-    protein_data.ligand_quality_ratios.analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
-    protein_data.ligand_quality_ratios.not_analyzed = raw_data.summary_counts.not_analyzed / raw_data.motive_count
-    protein_data.ligand_quality_ratios.has_all_good_chirality_c_only = (
+    protein_data.ligand_quality_ratio_analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
+    protein_data.ligand_quality_ratio_not_analyzed = raw_data.summary_counts.not_analyzed / raw_data.motive_count
+    protein_data.ligand_quality_ratio_good_chirality_carbon = (
         has_all_good_chirality_ignore_all_except_carbon / raw_data.motive_count
     )
-    protein_data.ligand_quality_ratios.has_all_bad_chirality_c = (
-        raw_data.summary_counts.has_all_bad_chirality_c / raw_data.motive_count
+    protein_data.ligand_quality_ratio_bad_chirality_carbon = (
+            raw_data.summary_counts.has_all_bad_chirality_carbon / raw_data.motive_count
     )
-    protein_data.ligand_quality_ratios.missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
-    protein_data.ligand_quality_ratios.missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
-    protein_data.ligand_quality_ratios.missing_atoms_and_rings = missing_atoms_and_rings / raw_data.motive_count
+    protein_data.ligand_quality_ratio_missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
+    protein_data.ligand_quality_ratio_missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
+    protein_data.ligand_quality_missing_atoms_and_rings = missing_atoms_and_rings / raw_data.motive_count

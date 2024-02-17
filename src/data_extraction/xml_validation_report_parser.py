@@ -1,15 +1,15 @@
 import logging
 from dataclasses import dataclass
-from xml.etree.ElementTree import parse as parse_element_tree
-from xml.etree.ElementTree import Element, ParseError
 from typing import Optional
+from xml.etree.ElementTree import Element, ParseError
+from xml.etree.ElementTree import parse as parse_element_tree
 
-from src.models import ProteinDataFromXML, Diagnostics, LigandInfo
-from src.utils import to_float
+from src.models import ProteinDataFromXML, Diagnostics, LigandInfo, XML_ENTRY_ATTRIBUTE_TO_PROPERTY
+from src.utils import to_float, to_int, get_clean_type_hint
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass
+@dataclass(slots=True)
 class ModelledSubgroupsData:
     """
     Class holding information extracted from ModelledSubgroup elements form XML, to be processed into protein data.
@@ -81,12 +81,60 @@ def _parse_xml_validation_report_unsafe(
     protein_data = ProteinDataFromXML(pdb_id=pdb_id)
     diagnostics = Diagnostics()
 
+    entry_element = xml_tree.find("Entry")
+    _extract_entry_information(entry_element, protein_data, diagnostics)
     modelled_subgroups = xml_tree.findall("ModelledSubgroup")
     _process_modelled_subgroups(modelled_subgroups, ligand_infos, protein_data, diagnostics)
     modelled_entity_instances = xml_tree.findall("ModelledEntityInstance")
     _process_modelled_entity_instances(modelled_entity_instances, protein_data, diagnostics)
 
     return protein_data, diagnostics
+
+
+def _extract_entry_information(
+    entry_element: Optional[Element], protein_data: ProteinDataFromXML, diagnostics: Diagnostics
+) -> None:
+    """
+    Extracts and saves straightforward data from entry element based on constant dictionary mapping the
+    name of elements to name of protein data field.
+    :param entry_element: XML element Entry.
+    :param protein_data: Data to which information is collected.
+    :param diagnostics: Collected information about non-critical issues.
+    """
+    if entry_element is None:
+        diagnostics.add("No 'Entry' element present in XML.")
+        return
+
+    clashscore = to_float(entry_element.get("clashscore"))
+    if clashscore is not None and clashscore != -1.0:  # -1.0 is value that makes no sense for clashscore
+        protein_data.clashscore = clashscore
+
+    # for each attribute, it extracts it, retypes if neccessary, and stores into protein data
+    for xml_attribute_name, protein_data_field_name in XML_ENTRY_ATTRIBUTE_TO_PROPERTY.items():
+        attribute_value = entry_element.get(xml_attribute_name)
+        if attribute_value is None or attribute_value == "NotAvailable":
+            continue
+
+        protein_data_item_type = get_clean_type_hint(protein_data, protein_data_field_name)
+        if protein_data_item_type == int:
+            attribute_value = to_int(attribute_value)
+            if attribute_value is None:
+                diagnostics.add(
+                    f"Entry attribute {xml_attribute_name} failed to convert to int. "
+                    f"(value: {entry_element.get(xml_attribute_name)})"
+                )
+        elif protein_data_item_type == float:
+            attribute_value = to_float(attribute_value)
+            if attribute_value is None:
+                diagnostics.add(
+                    f"Entry attribute {xml_attribute_name} failed to convert to float. "
+                    f"(value: {entry_element.get(xml_attribute_name)})"
+                )
+
+        try:
+            setattr(protein_data, protein_data_field_name, attribute_value)  # sets relevant field of protein data
+        except AttributeError as ex:
+            diagnostics.add(f"Entry attribute could not be saved to protein data: {ex}")
 
 
 def _process_modelled_subgroups(

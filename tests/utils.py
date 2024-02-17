@@ -1,24 +1,23 @@
-import csv
 from dataclasses import dataclass, field, asdict
 from typing import Optional, Any
 
 import pytest
 
-from tests.test_constants import CRUNCHED_RESULTS_CSV_PATH
+from src.utils import to_float
 
 
-@dataclass
+@dataclass(slots=True)
 class Difference:
     """
     One difference (in one field) between two dataclasses.
     """
 
-    field_name: str
+    item_name: str
     expected_value: Optional[Any]
     actual_value: Optional[Any]
 
 
-@dataclass
+@dataclass(slots=True)
 class Differences:
     """
     Class holding information about differences between two dataclasses.
@@ -32,7 +31,7 @@ class Differences:
 
     def get_difference_description(self) -> str:
         return " | ".join(
-            [f"{diff.field_name}: expected {diff.expected_value}, got {diff.actual_value}" for diff in self.items]
+            [f"{diff.item_name}: expected {diff.expected_value}, got {diff.actual_value}" for diff in self.items]
         )
 
 
@@ -67,38 +66,25 @@ def compare_dataclasses(
     return differences
 
 
-def load_data_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[str, str]:
+def strings_are_equal_respecting_floats(first_string: str, second_string: str, float_precision: float = 1e-3) -> bool:
     """
-    Loads data from crunched_results.csv and returns only relevant field values.
-    :param pdb_id: PDB ID of structure data to load.
-    :param fields: Fields to exctract.
-    :return: Dict where keys are given field names, and values are extracted values (as strings).
-    :raises RuntimeError: If PDB ID is not found in csv or one or more fields are not found.
+    Compares given values as strings. If the strings are with ".", representing float values,
+    it also tries to compare them as float values.
+    :param first_string: String with first value to compare.
+    :param second_string: String with second value to compare.
+    :param float_precision: Maximum difference of floats that will still be considered as the same value.
+    :return: Bool if they are the same (given float_precision if they are floats), or not.
     """
-    with open(CRUNCHED_RESULTS_CSV_PATH, encoding="utf8") as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=";")
-        first_row = next(csv_reader)
-        relevant_row = None
-        current_row = next(csv_reader)
-        while current_row:
-            if current_row[0] == pdb_id:
-                relevant_row = current_row
-                break
-            current_row = next(csv_reader)
+    if first_string == second_string:
+        # no need to try converting if they are the same already
+        return True
 
-        if not relevant_row:
-            raise RuntimeError(f"Row with pdb_id {pdb_id} not found in csv file.")
-
-    extracted_fields = {}
-    for index, field_name in enumerate(first_row):
-        if field_name in fields:
-            if relevant_row[index] == "nan":
-                extracted_fields[field_name] = None
-            else:
-                extracted_fields[field_name] = relevant_row[index]
-
-    if len(extracted_fields) != len(fields):
-        not_found_fields = [field_name for field_name in fields if field_name not in extracted_fields]
-        raise RuntimeError(f"{len(not_found_fields)} fields not found in csv file: {not_found_fields}")
-
-    return extracted_fields
+    try:
+        # try to compare them as floats
+        first_as_float = to_float(first_string)
+        second_as_float = to_float(second_string)
+        if first_as_float is not None and second_as_float is not None:
+            return second_as_float == pytest.approx(first_as_float, rel=float_precision)
+    except (ValueError, TypeError):
+        # not floats or cannot be converted and pure compare already failed -> not the same
+        return False
