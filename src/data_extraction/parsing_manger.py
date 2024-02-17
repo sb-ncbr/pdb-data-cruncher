@@ -1,7 +1,6 @@
 import logging
 from os import path
 from typing import Optional
-import csv
 
 from src.config import Config
 from src.models import (
@@ -14,6 +13,7 @@ from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
+from src.data_extraction.crunched_data_csv_writer import create_crunched_csv_file
 from src.exception import ParsingError
 
 
@@ -124,6 +124,11 @@ class ParsingManger:
 
     @staticmethod
     def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
-        with open(config.crunched_data_csv_path, "w", encoding="utf8") as csv_output_file:
-            csv_writer = csv.writer(csv_output_file, delimiter=";")
-            # TODO
+        """
+        Takes list of protein data and creates crunched csv from it.
+        :param protein_data_list: List of collected ProteinDataComplete.
+        :param config: App config.
+        :raise IrrecoverableError: If crunched csv cannot be created.
+        """
+        protein_data_as_dicts = [data.as_dict_for_csv() for data in protein_data_list]
+        create_crunched_csv_file(protein_data_as_dicts, config.crunched_data_csv_path)

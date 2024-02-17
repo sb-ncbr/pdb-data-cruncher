@@ -31,7 +31,7 @@ class ProteinDataComplete:
         Values are returned as strings, None values are converted to CSV_INVALID_VALUE_STRING.
         :return: List with ordered protein data values.
         """
-        csv_row = {"PDB ID": self.pdb_id}
+        csv_row = {}
         for data_field_name, csv_attribute_name in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
             value_from_protein_data = self._try_to_get_value(data_field_name)
             if value_from_protein_data is None:

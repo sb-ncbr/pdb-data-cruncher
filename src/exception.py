@@ -21,3 +21,15 @@ class DataDownloadError(Exception):
     """
     Exception raised when custom download of files fails.
     """
+
+
+class IrrecoverableError(Exception):
+    """
+    Exception raised when encountering such severe issues that the program cannot continue.
+    """
+
+
+class CrunchedCsvAssemblyError(IrrecoverableError):
+    """
+    Exception raised when creation of crunched csv fails.
+    """
