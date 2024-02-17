@@ -1,10 +1,12 @@
 import logging
 from os import path
 from typing import Optional
+import csv
 
-from models import ProteinDataComplete
 from src.config import Config
-from src.models import LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB
+from src.models import (
+    LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB, ProteinDataComplete
+)
 from src.data_extraction.json_file_loader import load_json_file
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
@@ -25,7 +27,7 @@ class ParsingManger:
     def load_and_parse_ligand_stats(config: Config) -> Optional[dict[str, LigandInfo]]:
         """
         Load and parse ligand stats csv.
-        :param config: App configuration (with valid path_to_ligand_stats_csv.
+        :param config: App configuration (with valid path_to_ligand_stats_csv).
         :return: Loaded ligand information, or None in case of serious error.
         """
         try:
@@ -119,3 +121,9 @@ class ParsingManger:
         calculate_inferred_protein_data(protein_data)
         logging.debug("[%s] All protein data loaded", pdb_id)
         return protein_data
+
+    @staticmethod
+    def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
+        with open(config.crunched_data_csv_path, "w", encoding="utf8") as csv_output_file:
+            csv_writer = csv.writer(csv_output_file, delimiter=";")
+            # TODO

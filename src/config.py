@@ -51,9 +51,11 @@ class Config:
     # TIMEOUTS
     http_requests_timeout_s: int = 10
 
-    # FILE config
+    # FILE config TODO defaults with os path join
     path_to_rest_jsons: str = "./temp/structured/PDBe_REST_API_JSON/"
     path_to_pdbx_files: str = "./temp/structured/PDBe_updated_mmCIF/"
     path_to_xml_reports: str = "./temp/structured/ValRep_XML/"
     path_to_validator_db_results: str = "./temp/structured/MotiveValidator_JSON/"
     path_to_ligand_stats_csv: str = "./temp/structured/ligandStats.csv"
+
+    crunched_data_csv_path: str = "./temp/crunched_data.csv"

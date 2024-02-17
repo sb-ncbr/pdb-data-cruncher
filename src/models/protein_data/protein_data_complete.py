@@ -2,13 +2,13 @@ from dataclasses import dataclass
 from typing import Optional
 import logging
 
-from src.models.protein_data_from_vdb import ProteinDataFromVDB
-from src.models.protein_data_from_xml import ProteinDataFromXML
-from src.models.protein_data_from_rest import ProteinDataFromRest
-from src.models.protein_data_from_pdbx import ProteinDataFromPDBx
-from src.models.protein_data_inferred import ProteinDataInferred
+from src.models.protein_data.protein_data_from_vdb import ProteinDataFromVDB
+from src.models.protein_data.protein_data_from_xml import ProteinDataFromXML
+from src.models.protein_data.protein_data_from_rest import ProteinDataFromRest
+from src.models.protein_data.protein_data_from_pdbx import ProteinDataFromPDBx
+from src.models.protein_data.protein_data_inferred import ProteinDataInferred
 from src.models.names_csv_output_attributes import (
-    CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_ATTRIBUTE_ORDER, CSV_INVALID_VALUE_STRING
+    CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_INVALID_VALUE_STRING
 )
 
 
@@ -24,29 +24,23 @@ class ProteinDataComplete:
     pdbx: Optional[ProteinDataFromPDBx] = None
     inferred: Optional[ProteinDataInferred] = None
 
-    def as_row_for_csv(self) -> list[str]:
+    def as_dict_for_csv(self) -> dict[str, str]:
         """
         Transforms all the data inside the dataclass into a row to be inserted into csv. Uses
         names_csv_output_attributes for mapping field names into expected csv names and for ordering.
         Values are returned as strings, None values are converted to CSV_INVALID_VALUE_STRING.
         :return: List with ordered protein data values.
         """
-        attributes = {}
+        csv_row = {"PDB ID": self.pdb_id}
         for data_field_name, csv_attribute_name in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
-            collected_value = self._try_to_get_value(data_field_name)
-            attributes[csv_attribute_name] = collected_value
-
-        csv_row = [self.pdb_id]
-        for csv_attribute_name in CSV_ATTRIBUTE_ORDER:
-            value = attributes.get(csv_attribute_name, None)
-            if value is None:
+            value_from_protein_data = self._try_to_get_value(data_field_name)
+            if value_from_protein_data is None:
                 # should not happen, if values in names_csv_output_attributes.py are properly set
                 logging.error("CODE LOGIC ERROR: Csv attribute %s required by csv_attribute_order isn't included"
                               "in csv_output_names, thus it wasn't extracted. Invalid value assumed.",
                               csv_attribute_name)
-                value = CSV_INVALID_VALUE_STRING
-            csv_row.append(value)
-
+                value_from_protein_data = CSV_INVALID_VALUE_STRING
+            csv_row[csv_attribute_name] = value_from_protein_data
         return csv_row
 
     def _try_to_get_value(self, field_name) -> Optional[str]:

@@ -15,12 +15,6 @@ from src.utils import to_int, to_float
 from src.models import CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_ATTRIBUTE_ORDER
 
 
-def count_expected_crunched_csv_columns() -> int:
-    with open(CRUNCHED_RESULTS_CSV_PATH, encoding="utf8") as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=";")
-        return len(next(csv_reader))
-
-
 def load_first_and_relevant_row_from_csv(pdb_id: str) -> tuple[list[str], list[str]]:
     with open(CRUNCHED_RESULTS_CSV_PATH, encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=";")
@@ -43,21 +37,9 @@ def load_row_of_csv_as_dict(pdb_id: str) -> dict[str, str]:
     row_as_dict = {}
     first_row, relevant_row = load_first_and_relevant_row_from_csv(pdb_id)
     for header_name, value in zip(first_row, relevant_row):
-        row_as_dict[header_name] = value
+        if header_name:
+            row_as_dict[header_name] = value
     return row_as_dict
-
-
-def load_row_of_csv_ordered(pdb_id: str) -> list[str]:
-    row_as_dict = load_row_of_csv_as_dict(pdb_id)
-    row = [pdb_id]
-    for attribute_name in CSV_ATTRIBUTE_ORDER:
-        value = row_as_dict.get(attribute_name, None)
-        if value is None:
-            raise RuntimeError(f"Attribute {attribute_name} was expected to be in expected test crunched csv, but "
-                               f"wasn't found. This probably means that the CSV_ATTRIBUTE_ORDER has invalid values "
-                               f"and should be looked into.")
-        row.append(value)
-    return row
 
 
 def load_chosen_items_from_crunched_results_csv(pdb_id: str, fields: list[str]) -> dict[str, str]:

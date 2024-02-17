@@ -66,34 +66,25 @@ def compare_dataclasses(
     return differences
 
 
-def compare_lists_of_string_with_float_imprecision(
-    actual: list[str],
-    expected: list[str],
-    float_precision: float = 1e-3,
-) -> Differences:
+def strings_are_equal_respecting_floats(first_string: str, second_string: str, float_precision: float = 1e-3) -> bool:
     """
-    Compares all items in given lists with string values. If the strings are with ".", representing float values,
+    Compares given values as strings. If the strings are with ".", representing float values,
     it also tries to compare them as float values.
-    :param actual: List representing actual result.
-    :param expected: List representing expected result.
+    :param first_string: String with first value to compare.
+    :param second_string: String with second value to compare.
     :param float_precision: Maximum difference of floats that will still be considered as the same value.
-    :return: Found differences object.
+    :return: Bool if they are the same (given float_precision if they are floats), or not.
     """
-    differences = Differences()
-    if len(actual) != len(expected):
-        differences.items.append(Difference("list length", len(expected), len(actual)))
+    if first_string == second_string:
+        # no need to try converting if they are the same already
+        return True
 
-    for index, (actual_value, expected_value) in enumerate(zip(actual, expected)):
-        if "." in actual_value or "." in expected_value:
-            actual_float = to_float(actual_value)
-            expected_float = to_float(expected_value)
-            if actual_float is not None and expected_float is not None:
-                # compare as floats, then continue
-                if expected_float != pytest.approx(actual_float, rel=float_precision):
-                    differences.items.append(Difference(f"item index {index}", expected_value, actual_value))
-                continue
-        # not floats or cannot be converted -> normal comparison
-        if actual_value != expected_value:
-            differences.items.append(Difference(f"item index {index}", expected_value, actual_value))
-
-    return differences
+    try:
+        # try to compare them as floats
+        first_as_float = to_float(first_string)
+        second_as_float = to_float(second_string)
+        if first_as_float is not None and second_as_float is not None:
+            return second_as_float == pytest.approx(first_as_float, rel=float_precision)
+    except (ValueError, TypeError):
+        # not floats or cannot be converted and pure compare already failed -> not the same
+        return False
