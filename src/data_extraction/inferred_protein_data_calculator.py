@@ -13,6 +13,9 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
     if data.vdb.ligand_count_filtered is not None:
         data.inferred.aa_ligand_count_filtered = data.vdb.ligand_count_filtered + data.pdbx.aa_count
 
+    if data.xml is None:
+        return  # There was no XML validation file for this protein
+
     clashscore_perc = data.xml.absolute_percentile_clashscore
     rama_perc = data.xml.absolute_percentile_percent_rama_outliers
     sidechain_perc = data.xml.absolute_percentile_percent_rota_outliers
