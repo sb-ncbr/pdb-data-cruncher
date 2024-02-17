@@ -7,9 +7,7 @@ from src.models.protein_data.protein_data_from_xml import ProteinDataFromXML
 from src.models.protein_data.protein_data_from_rest import ProteinDataFromRest
 from src.models.protein_data.protein_data_from_pdbx import ProteinDataFromPDBx
 from src.models.protein_data.protein_data_inferred import ProteinDataInferred
-from src.models.names_csv_output_attributes import (
-    CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_INVALID_VALUE_STRING
-)
+from src.models.names_csv_output_attributes import CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_INVALID_VALUE_STRING
 
 
 @dataclass(slots=True)
@@ -17,6 +15,7 @@ class ProteinDataComplete:
     """
     Class holding all collected protein data.
     """
+
     pdb_id: str
     vdb: Optional[ProteinDataFromVDB] = None
     xml: Optional[ProteinDataFromXML] = None
@@ -36,9 +35,11 @@ class ProteinDataComplete:
             value_from_protein_data = self._try_to_get_value(data_field_name)
             if value_from_protein_data is None:
                 # should not happen, if values in names_csv_output_attributes.py are properly set
-                logging.error("CODE LOGIC ERROR: Csv attribute %s required by csv_attribute_order isn't included"
-                              "in csv_output_names, thus it wasn't extracted. Invalid value assumed.",
-                              csv_attribute_name)
+                logging.error(
+                    "CODE LOGIC ERROR: Csv attribute %s required by csv_attribute_order isn't included"
+                    "in csv_output_names, thus it wasn't extracted. Invalid value assumed.",
+                    csv_attribute_name,
+                )
                 value_from_protein_data = CSV_INVALID_VALUE_STRING
             csv_row[csv_attribute_name] = value_from_protein_data
         return csv_row
@@ -65,9 +66,12 @@ class ProteinDataComplete:
         if value is not None:
             return value
         # if the code got here, needed value is none of the classes, and that should not happen
-        logging.error("CODE LOGIC ERROR: Field with name %s wasn't found in any protein data classes - "
-                      "did it get renamed without changing names_csv_output_attributes? This field fails to extract"
-                      "everywhere.", field_name)
+        logging.error(
+            "CODE LOGIC ERROR: Field with name %s wasn't found in any protein data classes - "
+            "did it get renamed without changing names_csv_output_attributes? This field fails to extract"
+            "everywhere.",
+            field_name,
+        )
         return CSV_INVALID_VALUE_STRING
 
     @staticmethod

@@ -9,7 +9,7 @@ from src.models import (
     ProteinDataFromPDBx,
     ProteinDataFromRest,
     ProteinDataInferred,
-    ProteinDataComplete
+    ProteinDataComplete,
 )
 from src.utils import to_int, to_float
 from src.models import CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_ATTRIBUTE_ORDER
@@ -141,5 +141,5 @@ def load_complete_protein_data(pdb_id: str) -> ProteinDataComplete:
         rest=load_expected_rest_protein_data(pdb_id),
         vdb=load_expected_validator_db_protein_data(pdb_id),
         xml=load_expected_xml_protein_data(pdb_id),
-        inferred=load_expected_inferred_data(pdb_id)
+        inferred=load_expected_inferred_data(pdb_id),
     )

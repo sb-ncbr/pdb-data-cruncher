@@ -149,7 +149,7 @@ def _extract_atom_counts(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> l
             continue
 
         if atom_item.occupancy != 1.0:  # atom could be present twice with different positions
-            if atom_item.atom_id in processed_unsure_atoms.keys():  # atom with this id was already processed
+            if atom_item.atom_id in processed_unsure_atoms:  # atom with this id was already processed
                 processed_unsure_atoms[atom_item.atom_id].append(atom_item.occupancy)
                 continue
 
@@ -383,12 +383,19 @@ def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[s
     incomplete_atom_count = 0
     for atom_id, instance_occupancies in processed_unsure_atoms.items():
         if sum(instance_occupancies) != 1.0:
-            logging.debug("[%s] Atom with id %s has total occupancies on positions less than 1.0. "
-                          "Occupancies: '%s'", pdb_id, atom_id, instance_occupancies)
+            logging.debug(
+                "[%s] Atom with id %s has total occupancies on positions less than 1.0. Occupancies: '%s'",
+                pdb_id,
+                atom_id,
+                instance_occupancies,
+            )
             incomplete_atom_count += 1
     if incomplete_atom_count > 0:
-        logging.info("[%s] %s atoms have sum of their occupancy less than 1.0 across their possible occurrences.",
-                     pdb_id, incomplete_atom_count)
+        logging.info(
+            "[%s] %s atoms have sum of their occupancy less than 1.0 across their possible occurrences.",
+            pdb_id,
+            incomplete_atom_count,
+        )
 
 
 def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:

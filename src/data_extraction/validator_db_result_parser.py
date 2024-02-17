@@ -235,7 +235,7 @@ def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: Pro
 def _calculate_ligand_quality_ratios_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
     missing_atoms_and_rings = raw_data.summary_counts.missing_rings + raw_data.summary_counts.missing_atoms
     has_all_good_chirality_ignore_all_except_carbon = (
-            raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_carbon - missing_atoms_and_rings
+        raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_carbon - missing_atoms_and_rings
     )
 
     protein_data.ligand_quality_ratio_analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
@@ -244,7 +244,7 @@ def _calculate_ligand_quality_ratios_from_summaries(raw_data: RawDataFromVDB, pr
         has_all_good_chirality_ignore_all_except_carbon / raw_data.motive_count
     )
     protein_data.ligand_quality_ratio_bad_chirality_carbon = (
-            raw_data.summary_counts.has_all_bad_chirality_carbon / raw_data.motive_count
+        raw_data.summary_counts.has_all_bad_chirality_carbon / raw_data.motive_count
     )
     protein_data.ligand_quality_ratio_missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
     protein_data.ligand_quality_ratio_missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
