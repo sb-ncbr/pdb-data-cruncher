@@ -7,15 +7,13 @@ from tests.expected_results_loader import load_row_of_csv_as_dict
 from tests.utils import strings_are_equal_respecting_floats, Differences, Difference
 
 
-@pytest.mark.basic
-@pytest.mark.integration
+@pytest.mark.integration_basic
 @pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
 def test_full_data_extraction_basic(pdb_id: str):
     unified_test_full_data_extraction(pdb_id)
 
 
-@pytest.mark.extended
-@pytest.mark.integration
+@pytest.mark.integration_extended
 @pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
 def test_full_data_extraction_extended(pdb_id: str):
     unified_test_full_data_extraction(pdb_id, True)

@@ -59,4 +59,3 @@ class ProteinDataFromPDBx:
     # em_3d_reconstruction_resolution: Optional[float] = None  # _em_3d_reconstruction.resolution
     # refinement_resolution_high: Optional[float] = None  # _refine.ls_d_res_high
     # reflections_resolution_high: Optional[float] = None  # _reflns.d_resolution_high
-

@@ -10,7 +10,7 @@ from src.models.names_extraction_attributes import XML_ENTRY_ATTRIBUTE_TO_PROPER
 from src.models.names_csv_output_attributes import (
     CSV_INVALID_VALUE_STRING,
     CSV_ATTRIBUTE_ORDER,
-    CSV_OUTPUT_ATTRIBUTE_NAMES
+    CSV_OUTPUT_ATTRIBUTE_NAMES,
 )
 
 
@@ -26,5 +26,5 @@ __all__ = [
     "XML_ENTRY_ATTRIBUTE_TO_PROPERTY",
     "CSV_OUTPUT_ATTRIBUTE_NAMES",
     "CSV_ATTRIBUTE_ORDER",
-    "CSV_INVALID_VALUE_STRING"
+    "CSV_INVALID_VALUE_STRING",
 ]

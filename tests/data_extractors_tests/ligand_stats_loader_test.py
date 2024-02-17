@@ -6,9 +6,7 @@ from src.models import LigandInfo
 
 @pytest.mark.basic
 def test_ligands_load_correctly(mocker):
-    mock_csv = ("LigandID;heavyAtomSize;flexibility\n"
-                "000;5;0.125\n"
-                "004;11;0.1")
+    mock_csv = "LigandID;heavyAtomSize;flexibility\n000;5;0.125\n004;11;0.1"
 
     mocked_csv_open = mocker.mock_open(read_data=mock_csv)
     mocker.patch("builtins.open", mocked_csv_open)
@@ -25,9 +23,7 @@ def test_ligands_load_correctly(mocker):
 
 @pytest.mark.basic
 def test_ligands_load_skips_invalid_lines(mocker, caplog):
-    mock_csv = ("invalid first line\n"
-                "000;invalid value;0.125\n"
-                "004;11;0.1")
+    mock_csv = "invalid first line\n000;invalid value;0.125\n004;11;0.1"
 
     mocked_csv_open = mocker.mock_open(read_data=mock_csv)
     mocker.patch("builtins.open", mocked_csv_open)

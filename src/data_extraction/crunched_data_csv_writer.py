@@ -14,8 +14,9 @@ def create_crunched_csv_file(data_rows: list[dict[str, str]], path_to_crunched_c
     :raise CrunchedCsvAssemblyError: If the crunched csv could not be created.
     :return:
     """
-    logging.debug("Start of crunched csv creation into '%s'. Got %s protein data to store.",
-                  path_to_crunched_csv, len(data_rows))
+    logging.debug(
+        "Start of crunched csv creation into '%s'. Got %s protein data to store.", path_to_crunched_csv, len(data_rows)
+    )
 
     try:
         with open(path_to_crunched_csv, "w", encoding="utf8") as csv_output_file:
@@ -27,8 +28,12 @@ def create_crunched_csv_file(data_rows: list[dict[str, str]], path_to_crunched_c
                 csv_writer.writerow(data_row)
             logging.info("Protein data saved into crunched csv sucessfully. (filepath: '%s')", path_to_crunched_csv)
     except OSError as ex:
-        logging.error("Failed to open file '%s' for writing crunched csv. Reason: %s. Cannot proceed. "
-                      "See INFO level for crunched data that would have been printed.", path_to_crunched_csv, ex)
+        logging.error(
+            "Failed to open file '%s' for writing crunched csv. Reason: %s. Cannot proceed. "
+            "See INFO level for crunched data that would have been printed.",
+            path_to_crunched_csv,
+            ex,
+        )
         _log_data_rows_as_csv_string(data_rows)
         raise CrunchedCsvAssemblyError("Failed to open file for writing. Cannot create crunched csv.") from ex
 

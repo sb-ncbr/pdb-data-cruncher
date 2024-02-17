@@ -4,7 +4,12 @@ from typing import Optional
 
 from src.config import Config
 from src.models import (
-    LigandInfo, ProteinDataFromRest, ProteinDataFromPDBx, ProteinDataFromXML, ProteinDataFromVDB, ProteinDataComplete
+    LigandInfo,
+    ProteinDataFromRest,
+    ProteinDataFromPDBx,
+    ProteinDataFromXML,
+    ProteinDataFromVDB,
+    ProteinDataComplete,
 )
 from src.data_extraction.json_file_loader import load_json_file
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats

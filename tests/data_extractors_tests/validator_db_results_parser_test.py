@@ -40,6 +40,6 @@ def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
             "ligand_quality_ratio_analyzed",
             "ligand_quality_ratio_not_analyzed",
             "ligand_quality_ratio_missing_atoms",
-        ]
+        ],
     )
     assert not differences.count, differences.get_difference_description()

@@ -8,7 +8,7 @@ from tests.expected_results_loader import (
     load_expected_validator_db_protein_data,
     load_expected_pdbx_protein_data,
     load_expected_rest_protein_data,
-    load_expected_xml_protein_data
+    load_expected_xml_protein_data,
 )
 from tests.utils import compare_dataclasses
 
@@ -32,7 +32,7 @@ def unified_test_calculate_inferred_protein_data(pdb_id: str):
         pdbx=load_expected_pdbx_protein_data(pdb_id),
         rest=load_expected_rest_protein_data(pdb_id),
         vdb=load_expected_validator_db_protein_data(pdb_id),
-        xml=load_expected_xml_protein_data(pdb_id)
+        xml=load_expected_xml_protein_data(pdb_id),
     )
     expected_inferred_data = load_expected_inferred_data(pdb_id)
 
