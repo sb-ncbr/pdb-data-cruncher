@@ -110,15 +110,19 @@ class ParsingManger:
         return parse_validator_db_result(pdb_id, result_json)
 
     @staticmethod
-    def load_all_protein_data(pdb_id: str, config: Config) -> ProteinDataComplete:
+    def load_all_protein_data(
+        pdb_id: str, config: Config, ligand_stats: list[LigandInfo] = None
+    ) -> ProteinDataComplete:
         """
         Extract all protein data from all the sources.
         :param pdb_id: Protein id.
         :param config: App config.
+        :param ligand_stats: (optional) Already loaded ligand stats. If not passed, they are loaded.
         :return: Collected protein data.
         """
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
-        ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
+        if ligand_stats is None:
+            ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
         protein_data.vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
         protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)

@@ -1,5 +1,8 @@
 import logging
 import argparse
+from multiprocessing import Pool
+from datetime import timedelta
+import time
 
 from src.data_extraction.parsing_manger import ParsingManger
 from src.config import Config, RunModeType
@@ -71,12 +74,29 @@ def run_current_test(config: Config):
     Temporary testing function.
     :param config: App config.
     """
-    pdb_ids = ["1dey", "2pde", "3rec", "8ucv"]
-    collected_data = []
-    for pdb_id in pdb_ids:
-        collected_data.append(ParsingManger.load_all_protein_data(pdb_id, config))
+    pdb_ids = ["1dey", "1htq", "1i4c", "1vcr", "2dh1", "2pde", "2qz5", "3p4a", "3rec",
+               "3zpm", "4v4a", "4v43", "5dh6", "5j7v", "5qej", "5tga", "5zck", "6dwu",
+               "7as5", "7pin", "7y7a", "8ckb", "8ucv", "103d"]
+    run_full_data_extraction(pdb_ids, config)
+
+
+def run_full_data_extraction(pdb_ids: list[str], config: Config):
+    """
+    Collect all protein data from given protein IDs, run multithreaded. After the collection,
+    output the collected data into crunched csv.
+    :param pdb_ids: Ids to extract data from.
+    :param config: App config containing max threads and paths to files from which the data is extracted.
+    :return:
+    """
+    start_time = time.monotonic()
+    ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
+    with Pool(config.data_extraction_max_threads) as p:
+        collected_data = p.starmap(
+            ParsingManger.load_all_protein_data, [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids]
+        )
     ParsingManger.store_protein_data_into_crunched_csv(collected_data, config)
-    print("OK")
+    end_time = time.monotonic()
+    logging.info("Full data extraction completed in %s.", timedelta(seconds=end_time - start_time))
 
 
 if __name__ == "__main__":

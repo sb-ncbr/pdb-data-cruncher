@@ -383,12 +383,6 @@ def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[s
     incomplete_atom_count = 0
     for atom_id, instance_occupancies in processed_unsure_atoms.items():
         if sum(instance_occupancies) != 1.0:
-            logging.debug(
-                "[%s] Atom with id %s has total occupancies on positions less than 1.0. Occupancies: '%s'",
-                pdb_id,
-                atom_id,
-                instance_occupancies,
-            )
             incomplete_atom_count += 1
     if incomplete_atom_count > 0:
         logging.info(

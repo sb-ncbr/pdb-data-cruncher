@@ -65,13 +65,8 @@ class ProteinDataComplete:
         value = self._try_to_get_value_from_one_source(self.inferred, field_name)
         if value is not None:
             return value
-        # if the code got here, needed value is none of the classes, and that should not happen
-        logging.error(
-            "CODE LOGIC ERROR: Field with name %s wasn't found in any protein data classes - "
-            "did it get renamed without changing names_csv_output_attributes? This field fails to extract"
-            "everywhere.",
-            field_name,
-        )
+        # if the code got here, needed value is none of the classes - that can happen in case of completely missing
+        # xml validation file, just return invalid value for those
         return CSV_INVALID_VALUE_STRING
 
     @staticmethod

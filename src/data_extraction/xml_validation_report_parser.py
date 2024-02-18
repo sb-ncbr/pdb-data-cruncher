@@ -56,7 +56,7 @@ def parse_xml_validation_report(
         diagnostics.process_into_logging("XML parsing", pdb_id)
         return protein_data
     except OSError as ex:  # Issue with opening given file
-        logging.info("[%s] %s", pdb_id, ex)  # only INFO - some structures may not have XML validation and that's ok
+        logging.info("[%s] No XML validation report found for this pdb id.", pdb_id, ex)
         return None
     except ParseError as ex:  # XML parsing error
         logging.error("[%s] %s", pdb_id, ex)
