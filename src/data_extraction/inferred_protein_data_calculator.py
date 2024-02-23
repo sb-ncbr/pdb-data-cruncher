@@ -14,7 +14,7 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
         data.inferred.aa_ligand_count_filtered = data.vdb.ligand_count_filtered + data.pdbx.aa_count
 
     if data.xml is None:
-        return  # There was no XML validation file for this protein
+        return  # there was no XML validation file for this protein
 
     clashscore_perc = data.xml.absolute_percentile_clashscore
     rama_perc = data.xml.absolute_percentile_percent_rama_outliers
@@ -25,12 +25,14 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
         values_for_harmonic_mean = [clashscore_perc, rama_perc, sidechain_perc]
         if rna_perc is not None:
             values_for_harmonic_mean.append(rna_perc)
+        # due to the nature of harmonic mean, if any of the values is exactly 0.0, the result is 0.0 too
         data.inferred.combined_geometry_quality = harmonic_mean(values_for_harmonic_mean)
 
     r_free_perc = data.xml.absolute_percentile_dcc_r_free
     rsrz_perc = data.xml.absolute_percentile_percent_rsrz_outliers
 
     if r_free_perc is not None and rsrz_perc is not None:
+        # due to the nature of harmonic mean, if any of the values is exactly 0.0, the result is 0.0 too
         data.inferred.combined_x_ray_quality_metric = harmonic_mean([r_free_perc, rsrz_perc])
 
     if (

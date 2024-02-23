@@ -33,19 +33,5 @@ def unified_test_parse_pdbx(pdb_id: str, extended: bool = False):
     differences = compare_dataclasses(
         actual_protein_data,
         expected_protein_data,
-        # TODO these may not be used at all, check after all data collection
-        ignored_fields=[
-            "struct_keywords_text",
-            "struct_keywords_pdbx",
-            "experimental_method",
-            "citation_journal_abbreviation",
-            "crystal_grow_methods",
-            "crystal_grow_temperatures",
-            "crystal_grow_ph",
-            "diffraction_ambient_temperature",
-            "software_name",
-            "gene_source_scientific_name",
-            "host_organism_scientific_name",
-        ],  # these do not directly influence crunched_results
     )
     assert not differences.count, differences.get_difference_description()

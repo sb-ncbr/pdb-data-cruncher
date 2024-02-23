@@ -41,6 +41,5 @@ def unified_test_parse_rest(pdb_id: str, extended: bool = False):
     differences = compare_dataclasses(
         actual_protein_data,
         expected_protein_data,
-        ignored_fields=["experimental_method_class", "submission_site", "processing_site"],
     )
     assert not differences.count, differences.get_difference_description()

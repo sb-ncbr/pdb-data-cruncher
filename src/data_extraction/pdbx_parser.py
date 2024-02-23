@@ -294,33 +294,10 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     :param mmcif_dict: Mmcif dict holding information from mmcif file.
     :param data: Class that will be filled with extracted informaiton.
     """
-    # get full lists of strings
-    data.citation_journal_abbreviation = mmcif_dict.get("_citation.journal_abbrev")
-    data.software_name = mmcif_dict.get("_software.name")
-    data.gene_source_scientific_name = mmcif_dict.get("_entity_src_gen.pdbx_gene_src_scientific_name")
-    data.host_organism_scientific_name = mmcif_dict.get("_entity_src_gen.pdbx_host_org_scientific_name")
-
-    # get first item as string (there is always just one item)
-    data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
     experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
     if experimental_method is not None:
         data.experimental_method = experimental_method.upper()
-
-    # get first item as number (there is always just one item, and it's a number)
-    data.crystal_grow_temperatures = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
-    data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
-
-    # get those that need other kind of small change
     data.aa_count = len(mmcif_dict.get("_entity_poly_seq.entity_id", []))
-    struct_keywords_text = _get_first_item(mmcif_dict, "_struct_keywords.text")
-    if struct_keywords_text:
-        data.struct_keywords_text = [value.strip() for value in struct_keywords_text.split(",")]
-    crystal_growth_methods = _get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
-    if crystal_growth_methods:
-        data.crystal_grow_methods = [value.strip() for value in crystal_growth_methods.split(",")]
-    ambient_temperatures = mmcif_dict.get("_diffrn.ambient_temp")
-    if ambient_temperatures:
-        data.diffraction_ambient_temperature = [to_float(value) for value in ambient_temperatures if to_float(value)]
 
 
 def _extract_data_resolution(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
@@ -329,9 +306,9 @@ def _extract_data_resolution(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) 
     :param mmcif_dict: Contains data from the mmcif file.
     :param data: Collected data about this protein.
     """
-    em_3d_reconstruction_resolution = _get_first_float(mmcif_dict, "_em_3d_reconstruction.resolution")
-    refinement_resolution_high = _get_first_float(mmcif_dict, "_refine.ls_d_res_high")
-    reflections_resolution_high = _get_first_float(mmcif_dict, "_reflns.d_resolution_high")
+    em_3d_reconstruction_resolution = to_float(_get_first_item(mmcif_dict, "_em_3d_reconstruction.resolution"))
+    refinement_resolution_high = to_float(_get_first_item(mmcif_dict, "_refine.ls_d_res_high"))
+    reflections_resolution_high = to_float(_get_first_item(mmcif_dict, "_reflns.d_resolution_high"))
 
     if refinement_resolution_high is not None:
         data.resolution = refinement_resolution_high
@@ -381,7 +358,7 @@ def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[s
     :param processed_unsure_atoms: Dictionary with atom_id key and list of occupancy values.
     """
     incomplete_atom_count = 0
-    for atom_id, instance_occupancies in processed_unsure_atoms.items():
+    for instance_occupancies in processed_unsure_atoms.values():
         if sum(instance_occupancies) != 1.0:
             incomplete_atom_count += 1
     if incomplete_atom_count > 0:
@@ -390,32 +367,6 @@ def _log_incomplete_atom_occupancies(pdb_id: str, processed_unsure_atoms: dict[s
             pdb_id,
             incomplete_atom_count,
         )
-
-
-def _get_first_float(mmcif_dict: MMCIF2Dict, key: str) -> Optional[float]:
-    """
-    By default, MMCIF2DICT returns all values under given key as a list, even if there is only one of them.
-    This function extracts such list, and returns only the first item from it (converted to float).
-    :param mmcif_dict: Mmcif dict from pdbx file.
-    :param key: Key of item to extract.
-    :return: First item from the list from mmcif dict under given key; or None if such does not exist of if the
-    extracted value cannot be converted into valid float.
-    :raises PDBxParsingError: When multiple items are found in list under given key.
-    """
-    return to_float(_get_first_item(mmcif_dict, key))
-
-
-def _get_first_int(mmcif_dict: MMCIF2Dict, key: str) -> Optional[int]:
-    """
-    By default, MMCIF2DICT returns all values under given key as a list, even if there is only one of them.
-    This function extracts such list, and returns only the first item from it (converted to int).
-    :param mmcif_dict: Mmcif dict from pdbx file.
-    :param key: Key of item to extract.
-    :return: First item from the list from mmcif dict under given key; or None if such does not exist of if the
-    extracted value cannot be converted into valid int.
-    :raises PDBxParsingError: When multiple items are found in list under given key.
-    """
-    return to_int(_get_first_item(mmcif_dict, key))
 
 
 def _get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
@@ -430,10 +381,10 @@ def _get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
     value_list = mmcif_dict.get(key)
     if value_list and len(value_list) > 0:
         if len(value_list) != 1:
-            # TODO clause to double check the logic - can be deleted once the whole thing is run
-            raise PDBxParsingError(
-                f"DEVELOPER'S ERROR IN LOGIC: Only one relevant item in mmcif item {key} expected. Got {value_list}. "
-                f"Fix the logic in the pdbx_parser, type in protein data and wherever it is used."
+            logging.warning(
+                "Only one relevant item in mmcif item %s expected. Got %s. Other values have been ignored.",
+                key,
+                value_list
             )
         return value_list[0]
     return None

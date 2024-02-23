@@ -31,11 +31,6 @@ class ProteinDataFromVDB:
     ligand_quality_ratio_good_chirality_carbon: Optional[float] = None
     ligand_quality_ratio_bad_chirality_carbon: Optional[float] = None
     ligand_quality_missing_atoms_and_rings: Optional[float] = None
-    # TODO these seem to be arbitrary
-    ligand_quality_ratio_analyzed: Optional[float] = None
-    ligand_quality_ratio_not_analyzed: Optional[float] = None
-    ligand_quality_ratio_missing_atoms: Optional[float] = None
-    ligand_quality_ratio_missing_rings: Optional[float] = None
 
     @property
     def ligand_quality_binary_good_chirality_carbon(self) -> Optional[int]:
