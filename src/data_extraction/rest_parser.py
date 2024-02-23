@@ -278,12 +278,6 @@ def _parse_protein_summary(pdb_id: str, protein_summary_json: Any, protein_data:
     # extract basic protein information
     release_date_string = protein_summary_info.get("release_date")
     protein_data.release_date = release_date_string[:4] if release_date_string else None
-    experimental_method_classes = protein_summary_info.get("experimental_method_class")
-    protein_data.experimental_method_class = (
-        experimental_method_classes[0] if len(experimental_method_classes) >= 1 else None
-    )
-    protein_data.submission_site = protein_summary_info.get("deposition_site")
-    protein_data.processing_site = protein_summary_info.get("processing_site")
 
     # collect preferred assembly
     preferred_assembly_summary = None
