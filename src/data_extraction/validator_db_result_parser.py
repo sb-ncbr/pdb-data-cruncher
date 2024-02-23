@@ -13,8 +13,6 @@ class SummaryCounts:
     Counts extracted from Summary part of result json.
     """
 
-    analyzed: int = 0
-    not_analyzed: int = 0
     has_all_bad_chirality_carbon: int = 0
     missing_atoms: int = 0
     missing_rings: int = 0
@@ -152,18 +150,6 @@ def _extract_raw_data_from_model_summary(
     :param raw_data: Where the data is extracted to.
     :param diagnostics: Holding information about data issues.
     """
-    analyzed = to_int(summary_json.get("Analyzed"))
-    if analyzed is not None:
-        raw_data.summary_counts.analyzed += analyzed
-    else:
-        diagnostics.add(f"Model {model_name} has invalid 'Analyzed' field.")
-
-    not_analyzed = to_int(summary_json.get("NotAnalyzed"))
-    if not_analyzed is not None:
-        raw_data.summary_counts.not_analyzed += not_analyzed
-    else:
-        diagnostics.add(f"Model {model_name} has invalid 'NotAnalyzed' field.")
-
     has_all_bad_chirality_carbon = to_int(summary_json.get("HasAll_BadChirality_Carbon"))
     if has_all_bad_chirality_carbon is not None:
         raw_data.summary_counts.has_all_bad_chirality_carbon += has_all_bad_chirality_carbon
@@ -184,6 +170,11 @@ def _extract_raw_data_from_model_summary(
 
 
 def _process_raw_data(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
+    """
+    Takes raw data collected from vdb result, and transforms it into protein data we need.
+    :param raw_data: Collected data from vdb result.
+    :param protein_data: Protein data to write new information into.
+    """
     # straightforward items
     protein_data.hetatm_count_filtered = raw_data.atom_count
     protein_data.ligand_carbon_chira_atom_count_filtered = raw_data.total_carbon_chira_count
@@ -217,6 +208,11 @@ def _process_raw_data(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB
 
 
 def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
+    """
+    Takes raw data collected from vdb result (summary parts), and transforms it into protein data we need.
+    :param raw_data: Collected data from vdb result.
+    :param protein_data: Protein data to write new information into.
+    """
     missing_atom_ratio = 0.0
     if raw_data.atom_count > 0:
         missing_atom_ratio = raw_data.missing_atoms / raw_data.atom_count
@@ -233,19 +229,20 @@ def _process_raw_data_from_summaries(raw_data: RawDataFromVDB, protein_data: Pro
 
 
 def _calculate_ligand_quality_ratios_from_summaries(raw_data: RawDataFromVDB, protein_data: ProteinDataFromVDB) -> None:
+    """
+    Calculates protein information related to ligand quality from raw data.
+    :param raw_data: Collected data from vdb result.
+    :param protein_data: Protein data instance with data collected so far, where new informaiton is inserted.
+    """
     missing_atoms_and_rings = raw_data.summary_counts.missing_rings + raw_data.summary_counts.missing_atoms
     has_all_good_chirality_ignore_all_except_carbon = (
         raw_data.motive_count - raw_data.summary_counts.has_all_bad_chirality_carbon - missing_atoms_and_rings
     )
 
-    protein_data.ligand_quality_ratio_analyzed = raw_data.summary_counts.analyzed / raw_data.motive_count
-    protein_data.ligand_quality_ratio_not_analyzed = raw_data.summary_counts.not_analyzed / raw_data.motive_count
     protein_data.ligand_quality_ratio_good_chirality_carbon = (
         has_all_good_chirality_ignore_all_except_carbon / raw_data.motive_count
     )
     protein_data.ligand_quality_ratio_bad_chirality_carbon = (
         raw_data.summary_counts.has_all_bad_chirality_carbon / raw_data.motive_count
     )
-    protein_data.ligand_quality_ratio_missing_atoms = raw_data.summary_counts.missing_atoms / raw_data.motive_count
-    protein_data.ligand_quality_ratio_missing_rings = raw_data.summary_counts.missing_rings / raw_data.motive_count
     protein_data.ligand_quality_missing_atoms_and_rings = missing_atoms_and_rings / raw_data.motive_count
