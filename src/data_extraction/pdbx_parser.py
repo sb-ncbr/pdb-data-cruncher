@@ -294,33 +294,10 @@ def _extract_straightforward_data(mmcif_dict: MMCIF2Dict, data: ProteinDataFromP
     :param mmcif_dict: Mmcif dict holding information from mmcif file.
     :param data: Class that will be filled with extracted informaiton.
     """
-    # get full lists of strings
-    data.citation_journal_abbreviation = mmcif_dict.get("_citation.journal_abbrev")
-    data.software_name = mmcif_dict.get("_software.name")
-    data.gene_source_scientific_name = mmcif_dict.get("_entity_src_gen.pdbx_gene_src_scientific_name")
-    data.host_organism_scientific_name = mmcif_dict.get("_entity_src_gen.pdbx_host_org_scientific_name")
-
-    # get first item as string (there is always just one item)
-    data.struct_keywords_pdbx = _get_first_item(mmcif_dict, "_struct_keywords.pdbx_keywords")
     experimental_method = _get_first_item(mmcif_dict, "_exptl.method")
     if experimental_method is not None:
         data.experimental_method = experimental_method.upper()
-
-    # get first item as number (there is always just one item, and it's a number)
-    data.crystal_grow_temperatures = _get_first_float(mmcif_dict, "_exptl_crystal_grow.temp")
-    data.crystal_grow_ph = _get_first_float(mmcif_dict, "_exptl_crystal_grow.pH")
-
-    # get those that need other kind of small change
     data.aa_count = len(mmcif_dict.get("_entity_poly_seq.entity_id", []))
-    struct_keywords_text = _get_first_item(mmcif_dict, "_struct_keywords.text")
-    if struct_keywords_text:
-        data.struct_keywords_text = [value.strip() for value in struct_keywords_text.split(",")]
-    crystal_growth_methods = _get_first_item(mmcif_dict, "_exptl_crystal_grow.method")
-    if crystal_growth_methods:
-        data.crystal_grow_methods = [value.strip() for value in crystal_growth_methods.split(",")]
-    ambient_temperatures = mmcif_dict.get("_diffrn.ambient_temp")
-    if ambient_temperatures:
-        data.diffraction_ambient_temperature = [to_float(value) for value in ambient_temperatures if to_float(value)]
 
 
 def _extract_data_resolution(mmcif_dict: MMCIF2Dict, data: ProteinDataFromPDBx) -> None:
