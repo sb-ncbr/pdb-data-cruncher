@@ -4,6 +4,7 @@ from typing import Optional
 from xml.etree.ElementTree import Element, ParseError
 from xml.etree.ElementTree import parse as parse_element_tree
 
+from src.constants import UNKNOWN_LIGAND_NAME
 from src.models import ProteinDataFromXML, Diagnostics, LigandInfo, XML_ENTRY_ATTRIBUTE_TO_PROPERTY
 from src.utils import to_float, to_int, get_clean_type_hint
 
@@ -56,7 +57,7 @@ def parse_xml_validation_report(
         diagnostics.process_into_logging("XML parsing", pdb_id)
         return protein_data
     except OSError as ex:  # Issue with opening given file
-        logging.info("[%s] No XML validation report found for this pdb id.", pdb_id, ex)
+        logging.info("[%s] No XML validation report found for this pdb id. Reason: %s", pdb_id, ex)
         return None
     except ParseError as ex:  # XML parsing error
         logging.error("[%s] %s", pdb_id, ex)
@@ -320,7 +321,8 @@ def _process_subgroup_ligand_sizes(
             "of mogul_bonds_rmsz presence."
         )
     elif not ligand_info:
-        diagnostics.add(f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
+        if ligand_id != UNKNOWN_LIGAND_NAME:  # in case of unknown ligand, it is skipped but not logged
+            diagnostics.add(f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
     elif ligand_info.heavy_atom_count > 10:
         subgroups_data.ligand_count_11_and_above += 1
         if rscc is not None:

@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
+from src.constants import UNKNOWN_LIGAND_NAME
 from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
 from src.models import LigandInfo, ProteinDataFromRest, Diagnostics
@@ -234,13 +235,14 @@ def _process_ligand_molecule(
     else:
         # if valid chem comp id was found, ligand flexibility can be counted (if not, it isn't counted into
         # total flexibility calculation)
-        ligand_info = ligand_infos.get(suitable_chem_comp_ids[0])
+        ligand_id = suitable_chem_comp_ids[0]
+        ligand_info = ligand_infos.get(ligand_id)
         ligand_count = entity_counts.ligands.get(molecule_id)
         if ligand_info:
             ligand_flexibility_stats.count += ligand_count
             ligand_flexibility_stats.raw += ligand_info.flexibility * ligand_count
-        else:
-            diagnostics.add(f"Ligand with ID '{suitable_chem_comp_ids[0]}' was not found in ligand infos.")
+        elif ligand_id != UNKNOWN_LIGAND_NAME:  # in case of unknown ligand symbol, there is no need to log it
+            diagnostics.add(f"Ligand with ID '{ligand_id}' was not found in ligand infos.")
 
 
 def _process_water_molecule(

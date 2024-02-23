@@ -38,8 +38,8 @@ class ParsingManger:
         try:
             return parse_ligand_stats(config.path_to_ligand_stats_csv)
         except OSError as ex:
-            logging.error("Loading ligand stats failed: %s", ex)
-            return None
+            logging.error("Loading ligand stats failed: %s! All values requiring them will be none.", ex)
+            return {}
 
     @staticmethod
     def load_and_parse_rest(

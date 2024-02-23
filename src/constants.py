@@ -12,3 +12,6 @@ METAL_ELEMENT_NAMES = {
         "al", "ga", "in", "sn", "tl", "pb", "bi", "po", "fl"
 }
 # fmt: on
+
+
+UNKNOWN_LIGAND_NAME = "unl"
