@@ -5,7 +5,8 @@ from typing import Optional, Generator
 
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
-from src.models import ProteinDataFromPDBx, Diagnostics
+from src.models.protein_data import ProteinDataFromPDBx
+from src.models import Diagnostics
 from src.exception import PDBxParsingError
 from src.utils import to_float, to_int
 from src.constants import METAL_ELEMENT_NAMES

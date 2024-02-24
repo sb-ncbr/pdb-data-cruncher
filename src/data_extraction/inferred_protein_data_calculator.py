@@ -1,6 +1,6 @@
 from statistics import harmonic_mean
 
-from src.models import ProteinDataComplete, ProteinDataInferred
+from src.models.protein_data import ProteinDataComplete, ProteinDataInferred
 
 
 def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:

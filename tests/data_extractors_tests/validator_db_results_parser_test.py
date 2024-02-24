@@ -1,6 +1,6 @@
 import pytest
 
-from src.data_extraction.json_file_loader import load_json_file
+from src.file_handlers.json_file_loader import load_json_file
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from tests.test_constants import *
 from tests.utils import compare_dataclasses

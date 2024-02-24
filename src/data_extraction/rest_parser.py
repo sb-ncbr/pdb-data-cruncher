@@ -5,7 +5,8 @@ from typing import Any, Optional
 from src.constants import UNKNOWN_LIGAND_NAME
 from src.config import BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
-from src.models import LigandInfo, ProteinDataFromRest, Diagnostics
+from src.models.protein_data import ProteinDataFromRest
+from src.models import LigandInfo, Diagnostics
 from src.utils import to_float, to_int
 
 

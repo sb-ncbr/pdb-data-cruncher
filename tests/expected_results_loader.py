@@ -3,7 +3,7 @@ from dataclasses import dataclass, asdict
 from typing import get_type_hints, Optional
 
 from tests.test_constants import CRUNCHED_RESULTS_CSV_PATH
-from src.models import (
+from src.models.protein_data import (
     ProteinDataFromXML,
     ProteinDataFromVDB,
     ProteinDataFromPDBx,
