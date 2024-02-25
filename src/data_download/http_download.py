@@ -36,7 +36,7 @@ def get_response_json(address: str, get_timeout_s: int) -> dict:
             )
         return response.json()
     except requests.exceptions.RequestException as ex:
-        raise DataDownloadError(f"GET {address} failed. {ex}") from ex
+        raise DataDownloadError(f"GET {address} failed.") from ex
 
 
 def save_json_into_file(json_content: dict, new_file_path: str) -> None:
@@ -51,4 +51,4 @@ def save_json_into_file(json_content: dict, new_file_path: str) -> None:
         with open(new_file_path, "w", encoding="utf8") as outfile:
             outfile.write(json_object)
     except OSError as ex:
-        raise DataDownloadError(f"Failed to open new file location '{new_file_path}' for writing. {ex}") from ex
+        raise DataDownloadError(f"Failed to open new file location '{new_file_path}' for writing.") from ex

@@ -1,8 +1,9 @@
 import logging
 
 from src.config import Config
-from src.file_handlers.json_file_loader import load_json_file
-from src.data_transformation.default_plot_data_creator import create_default_plot_settings
+from src.file_handlers.name_translations_loader import load_familiar_names_translation
+from src.data_transformation.default_plot_settings_creator import create_default_plot_settings
+from src.data_transformation.default_plot_data_creator import create_default_plot_data
 from src.exception import ParsingError, DataTransformationError
 
 
@@ -13,28 +14,34 @@ class DataTransformManager:
     """
 
     @staticmethod
+    def create_default_plot_data(config: Config) -> None:
+        # load required data
+        # ...
+        # create default plot data
+        plot_data_lists = create_default_plot_data(
+            config.crunched_data_csv_path,
+            config.factor_pairs_autoplot_csv_path,
+        )
+        # output the plot data
+        # ...
+
+        # TODO debug only
+        print("DEBUG printing first plot data")
+        print(f"It would be in file {plot_data_lists[0].x_factor_name}+{plot_data_lists[0].y_factor_name}.json")
+        print("========")
+        print(plot_data_lists[0].to_dict())
+
+    @staticmethod
     def create_default_plot_settings(config: Config) -> None:
-        familiar_names_translation = load_familiar_names_translation(config.familiar_name_translation_path)
-        some_result = create_default_plot_settings(None, None, familiar_names_translation)
-        pass
-
-
-# TODO move to new file later
-def load_familiar_names_translation(filepath: str) -> dict[str, str]:
-    try:
-        loaded_json = load_json_file(filepath)
-        result = {}
-        for names_item in loaded_json:
-            id_name = names_item.get("ID")
-            familiar_name = names_item.get("FamiliarName")
-            if id_name is None or familiar_name is None:
-                logging.warning(
-                    "[loading names translations] Found item where one or both items (ID, FamiliarName) are "
-                    "not present. Skipped it. Item: %s",
-                    names_item
-                )
-                continue
-            result[id_name] = familiar_name
-        return result
-    except ParsingError as ex:
-        raise DataTransformationError("Failed to load names translation") from ex
+        try:
+            familiar_names_translation = load_familiar_names_translation(config.familiar_name_translation_path)
+            default_plot_settings_list = create_default_plot_settings(
+                config.factor_pairs_autoplot_csv_path,
+                familiar_names_translation
+            )
+            # TODO work in progress
+            print("This would be put into file:")
+            print([item.to_dict() for item in default_plot_settings_list])
+            logging.info("Default plot settings created sucefully.")
+        except (ParsingError, DataTransformationError) as ex:
+            logging.error(ex)

@@ -12,7 +12,7 @@ from src.models.protein_data import (
     ProteinDataComplete,
 )
 from src.utils import to_int, to_float
-from src.models import CSV_OUTPUT_ATTRIBUTE_NAMES, CSV_ATTRIBUTE_ORDER
+from src.models import CSV_OUTPUT_ATTRIBUTE_NAMES
 
 
 def load_first_and_relevant_row_from_csv(pdb_id: str) -> tuple[list[str], list[str]]:
