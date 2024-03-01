@@ -4,7 +4,8 @@ from typing import Generator, Union, Optional
 import csv
 
 from src.exception import ParsingError
-from src.utils import to_int, to_float, to_bool, to_int_or_float
+from src.utils import to_int, to_float, to_bool, to_int_or_float, get_factor_type
+from src.models.transformed import FactorPair
 
 
 @dataclass(slots=True)
@@ -56,6 +57,51 @@ def autoplot_csv_generator(filepath: str) -> Generator[AutoplotCsvItem, None, No
                 yield autoplot_item
     except OSError as ex:
         raise ParsingError("Autoplot.csv cannot be read") from ex
+
+
+def load_autoplot_factor_pairs(filepath: str) -> list[FactorPair]:
+    """
+    Load X and Y factors as factor pairs from autoplot csv.
+    :param filepath: Path to the autoplot.
+    :return: List of autoplot pairs. Each factor is represented as FactorType.
+    :raises ParsingError: In case of unrecoverable parsing error.
+    """
+    try:
+        with open(filepath, encoding="utf8") as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=";")
+            header_row = next(csv_reader)
+            # check header is as expected
+            if header_row[0] != "X" or header_row[1] != "Y":
+                raise ParsingError(
+                    f"X and Y expected in the first two columns, but got {header_row[0]} and {header_row[1]} instead."
+                )
+            autoplot_factor_pairs = _load_autoplot_factor_pairs_from_body_only(csv_reader)
+            logging.debug("Autoplot factor pairs loaded. %s pairs loaded.", len(autoplot_factor_pairs))
+            return autoplot_factor_pairs
+    except OSError as ex:
+        raise ParsingError("Autoplot.csv cannot be read") from ex
+    except IndexError as ex:
+        raise ParsingError("Autoplot.csv could not be parsed: too short lines with values") from ex
+
+
+def _load_autoplot_factor_pairs_from_body_only(csv_reader: csv.reader) -> list[FactorPair]:
+    factor_pairs = []
+
+    for row in csv_reader:
+        x_factor_type = get_factor_type(row[0])
+        y_factor_type = get_factor_type(row[1])
+        if x_factor_type is None or y_factor_type is None:
+            logging.error(
+                f"Autoplot.csv failed to extract XY factor pair because such string values were not found "
+                f"in allowed FactorTypes. X: '{row[0]}', Y: '{row[1]}'. Row skipped."
+            )
+            continue
+        factor_pairs.append(FactorPair(
+            x_factor=x_factor_type,
+            y_factor=y_factor_type,
+        ))
+
+    return factor_pairs
 
 
 def _create_autoplot_csv_item(row: list[str]) -> Optional[AutoplotCsvItem]:

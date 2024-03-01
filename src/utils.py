@@ -1,5 +1,7 @@
 from typing import Optional, Any, get_type_hints, Union, get_args
 
+from src.models import FactorType
+
 
 def to_float(value_to_convert: Any, default: Optional[float] = None) -> Optional[float]:
     """
@@ -95,3 +97,16 @@ def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
         return type_hint
     except (IndexError, KeyError):
         return None
+
+
+def get_factor_type(string_value: str) -> Optional[FactorType]:
+    """
+    Get FactorType with value as given string value. Returns None if none such exists.
+    :param string_value: Value of the factor.
+    :return: FactorType or None.
+    """
+    for factor_type in FactorType:
+        if factor_type.value == string_value:
+            return factor_type
+    return None
+

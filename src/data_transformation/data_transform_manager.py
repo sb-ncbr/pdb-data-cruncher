@@ -2,6 +2,7 @@ import logging
 
 from src.config import Config
 from src.file_handlers.name_translations_loader import load_familiar_names_translation
+from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
 from src.data_transformation.default_plot_settings_creator import create_default_plot_settings
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
 from src.exception import ParsingError, DataTransformationError
@@ -16,11 +17,12 @@ class DataTransformManager:
     @staticmethod
     def create_default_plot_data(config: Config) -> None:
         # load required data
+        factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
         # ...
         # create default plot data
         plot_data_lists = create_default_plot_data(
             config.crunched_data_csv_path,
-            config.factor_pairs_autoplot_csv_path,
+            factor_pairs,
         )
         # output the plot data
         # ...
