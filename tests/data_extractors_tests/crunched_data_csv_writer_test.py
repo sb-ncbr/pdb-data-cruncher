@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, mock_open
 
 from src.data_extraction.crunched_data_csv_writer import create_crunched_csv_file
-from src.models import CSV_ATTRIBUTE_ORDER
+from src.models import CRUNCHED_CSV_FACTOR_ORDER
 from src.exception import IrrecoverableError
 from tests.expected_results_loader import load_complete_protein_data
 from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS
@@ -23,7 +23,7 @@ def test_crunched_data_csv_gets_created_with_data():
     all_pdb_ids = BASIC_TEST_PDB_IDS + EXTENDED_TEST_PDB_IDS
     protein_data = [load_complete_protein_data(pdb_id) for pdb_id in all_pdb_ids]
     dummy_path = "dummy_path"
-    expected_header = ";".join(CSV_ATTRIBUTE_ORDER)
+    expected_header = ";".join(CRUNCHED_CSV_FACTOR_ORDER)
 
     with patch("builtins.open", mock_open()) as mock_write:
         # act
@@ -41,7 +41,7 @@ def test_crunched_data_csv_gets_created_with_data():
             write_call_args_list = write_call_args[0][0].split(";")
             pdb_id = write_call_args_list[0]
             assert pdb_id in all_pdb_ids
-            assert len(write_call_args_list) == len(CSV_ATTRIBUTE_ORDER)
+            assert len(write_call_args_list) == len(CRUNCHED_CSV_FACTOR_ORDER)
 
 
 @pytest.mark.basic
@@ -49,7 +49,7 @@ def test_crunched_data_csv_raises_on_invalid_path_and_logs(caplog):
     # arrange
     dummy_protein_data_dicts = []
     dummy_path = "dummy path"
-    expected_csv_part_in_logs = ";".join(CSV_ATTRIBUTE_ORDER)
+    expected_csv_part_in_logs = ";".join(CRUNCHED_CSV_FACTOR_ORDER)
 
     # act
     with patch("builtins.open", side_effect=FileNotFoundError()):

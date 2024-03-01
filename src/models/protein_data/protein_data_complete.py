@@ -31,17 +31,17 @@ class ProteinDataComplete:
         :return: List with ordered protein data values.
         """
         csv_row = {}
-        for data_field_name, csv_attribute_name in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
+        for data_field_name, csv_factor_type in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
             value_from_protein_data = self._try_to_get_value(data_field_name)
             if value_from_protein_data is None:
                 # should not happen, if values in names_csv_output_attributes.py are properly set
                 logging.error(
                     "CODE LOGIC ERROR: Csv attribute %s required by csv_attribute_order isn't included"
                     "in csv_output_names, thus it wasn't extracted. Invalid value assumed.",
-                    csv_attribute_name,
+                    csv_factor_type.value,
                 )
                 value_from_protein_data = CSV_INVALID_VALUE_STRING
-            csv_row[csv_attribute_name] = value_from_protein_data
+            csv_row[csv_factor_type.value] = value_from_protein_data
         return csv_row
 
     def _try_to_get_value(self, field_name) -> Optional[str]:

@@ -68,8 +68,8 @@ def load_chosen_items_from_crunched_results_csv(pdb_id: str, fields: list[str]) 
 
 
 def find_field_name_in_csv_attributes(searched_attribute_name: str):
-    for field_name, attribute_name in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
-        if attribute_name == searched_attribute_name:
+    for field_name, factor_type in CSV_OUTPUT_ATTRIBUTE_NAMES.items():
+        if factor_type.value == searched_attribute_name:
             return field_name
 
 
@@ -90,7 +90,7 @@ def fill_protein_data_with_crunched_csv_data(pdb_id: str, protein_data: dataclas
                 type_into = float
             elif expected_type == int or expected_type == Optional[int]:
                 type_into = int
-            attribute_name = CSV_OUTPUT_ATTRIBUTE_NAMES[field_name]
+            attribute_name = CSV_OUTPUT_ATTRIBUTE_NAMES[field_name].value
             csv_attributes_to_extract[attribute_name] = type_into  # and save it for extraction
 
     data = load_chosen_items_from_crunched_results_csv(pdb_id, list(csv_attributes_to_extract.keys()))

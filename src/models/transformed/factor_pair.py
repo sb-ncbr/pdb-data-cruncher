@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 
+from src.models.factor_type import FactorType
+
 
 @dataclass(slots=True)
 class FactorPair:
-    x_factor: str
-    y_factor: str
+    x_factor: FactorType
+    y_factor: FactorType
