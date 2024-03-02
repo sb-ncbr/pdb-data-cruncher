@@ -52,8 +52,22 @@ class DefaultPlotData:
     x_factor: FactorType
     y_factor: FactorType
     graph_buckets: list[DefaultPlotBucket] = field(default_factory=list)
+    structure_count: Optional[int] = None
+    x_factor_global_maximum: Union[float, int, None] = None
+    x_factor_global_minimum: Union[float, int, None] = None
+    x_factor_familiar_name: Optional[str] = None
+    y_factor_global_maximum: Union[float, int, None] = None
+    y_factor_global_minimum: Union[float, int, None] = None
+    y_factor_familiar_name: Optional[str] = None
 
     def to_dict(self):
         return {
-            "GraphBuckets": [bucket.to_dict() for bucket in self.graph_buckets]
+            "GraphBuckets": [bucket.to_dict() for bucket in self.graph_buckets],
+            "StructureCount": str(self.structure_count),
+            "XfactorGlobalMaximum": str(self.x_factor_global_maximum),
+            "XfactorGlobalMinimum": str(self.x_factor_global_minimum),
+            "XfactorName": self.x_factor_familiar_name,
+            "YfactorGlobalMaximum": str(self.y_factor_global_maximum),
+            "YfactorGlobalMinimum": str(self.y_factor_global_minimum),
+            "YfactorName": self.y_factor_familiar_name,
         }

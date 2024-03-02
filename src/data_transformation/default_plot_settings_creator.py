@@ -1,5 +1,4 @@
 from src.models.transformed import DefaultPlotSettingsItem
-from src.file_handlers.autoplot_csv_loader import AutoplotCsvItem, autoplot_csv_generator
 
 
 def create_default_plot_settings(

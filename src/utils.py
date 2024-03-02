@@ -73,6 +73,8 @@ def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = No
     :param default: Value to return when conversion fails.
     :return: Converted int, if it is int, float if number that's not finite integer, default value otherwise.
     """
+    if value_to_convert == "nan":  # the meaning on nan in data is None that should not be treated as a number
+        return default
     float_value = to_float(value_to_convert)
     if float_value is None:
         return default

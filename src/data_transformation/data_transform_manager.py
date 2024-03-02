@@ -16,22 +16,28 @@ class DataTransformManager:
 
     @staticmethod
     def create_default_plot_data(config: Config) -> None:
-        # load required data
-        factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
-        # ...
-        # create default plot data
-        plot_data_lists = create_default_plot_data(
-            config.crunched_data_csv_path,
-            factor_pairs,
-        )
-        # output the plot data
-        # ...
+        try:
+            # load required data
+            factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
+            familiar_names_translation = load_familiar_names_translation(config.familiar_name_translation_path)
+            # ...
+            # create default plot data
+            plot_data_lists = create_default_plot_data(
+                config.crunched_data_csv_path,
+                config.factor_x_plot_bucket_limits_csv_path,
+                factor_pairs,
+                familiar_names_translation
+            )
+            # output the plot data
+            # ...
 
-        # TODO debug only
-        print("DEBUG printing first plot data")
-        print(f"It would be in file {plot_data_lists[0].x_factor_name}+{plot_data_lists[0].y_factor_name}.json")
-        print("========")
-        print(plot_data_lists[0].to_dict())
+            # TODO debug only
+            print("DEBUG printing first plot data")
+            print(f"It would be in file {plot_data_lists[0].x_factor.value}+{plot_data_lists[0].y_factor.value}.json")
+            print("========")
+            print(plot_data_lists[0].to_dict())
+        except (ParsingError, DataTransformationError) as ex:
+            logging.error("Failed to create default plot data. %s", ex)
 
     @staticmethod
     def create_default_plot_settings(config: Config) -> None:

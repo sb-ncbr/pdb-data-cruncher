@@ -37,7 +37,8 @@ class RunModeType(Enum):
     EXTRACT_ALL_INTO_CRUNCHED = 10
     # ...
     CREATE_ALL = 20
-    CREATE_DEFAULT_PLOT_DATA = 21
+    CREATE_TRANSPONED_CRUNCHED = 21
+    CREATE_DEFAULT_PLOT_DATA = 22
     # ...
     TEST = 99
 
@@ -69,8 +70,10 @@ class Config:
     crunched_data_csv_path: str = "../crunched_data.csv"
 
     factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
-    factor_x_plot_value_limits_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
+    factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
     familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
 
-    output_files_path: str = path.join(path.pardir, "temp/")
+    output_files_path: str = path.join(path.pardir, "my_output/")
+    transponed_crunched_csv_name: str = "crunched_data_transponed.csv"
+
 
