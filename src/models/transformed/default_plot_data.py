@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
+from src.models import FactorType
+
 
 @dataclass(slots=True)
 class XFactorBoundary:
@@ -47,8 +49,8 @@ class DefaultPlotBucket:
 
 @dataclass(slots=True)
 class DefaultPlotData:
-    x_factor_name: str
-    y_factor_name: str
+    x_factor: FactorType
+    y_factor: FactorType
     graph_buckets: list[DefaultPlotBucket] = field(default_factory=list)
 
     def to_dict(self):
