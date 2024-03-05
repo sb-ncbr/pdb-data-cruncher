@@ -3,9 +3,10 @@ import logging
 from src.config import Config
 from src.file_handlers.name_translations_loader import load_familiar_names_translation
 from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
+from src.file_handlers.default_plot_data_file_writer import write_default_plot_data_into_zip
 from src.data_transformation.default_plot_settings_creator import create_default_plot_settings
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
-from src.exception import ParsingError, DataTransformationError
+from src.exception import ParsingError, DataTransformationError, FileWritingError
 
 
 class DataTransformManager:
@@ -16,28 +17,27 @@ class DataTransformManager:
 
     @staticmethod
     def create_default_plot_data(config: Config) -> None:
+        """
+        Create all default plot data for each factor pair from autoplot. Creates them as jsons into zip archive.
+        :param config: App configuration.
+        """
         try:
             # load required data
             factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
             familiar_names_translation = load_familiar_names_translation(config.familiar_name_translation_path)
-            # ...
             # create default plot data
-            plot_data_lists = create_default_plot_data(
+            default_plot_data_list = create_default_plot_data(
                 config.crunched_data_csv_path,
                 config.factor_x_plot_bucket_limits_csv_path,
                 factor_pairs,
                 familiar_names_translation
             )
             # output the plot data
-            # ...
-
-            # TODO debug only
-            print("DEBUG printing first plot data")
-            print(f"It would be in file {plot_data_lists[0].x_factor.value}+{plot_data_lists[0].y_factor.value}.json")
-            print("========")
-            print(plot_data_lists[0].to_dict())
-        except (ParsingError, DataTransformationError) as ex:
+            write_default_plot_data_into_zip(default_plot_data_list, config.output_files_path)
+        except (ParsingError, DataTransformationError, FileWritingError) as ex:
             logging.error("Failed to create default plot data. %s", ex)
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            logging.exception("Encountered unexpected issue: %s", ex)
 
     @staticmethod
     def create_default_plot_settings(config: Config) -> None:

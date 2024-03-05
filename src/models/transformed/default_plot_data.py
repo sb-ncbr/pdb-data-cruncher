@@ -6,13 +6,21 @@ from src.models import FactorType
 
 @dataclass(slots=True)
 class XFactorBoundary:
-    is_infinity: bool = False
+    """
+    Values represent one boundary of x factor interval.
+    """
+
     open_interval: bool = False
     value: Union[float, int, None] = None
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class DefaultPlotBucket:
+    """
+    Holds information about one plot bucket.
+    """
+
     ordinal_number: int
     structure_count: Optional[int] = None
     x_factor_from: XFactorBoundary = field(default_factory=XFactorBoundary)
@@ -25,16 +33,20 @@ class DefaultPlotBucket:
     y_factor_minimum: Union[float, int, None] = None
 
     def to_dict(self):
+        """
+        Create a dictionary out of self for default plot data json.
+        :return: The dict.
+        """
         return {
             "BucketOrdinalNumber": str(self.ordinal_number),
             "StructureCountInBucket": str(self.structure_count),
             "XfactorFrom": {
-                "XfactorFromIsInfinity": self.x_factor_from.is_infinity,
+                "XfactorFromIsInfinity": False,  # no longer used, but needs to be present for backwards compatibility
                 "XfactorFromOpenInterval": self.x_factor_from.open_interval,
                 "XfactorFromValue": str(self.x_factor_from.value),
             },
             "XfactorTo": {
-                "XfactorToIsInfinity": self.x_factor_to.is_infinity,
+                "XfactorToIsInfinity": False,  # no longer used, but needs to be present for backwards compatibility
                 "XfactorToOpenInterval": self.x_factor_to.open_interval,
                 "XfactorToValue": str(self.x_factor_to.value),
             },
@@ -47,8 +59,12 @@ class DefaultPlotBucket:
         }
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class DefaultPlotData:
+    """
+    Holds data about the whole default plot data for one factor pair combination.
+    """
     x_factor: FactorType
     y_factor: FactorType
     graph_buckets: list[DefaultPlotBucket] = field(default_factory=list)
@@ -61,6 +77,10 @@ class DefaultPlotData:
     y_factor_familiar_name: Optional[str] = None
 
     def to_dict(self):
+        """
+        Create a dictionary out of self for default plot data json.
+        :return: The dict.
+        """
         return {
             "GraphBuckets": [bucket.to_dict() for bucket in self.graph_buckets],
             "StructureCount": str(self.structure_count),

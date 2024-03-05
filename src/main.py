@@ -111,7 +111,7 @@ def run_create_all(config: Config):
 
     # DataTransformManager.create_default_plot_settings(config)
     # ...
-    logging.info("Created all necessary output files.")
+    logging.info("Phase of creating all neccessary output data has finished.")
 
 
 if __name__ == "__main__":

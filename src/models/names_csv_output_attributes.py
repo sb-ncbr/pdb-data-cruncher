@@ -9,6 +9,7 @@ Translates property name of protein data into the name it will have in the final
 The keys need to be exact name of properties of protein data classes, the values are the name of the column
 in resulting CSV. Be mindful of it when editing.
 """
+# pylint: disable=line-too-long
 CSV_OUTPUT_ATTRIBUTE_NAMES = {
     "angles_rmsz": FactorType.ANGLE_RMSZ_STRUCTURE,
     "assembly_biopolymer_count": FactorType.ASSEMBLY_BIOPOLYMER_COUNT,

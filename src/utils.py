@@ -111,4 +111,3 @@ def get_factor_type(string_value: str) -> Optional[FactorType]:
         if factor_type.value == string_value:
             return factor_type
     return None
-

@@ -75,5 +75,3 @@ class Config:
 
     output_files_path: str = path.join(path.pardir, "my_output/")
     transponed_crunched_csv_name: str = "crunched_data_transponed.csv"
-
-

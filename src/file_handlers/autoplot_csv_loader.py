@@ -21,13 +21,15 @@ def load_autoplot_factor_pairs(filepath: str) -> list[FactorPair]:
         y_factor_type = get_factor_type(y_factor_string)
         if x_factor_type is None or y_factor_type is None:
             logging.error(
-                f"Autoplot.csv failed to extract XY factor pair because such string values were not found "
-                f"in allowed FactorTypes. X: '{x_factor_string}', Y: '{y_factor_string}'. Row skipped."
+                "Autoplot.csv failed to extract XY factor pair because such string values were not found "
+                "in allowed FactorTypes. X: '%s', Y: '%s'. Row skipped.",
+                x_factor_string,
+                y_factor_string,
             )
             continue
         factor_pairs.append(FactorPair(
-            x_factor=x_factor_type,
-            y_factor=y_factor_type,
+            x=x_factor_type,
+            y=y_factor_type,
         ))
 
     return factor_pairs
