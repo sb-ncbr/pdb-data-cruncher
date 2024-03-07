@@ -21,7 +21,7 @@ def load_familiar_names_translation(filepath: str) -> dict[str, str]:
                 logging.warning(
                     "[loading names translations] Found item where one or both items (ID, FamiliarName) are "
                     "not present. Skipped it. Item: %s",
-                    names_item
+                    names_item,
                 )
                 continue
             result[id_name] = familiar_name

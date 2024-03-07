@@ -8,5 +8,6 @@ class FactorPair:
     """
     Factor pair holding factors for x and y axes.
     """
+
     x: FactorType
     y: FactorType

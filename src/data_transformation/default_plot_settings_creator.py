@@ -2,8 +2,7 @@ from src.models.transformed import DefaultPlotSettingsItem
 
 
 def create_default_plot_settings(
-        autoplot_data_filepath: str,
-        familiar_name_translations: dict[str, str]
+    autoplot_data_filepath: str, familiar_name_translations: dict[str, str]
 ) -> list[DefaultPlotSettingsItem]:
     default_plot_settings = []
     # for autoplot_item in autoplot_csv_generator(autoplot_data_filepath):

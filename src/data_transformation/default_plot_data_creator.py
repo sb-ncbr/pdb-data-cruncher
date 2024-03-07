@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 
 from src.models.transformed import DefaultPlotBucket, DefaultPlotData, FactorPair
-from src.models import FactorType
 from src.exception import ParsingError, DataTransformationError
 
 
@@ -14,6 +13,7 @@ class WorkingBucket:
     """
     Represents data about one bucket as they are extracted, before they are processed into a DefaultPlotBucket.
     """
+
     interval: pd.Interval
     factor_pair: FactorPair
     structure_count: int = 0
@@ -35,10 +35,10 @@ class WorkingBucket:
 
 
 def create_default_plot_data(
-        crunched_csv_filepath: str,
-        x_factor_bucket_limits_filepath: str,
-        factor_pairs: list[FactorPair],
-        familiar_names_translation: dict[str, str]
+    crunched_csv_filepath: str,
+    x_factor_bucket_limits_filepath: str,
+    factor_pairs: list[FactorPair],
+    familiar_names_translation: dict[str, str],
 ) -> list[DefaultPlotData]:
     """
     Create default plot data for all given factor pairs.
@@ -56,20 +56,18 @@ def create_default_plot_data(
     failed_factor_pairs_count = 0
 
     for factor_pair in factor_pairs:
-        logging.debug(
-            "[%s+%s] Processing default plot data for pair", factor_pair.x.value, factor_pair.y.value
-        )
+        logging.debug("[%s+%s] Processing default plot data for pair", factor_pair.x.value, factor_pair.y.value)
 
         try:
+            # get only the relevant part of crunched data
             factor_pair_crunched_df = crunched_df[[factor_pair.x.value, factor_pair.y.value]].dropna()
+            # extract and transform interval buckets relevant to current factor on x
             x_bucket_limit_series = bucket_limits_df[factor_pair.x.value].dropna()
             _add_inf_boundaries_to_bucket_timits(x_bucket_limit_series)
             x_bucket_intervals = pd.IntervalIndex.from_breaks(x_bucket_limit_series, closed="left")
+            # extract the default plot data
             single_plot_data = _create_default_plot_data_for_factor_pair(
-                factor_pair,
-                factor_pair_crunched_df,
-                x_bucket_intervals,
-                familiar_names_translation
+                factor_pair, factor_pair_crunched_df, x_bucket_intervals, familiar_names_translation
             )
             default_plot_data.append(single_plot_data)
         except (KeyError, ValueError) as ex:
@@ -78,7 +76,7 @@ def create_default_plot_data(
                 factor_pair.x.value,
                 factor_pair.y.value,
                 ex.__class__.__name__,
-                str(ex)
+                str(ex),
             )
             failed_factor_pairs_count += 1
 
@@ -94,7 +92,7 @@ def _create_default_plot_data_for_factor_pair(
     factor_pair: FactorPair,
     crunched_df: pd.DataFrame,
     x_bucket_intervals: pd.IntervalIndex,
-    familiar_names_translation: dict[str, str]
+    familiar_names_translation: dict[str, str],
 ) -> DefaultPlotData:
     """
     Create default plot data for given factor pair.
@@ -115,8 +113,9 @@ def _create_default_plot_data_for_factor_pair(
     _calculate_overall_default_plot_data_stats(factor_pair, crunched_df, default_plot_data)
     # cut the dataframe into bins and add column with information about into which bucket it belongs
     crunched_df["bucket"] = pd.cut(crunched_df[factor_pair.x.value], bins=x_bucket_intervals)
+    # disable pylint because the solution it sugest is in fact not equivalent
+    # pylint: disable=unnecessary-comprehension
     # group the data by the buckets
-    # pylint: disable=unnecessary-comprehension  -- the short form it sugest does not work
     buckets_of_data = {bucket: group for bucket, group in crunched_df.groupby("bucket", observed=True)}
     # count empty buckets
     _count_and_log_empty_buckets(buckets_of_data, x_bucket_intervals, factor_pair)
@@ -126,8 +125,9 @@ def _create_default_plot_data_for_factor_pair(
             interval=bucket_interval,
             factor_pair=factor_pair,
             structure_count=len(bucket_df[factor_pair.x.value]),
-            data=bucket_df[[factor_pair.x.value, factor_pair.y.value]]
-        ) for bucket_interval, bucket_df in buckets_of_data.items()
+            data=bucket_df[[factor_pair.x.value, factor_pair.y.value]],
+        )
+        for bucket_interval, bucket_df in buckets_of_data.items()
     ]
     # find missing intervals between buckets, and extend neighbouring buckets over them if they are in the middle
     _remove_gaps_from_missing_intervals(working_buckets)
@@ -169,7 +169,10 @@ def _count_and_log_empty_buckets(
     if missing_intervals:
         logging.info(
             "[%s+%s] %s interval(s) had no structures. Intervals: %s",
-            factor_pair.x.value, factor_pair.y.value, len(missing_intervals), missing_intervals
+            factor_pair.x.value,
+            factor_pair.y.value,
+            len(missing_intervals),
+            missing_intervals,
         )
 
 
@@ -234,12 +237,16 @@ def _merge_buckets(left_bucket: WorkingBucket, right_bucket: WorkingBucket) -> W
     """
     logging.debug(
         "Merged buckets %s and %s (had %s and %s structures)",
-        left_bucket.interval, right_bucket.interval, left_bucket.structure_count, right_bucket.structure_count)
+        left_bucket.interval,
+        right_bucket.interval,
+        left_bucket.structure_count,
+        right_bucket.structure_count,
+    )
     return WorkingBucket(
         interval=_join_intervals(left_bucket.interval, right_bucket.interval),
         factor_pair=left_bucket.factor_pair,
         structure_count=left_bucket.structure_count + right_bucket.structure_count,
-        data=pd.concat([left_bucket.data, right_bucket.data], axis=0)
+        data=pd.concat([left_bucket.data, right_bucket.data], axis=0),
     )
 
 
@@ -312,11 +319,7 @@ def _join_intervals(left: pd.Interval, right: pd.Interval) -> pd.Interval:
     elif right.closed_right:
         closedness = "right"
 
-    return pd.Interval(
-        left=left.left,
-        right=right.right,
-        closed=closedness
-    )
+    return pd.Interval(left=left.left, right=right.right, closed=closedness)
 
 
 def _add_inf_boundaries_to_bucket_timits(bucket_limit_series: pd.Series):
@@ -324,11 +327,6 @@ def _add_inf_boundaries_to_bucket_timits(bucket_limit_series: pd.Series):
     Ignores the first arbitrary value, inserts -inf instead of it. Adds +inf at the end.
     :param bucket_limit_series: Bucket limits series.
     """
-    if bucket_limit_series[0] != -0.01:
-        logging.warning(
-            "First value of x factor bucket limits from csv is assumed to be arbitrary and is replaced by -inf. But the"
-            " value found was %s instead of -0.01. Still replacing it by -inf. This may not be the desired behaviour."
-        )
     bucket_limit_series[0] = -np.inf
     bucket_limit_series[bucket_limit_series.index[-1] + 1] = np.inf  # add inf to the index +1 than the highest index
 

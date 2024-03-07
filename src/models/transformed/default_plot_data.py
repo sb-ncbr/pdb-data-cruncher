@@ -41,9 +41,9 @@ class DefaultPlotBucket:
         x_rounding = round_relative
         y_rounding = round_relative
         if x_is_release_date:  # release date always needs round to whole number
-            x_rounding = lambda x: round(x)
+            x_rounding = round
         if y_is_release_date:
-            y_rounding = lambda y: round(y)
+            y_rounding = round
 
         return {
             "BucketOrdinalNumber": str(self.ordinal_number),
@@ -73,6 +73,7 @@ class DefaultPlotData:
     """
     Holds data about the whole default plot data for one factor pair combination.
     """
+
     x_factor: FactorType
     y_factor: FactorType
     graph_buckets: list[DefaultPlotBucket] = field(default_factory=list)

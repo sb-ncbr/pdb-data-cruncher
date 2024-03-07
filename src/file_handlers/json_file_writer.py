@@ -4,6 +4,7 @@ from typing import Any
 from src.exception import FileWritingError
 
 
+# TODO may be obsolete
 def write_json_file(path_to_file: str, json_to_write: Any) -> None:
     """
     Writes given json into file as json with encoding utf-8.

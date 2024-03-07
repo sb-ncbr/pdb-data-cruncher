@@ -385,7 +385,7 @@ def _get_first_item(mmcif_dict: MMCIF2Dict, key: str) -> Optional[str]:
             logging.warning(
                 "Only one relevant item in mmcif item %s expected. Got %s. Other values have been ignored.",
                 key,
-                value_list
+                value_list,
             )
         return value_list[0]
     return None

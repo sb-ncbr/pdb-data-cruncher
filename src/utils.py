@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 from typing import Optional, Any, get_type_hints, Union, get_args
 
 from src.models import FactorType
@@ -115,6 +116,12 @@ def get_factor_type(string_value: str) -> Optional[FactorType]:
 
 
 def round_relative(number_to_round: Union[int, float], significant_decimal_places: int = 3) -> float:
+    """
+
+    :param number_to_round:
+    :param significant_decimal_places:
+    :return:
+    """
     if significant_decimal_places < 1:
         raise ValueError("Significant decimal places value needs to be at least 1.")
 
@@ -126,3 +133,11 @@ def round_relative(number_to_round: Union[int, float], significant_decimal_place
 
     round_to = math.ceil(-math.log10(abs(number_to_round))) + significant_decimal_places - 1
     return round(number_to_round, round_to)
+
+
+def get_formatted_date() -> str:
+    """
+    Get current date in the format %Y%m%d (eg. 20240101)
+    :return: The string with the date.
+    """
+    return datetime.now().strftime("%Y%m%d")

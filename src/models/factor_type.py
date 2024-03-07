@@ -6,6 +6,7 @@ class FactorType(Enum):
     Factor type for inner representation with value that must be used in that form exactly in output files.
     This is the source of truth for crunched.csv names.
     """
+
     PDB_ID = "PDB ID"
     RESOLUTION = "resolution"
     RELEASE_DATE = "releaseDate"
