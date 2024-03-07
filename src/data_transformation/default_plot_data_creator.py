@@ -73,7 +73,7 @@ def create_default_plot_data(
             )
             default_plot_data.append(single_plot_data)
         except (KeyError, ValueError) as ex:
-            logging.warning(
+            logging.error(
                 "[%s+%s] failed to create default data. %s: %s",
                 factor_pair.x.value,
                 factor_pair.y.value,
@@ -324,6 +324,11 @@ def _add_inf_boundaries_to_bucket_timits(bucket_limit_series: pd.Series):
     Ignores the first arbitrary value, inserts -inf instead of it. Adds +inf at the end.
     :param bucket_limit_series: Bucket limits series.
     """
+    if bucket_limit_series[0] != -0.01:
+        logging.warning(
+            "First value of x factor bucket limits from csv is assumed to be arbitrary and is replaced by -inf. But the"
+            " value found was %s instead of -0.01. Still replacing it by -inf. This may not be the desired behaviour."
+        )
     bucket_limit_series[0] = -np.inf
     bucket_limit_series[bucket_limit_series.index[-1] + 1] = np.inf  # add inf to the index +1 than the highest index
 
