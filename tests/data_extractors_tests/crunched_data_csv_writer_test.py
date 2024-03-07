@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, mock_open
 
-from src.data_extraction.crunched_data_csv_writer import create_crunched_csv_file
+from src.file_handlers.crunched_data_csv_writer import create_crunched_csv_file
 from src.models import CRUNCHED_CSV_FACTOR_ORDER
 from src.exception import IrrecoverableError
 from tests.expected_results_loader import load_complete_protein_data
