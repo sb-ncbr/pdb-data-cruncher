@@ -283,18 +283,10 @@ def _create_final_plot_bucket(working_bucket: WorkingBucket, ordinal_number: int
         final_bucket.x_factor_to.open_interval = working_bucket.interval.open_right
         final_bucket.x_factor_to.value = working_bucket.interval.right
 
-    if working_bucket.factor_pair.y == FactorType.RELEASE_DATE:
-        # round values only for release date because they represent years
-        final_bucket.y_factor_average = round(working_bucket.y_factor_data.mean())
-        final_bucket.y_factor_high_quartile = round(working_bucket.y_factor_data.quantile(0.75))
-        final_bucket.y_factor_low_quartile = round(working_bucket.y_factor_data.quantile(0.25))
-        final_bucket.y_factor_median = round(working_bucket.y_factor_data.median())
-    else:
-        final_bucket.y_factor_average = working_bucket.y_factor_data.mean()
-        final_bucket.y_factor_high_quartile = working_bucket.y_factor_data.quantile(0.75)
-        final_bucket.y_factor_low_quartile = working_bucket.y_factor_data.quantile(0.25)
-        final_bucket.y_factor_median = working_bucket.y_factor_data.median()
-
+    final_bucket.y_factor_average = working_bucket.y_factor_data.mean()
+    final_bucket.y_factor_high_quartile = working_bucket.y_factor_data.quantile(0.75)
+    final_bucket.y_factor_low_quartile = working_bucket.y_factor_data.quantile(0.25)
+    final_bucket.y_factor_median = working_bucket.y_factor_data.median()
     final_bucket.y_factor_maximum = working_bucket.y_factor_data.max()
     final_bucket.y_factor_minimum = working_bucket.y_factor_data.min()
 

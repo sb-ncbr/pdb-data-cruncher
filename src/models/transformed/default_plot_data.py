@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional, Union
 
 from src.models import FactorType
+from src.utils import round_relative
 
 
 @dataclass(slots=True)
@@ -32,30 +33,37 @@ class DefaultPlotBucket:
     y_factor_median: Union[float, int, None] = None
     y_factor_minimum: Union[float, int, None] = None
 
-    def to_dict(self):
+    def to_dict(self, x_is_release_date: bool = False, y_is_release_date: bool = False):
         """
         Create a dictionary out of self for default plot data json.
         :return: The dict.
         """
+        x_rounding = round_relative
+        y_rounding = round_relative
+        if x_is_release_date:  # release date always needs round to whole number
+            x_rounding = lambda x: round(x)
+        if y_is_release_date:
+            y_rounding = lambda y: round(y)
+
         return {
             "BucketOrdinalNumber": str(self.ordinal_number),
             "StructureCountInBucket": str(self.structure_count),
             "XfactorFrom": {
                 "XfactorFromIsInfinity": False,  # no longer used, but needs to be present for backwards compatibility
                 "XfactorFromOpenInterval": self.x_factor_from.open_interval,
-                "XfactorFromValue": str(self.x_factor_from.value),
+                "XfactorFromValue": str(x_rounding(self.x_factor_from.value)),
             },
             "XfactorTo": {
                 "XfactorToIsInfinity": False,  # no longer used, but needs to be present for backwards compatibility
                 "XfactorToOpenInterval": self.x_factor_to.open_interval,
-                "XfactorToValue": str(self.x_factor_to.value),
+                "XfactorToValue": str(x_rounding(self.x_factor_to.value)),
             },
-            "YfactorAverage": str(self.y_factor_average),
-            "YfactorHighQuartile": str(self.y_factor_high_quartile),
-            "YfactorLowQuartile": str(self.y_factor_low_quartile),
-            "YfactorMaximum": str(self.y_factor_maximum),
-            "YfactorMedian": str(self.y_factor_median),
-            "YfactorMinimum": str(self.y_factor_minimum),
+            "YfactorAverage": str(y_rounding(self.y_factor_average)),
+            "YfactorHighQuartile": str(y_rounding(self.y_factor_high_quartile)),
+            "YfactorLowQuartile": str(y_rounding(self.y_factor_low_quartile)),
+            "YfactorMaximum": str(y_rounding(self.y_factor_maximum)),
+            "YfactorMedian": str(y_rounding(self.y_factor_median)),
+            "YfactorMinimum": str(y_rounding(self.y_factor_minimum)),
         }
 
 
@@ -81,13 +89,15 @@ class DefaultPlotData:
         Create a dictionary out of self for default plot data json.
         :return: The dict.
         """
+        x_is_release_date = self.x_factor == FactorType.RELEASE_DATE
+        y_is_release_date = self.y_factor == FactorType.RELEASE_DATE
         return {
-            "GraphBuckets": [bucket.to_dict() for bucket in self.graph_buckets],
+            "GraphBuckets": [bucket.to_dict(x_is_release_date, y_is_release_date) for bucket in self.graph_buckets],
             "StructureCount": str(self.structure_count),
-            "XfactorGlobalMaximum": str(self.x_factor_global_maximum),
-            "XfactorGlobalMinimum": str(self.x_factor_global_minimum),
+            "XfactorGlobalMaximum": str(round_relative(self.x_factor_global_maximum)),
+            "XfactorGlobalMinimum": str(round_relative(self.x_factor_global_minimum)),
             "XfactorName": self.x_factor_familiar_name,
-            "YfactorGlobalMaximum": str(self.y_factor_global_maximum),
-            "YfactorGlobalMinimum": str(self.y_factor_global_minimum),
+            "YfactorGlobalMaximum": str(round_relative(self.y_factor_global_maximum)),
+            "YfactorGlobalMinimum": str(round_relative(self.y_factor_global_minimum)),
             "YfactorName": self.y_factor_familiar_name,
         }

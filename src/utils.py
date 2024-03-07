@@ -1,3 +1,4 @@
+import math
 from typing import Optional, Any, get_type_hints, Union, get_args
 
 from src.models import FactorType
@@ -111,3 +112,17 @@ def get_factor_type(string_value: str) -> Optional[FactorType]:
         if factor_type.value == string_value:
             return factor_type
     return None
+
+
+def round_relative(number_to_round: Union[int, float], significant_decimal_places: int = 3) -> float:
+    if significant_decimal_places < 1:
+        raise ValueError("Significant decimal places value needs to be at least 1.")
+
+    if isinstance(number_to_round, int) or number_to_round.is_integer():  # has no decimal places at all
+        return number_to_round
+
+    if number_to_round > 100:  # has three significant decimal places in the whole part
+        return round(number_to_round)
+
+    round_to = math.ceil(-math.log10(abs(number_to_round))) + significant_decimal_places - 1
+    return round(number_to_round, round_to)
