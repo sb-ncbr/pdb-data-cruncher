@@ -1,7 +1,7 @@
 import logging
 from csv import DictWriter
 
-from src.models import CSV_ATTRIBUTE_ORDER
+from src.models import CRUNCHED_CSV_FACTOR_ORDER
 from src.exception import CrunchedCsvAssemblyError
 
 
@@ -21,7 +21,7 @@ def create_crunched_csv_file(data_rows: list[dict[str, str]], path_to_crunched_c
     try:
         with open(path_to_crunched_csv, "w", encoding="utf8") as csv_output_file:
             csv_writer = DictWriter(
-                csv_output_file, delimiter=";", fieldnames=CSV_ATTRIBUTE_ORDER, extrasaction="ignore"
+                csv_output_file, delimiter=";", fieldnames=CRUNCHED_CSV_FACTOR_ORDER, extrasaction="ignore"
             )
             csv_writer.writeheader()
             for data_row in data_rows:
@@ -39,9 +39,9 @@ def create_crunched_csv_file(data_rows: list[dict[str, str]], path_to_crunched_c
 
 
 def _log_data_rows_as_csv_string(data_rows: list[dict[str, str]]) -> None:
-    rows = [";".join(CSV_ATTRIBUTE_ORDER)]
+    rows = [";".join(CRUNCHED_CSV_FACTOR_ORDER)]
     for data_row in data_rows:
-        row = [data_row.get(csv_attribute) for csv_attribute in CSV_ATTRIBUTE_ORDER]
+        row = [data_row.get(csv_attribute) for csv_attribute in CRUNCHED_CSV_FACTOR_ORDER]
         rows.append(";".join(row))
     rows_as_string = "\n".join(rows)
     logging.info("%s", rows_as_string)

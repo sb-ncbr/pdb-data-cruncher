@@ -1,6 +1,6 @@
 import pytest
 
-from src.data_extraction.json_file_loader import load_json_file
+from src.file_handlers.json_file_loader import load_json_file
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
 from tests.utils import compare_dataclasses

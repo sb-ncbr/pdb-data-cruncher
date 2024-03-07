@@ -3,22 +3,22 @@ from os import path
 from typing import Optional
 
 from src.config import Config
-from src.models import (
-    LigandInfo,
+from src.models import LigandInfo
+from src.models.protein_data import (
     ProteinDataFromRest,
     ProteinDataFromPDBx,
     ProteinDataFromXML,
     ProteinDataFromVDB,
     ProteinDataComplete,
 )
-from src.data_extraction.json_file_loader import load_json_file
+from src.file_handlers.json_file_loader import load_json_file
+from src.file_handlers.crunched_data_csv_writer import create_crunched_csv_file
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
 from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
-from src.data_extraction.crunched_data_csv_writer import create_crunched_csv_file
 from src.exception import ParsingError
 
 

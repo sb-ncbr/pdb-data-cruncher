@@ -1,4 +1,8 @@
+import math
+from datetime import datetime
 from typing import Optional, Any, get_type_hints, Union, get_args
+
+from src.models import FactorType
 
 
 def to_float(value_to_convert: Any, default: Optional[float] = None) -> Optional[float]:
@@ -10,7 +14,7 @@ def to_float(value_to_convert: Any, default: Optional[float] = None) -> Optional
     :return: Converted float, or default value.
     """
     if value_to_convert is None:
-        return None
+        return default
     if isinstance(value_to_convert, float):
         return value_to_convert
     try:
@@ -28,7 +32,7 @@ def to_int(value_to_convert: Any, default: Optional[int] = None) -> Optional[int
     :return: Converted int, or default value.
     """
     if value_to_convert is None:
-        return None
+        return default
     if isinstance(value_to_convert, int):
         return value_to_convert
     if "e" in value_to_convert:  # to handle scientific notation
@@ -41,6 +45,46 @@ def to_int(value_to_convert: Any, default: Optional[int] = None) -> Optional[int
             return int(value_to_convert)
         except (ValueError, TypeError):
             return default
+
+
+def to_bool(value_to_convert: Any, default: Optional[bool] = None) -> Optional[bool]:
+    """
+    Safe way to convert to bool. If the conversion fails due to ValueError or TypeError, returns default value
+    instead. Takes string case insensitively, off/on and 0/1.
+    :param value_to_convert: String to be converted to bool.
+    :param default: Value to return when conversion fails (None by default).
+    :return: Converted bool, or default value.
+    """
+    if value_to_convert is None:
+        return default
+    if isinstance(value_to_convert, bool):
+        return value_to_convert
+
+    if value_to_convert in ["true", "TRUE", "True", "on", "1", 1]:
+        return True
+    if value_to_convert in ["false", "FALSE", "False", "off", "0", 0]:
+        return False
+    return default
+
+
+def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = None) -> Union[float, int, None]:
+    """
+    Safe way to convert to int or float, when unsure which type it is. If the conversion fails due to ValueError
+    or TypeError, returns default value instead.
+    :param value_to_convert: String to be converted to int or float.
+    :param default: Value to return when conversion fails.
+    :return: Converted int, if it is int, float if number that's not finite integer, default value otherwise.
+    """
+    if value_to_convert == "nan":  # the meaning on nan in data is None that should not be treated as a number
+        return default
+    float_value = to_float(value_to_convert)
+    if float_value is None:
+        return default
+    if float_value.is_integer():
+        int_value = to_int(value_to_convert)
+        if int_value is not None:
+            return int_value
+    return float_value
 
 
 def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
@@ -57,3 +101,43 @@ def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
         return type_hint
     except (IndexError, KeyError):
         return None
+
+
+def get_factor_type(string_value: str) -> Optional[FactorType]:
+    """
+    Get FactorType with value as given string value. Returns None if none such exists.
+    :param string_value: Value of the factor.
+    :return: FactorType or None.
+    """
+    for factor_type in FactorType:
+        if factor_type.value == string_value:
+            return factor_type
+    return None
+
+
+def round_relative(number_to_round: Union[int, float], significant_decimal_places: int = 3) -> float:
+    """
+
+    :param number_to_round:
+    :param significant_decimal_places:
+    :return:
+    """
+    if significant_decimal_places < 1:
+        raise ValueError("Significant decimal places value needs to be at least 1.")
+
+    if isinstance(number_to_round, int) or number_to_round.is_integer():  # has no decimal places at all
+        return number_to_round
+
+    if number_to_round > 100:  # has three significant decimal places in the whole part
+        return round(number_to_round)
+
+    round_to = math.ceil(-math.log10(abs(number_to_round))) + significant_decimal_places - 1
+    return round(number_to_round, round_to)
+
+
+def get_formatted_date() -> str:
+    """
+    Get current date in the format %Y%m%d (eg. 20240101)
+    :return: The string with the date.
+    """
+    return datetime.now().strftime("%Y%m%d")

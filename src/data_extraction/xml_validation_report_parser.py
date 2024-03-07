@@ -5,7 +5,8 @@ from xml.etree.ElementTree import Element, ParseError
 from xml.etree.ElementTree import parse as parse_element_tree
 
 from src.constants import UNKNOWN_LIGAND_NAME
-from src.models import ProteinDataFromXML, Diagnostics, LigandInfo, XML_ENTRY_ATTRIBUTE_TO_PROPERTY
+from src.models.protein_data import ProteinDataFromXML
+from src.models import Diagnostics, LigandInfo, XML_ENTRY_ATTRIBUTE_TO_PROPERTY
 from src.utils import to_float, to_int, get_clean_type_hint
 
 

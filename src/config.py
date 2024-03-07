@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from os import path
 
 
 INVALID_VALUE_STRING = "nan"
@@ -33,11 +34,17 @@ class RunModeType(Enum):
     DOWNLOAD_ALL = 1
     DOWNLOAD_ARCHIVE_MMCIF = 2
     # ...
+    EXTRACT_ALL_INTO_CRUNCHED = 10
+    # ...
+    CREATE_ALL = 20
+    CREATE_TRANSPONED_CRUNCHED = 21
+    CREATE_DEFAULT_PLOT_DATA = 22
+    # ...
     TEST = 99
 
 
 # pylint: disable=too-many-instance-attributes
-@dataclass(frozen=True)
+@dataclass(slots=True)
 class Config:
     """
     Class containing configuration for mulsan with default values. Switches from commandline will overwrite this.
@@ -46,7 +53,7 @@ class Config:
     # BASIC CONFIG
     logging_debug: bool = False
     # run_mode: RunModeType = RunModeType.ALL
-    run_mode: RunModeType = RunModeType.TEST
+    run_mode: RunModeType = RunModeType.CREATE_ALL
 
     data_extraction_max_threads: int = 8
 
@@ -61,3 +68,10 @@ class Config:
     path_to_ligand_stats_csv: str = "../dataset/ligandStats.csv"
 
     crunched_data_csv_path: str = "../crunched_data.csv"
+
+    factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
+    factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
+    familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
+
+    output_files_path: str = path.join(path.pardir, "my_output/")
+    transponed_crunched_csv_name: str = "crunched_data_transponed.csv"

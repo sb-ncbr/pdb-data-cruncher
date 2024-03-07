@@ -2,7 +2,8 @@ import logging
 from typing import Any, Optional
 from dataclasses import dataclass, field
 
-from src.models import ProteinDataFromVDB, Diagnostics
+from src.models.protein_data import ProteinDataFromVDB
+from src.models import Diagnostics
 from src.constants import METAL_ELEMENT_NAMES
 from src.utils import to_int
 

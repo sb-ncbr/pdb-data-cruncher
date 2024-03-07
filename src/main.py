@@ -5,6 +5,7 @@ from datetime import timedelta
 import time
 
 from src.data_extraction.parsing_manger import ParsingManger
+from src.data_transformation.data_transform_manager import DataTransformManager
 from src.config import Config, RunModeType
 
 
@@ -62,6 +63,9 @@ def main():
     config = create_config_from_parsed_arguments()
     configure_logging(config)
 
+    if config.run_mode == RunModeType.CREATE_ALL:
+        run_create_all(config)
+
     # TODO only temporary endpoint for testing
     if config.run_mode == RunModeType.TEST:
         run_current_test(config)
@@ -97,6 +101,17 @@ def run_full_data_extraction(pdb_ids: list[str], config: Config):
     ParsingManger.store_protein_data_into_crunched_csv(collected_data, config)
     end_time = time.monotonic()
     logging.info("Full data extraction completed in %s.", timedelta(seconds=end_time - start_time))
+
+
+def run_create_all(config: Config):
+    # TODO remove later, rewriting the path to crunched for testing
+    config.crunched_data_csv_path = "../dataset/20240118_crunched.csv"
+
+    DataTransformManager.create_default_plot_data(config)
+
+    # DataTransformManager.create_default_plot_settings(config)
+    # ...
+    logging.info("Phase of creating all neccessary output data has finished.")
 
 
 if __name__ == "__main__":
