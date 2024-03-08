@@ -6,6 +6,7 @@ import numpy as np
 
 from src.models.transformed import DefaultPlotBucket, DefaultPlotData, FactorPair
 from src.exception import ParsingError, DataTransformationError
+from src.file_handlers.csv_reader import load_csv_as_dataframe
 
 
 @dataclass
@@ -49,8 +50,11 @@ def create_default_plot_data(
     :return: List of default plot data.
     :raises DataTransformationError: Upon encountering unrecoverable error.
     """
-    crunched_df = _load_csv_as_dataframe(crunched_csv_filepath)
-    bucket_limits_df = _load_csv_as_dataframe(x_factor_bucket_limits_filepath)
+    try:
+        crunched_df = load_csv_as_dataframe(crunched_csv_filepath)
+        bucket_limits_df = load_csv_as_dataframe(x_factor_bucket_limits_filepath)
+    except ParsingError as ex:
+        raise DataTransformationError(f"Failed to load needed inputs. {ex}") from ex
 
     default_plot_data = []
     failed_factor_pairs_count = 0
@@ -329,15 +333,3 @@ def _add_inf_boundaries_to_bucket_timits(bucket_limit_series: pd.Series):
     """
     bucket_limit_series[0] = -np.inf
     bucket_limit_series[bucket_limit_series.index[-1] + 1] = np.inf  # add inf to the index +1 than the highest index
-
-
-def _load_csv_as_dataframe(filepath: str) -> pd.DataFrame:
-    """
-    Load csv as pandas dataframe (expecting ; delimiter).
-    :param filepath: Path to csv file.
-    :return: Pandas dataframe.
-    """
-    try:
-        return pd.read_csv(filepath, delimiter=";")
-    except (ValueError, OSError) as ex:
-        raise ParsingError(f"Failed to load {filepath} csv. {ex}") from ex
