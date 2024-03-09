@@ -8,6 +8,7 @@ from src.exception import ParsingError, DataTransformationError, FileWritingErro
 from src.file_handlers.csv_reader import load_csv_as_dataframe
 from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
 from src.file_handlers.default_plot_data_file_writer import write_default_plot_data_into_zip
+from src.file_handlers.distribuion_data_file_writer import create_distribution_data_files
 from src.file_handlers.name_translations_loader import (
     load_factor_names_translations, load_factor_type_names_translations
 )
@@ -56,7 +57,7 @@ class DataTransformManager:
             # create distribution data
             distribution_data_list = create_distribution_data(crunched_df, factor_types_with_translations)
             # save distribution data into files
-            # TODO
+            create_distribution_data_files(distribution_data_list, config.output_files_path)
             logging.info("Creation of distribution data finished successfully.")
         except (ParsingError, DataTransformationError, FileWritingError) as ex:
             logging.error("Failed to create distribution data. %s", ex)

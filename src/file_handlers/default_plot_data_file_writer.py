@@ -16,6 +16,7 @@ def write_default_plot_data_into_zip(default_plot_data: list[DefaultPlotData], l
     default plot data.
     :param default_plot_data: List of default plot data to write into the archive.
     :param location_filepath: Path where the resulting zip archive will be saved.
+    :raises FileWritingError: In case of json seriealization or file permission issues.
     """
     subfolder_name = f"{get_formatted_date()}_DefaultPlotData"
     zip_archive_path = path.join(location_filepath, "DefaultPlotData.zip")
