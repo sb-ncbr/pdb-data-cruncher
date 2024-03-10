@@ -36,26 +36,20 @@ class WorkingBucket:
 
 
 def create_default_plot_data(
-    crunched_csv_filepath: str,
-    x_factor_bucket_limits_filepath: str,
+    crunched_df: pd.DataFrame,
+    x_factor_bucket_limits_df: pd.DataFrame,
     factor_pairs: list[FactorPair],
     familiar_names_translation: dict[str, str],
 ) -> list[DefaultPlotData]:
     """
     Create default plot data for all given factor pairs.
-    :param crunched_csv_filepath: Path to a cvs file with crunched data.
-    :param x_factor_bucket_limits_filepath: Path to a csv file with values for bucket intervals for each factor.
+    :param crunched_df: Dataframe with crunched data.
+    :param x_factor_bucket_limits_df: Dataframe with values for bucket intervals for each factor.
     :param factor_pairs: List of factor pairs (factors on x and y)
     :param familiar_names_translation: Dictionary with translations from factor name into familiar name.
     :return: List of default plot data.
     :raises DataTransformationError: Upon encountering unrecoverable error.
     """
-    try:
-        crunched_df = load_csv_as_dataframe(crunched_csv_filepath)
-        bucket_limits_df = load_csv_as_dataframe(x_factor_bucket_limits_filepath)
-    except ParsingError as ex:
-        raise DataTransformationError(f"Failed to load needed inputs. {ex}") from ex
-
     default_plot_data = []
     failed_factor_pairs_count = 0
 
@@ -66,7 +60,7 @@ def create_default_plot_data(
             # get only the relevant part of crunched data
             factor_pair_crunched_df = crunched_df[[factor_pair.x.value, factor_pair.y.value]].dropna()
             # extract and transform interval buckets relevant to current factor on x
-            x_bucket_limit_series = bucket_limits_df[factor_pair.x.value].dropna()
+            x_bucket_limit_series = x_factor_bucket_limits_df[factor_pair.x.value].dropna()
             _add_inf_boundaries_to_bucket_timits(x_bucket_limit_series)
             x_bucket_intervals = pd.IntervalIndex.from_breaks(x_bucket_limit_series, closed="left")
             # extract the default plot data

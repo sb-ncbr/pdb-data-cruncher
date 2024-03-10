@@ -31,11 +31,12 @@ class DataTransformManager:
             # load required data
             factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
             familiar_names_translation = load_factor_names_translations(config.familiar_name_translation_path)
-            # TODO consider loading crunched df and x factor df here
+            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            x_factor_bucket_limits_df = load_csv_as_dataframe(config.factor_x_plot_bucket_limits_csv_path)
             # create default plot data
             default_plot_data_list = create_default_plot_data(
-                config.crunched_data_csv_path,
-                config.factor_x_plot_bucket_limits_csv_path,
+                crunched_df,
+                x_factor_bucket_limits_df,
                 factor_pairs,
                 familiar_names_translation,
             )
