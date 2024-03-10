@@ -6,6 +6,7 @@ import numpy as np
 
 from src.models.transformed import DefaultPlotBucket, DefaultPlotData, FactorPair
 from src.exception import ParsingError, DataTransformationError
+from src.file_handlers.csv_reader import load_csv_as_dataframe
 
 
 @dataclass
@@ -35,23 +36,20 @@ class WorkingBucket:
 
 
 def create_default_plot_data(
-    crunched_csv_filepath: str,
-    x_factor_bucket_limits_filepath: str,
+    crunched_df: pd.DataFrame,
+    x_factor_bucket_limits_df: pd.DataFrame,
     factor_pairs: list[FactorPair],
     familiar_names_translation: dict[str, str],
 ) -> list[DefaultPlotData]:
     """
     Create default plot data for all given factor pairs.
-    :param crunched_csv_filepath: Path to a cvs file with crunched data.
-    :param x_factor_bucket_limits_filepath: Path to a csv file with values for bucket intervals for each factor.
+    :param crunched_df: Dataframe with crunched data.
+    :param x_factor_bucket_limits_df: Dataframe with values for bucket intervals for each factor.
     :param factor_pairs: List of factor pairs (factors on x and y)
     :param familiar_names_translation: Dictionary with translations from factor name into familiar name.
     :return: List of default plot data.
     :raises DataTransformationError: Upon encountering unrecoverable error.
     """
-    crunched_df = _load_csv_as_dataframe(crunched_csv_filepath)
-    bucket_limits_df = _load_csv_as_dataframe(x_factor_bucket_limits_filepath)
-
     default_plot_data = []
     failed_factor_pairs_count = 0
 
@@ -62,7 +60,7 @@ def create_default_plot_data(
             # get only the relevant part of crunched data
             factor_pair_crunched_df = crunched_df[[factor_pair.x.value, factor_pair.y.value]].dropna()
             # extract and transform interval buckets relevant to current factor on x
-            x_bucket_limit_series = bucket_limits_df[factor_pair.x.value].dropna()
+            x_bucket_limit_series = x_factor_bucket_limits_df[factor_pair.x.value].dropna()
             _add_inf_boundaries_to_bucket_timits(x_bucket_limit_series)
             x_bucket_intervals = pd.IntervalIndex.from_breaks(x_bucket_limit_series, closed="left")
             # extract the default plot data
@@ -329,15 +327,3 @@ def _add_inf_boundaries_to_bucket_timits(bucket_limit_series: pd.Series):
     """
     bucket_limit_series[0] = -np.inf
     bucket_limit_series[bucket_limit_series.index[-1] + 1] = np.inf  # add inf to the index +1 than the highest index
-
-
-def _load_csv_as_dataframe(filepath: str) -> pd.DataFrame:
-    """
-    Load csv as pandas dataframe (expecting ; delimiter).
-    :param filepath: Path to csv file.
-    :return: Pandas dataframe.
-    """
-    try:
-        return pd.read_csv(filepath, delimiter=";")
-    except (ValueError, OSError) as ex:
-        raise ParsingError(f"Failed to load {filepath} csv. {ex}") from ex

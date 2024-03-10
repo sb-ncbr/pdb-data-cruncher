@@ -1,6 +1,6 @@
+import pandas as pd
 import pytest
 import json
-from unittest import mock
 
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
 from src.models import FactorType
@@ -14,69 +14,58 @@ FAMILIAR_NAMES_TRANSLATION = {
 }
 
 
-def create_test_simple_crunched_csv() -> str:
-    content = f"PDB ID;{FactorType.RELEASE_DATE.value};{FactorType.RESOLUTION.value}\n"
+def create_simple_crunched_df() -> pd.DataFrame:
+    dummy_pdb_ids = []
+    release_date_values = []
+    resolution_values = []
     for _ in range(100):
-        content += f"xxxx;{1990};1.0\nxxxx;{2000};2.0\nxxxx;{2015};3.0\n"
-    return content
+        dummy_pdb_ids.extend(["xxxx", "xxxx", "xxxx"])
+        release_date_values.extend([1990, 2000, 2015])
+        resolution_values.extend([1.0, 2.0, 3.0])
+
+    return pd.DataFrame({
+        "PDB ID": dummy_pdb_ids,
+        FactorType.RELEASE_DATE.value: release_date_values,
+        FactorType.RESOLUTION.value: resolution_values
+    })
 
 
-def create_test_empty_buckets_crunched_csv() -> str:
-    content = f"PDB ID;{FactorType.RELEASE_DATE.value};{FactorType.RESOLUTION.value}\n"
+def create_crunched_df_for_empty_buckets() -> pd.DataFrame:
+    dummy_pdb_ids = []
+    release_date_values = []
+    resolution_values = []
     for _ in range(100):
-        content += f"xxxx;{1990};1.0\nxxxx;{1995};1.0\nxxxx;{1998};1.0\n"  # 300 into the first test iterval
-        content += f"xxxx;{2012};3.0\nxxxx;{2015};3.0\n"  # 200 into the third test interval (second is empty)
-    return content
+        dummy_pdb_ids.extend(["xxxx", "xxxx", "xxxx", "xxxx", "xxxx"])
+        release_date_values.extend([1990, 1995, 1998, 2012, 2015])  # 300 into first interval, 200 into other
+        resolution_values.extend([1.0, 1.0, 1.0, 3.0, 3.0])
+
+    return pd.DataFrame({
+        "PDB ID": dummy_pdb_ids,
+        FactorType.RELEASE_DATE.value: release_date_values,
+        FactorType.RESOLUTION.value: resolution_values
+    })
 
 
-def create_test_joining_buckets_crunched_csv() -> str:
-    content = f"PDB ID;{FactorType.RELEASE_DATE.value};{FactorType.RESOLUTION.value}\n"
+def create_crunched_df_for_joining_buckets() -> pd.DataFrame:
+    dummy_pdb_ids = []
+    release_date_values = []
+    resolution_values = []
     for _ in range(100):
-        content += f"xxxx;{1990};1.0\nxxxx;{1995};1.0\nxxxx;{1998};1.0\n"  # 300 into the first test iterval
-        content += f"xxxx;{2012};3.0\nxxxx;{2015};3.0\n"  # 200 into the third test interval
+        dummy_pdb_ids.extend(["xxxx", "xxxx", "xxxx", "xxxx", "xxxx"])
+        release_date_values.extend([1990, 1995, 1998, 2012, 2015])  # 300 into first interval, 200 into other
+        resolution_values.extend([1.0, 1.0, 1.0, 3.0, 3.0])
+    for _ in range(80):  # add only 80 values into the range, so they need to get merged
+        dummy_pdb_ids.append("xxxx")
+        release_date_values.append(2005)
+        resolution_values.append(2.0)
 
-    for _ in range(80):
-        content += f"xxxx;{2005};2.0\n"  # only 80 into the second interval
-
-    return content
-
-
-def create_test_x_limits(factor_type, values):
-    content = f";{factor_type.value}\n"
-    i = 1
-    for value in values:
-        content += f"{i};{value}\n"
-        i += 1
-    while i < 102:  # to emulate usual source file
-        content += f"{i};NA\n"
-        i += 1
-    return content
+    return pd.DataFrame({
+        "PDB ID": dummy_pdb_ids,
+        FactorType.RELEASE_DATE.value: release_date_values,
+        FactorType.RESOLUTION.value: resolution_values
+    })
 
 
-def plot_data_mock_open(filename, *args, **kwargs):
-    if filename == "test_simple_crunched.csv":
-        content = create_test_simple_crunched_csv()
-    elif filename == "test_joining_buckets_crunched.csv":
-        content = create_test_joining_buckets_crunched_csv()
-    elif filename == "test_empty_buckets_crunched.csv":
-        content = create_test_empty_buckets_crunched_csv()
-    elif filename == "test_simple_x_limits.csv":
-        content = create_test_x_limits(FactorType.RELEASE_DATE, [-0.01, 2000, 2010])
-    elif filename == "test_joining_buckets_x_limits.csv":
-        content = create_test_x_limits(FactorType.RELEASE_DATE, [-0.01, 2000, 2010, 2020])
-    elif filename == "test_empty_buckets_x_limits.csv":
-        content = create_test_x_limits(FactorType.RELEASE_DATE, [-0.01, 2000, 2010, 2020])
-    elif filename == "wrong_x_limits.csv":
-        content = create_test_x_limits(FactorType.RELEASE_DATE, [-0.01, 2010, 2000])
-    else:
-        raise FileNotFoundError("Mock file not found error")
-
-    file_object = mock.mock_open(read_data=content).return_value
-    file_object.__iter__.return_vlaue = content.splitlines(True)
-    return file_object
-
-
-@mock.patch("builtins.open", new=plot_data_mock_open)
 @pytest.mark.basic
 def test_simple_default_plot_data_creation_works():
     # arrange
@@ -141,9 +130,12 @@ def test_simple_default_plot_data_creation_works():
     }
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.RESOLUTION)]
 
+    crunched_df = create_simple_crunched_df()
+    x_bucket_limits = pd.DataFrame({FactorType.RELEASE_DATE.value: [-0.01, 2000, 2010]})
+
     # act
     plot_data_list = create_default_plot_data(
-        "test_simple_crunched.csv", "test_simple_x_limits.csv", factor_pairs, FAMILIAR_NAMES_TRANSLATION
+        crunched_df, x_bucket_limits, factor_pairs, FAMILIAR_NAMES_TRANSLATION
     )
 
     # assert
@@ -155,8 +147,6 @@ def test_simple_default_plot_data_creation_works():
     assert plot_data_string == expected_result_string
 
 
-# joining buckets works as expected
-@mock.patch("builtins.open", new=plot_data_mock_open)
 @pytest.mark.basic
 def test_small_buckets_get_merged():
     # arrange
@@ -205,12 +195,12 @@ def test_small_buckets_get_merged():
     }
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.RESOLUTION)]
 
+    crunched_df = create_crunched_df_for_joining_buckets()
+    x_bucket_limits = pd.DataFrame({FactorType.RELEASE_DATE.value: [-0.01, 2000, 2010, 2020]})
+
     # act
     plot_data_list = create_default_plot_data(
-        "test_joining_buckets_crunched.csv",
-        "test_joining_buckets_x_limits.csv",
-        factor_pairs,
-        FAMILIAR_NAMES_TRANSLATION,
+        crunched_df, x_bucket_limits, factor_pairs, FAMILIAR_NAMES_TRANSLATION
     )
 
     # assert
@@ -222,7 +212,6 @@ def test_small_buckets_get_merged():
     assert plot_data_string == expected_result_string
 
 
-@mock.patch("builtins.open", new=plot_data_mock_open)
 @pytest.mark.basic
 def test_empty_buckets_get_merged():
     # arrange
@@ -270,10 +259,12 @@ def test_empty_buckets_get_merged():
         "YfactorName": "structure resolution [A]",
     }
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.RESOLUTION)]
+    crunched_df = create_crunched_df_for_empty_buckets()
+    x_bucket_limits = pd.DataFrame({FactorType.RELEASE_DATE.value: [-0.01, 2000, 2010, 2020]})
 
     # act
     plot_data_list = create_default_plot_data(
-        "test_empty_buckets_crunched.csv", "test_empty_buckets_x_limits.csv", factor_pairs, FAMILIAR_NAMES_TRANSLATION
+        crunched_df, x_bucket_limits, factor_pairs, FAMILIAR_NAMES_TRANSLATION
     )
 
     # assert
@@ -285,25 +276,27 @@ def test_empty_buckets_get_merged():
     assert plot_data_string == expected_result_string
 
 
-@mock.patch("builtins.open", new=plot_data_mock_open)
 @pytest.mark.basic
 def test_creation_fails_on_invalid_x_limits():
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.RESOLUTION)]
+    crunched_df = create_simple_crunched_df()
+    wrong_x_bucket_limits = pd.DataFrame({FactorType.RELEASE_DATE.value: [2000, 2020, 2010]})
 
-    with pytest.raises(DataTransformationError) as e_info:
+    with pytest.raises(DataTransformationError):
         _ = create_default_plot_data(
-            "test_simple_crunched.csv", "wrong_x_limits.csv", factor_pairs, FAMILIAR_NAMES_TRANSLATION
+            crunched_df, wrong_x_bucket_limits, factor_pairs, FAMILIAR_NAMES_TRANSLATION
         )
 
 
-@mock.patch("builtins.open", new=plot_data_mock_open)
 @pytest.mark.basic
 def test_creation_fails_on_missing_csv_column():
-    factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.AA_COUNT)]  # AA_COUNT will not be in mocked csv
+    factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.AA_COUNT)]  # AA_COUNT is not in test crunched df
+    crunched_df = create_simple_crunched_df()
+    x_bucket_limits = pd.DataFrame({FactorType.RELEASE_DATE.value: [-0.01, 2000, 2010, 2020]})
 
-    with pytest.raises(DataTransformationError) as e_info:
+    with pytest.raises(DataTransformationError):
         _ = create_default_plot_data(
-            "test_simple_crunched.csv", "test_simple_x_limits.csv", factor_pairs, FAMILIAR_NAMES_TRANSLATION
+            crunched_df, x_bucket_limits, factor_pairs, FAMILIAR_NAMES_TRANSLATION
         )
 
 
