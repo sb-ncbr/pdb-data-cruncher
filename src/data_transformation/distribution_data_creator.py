@@ -58,22 +58,25 @@ class WorkingBucket:
         return self.bucket_id == other.bucket_id
 
 
-def create_distribution_data(crunched_df: pd.DataFrame, factor_types: dict[FactorType, str]) -> list[DistributionData]:
+def create_distribution_data(
+    crunched_df: pd.DataFrame, factor_types: list[FactorType], factor_translations: dict[FactorType, str]
+) -> list[DistributionData]:
     """
     Create distribution data for all the factors.
     :param crunched_df: Dataframe with loaded crunched csv.
     :param factor_types: List of factor types to create distribution data for.
+    :param factor_translations: Dictionary
     :return: List of created distribution data.
     """
     distribution_data_list = []
     failed_factors_count = 0
 
-    for factor_type, factor_familiar_name in factor_types.items():
+    for factor_type in factor_types:
         try:
             factor_crunched_series = crunched_df[factor_type.value]
             factor_crunched_series = factor_crunched_series.dropna().apply(round_relative)
             distribution_data_list.append(_create_distribution_data_for_factor(
-                factor_type, factor_familiar_name, factor_crunched_series.dropna()
+                factor_type, factor_translations[factor_type], factor_crunched_series.dropna()
             ))
         except KeyError as ex:
             logging.error(

@@ -301,7 +301,7 @@ def test_creation_fails_on_invalid_x_limits():
 def test_creation_fails_on_missing_csv_column():
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.AA_COUNT)]  # AA_COUNT will not be in mocked csv
 
-    with pytest.raises(DataTransformationError) as e_info:
+    with pytest.raises(DataTransformationError):
         _ = create_default_plot_data(
             "test_simple_crunched.csv", "test_simple_x_limits.csv", factor_pairs, FAMILIAR_NAMES_TRANSLATION
         )

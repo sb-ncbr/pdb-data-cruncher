@@ -55,7 +55,9 @@ class DataTransformManager:
             factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
             crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
             # create distribution data
-            distribution_data_list = create_distribution_data(crunched_df, factor_types_with_translations)
+            distribution_data_list = create_distribution_data(
+                crunched_df, list(factor_types_with_translations.keys()), factor_types_with_translations
+            )
             # save distribution data into files
             create_distribution_data_files(distribution_data_list, config.output_files_path)
             logging.info("Creation of distribution data finished successfully.")

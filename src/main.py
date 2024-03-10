@@ -107,8 +107,8 @@ def run_create_all(config: Config):
     # TODO remove later, rewriting the path to crunched for testing
     config.crunched_data_csv_path = "../dataset/20240118_crunched.csv"
 
-    # DataTransformManager.create_default_plot_data(config)
-    DataTransformManager.create_distribution_data(config)
+    DataTransformManager.create_default_plot_data(config)
+    # DataTransformManager.create_distribution_data(config)
 
     # DataTransformManager.create_default_plot_settings(config)
     # ...
