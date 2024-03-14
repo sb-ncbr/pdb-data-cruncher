@@ -7,8 +7,8 @@ from src.data_transformation.default_plot_settings_creator import create_default
 from src.exception import ParsingError, DataTransformationError, FileWritingError
 from src.file_handlers.csv_reader import load_csv_as_dataframe
 from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
-from src.file_handlers.default_plot_data_file_writer import write_default_plot_data_into_zip
-from src.file_handlers.distribuion_data_file_writer import create_distribution_data_files
+from src.file_handlers.default_plot_data_file_writer import create_default_plot_data_files
+from src.file_handlers.distribution_data_file_writer import create_distribution_data_files
 from src.file_handlers.name_translations_loader import (
     load_factor_names_translations, load_factor_type_names_translations
 )
@@ -41,7 +41,7 @@ class DataTransformManager:
                 familiar_names_translation,
             )
             # output the plot data
-            write_default_plot_data_into_zip(default_plot_data_list, config.output_files_path)
+            create_default_plot_data_files(default_plot_data_list, config.output_files_path)
             logging.info("Creation of default plot data finished successfully.")
         except (ParsingError, DataTransformationError, FileWritingError) as ex:
             logging.error("Failed to create default plot data. %s", ex)
@@ -50,6 +50,10 @@ class DataTransformManager:
 
     @staticmethod
     def create_distribution_data(config: Config) -> None:
+        """
+        Create all default plot data for each factor from names translations. Creates them as jsons into zip archive.
+        :param config: App configuration.
+        """
         logging.info("Starting the creation of distribution data output files.")
         try:
             # load required data
@@ -69,14 +73,5 @@ class DataTransformManager:
 
     @staticmethod
     def create_default_plot_settings(config: Config) -> None:
-        try:
-            familiar_names_translation = load_factor_names_translations(config.familiar_name_translation_path)
-            default_plot_settings_list = create_default_plot_settings(
-                config.factor_pairs_autoplot_csv_path, familiar_names_translation
-            )
-            # TODO work in progress
-            print("This would be put into file:")
-            print([item.to_dict() for item in default_plot_settings_list])
-            logging.info("Default plot settings created sucefully.")
-        except (ParsingError, DataTransformationError) as ex:
-            logging.error(ex)
+        factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
+        pass

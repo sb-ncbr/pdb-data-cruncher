@@ -163,7 +163,7 @@ def _count_buckets(buckets_by_counts: dict[int, list[WorkingBucket]]) -> int:
     :param buckets_by_counts: Dictionary with buckets sorted by their count.
     :return: Total number of buckets.
     """
-    return sum([len(bucket_list) for bucket_list in buckets_by_counts.values()])
+    return sum(len(bucket_list) for bucket_list in buckets_by_counts.values())
 
 
 def _sort_bucket_into_buckets_by_counts(
