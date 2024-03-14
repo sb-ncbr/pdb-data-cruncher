@@ -73,5 +73,10 @@ class DataTransformManager:
 
     @staticmethod
     def create_default_plot_settings(config: Config) -> None:
+        # load required data
         factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
-        pass
+        crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+        # create default plot settings
+        default_plot_setting_list = create_default_plot_settings(crunched_df, factor_types_with_translations)
+        # save default plot setting into file
+        # TODO
