@@ -1,5 +1,5 @@
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Union
 
 import numpy as np
@@ -19,8 +19,14 @@ class NoXFactorValueError(DataTransformationError):
 @dataclass(slots=True)
 class FactorMinMax:
     factor: FactorType
-    min_value: Union[int, float, None] = None
-    max_value: Union[int, float, None] = None
+    min_raw: Union[int, float, None] = None
+    max_raw: Union[int, float, None] = None
+
+
+@dataclass(slots=True)
+class IDKYet:
+    x_value: Union[int, float]
+    counts: dict[FactorType, int] = field(default_factory=dict)
 
 
 def create_default_plot_settings(
@@ -28,11 +34,17 @@ def create_default_plot_settings(
 ) -> list[DefaultPlotSettingsItem]:
     default_plot_settings = []
 
+    # TODO remove this override
+    factor_types_translations = {
+        FactorType.ALL_ATOM_COUNT: factor_types_translations[FactorType.ALL_ATOM_COUNT],
+        FactorType.ALL_ATOM_COUNT_LN: factor_types_translations[FactorType.ALL_ATOM_COUNT_LN],
+    }
+
     all_factor_types = list(factor_types_translations.keys())
     factor_min_max_list = []
     for factor_type in factor_types_translations:
-        factor_min_max_list.append(_calculate_factor_combo_min_max(factor_type, crunched_df, all_factor_types))
-
+        if not factor_type.binary_type():  # skip binary types as they have only 0 or 1 on x
+            factor_min_max_list.append(_calculate_factor_combo_min_max(factor_type, crunched_df, all_factor_types))
 
     # TODO create buckets
 
@@ -76,8 +88,8 @@ def _adjust_factor_combo_min_max(
     if np.isnan(x_factor_min) or np.isnan(x_factor_max):
         raise NoXFactorValueError()
 
-    if x_factor_min_max.min_value is None or x_factor_min > x_factor_min_max.min_value:
-        x_factor_min_max.min_value = x_factor_min
+    if x_factor_min_max.min_raw is None or x_factor_min > x_factor_min_max.min_raw:
+        x_factor_min_max.min_raw = x_factor_min
 
-    if x_factor_min_max.max_value is None or x_factor_max < x_factor_min_max.max_value:
-        x_factor_min_max.max_value = x_factor_max
+    if x_factor_min_max.max_raw is None or x_factor_max < x_factor_min_max.max_raw:
+        x_factor_min_max.max_raw = x_factor_max
