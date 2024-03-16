@@ -1,5 +1,6 @@
 import math
 from datetime import datetime
+from decimal import Decimal
 from typing import Optional, Any, get_type_hints, Union, get_args
 
 from src.models import FactorType
@@ -67,6 +68,7 @@ def to_bool(value_to_convert: Any, default: Optional[bool] = None) -> Optional[b
     return default
 
 
+# TODO removal candiate
 def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = None) -> Union[float, int, None]:
     """
     Safe way to convert to int or float, when unsure which type it is. If the conversion fails due to ValueError
@@ -115,12 +117,17 @@ def get_factor_type(string_value: str) -> Optional[FactorType]:
     return None
 
 
-def round_relative(number_to_round: Union[int, float], significant_decimal_places: int = 3) -> float:
+def round_decimal_place_relative(number_to_round: Union[int, float], significant_decimal_places: int = 3) -> float:
     """
-
-    :param number_to_round:
-    :param significant_decimal_places:
-    :return:
+    Rounds given number to at most given amount of siginificant decimal places. If the number has a whole part,
+    it is rounded in such a way so there are at most X decimal places minus digits in the whole part.
+    Eg. in case of default value of 3 decimal places:\n
+    12345 -> 12345\n
+    1.2345 -> 1.23\n
+    0.00012345 -> 0.000123
+    :param number_to_round: Number to round
+    :param significant_decimal_places: Number of significant decimal places to have included at most
+    :return: Rounded number
     """
     if significant_decimal_places < 1:
         raise ValueError("Significant decimal places value needs to be at least 1.")
@@ -128,11 +135,25 @@ def round_relative(number_to_round: Union[int, float], significant_decimal_place
     if isinstance(number_to_round, int) or number_to_round.is_integer():  # has no decimal places at all
         return number_to_round
 
-    if number_to_round > 100:  # has three significant decimal places in the whole part
+    if number_to_round > 100:  # has at least three significant decimal places in the whole part
         return round(number_to_round)
 
     round_to = math.ceil(-math.log10(abs(number_to_round))) + significant_decimal_places - 1
     return round(number_to_round, round_to)
+
+
+def round_relative(number_to_round: Union[int, float, Decimal], places_to_round_to: int) -> Union[int, float, Decimal]:
+    if isinstance(number_to_round, Decimal):  # decimal has native more effective way of getting exponent
+        return round_relative_decimal(number_to_round, places_to_round_to)
+
+    round_to = -(round(math.floor(math.log10(number_to_round))) - (places_to_round_to - 1))
+    return round(number_to_round, round_to)
+
+
+def round_relative_decimal(number_to_round: Decimal, places_to_round_to: int) -> Decimal:
+    (sign, digits, exponent) = number_to_round.as_tuple()
+    mantissa = len(digits) + exponent - 1
+    return round(number_to_round, -mantissa - 1 + places_to_round_to)
 
 
 def get_formatted_date() -> str:

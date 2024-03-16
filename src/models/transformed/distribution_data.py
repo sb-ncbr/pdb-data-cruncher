@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Union, Optional, Any
 
 from src.models import FactorType
-from src.utils import round_decimal_relative
+from src.utils import round_decimal_place_relative
 
 
 @dataclass(slots=True)
@@ -21,9 +21,9 @@ class DistributionDataBucket:
         :return: The dictionary with final output.
         """
         return {
-            "Xfrom": str(round_decimal_relative(self.x_from)),
+            "Xfrom": str(round_decimal_place_relative(self.x_from)),
             "XisInterval": self.is_interval,
-            "Xto": str(round_decimal_relative(self.x_to)),
+            "Xto": str(round_decimal_place_relative(self.x_to)),
             "YstructureCount": str(self.structure_count),
         }
 

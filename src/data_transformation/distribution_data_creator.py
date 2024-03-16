@@ -8,7 +8,7 @@ import pandas as pd
 from src.exception import DataTransformationError
 from src.models import FactorType
 from src.models.transformed import DistributionData, DistributionDataBucket
-from src.utils import round_decimal_relative
+from src.utils import round_decimal_place_relative
 
 
 class Direction(Enum):
@@ -74,7 +74,7 @@ def create_distribution_data(
     for factor_type in factor_types:
         try:
             factor_crunched_series = crunched_df[factor_type.value]
-            factor_crunched_series = factor_crunched_series.dropna().apply(round_decimal_relative)
+            factor_crunched_series = factor_crunched_series.dropna().apply(round_decimal_place_relative)
             distribution_data_list.append(_create_distribution_data_for_factor(
                 factor_type, factor_translations[factor_type], factor_crunched_series.dropna()
             ))

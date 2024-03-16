@@ -118,3 +118,9 @@ class FactorType(Enum):
     AVERAGE_LIGAND_RSCC_LARGE_LIGS = "averageLigandRSCClargeLigs"
     ABSOLUTE_PERCENTILE_RNA_SUITENESS = "absolute-percentile-RNAsuiteness"
     EXPERIMENTAL_METHOD = "experimentalMethod"
+
+    def binary_type(self) -> bool:
+        if "BINARY" in self.name:
+            return True
+        else:
+            return False

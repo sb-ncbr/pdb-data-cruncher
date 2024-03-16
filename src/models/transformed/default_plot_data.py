@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional, Union
 
 from src.models import FactorType
-from src.utils import round_decimal_relative
+from src.utils import round_decimal_place_relative
 
 
 @dataclass(slots=True)
@@ -38,8 +38,8 @@ class DefaultPlotBucket:
         Create a dictionary out of self for default plot data json.
         :return: The dict.
         """
-        x_rounding = round_decimal_relative
-        y_rounding = round_decimal_relative
+        x_rounding = round_decimal_place_relative
+        y_rounding = round_decimal_place_relative
         if x_is_release_date:  # release date always needs round to whole number
             x_rounding = round
         if y_is_release_date:
@@ -95,10 +95,10 @@ class DefaultPlotData:
         return {
             "GraphBuckets": [bucket.to_dict(x_is_release_date, y_is_release_date) for bucket in self.graph_buckets],
             "StructureCount": str(self.structure_count),
-            "XfactorGlobalMaximum": str(round_decimal_relative(self.x_factor_global_maximum)),
-            "XfactorGlobalMinimum": str(round_decimal_relative(self.x_factor_global_minimum)),
+            "XfactorGlobalMaximum": str(round_decimal_place_relative(self.x_factor_global_maximum)),
+            "XfactorGlobalMinimum": str(round_decimal_place_relative(self.x_factor_global_minimum)),
             "XfactorName": self.x_factor_familiar_name,
-            "YfactorGlobalMaximum": str(round_decimal_relative(self.y_factor_global_maximum)),
-            "YfactorGlobalMinimum": str(round_decimal_relative(self.y_factor_global_minimum)),
+            "YfactorGlobalMaximum": str(round_decimal_place_relative(self.y_factor_global_maximum)),
+            "YfactorGlobalMinimum": str(round_decimal_place_relative(self.y_factor_global_minimum)),
             "YfactorName": self.y_factor_familiar_name,
         }
