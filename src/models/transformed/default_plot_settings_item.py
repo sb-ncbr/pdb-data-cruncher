@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from decimal import Decimal
 from typing import Optional, Union
 
 
@@ -9,19 +10,19 @@ class DefaultPlotSettingsItem:
     Holds extracted information about default plot settings.
     """
 
-    bucked_width: Optional[float] = None
-    x_factor_familiar_name: Optional[str] = None
-    x_limit_lower: Union[float, int, None] = None
-    x_limit_upper: Union[float, int, None] = None
+    bucked_width: Decimal
+    x_factor_familiar_name: str
+    x_limit_lower: Decimal
+    x_limit_upper: Decimal
 
     def to_dict(self):
         """
-        Create a dictionary out of self for default plot data json.
+        Create a dictionary out of self for default plot settings json.
         :return: The dict.
         """
         return {
-            "BucketWidth": self.bucked_width,
+            "BucketWidth": float(self.bucked_width),
             "Factor": self.x_factor_familiar_name,
-            "XlimitLower": self.x_limit_lower,
-            "XlimitUpper": self.x_limit_upper,
+            "XlimitLower": float(self.x_limit_lower),
+            "XlimitUpper": float(self.x_limit_upper),
         }

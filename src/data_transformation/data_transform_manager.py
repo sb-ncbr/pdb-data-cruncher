@@ -9,6 +9,7 @@ from src.file_handlers.csv_reader import load_csv_as_dataframe
 from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
 from src.file_handlers.default_plot_data_file_writer import create_default_plot_data_files
 from src.file_handlers.distribution_data_file_writer import create_distribution_data_files
+from src.file_handlers.default_plot_settings_file_writer import create_default_plot_settings_file
 from src.file_handlers.name_translations_loader import (
     load_factor_names_translations, load_factor_type_names_translations
 )
@@ -73,10 +74,20 @@ class DataTransformManager:
 
     @staticmethod
     def create_default_plot_settings(config: Config) -> None:
-        # load required data
-        factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
-        crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
-        # create default plot settings
-        default_plot_setting_list = create_default_plot_settings(crunched_df, factor_types_with_translations)
-        # save default plot setting into file
-        # TODO
+        """
+        Create default plot settings json with plot settings for each factor.
+        :param config: App configuration.
+        """
+        logging.info("Starting the creation of default plot settings.")
+        try:
+            # load required data
+            factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
+            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            # create default plot settings
+            default_plot_setting_list = create_default_plot_settings(crunched_df, factor_types_with_translations)
+            # save default plot setting into file
+            create_default_plot_settings_file(default_plot_setting_list, config.output_files_path)
+        except (ParsingError, DataTransformationError, FileWritingError) as ex:
+            logging.error("Failed to create default plot settings. %s", ex)
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            logging.exception("Encountered unexpected exception: %s", ex)

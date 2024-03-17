@@ -1,21 +1,21 @@
 import logging
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from decimal import Decimal
 from typing import Union, Generator, Optional
 
 import numpy as np
 import pandas as pd
 
-from src.models import FactorType
-from src.models.transformed import DefaultPlotSettingsItem
-from src.exception import DataTransformationError
 from src.constants import (
     DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES,
     DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET,
     DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT,
     DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER,
 )
+from src.exception import DataTransformationError
+from src.models import FactorType
+from src.models.transformed import DefaultPlotSettingsItem
 
 
 class NoXFactorValueError(DataTransformationError):
@@ -64,19 +64,33 @@ def create_default_plot_settings(
     crunched_df: pd.DataFrame, factor_types_translations: dict[FactorType, str]
 ) -> list[DefaultPlotSettingsItem]:
     default_plot_settings = []
+    failed_factor_types_count = 0
 
     all_factor_types = list(factor_types_translations.keys())
 
     for factor_type in factor_types_translations:
-        if "PERCENTILE" in factor_type.name:
-            continue  # TODO temporary
-        if factor_type == FactorType.RELEASE_DATE:
-            pass  # TODO needs special handling
-        elif not factor_type.binary_type():
-            factor_min_max = _calculate_raw_factor_min_max(factor_type, crunched_df, all_factor_types)
-            _find_ideal_factor_bucket_size(factor_min_max, crunched_df, all_factor_types)
+        try:
+            if "PERCENTILE" in factor_type.name:
+                continue  # TODO temporary
+            if factor_type == FactorType.RELEASE_DATE:
+                pass  # TODO needs special handling
+            elif not factor_type.binary_type():
+                factor_min_max = _calculate_raw_factor_min_max(factor_type, crunched_df, all_factor_types)
+                _find_ideal_factor_bucket_size(factor_min_max, crunched_df, all_factor_types)
+                default_plot_settings.append(DefaultPlotSettingsItem(
+                    bucked_width=factor_min_max.bucket_size,
+                    x_factor_familiar_name=factor_types_translations[factor_type],
+                    x_limit_lower=factor_min_max.effective_min,
+                    x_limit_upper=factor_min_max.effective_max,
+                ))
+        except DataTransformationError as ex:
+            failed_factor_types_count += 1
+            logging.error("[%s] Failed to create default plot settings. Reason: %s", factor_type, ex)
 
-    # TODO load it into default plot settings
+    if failed_factor_types_count > 0:
+        raise DataTransformationError(
+            f"Default plot settings creation failed for {failed_factor_types_count} factor types."
+        )
 
     return default_plot_settings
 
@@ -91,6 +105,7 @@ def _calculate_raw_factor_min_max(
     :param crunched_df: Dataframe loaded with crunched df data.
     :param all_factor_types: List of all factor types.
     :return: Factor min max instance.
+    :raises DataTransformationError: When the raw min/max value extraction fails.
     """
     x_factor_min_max = FactorMinMax(x_factor_type)
     x_factor_relevant_df = crunched_df.dropna(subset=[x_factor_type.value])  # dataframe without rows where x was None
