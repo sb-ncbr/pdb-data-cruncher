@@ -120,7 +120,15 @@ class FactorType(Enum):
     EXPERIMENTAL_METHOD = "experimentalMethod"
 
     def binary_type(self) -> bool:
-        if "BINARY" in self.name:
-            return True
-        else:
-            return False
+        """
+        Returns true if the factor type was predetermined to be binary - only ever has value of 0 or 1.
+        """
+        return self in BINARY_FACTOR_TYPES
+
+
+BINARY_FACTOR_TYPES = [
+    FactorType.GOOD_LIGAND_RATIO_BINARY,
+    FactorType.LIGAND_TOPOLOGY_PROBLEMS_PRECISE_BINARY,
+    FactorType.LIGAND_TOPOLOGY_CARBON_CHIRA_PROBLEMS_PRECISE_BINARY,
+    FactorType.CHIRA_PROBLEMS_PRECISE_BINARY,
+]

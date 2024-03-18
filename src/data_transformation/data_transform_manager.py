@@ -87,6 +87,7 @@ class DataTransformManager:
             default_plot_setting_list = create_default_plot_settings(crunched_df, factor_types_with_translations)
             # save default plot setting into file
             create_default_plot_settings_file(default_plot_setting_list, config.output_files_path)
+            logging.info("Creation of default plot settings finished successfully.")
         except (ParsingError, DataTransformationError, FileWritingError) as ex:
             logging.error("Failed to create default plot settings. %s", ex)
         except Exception as ex:  # pylint: disable=broad-exception-caught

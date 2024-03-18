@@ -68,7 +68,7 @@ def to_bool(value_to_convert: Any, default: Optional[bool] = None) -> Optional[b
     return default
 
 
-# TODO removal candiate
+# TODO remove if this remains unused
 def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = None) -> Union[float, int, None]:
     """
     Safe way to convert to int or float, when unsure which type it is. If the conversion fails due to ValueError
@@ -121,7 +121,7 @@ def round_decimal_place_relative(number_to_round: Union[int, float], significant
     """
     Rounds given number to at most given amount of siginificant decimal places. If the number has a whole part,
     it is rounded in such a way so there are at most X decimal places minus digits in the whole part.
-    Eg. in case of default value of 3 decimal places:\n
+    E.g. in case of default value of 3 decimal places:\n
     12345 -> 12345\n
     1.2345 -> 1.23\n
     0.00012345 -> 0.000123
@@ -142,6 +142,7 @@ def round_decimal_place_relative(number_to_round: Union[int, float], significant
     return round(number_to_round, round_to)
 
 
+# TODO remove if this remains unused
 def round_relative(number_to_round: Union[int, float, Decimal], places_to_round_to: int) -> Union[int, float, Decimal]:
     if isinstance(number_to_round, Decimal):  # decimal has native more effective way of getting exponent
         return round_relative_decimal(number_to_round, places_to_round_to)
@@ -151,6 +152,14 @@ def round_relative(number_to_round: Union[int, float, Decimal], places_to_round_
 
 
 def round_relative_decimal(number_to_round: Decimal, places_to_round_to: int) -> Decimal:
+    """
+    Round given decimal number to given significant places.\n
+    12345 round to 2 -> 12000 \n
+    0.0088111 round to 1 -> 0.009
+    :param number_to_round: Decimal number to round.
+    :param places_to_round_to: Number of significant places to round to.
+    :return: Rounded number.
+    """
     (sign, digits, exponent) = number_to_round.as_tuple()
     mantissa = len(digits) + exponent - 1
     return round(number_to_round, -mantissa - 1 + places_to_round_to)

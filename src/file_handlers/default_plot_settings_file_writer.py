@@ -1,3 +1,4 @@
+import logging
 from os import path
 
 from file_handlers.json_file_writer import write_json_file
@@ -19,5 +20,8 @@ def create_default_plot_settings_file(
         filepath = path.join(output_folder_filepath, f"{get_formatted_date()}_DefaultPlotSettings.json")
         default_plot_settings_json = [item.to_dict() for item in default_plot_settings]
         write_json_file(filepath, default_plot_settings_json)
+        logging.info(
+            "Saved default plot settings for %s factors files into %s.", len(default_plot_settings), filepath
+        )
     except OSError as ex:
         raise FileWritingError(f"Default plot settings creation failed: {ex}") from ex

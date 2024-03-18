@@ -63,26 +63,29 @@ class FactorMinMax:
 def create_default_plot_settings(
     crunched_df: pd.DataFrame, factor_types_translations: dict[FactorType, str]
 ) -> list[DefaultPlotSettingsItem]:
-    default_plot_settings = []
+    """
+    Create default plot settings for all factors in keys of given factor translations, except binary types.
+    :param crunched_df: Dataframe loaded with crunched df.
+    :param factor_types_translations: Dictionary with translations between FactorType and their familiar name string.
+    :return: List of created default plot settings.
+    """
+    plot_setting_items = []
     failed_factor_types_count = 0
 
     all_factor_types = list(factor_types_translations.keys())
 
     for factor_type in factor_types_translations:
         try:
-            if "PERCENTILE" in factor_type.name:
-                continue  # TODO temporary
-            if factor_type == FactorType.RELEASE_DATE:
-                pass  # TODO needs special handling
-            elif not factor_type.binary_type():
+            if factor_type == FactorType.RELEASE_DATE:  # release date is a special case that's quicker
+                factor_min_max = _calculate_raw_factor_min_max(FactorType.RELEASE_DATE, crunched_df, all_factor_types)
+                plot_setting_items.append(
+                    _create_release_date_plot_settings_item(factor_min_max, factor_types_translations)
+                )
+            elif not factor_type.binary_type():  # do not process binary types on x-axis at all
+                # try to find reasonable factor bucket size for factors without predetermined boundaries
                 factor_min_max = _calculate_raw_factor_min_max(factor_type, crunched_df, all_factor_types)
                 _find_ideal_factor_bucket_size(factor_min_max, crunched_df, all_factor_types)
-                default_plot_settings.append(DefaultPlotSettingsItem(
-                    bucked_width=factor_min_max.bucket_size,
-                    x_factor_familiar_name=factor_types_translations[factor_type],
-                    x_limit_lower=factor_min_max.effective_min,
-                    x_limit_upper=factor_min_max.effective_max,
-                ))
+                plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_types_translations))
         except DataTransformationError as ex:
             failed_factor_types_count += 1
             logging.error("[%s] Failed to create default plot settings. Reason: %s", factor_type, ex)
@@ -92,7 +95,42 @@ def create_default_plot_settings(
             f"Default plot settings creation failed for {failed_factor_types_count} factor types."
         )
 
-    return default_plot_settings
+    return plot_setting_items
+
+
+def _create_plot_settings_item(
+    factor_min_max: FactorMinMax, factor_types_translations: dict[FactorType, str]
+) -> DefaultPlotSettingsItem:
+    """
+    Create default plot settings item final product from collected factor min max data.
+    :param factor_min_max:
+    :param factor_types_translations: Dictionary with translations from FactorType into familiar factor name string.
+    """
+    return DefaultPlotSettingsItem(
+        bucked_width=factor_min_max.bucket_size,
+        x_factor_familiar_name=factor_types_translations[factor_min_max.factor],
+        x_limit_lower=factor_min_max.effective_min,
+        x_limit_upper=factor_min_max.effective_max,
+    )
+
+
+def _create_release_date_plot_settings_item(
+    factor_min_max: FactorMinMax, factor_types_translations: dict[FactorType, str]
+) -> DefaultPlotSettingsItem:
+    min_year = int(factor_min_max.min_raw)
+    max_year = int(factor_min_max.max_raw)
+    bucket_width = math.ceil((max_year + 1 - min_year)/DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT)
+    bucket_count = math.ceil((max_year + 1 - min_year)/bucket_width)
+    # will result in the year at least 1 above the max year (website needs it in this format to have open interval
+    # on the right), possibly more to adjust for bigger bucket size
+    max_year = min_year + bucket_count * bucket_width
+
+    return DefaultPlotSettingsItem(
+        bucked_width=bucket_width,
+        x_factor_familiar_name=factor_types_translations[factor_min_max.factor],
+        x_limit_lower=min_year,
+        x_limit_upper=max_year,
+    )
 
 
 def _calculate_raw_factor_min_max(
@@ -214,7 +252,8 @@ def _find_ideal_factor_bucket_size(
             factor_min_max.effective_min = bucket_limits[0]
             factor_min_max.effective_max = bucket_limits[-1]
             return
-        elif len(bucket_limits) == 1:
+
+        if len(bucket_limits) == 1:
             # the possible size generator is infinite, but buckets get larger - if the dataset is so small even
             # one bucket would not contain enough structures, this ends the loop
             raise DataTransformationError(
@@ -240,6 +279,8 @@ def _test_possible_bucket_limits(
     factor_df["bucket"] = pd.cut(
         factor_df[x_factor_type.value], bins=float_bucket_limits, right=False
     )
+    # disabling pylint complaint, as this comprehension is in fact necessary and does not work in suggested form
+    # pylint: disable=unnecessary-comprehension
     buckets_df = {bucket: group for bucket, group in factor_df.groupby("bucket", observed=True)}
 
     # check if there is at least N strucutres (df lines) at all (this counts even none values for now)
@@ -291,12 +332,12 @@ def _possible_neat_bucket_size_generator(factor_min_max: FactorMinMax) -> Genera
     min_bucket_size_raw = (factor_min_max.max_raw - factor_min_max.min_raw) / DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT
     try:
         bucket_size = _decompose_and_round_bucket_size(Decimal(min_bucket_size_raw))
-    except InvalidBucketSize:
+    except InvalidBucketSize as ex:
         raise DataTransformationError(
             f"Neat bucket creation failed for {factor_min_max.factor.value}. Min bucket size was negative or zero, "
             f"most likely result of too aggresive funciton that removes outlier values. Adjusted min value: "
             f"'{factor_min_max.min_raw}', adjusted max value: '{factor_min_max.max_raw}'."
-        )
+        ) from ex
 
     allowed_size_index = _match_minimal_size_to_allowed_sizes(
         bucket_size, DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES
