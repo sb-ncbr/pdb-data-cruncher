@@ -119,16 +119,13 @@ class FactorType(Enum):
     ABSOLUTE_PERCENTILE_RNA_SUITENESS = "absolute-percentile-RNAsuiteness"
     EXPERIMENTAL_METHOD = "experimentalMethod"
 
-    def binary_type(self) -> bool:
+    def is_year(self) -> bool:
         """
-        Returns true if the factor type was predetermined to be binary - only ever has value of 0 or 1.
+        Returns true if the factor type was predetermined to be representing year (as integer).
         """
-        return self in BINARY_FACTOR_TYPES
+        return self in YEAR_FACTOR_TYPES
 
 
-BINARY_FACTOR_TYPES = [
-    FactorType.GOOD_LIGAND_RATIO_BINARY,
-    FactorType.LIGAND_TOPOLOGY_PROBLEMS_PRECISE_BINARY,
-    FactorType.LIGAND_TOPOLOGY_CARBON_CHIRA_PROBLEMS_PRECISE_BINARY,
-    FactorType.CHIRA_PROBLEMS_PRECISE_BINARY,
+YEAR_FACTOR_TYPES = [
+    FactorType.RELEASE_DATE,
 ]

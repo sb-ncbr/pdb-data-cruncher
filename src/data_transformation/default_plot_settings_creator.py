@@ -2,7 +2,7 @@ import logging
 import math
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Union, Generator, Optional
+from typing import Union, Generator, Optional, Any
 
 import numpy as np
 import pandas as pd
@@ -13,12 +13,12 @@ from src.constants import (
     DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT,
     DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER,
 )
-from src.exception import DataTransformationError
+from src.exception import DataTransformationError, ParsingError
 from src.models import FactorType
 from src.models.transformed import DefaultPlotSettingsItem
 
 
-class NoXFactorValueError(DataTransformationError):
+class NoXFactorValueError(ValueError):
     """
     Exception raised and caught only in this file, representing no x factors with value in sliced dataframe.
     """
@@ -28,6 +28,18 @@ class InvalidBucketSize(ValueError):
     """
     Exception raised and caught only within this file, representing invalid bucket size that cannot be decomposed.
     """
+
+
+@dataclass(slots=True)
+class RelevantFactorInfo:
+    """
+    Holds extracted information about factor type in general for ease of use.
+    """
+
+    factor_type: FactorType
+    familiar_name: str
+    applicable_for_x: bool
+    applicable_for_y: bool
 
 
 @dataclass(slots=True)
@@ -61,34 +73,36 @@ class FactorMinMax:
 
 
 def create_default_plot_settings(
-    crunched_df: pd.DataFrame, factor_types_translations: dict[FactorType, str]
+    crunched_df: pd.DataFrame, factor_types_translations: dict[FactorType, str], factor_hierarchy_json: Any
 ) -> list[DefaultPlotSettingsItem]:
     """
     Create default plot settings for all factors in keys of given factor translations, except binary types.
     :param crunched_df: Dataframe loaded with crunched df.
     :param factor_types_translations: Dictionary with translations between FactorType and their familiar name string.
+    :param factor_hierarchy_json: Json laoded with factor hierarchy file.
     :return: List of created default plot settings.
     """
     plot_setting_items = []
     failed_factor_types_count = 0
+    factor_type_infos = _load_general_factor_info(factor_types_translations, factor_hierarchy_json)
+    factor_types_for_y = [factor_info.factor_type for factor_info in factor_type_infos if factor_info.applicable_for_y]
 
-    all_factor_types = list(factor_types_translations.keys())
-
-    for factor_type in factor_types_translations:
+    for factor_info in factor_type_infos:
+        if not factor_info.applicable_for_x:
+            continue
         try:
-            if factor_type == FactorType.RELEASE_DATE:  # release date is a special case that's quicker
-                factor_min_max = _calculate_raw_factor_min_max(FactorType.RELEASE_DATE, crunched_df, all_factor_types)
+            if factor_info.factor_type.is_year():  # int representing year is a special case
+                factor_min_max = _calculate_raw_factor_min_max(factor_info.factor_type, crunched_df, factor_types_for_y)
                 plot_setting_items.append(
-                    _create_release_date_plot_settings_item(factor_min_max, factor_types_translations)
+                    _create_year_plot_settings_item(factor_min_max, factor_info.familiar_name)
                 )
-            elif not factor_type.binary_type():  # do not process binary types on x-axis at all
-                # try to find reasonable factor bucket size for factors without predetermined boundaries
-                factor_min_max = _calculate_raw_factor_min_max(factor_type, crunched_df, all_factor_types)
-                _find_ideal_factor_bucket_size(factor_min_max, crunched_df, all_factor_types)
-                plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_types_translations))
+            else:
+                factor_min_max = _calculate_raw_factor_min_max(factor_info.factor_type, crunched_df, factor_types_for_y)
+                _find_ideal_factor_bucket_size(factor_min_max, crunched_df, factor_types_for_y)
+                plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_info.familiar_name))
         except DataTransformationError as ex:
             failed_factor_types_count += 1
-            logging.error("[%s] Failed to create default plot settings. Reason: %s", factor_type, ex)
+            logging.error("[%s] Failed to create default plot settings. Reason: %s", factor_info.factor_type, ex)
 
     if failed_factor_types_count > 0:
         raise DataTransformationError(
@@ -98,25 +112,119 @@ def create_default_plot_settings(
     return plot_setting_items
 
 
+def _load_general_factor_info(
+    factor_types_translations: dict[FactorType, str], factor_hierarchy_json: Any
+) -> list[RelevantFactorInfo]:
+    """
+    Extract relevant factor information from given sources and return it as dictionary.
+    :param factor_types_translations: Dictionary with translations from factor type to its familiar name as string.
+    :param factor_hierarchy_json: Json loaded with factor hierarchy information.
+    :return: Dictionary where keys are FactorType and values are objects with factor information.
+    """
+    factor_types_translations_reverse = {value: key for key, value in factor_types_translations.items()}
+    general_factor_infos = []
+    failed_count = 0
+
+    factor_list_json = factor_hierarchy_json.get("FactorList")
+    if factor_list_json is None or not isinstance(factor_list_json, list):
+        raise ParsingError("Factor hierarchy json contained no item 'FactorList' or wasn't a list.")
+
+    for one_factor_hierarchy_json in factor_list_json:
+        factor_info = _extract_one_relevant_factor_info(one_factor_hierarchy_json, factor_types_translations_reverse)
+        if not factor_info:
+            failed_count += 1
+        else:
+            general_factor_infos.append(factor_info)
+
+    if failed_count > 0:
+        raise DataTransformationError(f"Failed to extract {failed_count} factor info from factor hierarchy json.")
+
+    _check_every_factor_type_has_info(factor_types_translations, general_factor_infos)
+    return general_factor_infos
+
+
+def _extract_one_relevant_factor_info(
+    factor_json: Any, factor_types_translations_reverse: dict[str, FactorType]
+) -> Optional[RelevantFactorInfo]:
+    """
+    Extract relevant factor info for one factor.
+    :param factor_json: Json object from factor hierarchy json containing only one factor's information
+    (child of "FactorList").
+    :param factor_types_translations_reverse: Reversed factor types translations (translates familiar name string
+    into FactorType).
+    :return: Extracted RelevantFactorInfo on success, None on failure.
+    """
+    factor_familiar_name = factor_json.get("FactorName")
+    if not factor_familiar_name:
+        logging.warning("Failed to extract factor name from element %s", factor_json)
+        return None
+
+    factor_type = factor_types_translations_reverse.get(factor_familiar_name)
+    if not factor_type:
+        logging.warning("Factor familiar name '%s' was not found in loaded translations.", factor_familiar_name)
+        return None
+
+    applicable_for_x = factor_json.get("ApplicableForX")
+    applicable_for_y = factor_json.get("ApplicableForY")
+    if not isinstance(applicable_for_x, bool) or not isinstance(applicable_for_y, bool):
+        logging.warning(
+            "Failed to extract 'ApplicableForX' or 'ApplicableForY' boolean values from json element: %s.",
+            factor_json
+        )
+        return None
+
+    return RelevantFactorInfo(factor_type, factor_familiar_name, applicable_for_x, applicable_for_y)
+
+
+def _check_every_factor_type_has_info(
+    factor_types_translations: dict[FactorType, str], general_factor_infos: list[RelevantFactorInfo]
+):
+    """
+    Checks every factor type from keys in given factor types translations has also entry in given relevant factor info.
+    :param factor_types_translations: Dictionary translating FactorType into familiar name string.
+    :param general_factor_infos: List holding extracted RelevantFactorInfos.
+    :raises DataTransformationError: If at least one factor is missing information.
+    """
+    factor_types_with_info = [info.factor_type for info in general_factor_infos]
+    missing_factor_info_count = 0
+    for factor_type, factor_familiar_name in factor_types_translations.items():
+        if factor_type not in factor_types_with_info:
+            logging.warning(
+                "Information for factor type '%s' (by familiar name: '%s') was not found in factor hierarchy json.",
+                factor_type.value,
+                factor_familiar_name,
+            )
+            missing_factor_info_count += 1
+    if missing_factor_info_count > 0:
+        raise DataTransformationError(
+            f"Failed to find information about {missing_factor_info_count} factor types in factor hierarchy json."
+        )
+
+
 def _create_plot_settings_item(
-    factor_min_max: FactorMinMax, factor_types_translations: dict[FactorType, str]
+    factor_min_max: FactorMinMax, factor_familiar_name: str
 ) -> DefaultPlotSettingsItem:
     """
     Create default plot settings item final product from collected factor min max data.
     :param factor_min_max:
-    :param factor_types_translations: Dictionary with translations from FactorType into familiar factor name string.
+    :param factor_familiar_name:
     """
     return DefaultPlotSettingsItem(
         bucked_width=factor_min_max.bucket_size,
-        x_factor_familiar_name=factor_types_translations[factor_min_max.factor],
+        x_factor_familiar_name=factor_familiar_name,
         x_limit_lower=factor_min_max.effective_min,
         x_limit_upper=factor_min_max.effective_max,
     )
 
 
-def _create_release_date_plot_settings_item(
-    factor_min_max: FactorMinMax, factor_types_translations: dict[FactorType, str]
+def _create_year_plot_settings_item(
+    factor_min_max: FactorMinMax, factor_familiar_name: str
 ) -> DefaultPlotSettingsItem:
+    """
+    Create default plot settings item with respect to the fact that the data type represents year value.
+    :param factor_min_max:
+    :param factor_familiar_name:
+    """
     min_year = int(factor_min_max.min_raw)
     max_year = int(factor_min_max.max_raw)
     bucket_width = math.ceil((max_year + 1 - min_year)/DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT)
@@ -127,21 +235,21 @@ def _create_release_date_plot_settings_item(
 
     return DefaultPlotSettingsItem(
         bucked_width=bucket_width,
-        x_factor_familiar_name=factor_types_translations[factor_min_max.factor],
+        x_factor_familiar_name=factor_familiar_name,
         x_limit_lower=min_year,
         x_limit_upper=max_year,
     )
 
 
 def _calculate_raw_factor_min_max(
-    x_factor_type: FactorType, crunched_df: pd.DataFrame, all_factor_types: list[FactorType]
+    x_factor_type: FactorType, crunched_df: pd.DataFrame, factor_types_for_y: list[FactorType]
 ) -> FactorMinMax:
     """
     For given x factor type, calculate the minimum and maximum raw (= not rounded) value that is common for all the
     possible xy factor combinations.
     :param x_factor_type: Type of factor that will represent the x-axis.
     :param crunched_df: Dataframe loaded with crunched df data.
-    :param all_factor_types: List of all factor types.
+    :param factor_types_for_y: List of factors with extra information.
     :return: Factor min max instance.
     :raises DataTransformationError: When the raw min/max value extraction fails.
     """
@@ -150,7 +258,7 @@ def _calculate_raw_factor_min_max(
 
     empty_combinations_y_factors = []
 
-    for y_factor_type in all_factor_types:
+    for y_factor_type in factor_types_for_y:
         try:
             if x_factor_type != y_factor_type:
                 xy_factor_relevant_df = x_factor_relevant_df[[x_factor_type.value, y_factor_type.value]].dropna()
@@ -225,7 +333,7 @@ def _get_min_and_max_value_ignoring_outliers(dataset: pd.Series) -> tuple[Union[
 
 
 def _find_ideal_factor_bucket_size(
-    factor_min_max: FactorMinMax, crunched_df: pd.DataFrame, all_factor_types: list[FactorType]
+    factor_min_max: FactorMinMax, crunched_df: pd.DataFrame, factor_types_for_y: list[FactorType]
 ):
     """
     For given factor min max (factor type and real min/max values) and dataset, the function finds good bucket size
@@ -237,7 +345,8 @@ def _find_ideal_factor_bucket_size(
     The final result is loaded into passed factor min max.
     :param factor_min_max: Information about x factor with factor type and real min/max values.
     :param crunched_df: Dataframe with loaded crunched csv.
-    :param all_factor_types: List of all factor types, used to derive all possible factor combinations.
+    :param factor_types_for_y: Factor types that can be used on y-axis.
+    factor combinations.
     :raise DataTransformationError: If the buckets cannot be created.
     """
     factor_relevant_df = crunched_df.dropna(
@@ -246,11 +355,17 @@ def _find_ideal_factor_bucket_size(
 
     for possible_bucket_size in _possible_neat_bucket_size_generator(factor_min_max):
         bucket_limits = _create_neat_bucket_limits(factor_min_max, possible_bucket_size)
-        if _test_possible_bucket_limits(factor_min_max.factor, factor_relevant_df, bucket_limits, all_factor_types):
+        if _test_possible_bucket_limits(factor_min_max.factor, factor_relevant_df, bucket_limits, factor_types_for_y):
             # all buckets have enough structures
             factor_min_max.bucket_size = possible_bucket_size
             factor_min_max.effective_min = bucket_limits[0]
-            factor_min_max.effective_max = bucket_limits[-1]
+            if factor_min_max.max_raw < bucket_limits[-1]:
+                # the website consuming this creates the last bucket automatically if the max_value equals
+                # min_value + N * bucket_size; if the max value is in fact last bucket limit, this balances it out
+                # to avoid creating extra bucket in the website
+                factor_min_max.effective_max = bucket_limits[-2]
+            else:
+                factor_min_max.effective_max = bucket_limits[-1]
             return
 
         if len(bucket_limits) == 1:
@@ -263,14 +378,17 @@ def _find_ideal_factor_bucket_size(
 
 
 def _test_possible_bucket_limits(
-    x_factor_type: FactorType, factor_df: pd.DataFrame, bucket_limits: list[Decimal], factor_types: list[FactorType]
+    x_factor_type: FactorType,
+        factor_df: pd.DataFrame,
+        bucket_limits: list[Decimal],
+        factor_types_for_y: list[FactorType]
 ) -> bool:
     """
     Check whether given bucket limits create buckets with enough structures for each factor type on y.
     :param x_factor_type: X factor type.
     :param factor_df: Dataframe with cruched data but none values for x factor were dropped.
     :param bucket_limits: List of values forming limits of buckets to test.
-    :param factor_types: All factor types possible on y-axis.
+    :param factor_types_for_y: All factor types possible on y-axis.
     :return: False if the buckets are not satisfactory, True if they are.
     """
     # bucket limits are decimals to keep precision for the final output; but for cutting the data to approximately
@@ -288,7 +406,7 @@ def _test_possible_bucket_limits(
         if len(bucket_df) < DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET:
             return False
 
-        for y_factor in factor_types:
+        for y_factor in factor_types_for_y:
             if y_factor == x_factor_type:  # y is the same as x factor
                 continue
             if bucket_df[y_factor.value].count() < DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET:

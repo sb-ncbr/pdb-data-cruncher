@@ -72,6 +72,7 @@ class Config:
     factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
     factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
     familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
+    factor_hierarchy_path: str = path.join(path.pardir, "dataset", "FactorHierarchy.json")
 
     output_files_path: str = path.join(path.pardir, "my_output/")
     transponed_crunched_csv_name: str = "crunched_data_transponed.csv"
