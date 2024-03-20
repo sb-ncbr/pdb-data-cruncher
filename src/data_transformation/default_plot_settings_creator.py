@@ -239,10 +239,8 @@ def _create_year_plot_settings_item(
     """
     min_year = int(factor_min_max.min_raw)
     max_year = int(factor_min_max.max_raw)
-    bucket_width = math.ceil((max_year + 1 - min_year) / max_bucket_count)
-    bucket_count = math.ceil((max_year + 1 - min_year) / bucket_width)
-    # will result in the year at least 1 above the max year (website needs it in this format to have open interval
-    # on the right), possibly more to adjust for bigger bucket size
+    bucket_width = math.ceil((max_year - min_year) / max_bucket_count)
+    bucket_count = math.ceil((max_year - min_year) / bucket_width)
     max_year = min_year + bucket_count * bucket_width
 
     return DefaultPlotSettingsItem(
@@ -396,7 +394,7 @@ def _find_ideal_factor_bucket_size(
                 factor_min_max.effective_max = bucket_limits[-1]
             return
 
-        if len(bucket_limits) == 1:
+        if len(bucket_limits) == 2:
             # the possible size generator is infinite, but buckets get larger - if the dataset is so small even
             # one bucket would not contain enough structures, this ends the loop
             raise DataTransformationError(
