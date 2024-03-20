@@ -7,15 +7,13 @@ from typing import Union, Generator, Optional, Any
 import numpy as np
 import pandas as pd
 
-from src.constants import (
-    DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES,
-    DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET,
-    DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT,
-    DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER,
-)
+from src.config import DefaultPlotSettingsConfig
 from src.exception import DataTransformationError, ParsingError
 from src.models import FactorType
 from src.models.transformed import DefaultPlotSettingsItem
+
+
+DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES = [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
 
 
 class NoXFactorValueError(ValueError):
@@ -73,13 +71,17 @@ class FactorMinMax:
 
 
 def create_default_plot_settings(
-    crunched_df: pd.DataFrame, factor_types_translations: dict[FactorType, str], factor_hierarchy_json: Any
+    crunched_df: pd.DataFrame,
+    factor_types_translations: dict[FactorType, str],
+    factor_hierarchy_json: Any,
+    dps_config: DefaultPlotSettingsConfig,
 ) -> list[DefaultPlotSettingsItem]:
     """
     Create default plot settings for all factors in keys of given factor translations, except binary types.
     :param crunched_df: Dataframe loaded with crunched df.
     :param factor_types_translations: Dictionary with translations between FactorType and their familiar name string.
     :param factor_hierarchy_json: Json laoded with factor hierarchy file.
+    :param dps_config: Configuration related to the default plot settings creation.
     :return: List of created default plot settings.
     """
     plot_setting_items = []
@@ -92,13 +94,25 @@ def create_default_plot_settings(
             continue
         try:
             if factor_info.factor_type.is_year():  # int representing year is a special case
-                factor_min_max = _calculate_raw_factor_min_max(factor_info.factor_type, crunched_df, factor_types_for_y)
+                factor_min_max = _calculate_raw_factor_min_max(
+                    factor_info.factor_type, crunched_df, factor_types_for_y, dps_config.std_outlier_multiplier
+                )
                 plot_setting_items.append(
-                    _create_year_plot_settings_item(factor_min_max, factor_info.familiar_name)
+                    _create_year_plot_settings_item(
+                        factor_min_max, factor_info.familiar_name, dps_config.max_bucket_count
+                    )
                 )
             else:
-                factor_min_max = _calculate_raw_factor_min_max(factor_info.factor_type, crunched_df, factor_types_for_y)
-                _find_ideal_factor_bucket_size(factor_min_max, crunched_df, factor_types_for_y)
+                factor_min_max = _calculate_raw_factor_min_max(
+                    factor_info.factor_type, crunched_df, factor_types_for_y, dps_config.std_outlier_multiplier
+                )
+                _find_ideal_factor_bucket_size(
+                    factor_min_max,
+                    crunched_df,
+                    factor_types_for_y,
+                    dps_config.max_bucket_count,
+                    dps_config.min_structures_in_bucket,
+                )
                 plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_info.familiar_name))
         except DataTransformationError as ex:
             failed_factor_types_count += 1
@@ -168,8 +182,7 @@ def _extract_one_relevant_factor_info(
     applicable_for_y = factor_json.get("ApplicableForY")
     if not isinstance(applicable_for_x, bool) or not isinstance(applicable_for_y, bool):
         logging.warning(
-            "Failed to extract 'ApplicableForX' or 'ApplicableForY' boolean values from json element: %s.",
-            factor_json
+            "Failed to extract 'ApplicableForX' or 'ApplicableForY' boolean values from json element: %s.", factor_json
         )
         return None
 
@@ -201,9 +214,7 @@ def _check_every_factor_type_has_info(
         )
 
 
-def _create_plot_settings_item(
-    factor_min_max: FactorMinMax, factor_familiar_name: str
-) -> DefaultPlotSettingsItem:
+def _create_plot_settings_item(factor_min_max: FactorMinMax, factor_familiar_name: str) -> DefaultPlotSettingsItem:
     """
     Create default plot settings item final product from collected factor min max data.
     :param factor_min_max:
@@ -218,17 +229,18 @@ def _create_plot_settings_item(
 
 
 def _create_year_plot_settings_item(
-    factor_min_max: FactorMinMax, factor_familiar_name: str
+    factor_min_max: FactorMinMax, factor_familiar_name: str, max_bucket_count: int
 ) -> DefaultPlotSettingsItem:
     """
     Create default plot settings item with respect to the fact that the data type represents year value.
     :param factor_min_max:
     :param factor_familiar_name:
+    :param max_bucket_count: Maximum bucket count to be created.
     """
     min_year = int(factor_min_max.min_raw)
     max_year = int(factor_min_max.max_raw)
-    bucket_width = math.ceil((max_year + 1 - min_year)/DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT)
-    bucket_count = math.ceil((max_year + 1 - min_year)/bucket_width)
+    bucket_width = math.ceil((max_year + 1 - min_year) / max_bucket_count)
+    bucket_count = math.ceil((max_year + 1 - min_year) / bucket_width)
     # will result in the year at least 1 above the max year (website needs it in this format to have open interval
     # on the right), possibly more to adjust for bigger bucket size
     max_year = min_year + bucket_count * bucket_width
@@ -242,7 +254,10 @@ def _create_year_plot_settings_item(
 
 
 def _calculate_raw_factor_min_max(
-    x_factor_type: FactorType, crunched_df: pd.DataFrame, factor_types_for_y: list[FactorType]
+    x_factor_type: FactorType,
+    crunched_df: pd.DataFrame,
+    factor_types_for_y: list[FactorType],
+    std_outlier_multiplier: int,
 ) -> FactorMinMax:
     """
     For given x factor type, calculate the minimum and maximum raw (= not rounded) value that is common for all the
@@ -250,6 +265,7 @@ def _calculate_raw_factor_min_max(
     :param x_factor_type: Type of factor that will represent the x-axis.
     :param crunched_df: Dataframe loaded with crunched df data.
     :param factor_types_for_y: List of factors with extra information.
+    :param std_outlier_multiplier: Multiplier to apply to stadard deviation when determine outliers.
     :return: Factor min max instance.
     :raises DataTransformationError: When the raw min/max value extraction fails.
     """
@@ -262,7 +278,7 @@ def _calculate_raw_factor_min_max(
         try:
             if x_factor_type != y_factor_type:
                 xy_factor_relevant_df = x_factor_relevant_df[[x_factor_type.value, y_factor_type.value]].dropna()
-                _adjust_raw_factor_min_max(x_factor_min_max, xy_factor_relevant_df)
+                _adjust_raw_factor_min_max(x_factor_min_max, xy_factor_relevant_df, std_outlier_multiplier)
         except NoXFactorValueError:
             empty_combinations_y_factors.append(y_factor_type)
 
@@ -276,7 +292,7 @@ def _calculate_raw_factor_min_max(
 
 
 def _adjust_raw_factor_min_max(
-    x_factor_min_max: FactorMinMax, xy_factor_relevant_df: pd.DataFrame
+    x_factor_min_max: FactorMinMax, xy_factor_relevant_df: pd.DataFrame, std_outlier_multiplier: int
 ) -> None:
     """
     Considers the min and max value for x factor in combination with selected y factor. (Which may be different
@@ -287,10 +303,11 @@ def _adjust_raw_factor_min_max(
     :param x_factor_min_max: Information about factor type and min/max values found so far.
     :param xy_factor_relevant_df: Dataframe with crunched csv relevant only to this combination of xy factors
     (None values were already dropped for them).
+    :param std_outlier_multiplier: Multiplier to apply to stadard deviation when determine outliers.
     :raises NoXFactorValue: When the x factor has no values at all.
     """
     x_factor_min, x_factor_max = _get_min_and_max_value_ignoring_outliers(
-        xy_factor_relevant_df[x_factor_min_max.factor.value]
+        xy_factor_relevant_df[x_factor_min_max.factor.value], std_outlier_multiplier
     )
 
     if x_factor_min_max.min_raw is None or x_factor_min > x_factor_min_max.min_raw:
@@ -300,10 +317,13 @@ def _adjust_raw_factor_min_max(
         x_factor_min_max.max_raw = x_factor_max
 
 
-def _get_min_and_max_value_ignoring_outliers(dataset: pd.Series) -> tuple[Union[int, float], Union[int, float]]:
+def _get_min_and_max_value_ignoring_outliers(
+    dataset: pd.Series, std_outlier_multiplier: int
+) -> tuple[Union[int, float], Union[int, float]]:
     """
     Get min and max value from given Series, but do not consider outliers.
     :param dataset: Data to get min/max value from.
+    :param std_outlier_multiplier: Multiplier to apply to stadard deviation when determine outliers.
     :return: Min and max value.
     :raises NoXFactorValue: When the series has no values at all.
     """
@@ -313,8 +333,8 @@ def _get_min_and_max_value_ignoring_outliers(dataset: pd.Series) -> tuple[Union[
     if np.isnan(dataset_standard_deviation) or np.isnan(dataset_mean):
         raise NoXFactorValueError()
 
-    lower_bound = dataset_mean - DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER * dataset_standard_deviation
-    upper_bound = dataset_mean + DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER * dataset_standard_deviation
+    lower_bound = dataset_mean - std_outlier_multiplier * dataset_standard_deviation
+    upper_bound = dataset_mean + std_outlier_multiplier * dataset_standard_deviation
     filtered_dataset = dataset.where((dataset >= lower_bound) & (dataset <= upper_bound))
     min_value_without_outliers = filtered_dataset.min()
     max_value_without_outliers = filtered_dataset.max()
@@ -333,8 +353,12 @@ def _get_min_and_max_value_ignoring_outliers(dataset: pd.Series) -> tuple[Union[
 
 
 def _find_ideal_factor_bucket_size(
-    factor_min_max: FactorMinMax, crunched_df: pd.DataFrame, factor_types_for_y: list[FactorType]
-):
+    factor_min_max: FactorMinMax,
+    crunched_df: pd.DataFrame,
+    factor_types_for_y: list[FactorType],
+    max_bucket_count: int,
+    min_structure_count_in_bucket: int,
+) -> None:
     """
     For given factor min max (factor type and real min/max values) and dataset, the function finds good bucket size
     and min/max value for these buckets. It finds such bucket size that each bucket it creates has at least
@@ -347,15 +371,19 @@ def _find_ideal_factor_bucket_size(
     :param crunched_df: Dataframe with loaded crunched csv.
     :param factor_types_for_y: Factor types that can be used on y-axis.
     factor combinations.
+    :param max_bucket_count: Maximum number of buckets to create.
+    :param min_structure_count_in_bucket: Minimum number of structures in a bucket to be considered valid.
     :raise DataTransformationError: If the buckets cannot be created.
     """
-    factor_relevant_df = crunched_df.dropna(
-        subset=[factor_min_max.factor.value]
-    ).sort_values(by=factor_min_max.factor.value)
+    factor_relevant_df = crunched_df.dropna(subset=[factor_min_max.factor.value]).sort_values(
+        by=factor_min_max.factor.value
+    )
 
-    for possible_bucket_size in _possible_neat_bucket_size_generator(factor_min_max):
+    for possible_bucket_size in _possible_neat_bucket_size_generator(factor_min_max, max_bucket_count):
         bucket_limits = _create_neat_bucket_limits(factor_min_max, possible_bucket_size)
-        if _test_possible_bucket_limits(factor_min_max.factor, factor_relevant_df, bucket_limits, factor_types_for_y):
+        if _test_possible_bucket_limits(
+            factor_min_max.factor, factor_relevant_df, bucket_limits, factor_types_for_y, min_structure_count_in_bucket
+        ):
             # all buckets have enough structures
             factor_min_max.bucket_size = possible_bucket_size
             factor_min_max.effective_min = bucket_limits[0]
@@ -372,16 +400,17 @@ def _find_ideal_factor_bucket_size(
             # the possible size generator is infinite, but buckets get larger - if the dataset is so small even
             # one bucket would not contain enough structures, this ends the loop
             raise DataTransformationError(
-                f"{factor_min_max.factor.value} has less than {DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET} "
+                f"{factor_min_max.factor.value} has less than {min_structure_count_in_bucket} "
                 "even when all the data fall into one bucket."
             )
 
 
 def _test_possible_bucket_limits(
     x_factor_type: FactorType,
-        factor_df: pd.DataFrame,
-        bucket_limits: list[Decimal],
-        factor_types_for_y: list[FactorType]
+    factor_df: pd.DataFrame,
+    bucket_limits: list[Decimal],
+    factor_types_for_y: list[FactorType],
+    min_structure_count_in_bucket: int,
 ) -> bool:
     """
     Check whether given bucket limits create buckets with enough structures for each factor type on y.
@@ -389,27 +418,26 @@ def _test_possible_bucket_limits(
     :param factor_df: Dataframe with cruched data but none values for x factor were dropped.
     :param bucket_limits: List of values forming limits of buckets to test.
     :param factor_types_for_y: All factor types possible on y-axis.
+    :param min_structure_count_in_bucket: Minimum number of structures in a bucket to be considered valid.
     :return: False if the buckets are not satisfactory, True if they are.
     """
     # bucket limits are decimals to keep precision for the final output; but for cutting the data to approximately
     # check there is enough data in each bucket, it is ok to use them as float (decimals cannot be used for cut)
     float_bucket_limits = [float(limit) for limit in bucket_limits]
-    factor_df["bucket"] = pd.cut(
-        factor_df[x_factor_type.value], bins=float_bucket_limits, right=False
-    )
+    factor_df["bucket"] = pd.cut(factor_df[x_factor_type.value], bins=float_bucket_limits, right=False)
     # disabling pylint complaint, as this comprehension is in fact necessary and does not work in suggested form
     # pylint: disable=unnecessary-comprehension
     buckets_df = {bucket: group for bucket, group in factor_df.groupby("bucket", observed=True)}
 
     # check if there is at least N strucutres (df lines) at all (this counts even none values for now)
     for bucket_df in buckets_df.values():
-        if len(bucket_df) < DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET:
+        if len(bucket_df) < min_structure_count_in_bucket:
             return False
 
         for y_factor in factor_types_for_y:
             if y_factor == x_factor_type:  # y is the same as x factor
                 continue
-            if bucket_df[y_factor.value].count() < DEFAULT_PLOT_SETTINGS_MIN_STRUCTURE_COUNT_IN_BUCKET:
+            if bucket_df[y_factor.value].count() < min_structure_count_in_bucket:
                 return False
 
     # if it got here, the buckets sizes are ok
@@ -437,17 +465,20 @@ def _create_neat_bucket_limits(factor_min_max: FactorMinMax, bucket_size: Decima
     return limits
 
 
-def _possible_neat_bucket_size_generator(factor_min_max: FactorMinMax) -> Generator[Decimal, None, None]:
+def _possible_neat_bucket_size_generator(
+    factor_min_max: FactorMinMax, max_bucket_count: int
+) -> Generator[Decimal, None, None]:
     """
     Returns generator creating neat (rounded to specific values) bucket sizes. First bucket size returned will be
     the smallest possible (creating the max number of buckets based on DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT).
     Subsequent bucket sizes are bigger and bigger, while always beeing one of the allowed neat sizes multiplied
     by 10^n.
     :param factor_min_max: Holds information about factor's min/max values for plot settings.
+    :param max_bucket_count: Maximum number of buckets to create.
     :return: Generator generating the numbers.
     :raises DataTransformationError: When the bucket size cannot be created.
     """
-    min_bucket_size_raw = (factor_min_max.max_raw - factor_min_max.min_raw) / DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT
+    min_bucket_size_raw = (factor_min_max.max_raw - factor_min_max.min_raw) / max_bucket_count
     try:
         bucket_size = _decompose_and_round_bucket_size(Decimal(min_bucket_size_raw))
     except InvalidBucketSize as ex:

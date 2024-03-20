@@ -12,7 +12,8 @@ from src.file_handlers.default_plot_data_file_writer import create_default_plot_
 from src.file_handlers.distribution_data_file_writer import create_distribution_data_files
 from src.file_handlers.default_plot_settings_file_writer import create_default_plot_settings_file
 from src.file_handlers.name_translations_loader import (
-    load_factor_names_translations, load_factor_type_names_translations
+    load_factor_names_translations,
+    load_factor_type_names_translations,
 )
 
 
@@ -87,7 +88,7 @@ class DataTransformManager:
             factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
             # create default plot settings
             default_plot_setting_list = create_default_plot_settings(
-                crunched_df, factor_types_with_translations, factor_hierarchy_json
+                crunched_df, factor_types_with_translations, factor_hierarchy_json, config.default_plot_settings
             )
             # save default plot setting into file
             create_default_plot_settings_file(default_plot_setting_list, config.output_files_path)

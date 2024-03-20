@@ -160,7 +160,7 @@ def round_relative_decimal(number_to_round: Decimal, places_to_round_to: int) ->
     :param places_to_round_to: Number of significant places to round to.
     :return: Rounded number.
     """
-    (sign, digits, exponent) = number_to_round.as_tuple()
+    (_, digits, exponent) = number_to_round.as_tuple()
     mantissa = len(digits) + exponent - 1
     return round(number_to_round, -mantissa - 1 + places_to_round_to)
 

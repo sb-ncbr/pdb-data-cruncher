@@ -43,6 +43,17 @@ class RunModeType(Enum):
     TEST = 99
 
 
+@dataclass(slots=True)
+class DefaultPlotSettingsConfig:
+    """
+    Configuration for creating default plot settings.
+    """
+
+    max_bucket_count: int = 50
+    min_structures_in_bucket: int = 50
+    std_outlier_multiplier: int = 2
+
+
 # pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class Config:
@@ -59,6 +70,9 @@ class Config:
 
     # TIMEOUTS
     http_requests_timeout_s: int = 10
+
+    # SPECIFIC
+    default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
 
     # FILE config TODO defaults with os path join
     path_to_rest_jsons: str = "../dataset/PDBe_REST_API_JSON/"
