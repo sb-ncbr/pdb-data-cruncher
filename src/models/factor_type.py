@@ -118,3 +118,14 @@ class FactorType(Enum):
     AVERAGE_LIGAND_RSCC_LARGE_LIGS = "averageLigandRSCClargeLigs"
     ABSOLUTE_PERCENTILE_RNA_SUITENESS = "absolute-percentile-RNAsuiteness"
     EXPERIMENTAL_METHOD = "experimentalMethod"
+
+    def is_year(self) -> bool:
+        """
+        Returns true if the factor type was predetermined to be representing year (as integer).
+        """
+        return self in YEAR_FACTOR_TYPES
+
+
+YEAR_FACTOR_TYPES = [
+    FactorType.RELEASE_DATE,
+]

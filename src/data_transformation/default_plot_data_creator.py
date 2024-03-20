@@ -5,8 +5,7 @@ import pandas as pd
 import numpy as np
 
 from src.models.transformed import DefaultPlotBucket, DefaultPlotData, FactorPair
-from src.exception import ParsingError, DataTransformationError
-from src.file_handlers.csv_reader import load_csv_as_dataframe
+from src.exception import DataTransformationError
 
 
 @dataclass

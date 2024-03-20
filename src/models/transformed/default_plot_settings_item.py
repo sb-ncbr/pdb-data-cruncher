@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Optional, Union
+from decimal import Decimal
+from typing import Union
 
 
 # pylint: disable=too-many-instance-attributes
@@ -9,24 +10,21 @@ class DefaultPlotSettingsItem:
     Holds extracted information about default plot settings.
     """
 
-    bucked_width: Optional[float] = None
-    x_factor_familiar_name: Optional[str] = None
-    x_limit_lower: Union[float, int, None] = None
-    x_limit_upper: Union[float, int, None] = None
-    y_factor_familiar_name: Optional[str] = None
-    y_limit_lower: Union[float, int, None] = None
-    y_limit_upper: Union[float, int, None] = None
-    no_minimum: Optional[bool] = None
-    no_maximum: Optional[bool] = None
+    bucked_width: Union[Decimal, int]
+    x_factor_familiar_name: str
+    x_limit_lower: Union[Decimal, int]
+    x_limit_upper: Union[Decimal, int]
 
     def to_dict(self):
         """
-        Create a dictionary out of self for default plot data json.
+        Create a dictionary out of self for default plot settings json.
         :return: The dict.
         """
         return {
-            "BucketWidth": self.bucked_width,
+            # convert to float because Decimal is not json serializable, but precision will not be lost as
+            # no more operations are made with it
+            "BucketWidth": float(self.bucked_width),
             "Factor": self.x_factor_familiar_name,
-            "XlimitLower": self.x_limit_lower,
-            "XlimitUpper": self.x_limit_upper,
+            "XlimitLower": float(self.x_limit_lower),
+            "XlimitUpper": float(self.x_limit_upper),
         }

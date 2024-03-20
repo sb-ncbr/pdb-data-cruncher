@@ -1,6 +1,6 @@
-import pandas as pd
 from functools import lru_cache
 
+import pandas as pd
 
 from src.exception import ParsingError
 

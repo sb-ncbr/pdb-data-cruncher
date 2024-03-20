@@ -11,7 +11,7 @@ def create_distribution_data_files(distribution_data_list: list[DistributionData
     """
     Create json files for distribution data in given output location.
     :param distribution_data_list: List of distribution data to write into json files.
-    :param output_folder_filepath: Path to the ouitput files.
+    :param output_folder_filepath: Path to the output files.
     :raises FileWritingError: In case of json serialization or file writing issues.
     """
     try:

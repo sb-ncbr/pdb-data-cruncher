@@ -8,7 +8,7 @@ import pandas as pd
 from src.exception import DataTransformationError
 from src.models import FactorType
 from src.models.transformed import DistributionData, DistributionDataBucket
-from src.utils import round_relative
+from src.utils import round_decimal_place_relative
 
 
 class Direction(Enum):
@@ -30,8 +30,8 @@ class WorkingBucket:
     left: Union[float, int]
     right: Union[float, int]
     count: int
-    bucket_on_left: Optional['WorkingBucket'] = None
-    bucket_on_right: Optional['WorkingBucket'] = None
+    bucket_on_left: Optional["WorkingBucket"] = None
+    bucket_on_right: Optional["WorkingBucket"] = None
 
     def smaller_neighbour_direction(self) -> Direction:
         """
@@ -74,14 +74,14 @@ def create_distribution_data(
     for factor_type in factor_types:
         try:
             factor_crunched_series = crunched_df[factor_type.value]
-            factor_crunched_series = factor_crunched_series.dropna().apply(round_relative)
-            distribution_data_list.append(_create_distribution_data_for_factor(
-                factor_type, factor_translations[factor_type], factor_crunched_series.dropna()
-            ))
-        except KeyError as ex:
-            logging.error(
-                "[%s] failed to create distribution data. KeyError: %s", factor_type.value, str(ex)
+            factor_crunched_series = factor_crunched_series.dropna().apply(round_decimal_place_relative)
+            distribution_data_list.append(
+                _create_distribution_data_for_factor(
+                    factor_type, factor_translations[factor_type], factor_crunched_series.dropna()
+                )
             )
+        except KeyError as ex:
+            logging.error("[%s] failed to create distribution data. KeyError: %s", factor_type.value, str(ex))
             failed_factors_count += 1
 
     if failed_factors_count > 0:
@@ -93,7 +93,7 @@ def create_distribution_data(
 
 
 def _create_distribution_data_for_factor(
-        factor_type: FactorType, factor_familiar_name: str, crunched_series: pd.Series
+    factor_type: FactorType, factor_familiar_name: str, crunched_series: pd.Series
 ) -> DistributionData:
     """
     Create distribution data for one factor type.
@@ -106,8 +106,7 @@ def _create_distribution_data_for_factor(
     # create buckets sorted by structure count
     working_buckets = [
         WorkingBucket(bucket_id=i, left=x_value, right=x_value, count=count)
-        for i, (x_value, count)
-        in enumerate(crunched_series.value_counts().sort_index().items())
+        for i, (x_value, count) in enumerate(crunched_series.value_counts().sort_index().items())
     ]
     _load_bucket_neighbours(working_buckets)
     working_buckets = _merge_buckets(working_buckets)
@@ -122,9 +121,9 @@ def _load_bucket_neighbours(buckets: list[WorkingBucket]) -> None:
     """
     for i, bucket in enumerate(buckets):
         if i != 0:
-            bucket.bucket_on_left = buckets[i-1]
+            bucket.bucket_on_left = buckets[i - 1]
         if i + 1 != len(buckets):
-            bucket.bucket_on_right = buckets[i+1]
+            bucket.bucket_on_right = buckets[i + 1]
 
 
 def _merge_buckets(buckets: list[WorkingBucket], max_target_buckets: int = 200) -> list[WorkingBucket]:
@@ -163,7 +162,7 @@ def _count_buckets(buckets_by_counts: dict[int, list[WorkingBucket]]) -> int:
     :param buckets_by_counts: Dictionary with buckets sorted by their count.
     :return: Total number of buckets.
     """
-    return sum([len(bucket_list) for bucket_list in buckets_by_counts.values()])
+    return sum(len(bucket_list) for bucket_list in buckets_by_counts.values())
 
 
 def _sort_bucket_into_buckets_by_counts(
@@ -232,10 +231,12 @@ def _create_final_data_buckets(working_buckets: list[WorkingBucket]) -> list[Dis
     """
     final_buckets = []
     for working_bucket in working_buckets:
-        final_buckets.append(DistributionDataBucket(
-            x_from=working_bucket.left,
-            x_to=working_bucket.right,
-            is_interval=(working_bucket.left != working_bucket.right),
-            structure_count=working_bucket.count,
-        ))
+        final_buckets.append(
+            DistributionDataBucket(
+                x_from=working_bucket.left,
+                x_to=working_bucket.right,
+                is_interval=(working_bucket.left != working_bucket.right),
+                structure_count=working_bucket.count,
+            )
+        )
     return final_buckets

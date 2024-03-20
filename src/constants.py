@@ -13,5 +13,7 @@ METAL_ELEMENT_NAMES = {
 }
 # fmt: on
 
-
+"""
+The string shorthand for unknown ligand type in rest or xml files.
+"""
 UNKNOWN_LIGAND_NAME = "unl"

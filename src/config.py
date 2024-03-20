@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from os import path
 
@@ -43,6 +43,20 @@ class RunModeType(Enum):
     TEST = 99
 
 
+@dataclass(slots=True)
+class DefaultPlotSettingsConfig:
+    """
+    Configuration for creating default plot settings.
+    """
+
+    max_bucket_count: int = 50
+    min_count_in_bucket: int = 50
+    std_outlier_multiplier: int = 2
+    allowed_bucket_size_bases: list[int] = field(
+        default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+    )
+
+
 # pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class Config:
@@ -60,6 +74,9 @@ class Config:
     # TIMEOUTS
     http_requests_timeout_s: int = 10
 
+    # SPECIFIC
+    default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
+
     # FILE config TODO defaults with os path join
     path_to_rest_jsons: str = "../dataset/PDBe_REST_API_JSON/"
     path_to_pdbx_files: str = "../dataset/PDBe_updated_mmCIF/"
@@ -72,6 +89,7 @@ class Config:
     factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
     factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
     familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
+    factor_hierarchy_path: str = path.join(path.pardir, "dataset", "FactorHierarchy.json")
 
     output_files_path: str = path.join(path.pardir, "my_output/")
     transponed_crunched_csv_name: str = "crunched_data_transponed.csv"
