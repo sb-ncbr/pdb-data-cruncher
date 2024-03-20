@@ -421,11 +421,14 @@ def _test_possible_bucket_limits(
     """
     # bucket limits are decimals to keep precision for the final output; but for cutting the data to approximately
     # check there is enough data in each bucket, it is ok to use them as float (decimals cannot be used for cut)
-    float_bucket_limits = [float(limit) for limit in bucket_limits]
-    factor_df["bucket"] = pd.cut(factor_df[x_factor_type.value], bins=float_bucket_limits, right=False)
+    float_bucket_intervals = pd.IntervalIndex.from_breaks([float(limit) for limit in bucket_limits], closed="left")
+    factor_df["bucket"] = pd.cut(factor_df[x_factor_type.value], bins=float_bucket_intervals)
     # disabling pylint complaint, as this comprehension is in fact necessary and does not work in suggested form
     # pylint: disable=unnecessary-comprehension
     buckets_df = {bucket: group for bucket, group in factor_df.groupby("bucket", observed=True)}
+
+    if _empty_buckets_present(buckets_df, float_bucket_intervals):
+        return False
 
     # check if there is at least N strucutres (df lines) at all (this counts even none values for now)
     for bucket_df in buckets_df.values():
@@ -440,6 +443,21 @@ def _test_possible_bucket_limits(
 
     # if it got here, the buckets sizes are ok
     return True
+
+
+def _empty_buckets_present(
+    present_bucket_intervals: dict[pd.Interval, pd.DataFrame], expected_bucket_intervals: pd.IntervalIndex
+) -> bool:
+    """
+    Check if there are any buckets that have 0 structures.
+    :param present_bucket_intervals: Intervals as the created buckets were grouped by.
+    :param expected_bucket_intervals: Interval index representing the expected buckets.
+    :return: True if at least one bucket is missing because there were no data for it. False if all buckets are there.
+    """
+    for interval in expected_bucket_intervals:
+        if interval not in present_bucket_intervals:
+            return True
+    return False
 
 
 def _create_neat_bucket_limits(factor_min_max: FactorMinMax, bucket_size: Decimal) -> list[Decimal]:

@@ -51,13 +51,13 @@ def create_test_hierarchy_json_with_release_date_and_resolution():
 
 
 def create_simple_crunched_df():
-    dummy_pdb_ids = []
-    release_date_values = []
+    dummy_pdb_ids = ["xxxx" for _ in range(300)]
+    release_date_values = [2000 for _ in range(150)]
+    release_date_values.extend([2002 for _ in range(150)])
     resolution_values = []
-    for _ in range(50):
-        dummy_pdb_ids.extend(["xxxx", "xxxx", "xxxx"])
-        release_date_values.extend([2000, 2001, 2003])
-        resolution_values.extend([0.7, 2.0, 10.001])  # TODO
+
+    for i in range(6):
+        resolution_values.extend([i + 1 for _ in range(50)])
 
     return pd.DataFrame({
         "PDB ID": dummy_pdb_ids,
@@ -90,7 +90,7 @@ def create_crunched_df_for_3_factor_combinations():
     for _ in range(50):
         dummy_pdb_ids.extend(["xxxx", "xxxx", "xxxx"])
         release_date_values.extend([2000, 2001, 2003])
-        resolution_values.extend([0.7, 2.0, 10.1])  # TODO
+        resolution_values.extend([0.7, 2.0, 2.1])
         atom_count_values.extend([10000, 15000, 20000])
         dummy_pdb_ids.append("xxxx")
         release_date_values.append(1990)
@@ -126,12 +126,10 @@ def test_year_factor_and_normal_factor_creates_a_result():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_simple_crunched_df()
     expected_release_date_settings = DefaultPlotSettingsItem(
-       1, "year of release", 2000, 2003
+       1, "year of release", 2000, 2002
     )
     expected_resolution_settings = DefaultPlotSettingsItem(
-        # max value is 10.0 even though there is 10.001 in the data, because the website autofills the last bucket
-        # in all cases without consideration whether the limit (10.0) value itself is in the data or not
-        Decimal("0.2"), "structure resolution [A]", Decimal("0.60"), Decimal("10.0"),
+        Decimal("0.9"), "structure resolution [A]", Decimal("0.9"), Decimal("5.4"),
     )
 
     plot_settings_list = create_default_plot_settings(
@@ -203,9 +201,11 @@ def test_y_factor_does_not_affect_min_max_value_if_turned_off_in_hierarchy():
 def test_bucket_size_is_bigger_than_smallest_possible_when_there_are_too_few_structures():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_crunched_df_for_bucket_upsizing()
-    # The smallest possible size of bucket is 0.2, but it will be bigger because buckets of 0.2 do not have enough data
+    # The smallest possible size of bucket is much smaller, but actual bucket size will be bigger because
+    # of the requirement that each bucket needs to have at least 50
+    # Side note: the upper limit is 2.4 and not 3.2 because the website consuming this auto creates the last bucket
     expected_resolution_settings = DefaultPlotSettingsItem(
-        Decimal("1.0"), "structure resolution [A]", Decimal("1.0"), Decimal("3.0"),
+        Decimal("0.8"), "structure resolution [A]", Decimal("0.8"), Decimal("2.4"),
     )
 
     plot_settings_list = create_default_plot_settings(
@@ -224,7 +224,7 @@ def test_x_factor_does_not_output_if_turned_off_in_hierarchy():
     ])
     crunched_df = create_simple_crunched_df()
     expected_release_date_settings = DefaultPlotSettingsItem(
-        1, "year of release", 2000, 2003
+        1, "year of release", 2000, 2002
     )
 
     plot_settings_list = create_default_plot_settings(
@@ -242,10 +242,10 @@ def test_outliers_are_not_taken_into_account():
     crunched_df = create_simple_crunched_df()
     crunched_df.loc[len(crunched_df)] = {FactorType.RESOLUTION.value: 999.0}
     expected_release_date_settings = DefaultPlotSettingsItem(
-        1, "year of release", 2000, 2003
+        1, "year of release", 2000, 2002
     )
     expected_resolution_settings = DefaultPlotSettingsItem(
-        Decimal("0.2"), "structure resolution [A]", Decimal("0.60"), Decimal("10.0"),  # unaffected by 999 outlier
+        Decimal("0.9"), "structure resolution [A]", Decimal("0.9"), Decimal("5.4"),  # unaffected by 999 outlier
     )
 
     plot_settings_list = create_default_plot_settings(
