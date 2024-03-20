@@ -13,9 +13,6 @@ from src.models import FactorType
 from src.models.transformed import DefaultPlotSettingsItem
 
 
-DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES = [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
-
-
 class NoXFactorValueError(ValueError):
     """
     Exception raised and caught only in this file, representing no x factors with value in sliced dataframe.
@@ -110,8 +107,7 @@ def create_default_plot_settings(
                     factor_min_max,
                     crunched_df,
                     factor_types_for_y,
-                    dps_config.max_bucket_count,
-                    dps_config.min_structures_in_bucket,
+                    dps_config,
                 )
                 plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_info.familiar_name))
         except DataTransformationError as ex:
@@ -354,8 +350,7 @@ def _find_ideal_factor_bucket_size(
     factor_min_max: FactorMinMax,
     crunched_df: pd.DataFrame,
     factor_types_for_y: list[FactorType],
-    max_bucket_count: int,
-    min_structure_count_in_bucket: int,
+    dps_config: DefaultPlotSettingsConfig,
 ) -> None:
     """
     For given factor min max (factor type and real min/max values) and dataset, the function finds good bucket size
@@ -369,18 +364,20 @@ def _find_ideal_factor_bucket_size(
     :param crunched_df: Dataframe with loaded crunched csv.
     :param factor_types_for_y: Factor types that can be used on y-axis.
     factor combinations.
-    :param max_bucket_count: Maximum number of buckets to create.
-    :param min_structure_count_in_bucket: Minimum number of structures in a bucket to be considered valid.
+    :param dps_config: Settings for default plot setting creation.
     :raise DataTransformationError: If the buckets cannot be created.
     """
     factor_relevant_df = crunched_df.dropna(subset=[factor_min_max.factor.value]).sort_values(
         by=factor_min_max.factor.value
     )
 
-    for possible_bucket_size in _possible_neat_bucket_size_generator(factor_min_max, max_bucket_count):
+    possible_bucket_size_generator = _possible_neat_bucket_size_generator(
+        factor_min_max, dps_config.max_bucket_count, dps_config.allowed_bucket_size_bases
+    )
+    for possible_bucket_size in possible_bucket_size_generator:
         bucket_limits = _create_neat_bucket_limits(factor_min_max, possible_bucket_size)
         if _test_possible_bucket_limits(
-            factor_min_max.factor, factor_relevant_df, bucket_limits, factor_types_for_y, min_structure_count_in_bucket
+            factor_min_max.factor, factor_relevant_df, bucket_limits, factor_types_for_y, dps_config.min_count_in_bucket
         ):
             # all buckets have enough structures
             factor_min_max.bucket_size = possible_bucket_size
@@ -398,7 +395,7 @@ def _find_ideal_factor_bucket_size(
             # the possible size generator is infinite, but buckets get larger - if the dataset is so small even
             # one bucket would not contain enough structures, this ends the loop
             raise DataTransformationError(
-                f"{factor_min_max.factor.value} has less than {min_structure_count_in_bucket} "
+                f"{factor_min_max.factor.value} has less than {dps_config.min_count_in_bucket} "
                 "even when all the data fall into one bucket."
             )
 
@@ -482,7 +479,7 @@ def _create_neat_bucket_limits(factor_min_max: FactorMinMax, bucket_size: Decima
 
 
 def _possible_neat_bucket_size_generator(
-    factor_min_max: FactorMinMax, max_bucket_count: int
+    factor_min_max: FactorMinMax, max_bucket_count: int, allowed_bucket_size_bases: list[int]
 ) -> Generator[Decimal, None, None]:
     """
     Returns generator creating neat (rounded to specific values) bucket sizes. First bucket size returned will be
@@ -491,6 +488,7 @@ def _possible_neat_bucket_size_generator(
     by 10^n.
     :param factor_min_max: Holds information about factor's min/max values for plot settings.
     :param max_bucket_count: Maximum number of buckets to create.
+    :param allowed_bucket_size_bases: List of allowed base sizes of buckets.
     :return: Generator generating the numbers.
     :raises DataTransformationError: When the bucket size cannot be created.
     """
@@ -505,16 +503,16 @@ def _possible_neat_bucket_size_generator(
         ) from ex
 
     allowed_size_index = _match_minimal_size_to_allowed_sizes(
-        bucket_size, DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES
+        bucket_size, allowed_bucket_size_bases
     )
 
     yield bucket_size.to_decimal()
     while True:
         allowed_size_index += 1
-        if allowed_size_index == len(DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES):
+        if allowed_size_index == len(allowed_bucket_size_bases):
             allowed_size_index = 0
             bucket_size.multiplier *= 10
-        bucket_size.base = DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES[allowed_size_index]
+        bucket_size.base = allowed_bucket_size_bases[allowed_size_index]
         yield bucket_size.to_decimal()
 
 

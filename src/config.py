@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from os import path
 
@@ -50,8 +50,11 @@ class DefaultPlotSettingsConfig:
     """
 
     max_bucket_count: int = 50
-    min_structures_in_bucket: int = 50
+    min_count_in_bucket: int = 50
     std_outlier_multiplier: int = 2
+    allowed_bucket_size_bases: list[int] = field(
+        default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+    )
 
 
 # pylint: disable=too-many-instance-attributes
