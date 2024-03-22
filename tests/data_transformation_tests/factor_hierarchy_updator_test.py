@@ -11,6 +11,7 @@ from src.models import FactorType
 
 TEST_CONFIG = FactorHierarchySettings(
     min_interval_count=10,
+    ideal_interval_count=100,
     max_interval_count=100,
     allowed_slider_size_bases=[10, 20, 25, 50]
 )

@@ -9,7 +9,7 @@ import pandas as pd
 from src.exception import DataTransformationError
 from src.models import FactorType
 from src.config import FactorHierarchySettings
-from src.utils import ceiling_relative
+from src.utils import ceiling_relative, floor_relative
 
 
 @dataclass(slots=True)
@@ -132,9 +132,7 @@ def _create_values_to_update_for_normal_numbers(
             f"value. Check the source data."
         )
 
-    slider_step_raw = ceiling_relative(Decimal(minimal_range / fh_config.max_interval_count), precision=2)
-    slider_step_adjusted = _ceiling_slider_step_to_allowed_values(slider_step_raw, fh_config.allowed_slider_size_bases)
-    interval_count = math.ceil(minimal_range / slider_step_adjusted)
+    slider_step_adjusted, interval_count = _find_optimal_slider_step(minimal_range, fh_config)
     max_adjusted = min_adjusted + interval_count * slider_step_adjusted
 
     if max_adjusted < max_raw:
@@ -145,19 +143,41 @@ def _create_values_to_update_for_normal_numbers(
             factor_type.value,
         )
 
-    if interval_count < fh_config.min_interval_count:
-        logging.warning(
-            "Factor %s resulted in less than %s intervals. (%s)",
-            factor_type.value,
-            fh_config.min_interval_count,
-            interval_count
-        )
-
     return ValuesToUpdate(
         value_range_from=min_adjusted,
         value_range_to=max_adjusted,
         slider_step=slider_step_adjusted,
     )
+
+
+def _find_optimal_slider_step(value_range_to_cover: Decimal, fh_config: FactorHierarchySettings) -> tuple[Decimal, int]:
+    slider_step_for_max_intervals = _ceiling_slider_step_to_allowed_values(
+        ceiling_relative(Decimal(value_range_to_cover / fh_config.max_interval_count), precision=2),
+        fh_config.allowed_slider_size_bases)
+    max_intervals_count = math.ceil(value_range_to_cover / slider_step_for_max_intervals)
+    max_intervals_diff_to_goal = abs(max_intervals_count - fh_config.ideal_interval_count)
+
+    slider_step_for_min_intervals = _ceiling_slider_step_to_allowed_values(
+        floor_relative(Decimal(value_range_to_cover / fh_config.min_interval_count), precision=2),
+        fh_config.allowed_slider_size_bases)
+    min_intervals_count = math.ceil(value_range_to_cover / slider_step_for_min_intervals)
+    min_intervals_diff_to_goal = abs(min_intervals_count - fh_config.ideal_interval_count)
+
+    ideal_slider_step = _ceiling_slider_step_to_allowed_values(
+        floor_relative(Decimal(value_range_to_cover / fh_config.ideal_interval_count), precision=2),
+        fh_config.allowed_slider_size_bases
+    )
+    ideal_intervals_count = math.ceil(value_range_to_cover / ideal_slider_step)
+    ideal_intervals_diff_to_goal = abs(ideal_intervals_count - fh_config.ideal_interval_count)
+
+    if ideal_intervals_count > max_intervals_count or max_intervals_diff_to_goal < ideal_intervals_diff_to_goal:
+        # in case of edge case rounding that would push it out of the bounds, or if max intervals actually resulted
+        # in better intervals - both can theoretically happen because of different rounding strategies used
+        return slider_step_for_max_intervals, max_intervals_count
+    if ideal_intervals_count < min_intervals_count or min_intervals_diff_to_goal < ideal_intervals_diff_to_goal:
+        return slider_step_for_min_intervals, min_intervals_count
+
+    return ideal_slider_step, ideal_intervals_count
 
 
 def _ceiling_slider_step_to_allowed_values(slider_step_raw: Decimal, allowed_slider_size_bases: list[int]) -> Decimal:

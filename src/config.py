@@ -64,6 +64,7 @@ class FactorHierarchySettings:
     """
 
     min_interval_count: int = 100
+    ideal_interval_count: int = 200
     max_interval_count: int = 300
     allowed_slider_size_bases: list[int] = field(
         default_factory=lambda: [10, 20, 25, 50]  # TODO parsing check it's <10, 99> and need to be sorted

@@ -106,13 +106,20 @@ class DataTransformManager:
         Create updated version of factor hierarchy json.
         :param config: App configuration.
         """
-        # load required data
-        factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
-        crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
-        factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
-        # create updated factor hierarchy json
-        update_factor_hierarchy(
-            factor_hierarchy_json, crunched_df, factor_types_with_translations, config.factor_hierarchy_settings
-        )
-        # save the updated factor hierarchy json
-        create_factor_hierarchy_file(factor_hierarchy_json, config.output_files_path)
+        logging.info("Starting the update of factor hierarchy json.")
+        try:
+            # load required data
+            factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
+            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
+            # create updated factor hierarchy json
+            update_factor_hierarchy(
+                factor_hierarchy_json, crunched_df, factor_types_with_translations, config.factor_hierarchy_settings
+            )
+            # save the updated factor hierarchy json
+            create_factor_hierarchy_file(factor_hierarchy_json, config.output_files_path)
+            logging.info("Update of factor hierarchy finished successfully.")
+        except (ParsingError, DataTransformationError, FileWritingError) as ex:
+            logging.error("Failed to update factor hierarchy. %s", ex)
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            logging.exception("Encountered unexpected exception: %s", ex)
