@@ -4,6 +4,7 @@ from src.config import Config
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
 from src.data_transformation.distribution_data_creator import create_distribution_data
 from src.data_transformation.default_plot_settings_creator import create_default_plot_settings
+from src.data_transformation.factor_hierarchy_updater import update_factor_hierarchy
 from src.exception import ParsingError, DataTransformationError, FileWritingError
 from src.file_handlers.csv_reader import load_csv_as_dataframe
 from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
@@ -15,6 +16,7 @@ from src.file_handlers.name_translations_loader import (
     load_factor_names_translations,
     load_factor_type_names_translations,
 )
+from src.file_handlers.factor_hierarchy_file_writer import create_factor_hierarchy_file
 
 
 class DataTransformManager:
@@ -97,3 +99,20 @@ class DataTransformManager:
             logging.error("Failed to create default plot settings. %s", ex)
         except Exception as ex:  # pylint: disable=broad-exception-caught
             logging.exception("Encountered unexpected exception: %s", ex)
+
+    @staticmethod
+    def create_updated_factor_hierarchy(config: Config) -> None:
+        """
+        Create updated version of factor hierarchy json.
+        :param config: App configuration.
+        """
+        # load required data
+        factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
+        crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+        factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
+        # create updated factor hierarchy json
+        update_factor_hierarchy(
+            factor_hierarchy_json, crunched_df, factor_types_with_translations, config.factor_hierarchy_settings
+        )
+        # save the updated factor hierarchy json
+        create_factor_hierarchy_file(factor_hierarchy_json, config.output_files_path)
