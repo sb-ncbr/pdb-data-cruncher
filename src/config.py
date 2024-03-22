@@ -53,7 +53,20 @@ class DefaultPlotSettingsConfig:
     min_count_in_bucket: int = 50
     std_outlier_multiplier: int = 2
     allowed_bucket_size_bases: list[int] = field(
-        default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+        default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]  # TODO parsing check it's <10, 99>
+    )  # TODO and need to be sorted
+
+
+@dataclass(slots=True)
+class FactorHierarchySettings:
+    """
+    Configuration for updating factor hierarchy.
+    """
+
+    min_interval_count: int = 100
+    max_interval_count: int = 300
+    allowed_slider_size_bases: list[int] = field(
+        default_factory=lambda: [10, 20, 25, 50]  # TODO parsing check it's <10, 99> and need to be sorted
     )
 
 
@@ -76,6 +89,7 @@ class Config:
 
     # SPECIFIC
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
+    factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
 
     # FILE config TODO defaults with os path join
     path_to_rest_jsons: str = "../dataset/PDBe_REST_API_JSON/"
@@ -92,4 +106,3 @@ class Config:
     factor_hierarchy_path: str = path.join(path.pardir, "dataset", "FactorHierarchy.json")
 
     output_files_path: str = path.join(path.pardir, "my_output/")
-    transponed_crunched_csv_name: str = "crunched_data_transponed.csv"

@@ -105,11 +105,12 @@ def run_full_data_extraction(pdb_ids: list[str], config: Config):
 
 def run_create_all(config: Config):
     # TODO remove later, rewriting the path to crunched for testing
-    config.crunched_data_csv_path = "../dataset/20240118_crunched.csv"
+    config.crunched_data_csv_path = "../dataset/20240314_crunched.csv"
 
     # DataTransformManager.create_default_plot_data(config)
     # DataTransformManager.create_distribution_data(config)
-    DataTransformManager.create_default_plot_settings(config)
+    # DataTransformManager.create_default_plot_settings(config)
+    DataTransformManager.create_updated_factor_hierarchy(config)
     # ...
     logging.info("Phase of creating all neccessary output data has finished.")
 

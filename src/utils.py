@@ -1,3 +1,4 @@
+import decimal
 import math
 from datetime import datetime
 from decimal import Decimal
@@ -142,27 +143,43 @@ def round_decimal_place_relative(number_to_round: Union[int, float], significant
     return round(number_to_round, round_to)
 
 
-# TODO remove if this remains unused
-def round_relative(number_to_round: Union[int, float, Decimal], places_to_round_to: int) -> Union[int, float, Decimal]:
-    if isinstance(number_to_round, Decimal):  # decimal has native more effective way of getting exponent
-        return round_relative_decimal(number_to_round, places_to_round_to)
-
-    round_to = -(round(math.floor(math.log10(number_to_round))) - (places_to_round_to - 1))
-    return round(number_to_round, round_to)
-
-
-def round_relative_decimal(number_to_round: Decimal, places_to_round_to: int) -> Decimal:
+def ceiling_relative(number_to_round: Decimal, precision: int) -> Decimal:
     """
-    Round given decimal number to given significant places.\n
-    12345 round to 2 -> 12000 \n
-    0.0088111 round to 1 -> 0.009
-    :param number_to_round: Decimal number to round.
-    :param places_to_round_to: Number of significant places to round to.
+    Round given number with method ROUND_CEILING to the given precision (number of significant digits that will be
+    left).
+    :param number_to_round:
+    :param precision: Number of significant digits to round to. E.g. 1234 with precision 2 -> 1300
     :return: Rounded number.
     """
-    (_, digits, exponent) = number_to_round.as_tuple()
-    mantissa = len(digits) + exponent - 1
-    return round(number_to_round, -mantissa - 1 + places_to_round_to)
+    return round_with_precision(number_to_round, precision, decimal.ROUND_CEILING)
+
+
+def floor_relative(number_to_round: Decimal, precision: int) -> Decimal:
+    """
+    Round given number with method ROUND_FLOOR to the given precision (number of significant digits that will be
+    left).
+    :param number_to_round:
+    :param precision: Number of significant digits to round to. E.g. 7890 with precision 2 -> 7800
+    :return: Rounded number.
+    """
+    return round_with_precision(number_to_round, precision, decimal.ROUND_FLOOR)
+
+
+def round_with_precision(number_to_round: Decimal, precision: int, rounding_method: Optional[str] = None) -> Decimal:
+    """
+    Round given number to the given precision (number of significant digits that will be
+    left).
+    :param number_to_round:
+    :param precision: Number of significant digits to round to.
+    :param rounding_method: String corresponding with one of decimal module supported values. Sets different method
+    for rounding. If none is given, it rounds using default method in decimal module.
+    :return: Rounded number.
+    """
+    with decimal.localcontext() as deciml_ctx:
+        deciml_ctx.prec = precision
+        if rounding_method is not None:
+            deciml_ctx.rounding = rounding_method
+        return +number_to_round  # need to do aritmetic operation for the precision constraint to apply
 
 
 def get_formatted_date() -> str:

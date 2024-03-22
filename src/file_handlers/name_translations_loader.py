@@ -1,10 +1,12 @@
 import logging
+from functools import lru_cache
 
 from src.file_handlers.json_file_loader import load_json_file
 from src.models import FactorType
 from src.utils import get_factor_type
 
 
+@lru_cache()
 def load_factor_names_translations(filepath: str) -> dict[str, str]:
     """
     Loads name translations from factor name into familiar name as a dictionary where key is string.
@@ -28,6 +30,7 @@ def load_factor_names_translations(filepath: str) -> dict[str, str]:
     return result
 
 
+@lru_cache()
 def load_factor_type_names_translations(filepath: str) -> dict[FactorType, str]:
     """
     Loads name translations from factor name into familiar name as a dictionary where key is FactorType.
