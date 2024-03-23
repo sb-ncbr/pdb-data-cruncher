@@ -112,7 +112,7 @@ def create_default_plot_settings(
                 plot_setting_items.append(_create_plot_settings_item(factor_min_max, factor_info.familiar_name))
         except DataTransformationError as ex:
             failed_factor_types_count += 1
-            logging.error("[%s] Failed to create default plot settings. Reason: %s", factor_info.factor_type, ex)
+            logging.warning("[%s] Failed to create default plot settings. Reason: %s", factor_info.factor_type, ex)
 
     if failed_factor_types_count > 0:
         raise DataTransformationError(

@@ -68,7 +68,7 @@ def create_default_plot_data(
             )
             default_plot_data.append(single_plot_data)
         except (KeyError, ValueError) as ex:
-            logging.error(
+            logging.warning(
                 "[%s+%s] failed to create default data. %s: %s",
                 factor_pair.x.value,
                 factor_pair.y.value,
