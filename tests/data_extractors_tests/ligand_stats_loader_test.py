@@ -4,7 +4,6 @@ from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.models import LigandInfo
 
 
-@pytest.mark.basic
 def test_ligands_load_correctly(mocker):
     mock_csv = "LigandID;heavyAtomSize;flexibility\n000;5;0.125\n004;11;0.1"
 
@@ -21,7 +20,6 @@ def test_ligands_load_correctly(mocker):
     assert LigandInfo(11, 0.1) == ligands["004"]
 
 
-@pytest.mark.basic
 def test_ligands_load_skips_invalid_lines(mocker, caplog):
     mock_csv = "invalid first line\n000;invalid value;0.125\n004;11;0.1"
 

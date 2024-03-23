@@ -5,10 +5,9 @@ from src.file_handlers.crunched_data_csv_writer import create_crunched_csv_file
 from src.models import CRUNCHED_CSV_FACTOR_ORDER
 from src.exception import IrrecoverableError
 from tests.expected_results_loader import load_complete_protein_data
-from tests.test_constants import BASIC_TEST_PDB_IDS, EXTENDED_TEST_PDB_IDS
+from tests.test_constants import TEST_PDB_IDS
 
 
-@pytest.mark.basic
 def test_crunched_data_csv_gets_created_with_data():
     """
     Test checks:
@@ -20,7 +19,7 @@ def test_crunched_data_csv_gets_created_with_data():
     other tests enough)
     """
     # arrange
-    all_pdb_ids = BASIC_TEST_PDB_IDS + EXTENDED_TEST_PDB_IDS
+    all_pdb_ids = TEST_PDB_IDS
     protein_data = [load_complete_protein_data(pdb_id) for pdb_id in all_pdb_ids]
     dummy_path = "dummy_path"
     expected_header = ";".join(CRUNCHED_CSV_FACTOR_ORDER)
@@ -44,7 +43,6 @@ def test_crunched_data_csv_gets_created_with_data():
             assert len(write_call_args_list) == len(CRUNCHED_CSV_FACTOR_ORDER)
 
 
-@pytest.mark.basic
 def test_crunched_data_csv_raises_on_invalid_path_and_logs(caplog):
     # arrange
     dummy_protein_data_dicts = []

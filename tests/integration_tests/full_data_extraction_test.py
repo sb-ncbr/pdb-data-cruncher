@@ -7,27 +7,16 @@ from tests.expected_results_loader import load_row_of_csv_as_dict
 from tests.utils import strings_are_equal_respecting_floats, Differences, Difference
 
 
-@pytest.mark.integration_basic
-@pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
+@pytest.mark.integration
+@pytest.mark.parametrize("pdb_id", TEST_PDB_IDS)
 def test_full_data_extraction_basic(pdb_id: str):
-    unified_test_full_data_extraction(pdb_id)
-
-
-@pytest.mark.integration_extended
-@pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
-def test_full_data_extraction_extended(pdb_id: str):
-    unified_test_full_data_extraction(pdb_id, True)
-
-
-def unified_test_full_data_extraction(pdb_id: str, extended: bool = False):
     # arrange
     expected_csv_row_dict = load_row_of_csv_as_dict(pdb_id)
-    test_data_root_path = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
     config = Config(
-        path_to_rest_jsons=(path.join(test_data_root_path, pdb_id)),
-        path_to_pdbx_files=(path.join(test_data_root_path, pdb_id)),
-        path_to_xml_reports=(path.join(test_data_root_path, pdb_id)),
-        path_to_validator_db_results=test_data_root_path,
+        path_to_rest_jsons=(path.join(TEST_DATA_PATH, pdb_id)),
+        path_to_pdbx_files=(path.join(TEST_DATA_PATH, pdb_id)),
+        path_to_xml_reports=(path.join(TEST_DATA_PATH, pdb_id)),
+        path_to_validator_db_results=TEST_DATA_PATH,
         path_to_ligand_stats_csv=(path.join(TEST_DATA_PATH, "ligandStats.csv")),
     )
 

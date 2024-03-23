@@ -45,8 +45,5 @@ log_cli = true
 log_cli_level = "INFO"
 log_cli_format = "%(asctime)s %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
 markers = [
-    "basic",
-    "extended",
-    "integration_basic",
-    "integration_extended",
+    "integration",
 ]

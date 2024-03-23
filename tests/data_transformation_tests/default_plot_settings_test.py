@@ -125,7 +125,6 @@ def create_crunched_df_for_bucket_upsizing():
     })
 
 
-@pytest.mark.basic
 def test_year_factor_and_normal_factor_creates_a_result():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_simple_crunched_df()
@@ -147,7 +146,6 @@ def test_year_factor_and_normal_factor_creates_a_result():
     print(plot_settings_list[1])
 
 
-@pytest.mark.basic
 def test_multiple_y_factors_affect_min_max_value():
     factor_names_translations = {
         FactorType.RELEASE_DATE: "year of release",
@@ -174,7 +172,6 @@ def test_multiple_y_factors_affect_min_max_value():
     assert plot_settings_list[0] == expected_release_date_settings
 
 
-@pytest.mark.basic
 def test_y_factor_does_not_affect_min_max_value_if_turned_off_in_hierarchy():
     factor_names_translations = {
         FactorType.RELEASE_DATE: "year of release",
@@ -201,7 +198,6 @@ def test_y_factor_does_not_affect_min_max_value_if_turned_off_in_hierarchy():
     assert plot_settings_list[0] == expected_release_date_settings
 
 
-@pytest.mark.basic
 def test_bucket_size_is_bigger_than_smallest_possible_when_there_are_too_few_structures():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_crunched_df_for_bucket_upsizing()
@@ -220,7 +216,6 @@ def test_bucket_size_is_bigger_than_smallest_possible_when_there_are_too_few_str
     assert plot_settings_list[1] == expected_resolution_settings
 
 
-@pytest.mark.basic
 def test_x_factor_does_not_output_if_turned_off_in_hierarchy():
     hierarchy_json = create_test_hierarchy_json([
         FakeHierarchyItem(FACTOR_NAMES_TRANSLATION[FactorType.RELEASE_DATE], True, True),
@@ -240,7 +235,6 @@ def test_x_factor_does_not_output_if_turned_off_in_hierarchy():
     assert plot_settings_list[0] == expected_release_date_settings
 
 
-@pytest.mark.basic
 def test_outliers_are_not_taken_into_account():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_simple_crunched_df()
@@ -261,7 +255,6 @@ def test_outliers_are_not_taken_into_account():
     assert plot_settings_list[1] == expected_resolution_settings
 
 
-@pytest.mark.basic
 def test_no_data_range_throws_exception():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     crunched_df = create_crunched_df_with_only_one_value_in_resolution()
@@ -270,7 +263,6 @@ def test_no_data_range_throws_exception():
         _ = create_default_plot_settings(crunched_df, FACTOR_NAMES_TRANSLATION, hierarchy_json, TEST_CONFIG)
 
 
-@pytest.mark.basic
 def test_missing_factor_from_hierarchy_info_throws_exception():
     hierarchy_json = create_test_hierarchy_json([
         FakeHierarchyItem(FACTOR_NAMES_TRANSLATION[FactorType.RELEASE_DATE], True, True)
@@ -281,7 +273,6 @@ def test_missing_factor_from_hierarchy_info_throws_exception():
         _ = create_default_plot_settings(crunched_df, FACTOR_NAMES_TRANSLATION, hierarchy_json, TEST_CONFIG)
 
 
-@pytest.mark.basic
 def test_less_than_100_structures_in_one_bucket_throws_exception():
     hierarchy_json = create_test_hierarchy_json_with_release_date_and_resolution()
     too_small_crunched_df = pd.DataFrame({
@@ -292,7 +283,6 @@ def test_less_than_100_structures_in_one_bucket_throws_exception():
         _ = create_default_plot_settings(too_small_crunched_df, FACTOR_NAMES_TRANSLATION, hierarchy_json, TEST_CONFIG)
 
 
-@pytest.mark.basic
 def test_default_plot_data_instance_serializes_as_expected():
     # arrange
     plot_settings_item = DefaultPlotSettingsItem(
