@@ -106,4 +106,7 @@ class Config:
     familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
     factor_hierarchy_path: str = path.join(path.pardir, "dataset", "FactorHierarchy.json")
 
+    versions_path: str = path.join(path.pardir, "dataset", "Versions.json")
+    key_treds_versions_path: str = path.join(path.pardir, "dataset", "VersionsKT.json")
+
     output_files_path: str = path.join(path.pardir, "my_output/")

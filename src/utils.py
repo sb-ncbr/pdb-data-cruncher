@@ -182,9 +182,10 @@ def round_with_precision(number_to_round: Decimal, precision: int, rounding_meth
         return +number_to_round  # need to do aritmetic operation for the precision constraint to apply
 
 
-def get_formatted_date() -> str:
+def get_formatted_date(sep="") -> str:
     """
-    Get current date in the format %Y%m%d (eg. 20240101)
+    Get current date in the format %Y%m%d (e.g. 20240101)
+    :param sep: Symbol to seperate year-month-day part. Empty string by default.
     :return: The string with the date.
     """
-    return datetime.now().strftime("%Y%m%d")
+    return datetime.now().strftime(f"%Y{sep}%m{sep}%d")
