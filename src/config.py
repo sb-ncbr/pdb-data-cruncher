@@ -99,7 +99,7 @@ class Config:
     path_to_validator_db_results: str = "../dataset/MotiveValidator_JSON/"
     path_to_ligand_stats_csv: str = "../dataset/ligandStats.csv"
 
-    crunched_data_csv_path: str = "../crunched_data.csv"
+    crunched_data_csv_path: str = path.join(path.pardir, "dataset", "crunched.csv")  # TODO rework this should be used only as input
 
     factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
     factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")

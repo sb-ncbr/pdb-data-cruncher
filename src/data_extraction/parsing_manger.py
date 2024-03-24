@@ -2,8 +2,11 @@ import logging
 from os import path
 from typing import Optional
 
+import pandas as pd
+
 from src.config import Config
 from src.models import LigandInfo
+from src.models.names_csv_output_attributes import CRUNCHED_CSV_FACTOR_ORDER
 from src.models.protein_data import (
     ProteinDataFromRest,
     ProteinDataFromPDBx,
@@ -12,7 +15,7 @@ from src.models.protein_data import (
     ProteinDataComplete,
 )
 from src.file_handlers.json_file_loader import load_json_file
-from src.file_handlers.crunched_data_csv_writer import create_crunched_csv_file
+from src.file_handlers.crunched_data_csv_writer import create_csv_crunched_data, create_xlsx_crunched_data
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
 from src.data_extraction.pdbx_parser import parse_pdbx
@@ -139,5 +142,11 @@ class ParsingManger:
         :param config: App config.
         :raise IrrecoverableError: If crunched csv cannot be created.
         """
-        protein_data_as_dicts = [data.as_dict_for_csv() for data in protein_data_list]
-        create_crunched_csv_file(protein_data_as_dicts, config.crunched_data_csv_path)
+        # prepare data
+        protein_data_df_list = [pd.DataFrame([protein_data.as_dict_for_csv()]) for protein_data in protein_data_list]
+        # adding empty dataframe with desired column order on the start will ensure this order is in output csv
+        protein_data_df_list.insert(0, pd.DataFrame(columns=CRUNCHED_CSV_FACTOR_ORDER))
+        protein_data_df = pd.concat(protein_data_df_list, ignore_index=True)
+        # save into files
+        create_csv_crunched_data(protein_data_df, config.output_files_path)
+        create_xlsx_crunched_data(protein_data_df, config.output_files_path)
