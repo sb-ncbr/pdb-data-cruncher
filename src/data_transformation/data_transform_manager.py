@@ -20,6 +20,7 @@ from src.file_handlers.name_translations_loader import (
 )
 from src.file_handlers.file_copier import copy_file_to_output_files
 from src.file_handlers.factor_hierarchy_file_writer import create_factor_hierarchy_file
+from src.file_handlers.seven_zip_archive_creator import create_archive_of_folder
 from src.utils import get_formatted_date
 
 
@@ -152,12 +153,12 @@ class DataTransformManager:
             logging.exception("Encountered unexpected exception: %s", ex)
 
     @staticmethod
-    def create_name_translations(config: Config) -> None:
+    def copy_name_translations(config: Config) -> None:
         """
-        Create two files with name translations on the output.
+        Copy name translations as two files on the output.
         :param config: App configuration.
         """
-        logging.info("Starting the creation of name translations files.")
+        logging.info("Starting the copying of name translations files.")
         try:
             copy_file_to_output_files(
                 config.familiar_name_translation_path,
@@ -169,8 +170,37 @@ class DataTransformManager:
                 config.output_files_path,
                 "nametranslation.json",
             )
-            logging.info("Name translation files creation finished successfully.")
+            logging.info("Name translation files copying finished successfully.")
         except FileWritingError as ex:
-            logging.error("Failed to create name translation files. %s", ex)
-        except Exception as ex:  # pylint: disable=broad-exception-caught
-            logging.exception("Encountered unexpected exception: %s", ex)
+            logging.error("Failed to copy name translation files. %s", ex)
+
+    @staticmethod
+    def copy_spearman_coefficient_tables(config: Config) -> None:
+        """
+        Copy two spearman coefficient tables (pdf and xlsx) to output.
+        :param config: App configuration.
+        """
+        logging.info("Starting the copying of spearman coefficient tables.")
+        try:
+            copy_file_to_output_files(
+                config.spearman_coefficient_table_xslx_path,
+                config.output_files_path,
+                "table.xlsx",
+            )
+            copy_file_to_output_files(
+                config.spearman_coefficient_table_pdf_path,
+                config.output_files_path,
+                "table.pdf",
+            )
+            logging.info("Copying spearman coefficient tables finished successfully.")
+        except FileWritingError as ex:
+            logging.error("Failed to copy spearman coefficent tables. %s", ex)
+
+    @staticmethod
+    def create_7z_data_files(config: Config) -> None:
+        logging.info("Starting creation of 7z archives.")
+        create_archive_of_folder(config.path_to_pdbx_files, config.output_files_path, "rawpdbe.7z")
+        create_archive_of_folder(config.path_to_xml_reports, config.output_files_path, "rawvalidxml.7z")
+        create_archive_of_folder(config.path_to_rest_jsons, config.output_files_path, "rawrest.7z")
+        create_archive_of_folder(config.path_to_validator_db_results, config.output_files_path, "rawvdb.7z")
+        logging.info("Creation of 7z archives finished successfully.")

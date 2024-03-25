@@ -108,5 +108,7 @@ class Config:
 
     versions_path: str = path.join(path.pardir, "dataset", "Versions.json")
     key_treds_versions_path: str = path.join(path.pardir, "dataset", "VersionsKT.json")
+    spearman_coefficient_table_xslx_path: str = path.join(path.pardir, "dataset", "table.xlsx")
+    spearman_coefficient_table_pdf_path: str = path.join(path.pardir, "dataset", "table.pdf")
 
     output_files_path: str = path.join(path.pardir, "my_output/")
