@@ -13,6 +13,25 @@ METAL_ELEMENT_NAMES = {
 }
 # fmt: on
 
+
+"""
+Holds all molecule types that are considered biopolymers for parsing rest molecules.
+The comparison ignores upper/lower case differences.
+"""
+BIOPOLYMER_MOLECULE_TYPES = [
+    "carbohydrate polymer",
+    "polypeptide(l)",
+    "polypeptide(d)",
+    "polyribonucleotide",
+    "polydeoxyribonucleotide",
+    "polysaccharide(d)",
+    "polysaccharide(l)",
+    "polydeoxyribonucleotide/polyribonucleotide hybrid",
+    "cyclic-pseudo-peptide",
+    "peptide nucleic acid",
+]
+
+
 """
 The string shorthand for unknown ligand type in rest or xml files.
 """

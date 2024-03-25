@@ -1,5 +1,6 @@
 import logging
 import argparse
+import os.path
 from multiprocessing import Pool
 from datetime import timedelta
 import time
@@ -104,8 +105,11 @@ def run_full_data_extraction(pdb_ids: list[str], config: Config):
 
 
 def run_create_all(config: Config):
+    if not os.path.exists(config.output_files_path):
+        os.mkdir(config.output_files_path)
+
     # TODO remove later, rewriting the path to crunched for testing
-    config.crunched_data_csv_path = "../dataset/20240314_crunched.csv"
+    config.data_transform_onlycrunched_data_csv_path = "../dataset/20240314_crunched.csv"
 
     # DataTransformManager.create_default_plot_data(config)
     # DataTransformManager.create_distribution_data(config)

@@ -1,27 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from os import path
 
-
-INVALID_VALUE_STRING = "nan"
-
-
-BIOPOLYMER_MOLECULE_TYPES = [
-    "carbohydrate polymer",
-    "polypeptide(l)",
-    "polypeptide(d)",
-    "polyribonucleotide",
-    "polydeoxyribonucleotide",
-    "polysaccharide(d)",
-    "polysaccharide(l)",
-    "polydeoxyribonucleotide/polyribonucleotide hybrid",
-    "cyclic-pseudo-peptide",
-    "peptide nucleic acid",
-]
-"""
-Holds all molecule types that are considered biopolymers for parsing rest molecules.
-The comparison ignores upper/lower case differences.
-"""
+from utils import get_formatted_date
 
 
 # TODO only an idea of how the running of the program could work, subject to changes
@@ -92,23 +72,23 @@ class Config:
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
 
-    # FILE config TODO defaults with os path join
+    # FILE config
     path_to_rest_jsons: str = "../dataset/PDBe_REST_API_JSON/"
     path_to_pdbx_files: str = "../dataset/PDBe_updated_mmCIF/"
     path_to_xml_reports: str = "../dataset/ValRep_XML/"
     path_to_validator_db_results: str = "../dataset/MotiveValidator_JSON/"
     path_to_ligand_stats_csv: str = "../dataset/ligandStats.csv"
 
-    crunched_data_csv_path: str = path.join(path.pardir, "dataset", "crunched.csv")  # TODO rework this should be used only as input
+    data_transform_onlycrunched_data_csv_path: str = "../dataset/crunched.csv"
 
-    factor_pairs_autoplot_csv_path: str = path.join(path.pardir, "dataset", "autoplot.csv")
-    factor_x_plot_bucket_limits_csv_path: str = path.join(path.pardir, "dataset", "3-Hranice-X_nazvy_promennych.csv")
-    familiar_name_translation_path: str = path.join(path.pardir, "dataset", "nametranslation.json")
-    factor_hierarchy_path: str = path.join(path.pardir, "dataset", "FactorHierarchy.json")
+    factor_pairs_autoplot_csv_path: str = "../dataset/autoplot.csv"
+    factor_x_plot_bucket_limits_csv_path: str = "../dataset/3-Hranice-X_nazvy_promennych.csv"
+    familiar_name_translation_path: str = "../dataset/nametranslation.json"
+    factor_hierarchy_path: str = "../dataset/FactorHierarchy.json"
 
-    versions_path: str = path.join(path.pardir, "dataset", "Versions.json")
-    key_treds_versions_path: str = path.join(path.pardir, "dataset", "VersionsKT.json")
-    spearman_coefficient_table_xslx_path: str = path.join(path.pardir, "dataset", "table.xlsx")
-    spearman_coefficient_table_pdf_path: str = path.join(path.pardir, "dataset", "table.pdf")
+    versions_path: str = "../dataset/Versions.json"
+    key_treds_versions_path: str = "../dataset/VersionsKT.json"
+    spearman_coefficient_table_xslx_path: str = "../dataset/table.xlsx"
+    spearman_coefficient_table_pdf_path: str = "../dataset/table.pdf"
 
-    output_files_path: str = path.join(path.pardir, "my_output/")
+    output_files_path: str = f"../{get_formatted_date()}_output/"

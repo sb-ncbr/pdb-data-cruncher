@@ -41,7 +41,7 @@ class DataTransformManager:
             # load required data
             factor_pairs = load_autoplot_factor_pairs(config.factor_pairs_autoplot_csv_path)
             familiar_names_translation = load_factor_names_translations(config.familiar_name_translation_path)
-            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            crunched_df = load_csv_as_dataframe(config.data_transform_onlycrunched_data_csv_path)
             x_factor_bucket_limits_df = load_csv_as_dataframe(config.factor_x_plot_bucket_limits_csv_path)
             # create default plot data
             default_plot_data_list = create_default_plot_data(
@@ -68,7 +68,7 @@ class DataTransformManager:
         try:
             # load required data
             factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
-            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            crunched_df = load_csv_as_dataframe(config.data_transform_onlycrunched_data_csv_path)
             # create distribution data
             distribution_data_list = create_distribution_data(
                 crunched_df, list(factor_types_with_translations.keys()), factor_types_with_translations
@@ -91,7 +91,7 @@ class DataTransformManager:
         try:
             # load required data
             factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
-            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            crunched_df = load_csv_as_dataframe(config.data_transform_onlycrunched_data_csv_path)
             factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
             # create default plot settings
             default_plot_setting_list = create_default_plot_settings(
@@ -115,7 +115,7 @@ class DataTransformManager:
         try:
             # load required data
             factor_hierarchy_json = load_json_file(config.factor_hierarchy_path)
-            crunched_df = load_csv_as_dataframe(config.crunched_data_csv_path)
+            crunched_df = load_csv_as_dataframe(config.data_transform_onlycrunched_data_csv_path)
             factor_types_with_translations = load_factor_type_names_translations(config.familiar_name_translation_path)
             # create updated factor hierarchy json
             update_factor_hierarchy(
@@ -199,8 +199,17 @@ class DataTransformManager:
     @staticmethod
     def create_7z_data_files(config: Config) -> None:
         logging.info("Starting creation of 7z archives.")
-        create_archive_of_folder(config.path_to_pdbx_files, config.output_files_path, "rawpdbe.7z")
-        create_archive_of_folder(config.path_to_xml_reports, config.output_files_path, "rawvalidxml.7z")
-        create_archive_of_folder(config.path_to_rest_jsons, config.output_files_path, "rawrest.7z")
-        create_archive_of_folder(config.path_to_validator_db_results, config.output_files_path, "rawvdb.7z")
+        from multiprocessing import Pool
+        with Pool(config.data_extraction_max_threads) as p:
+            p.starmap(
+                create_archive_of_folder, [
+                    (path_to_folder, config.output_files_path, archive_name)
+                    for path_to_folder, archive_name
+                    in zip([config.path_to_pdbx_files, config.path_to_xml_reports, config.path_to_rest_jsons, config.path_to_validator_db_results], ["rawpdbe.7z", "rawvalidxml.7z", "rawrest.7z", "rawvdb.7z"])
+                ]
+            )
+        # create_archive_of_folder(config.path_to_pdbx_files, config.output_files_path, "rawpdbe.7z")
+        # create_archive_of_folder(config.path_to_xml_reports, config.output_files_path, "rawvalidxml.7z")
+        # create_archive_of_folder(config.path_to_rest_jsons, config.output_files_path, "rawrest.7z")
+        # create_archive_of_folder(config.path_to_validator_db_results, config.output_files_path, "rawvdb.7z")
         logging.info("Creation of 7z archives finished successfully.")
