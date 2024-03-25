@@ -68,10 +68,10 @@ def main():
         run_create_all(config)
 
     # TODO only temporary endpoint for testing
-    if config.run_mode == RunModeType.TEST:
+    if config.run_mode == RunModeType.EXTRACT_ALL_INTO_CRUNCHED:
         run_current_test(config)
 
-    logging.debug("App finished running successfully")
+    logging.info("App finished running successfully")
 
 
 def run_current_test(config: Config):
@@ -95,7 +95,7 @@ def run_full_data_extraction(pdb_ids: list[str], config: Config):
     """
     start_time = time.monotonic()
     ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
-    with Pool(config.data_extraction_max_threads) as p:
+    with Pool(config.max_process_count_in_multiprocessing) as p:
         collected_data = p.starmap(
             ParsingManger.load_all_protein_data, [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids]
         )
@@ -105,21 +105,19 @@ def run_full_data_extraction(pdb_ids: list[str], config: Config):
 
 
 def run_create_all(config: Config):
-    if not os.path.exists(config.output_files_path):
-        os.mkdir(config.output_files_path)
+    if not os.path.exists(config.output_root_path):
+        os.mkdir(config.output_root_path)
 
     # TODO remove later, rewriting the path to crunched for testing
-    config.data_transform_onlycrunched_data_csv_path = "../dataset/20240314_crunched.csv"
+    config.crunched_data_csv_path = "../dataset/20240314_crunched.csv"
 
-    # DataTransformManager.create_default_plot_data(config)
-    # DataTransformManager.create_distribution_data(config)
-    # DataTransformManager.create_default_plot_settings(config)
-    # DataTransformManager.create_updated_factor_hierarchy(config)
-    # DataTransformManager.create_updated_versions_jsons(config)
-    # DataTransformManager.copy_name_translations(config)
-    # DataTransformManager.copy_spearman_coefficient_tables(config)
+    DataTransformManager.create_default_plot_data(config)
+    DataTransformManager.create_distribution_data(config)
+    DataTransformManager.create_default_plot_settings(config)
+    DataTransformManager.create_updated_factor_hierarchy(config)
+    DataTransformManager.create_updated_versions_jsons(config)
     DataTransformManager.create_7z_data_files(config)
-    # ...
+
     logging.info("Phase of creating all neccessary output data has finished.")
 
 

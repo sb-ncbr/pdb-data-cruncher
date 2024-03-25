@@ -1,3 +1,4 @@
+from os import path
 from dataclasses import dataclass, field
 from enum import Enum
 
@@ -19,8 +20,11 @@ class RunModeType(Enum):
     CREATE_ALL = 20
     CREATE_DEFAULT_PLOT_DATA = 21
     CREATE_DISTRIBUTION_DATA = 22
-    # ...
-    TEST = 99
+    CREATE_DEFAULT_PLOT_SETTINGS = 23
+    CREATE_FACTOR_HIERARCHY = 24
+    CREATE_VERSION_JSONS = 25
+    CREATE_COPIES_OF_MINOR_FILES = 26
+    CREATE_7Z_ARCHIVES = 27
 
 
 @dataclass(slots=True)
@@ -63,7 +67,7 @@ class Config:
     # run_mode: RunModeType = RunModeType.ALL
     run_mode: RunModeType = RunModeType.CREATE_ALL
 
-    data_extraction_max_threads: int = 8
+    max_process_count_in_multiprocessing: int = 8
 
     # TIMEOUTS
     http_requests_timeout_s: int = 10
@@ -73,22 +77,21 @@ class Config:
     factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
 
     # FILE config
-    path_to_rest_jsons: str = "../dataset/PDBe_REST_API_JSON/"
-    path_to_pdbx_files: str = "../dataset/PDBe_updated_mmCIF/"
-    path_to_xml_reports: str = "../dataset/ValRep_XML/"
-    path_to_validator_db_results: str = "../dataset/MotiveValidator_JSON/"
-    path_to_ligand_stats_csv: str = "../dataset/ligandStats.csv"
+    raw_dataset_root_path: str = "../raw_dataset/"
+    output_root_path: str = "../output/"
 
-    data_transform_onlycrunched_data_csv_path: str = "../dataset/crunched.csv"
+    path_to_rest_jsons: str = path.join(raw_dataset_root_path, "PDBe_REST_API_JSON/")
+    path_to_pdbx_files: str = path.join(raw_dataset_root_path, "PDBe_updated_mmCIF/")
+    path_to_xml_reports: str = path.join(raw_dataset_root_path, "ValRep_XML/")
+    path_to_validator_db_results: str = path.join(raw_dataset_root_path, "MotiveValidator_JSON/")
+    factor_pairs_autoplot_csv_path: str = path.join(output_root_path, "autoplot.csv")
+    factor_x_plot_bucket_limits_csv_path: str = path.join(raw_dataset_root_path, "3-Hranice-X_nazvy_promennych.csv")
+    path_to_ligand_stats_csv: str = path.join(raw_dataset_root_path, "ligandStats.csv")
 
-    factor_pairs_autoplot_csv_path: str = "../dataset/autoplot.csv"
-    factor_x_plot_bucket_limits_csv_path: str = "../dataset/3-Hranice-X_nazvy_promennych.csv"
-    familiar_name_translation_path: str = "../dataset/nametranslation.json"
-    factor_hierarchy_path: str = "../dataset/FactorHierarchy.json"
+    familiar_name_translation_path: str = path.join(output_root_path, "nametranslation.json")
+    factor_hierarchy_path: str = path.join(output_root_path, "FactorHierarchy.json")
+    versions_path: str = path.join(output_root_path, "Versions.json")
+    key_treds_versions_path: str = path.join(output_root_path, "VersionsKT.json")
 
-    versions_path: str = "../dataset/Versions.json"
-    key_treds_versions_path: str = "../dataset/VersionsKT.json"
-    spearman_coefficient_table_xslx_path: str = "../dataset/table.xlsx"
-    spearman_coefficient_table_pdf_path: str = "../dataset/table.pdf"
-
-    output_files_path: str = f"../{get_formatted_date()}_output/"
+    # crunched data csv path can only be overwritten when CREATE (transform) only mode is set
+    crunched_data_csv_path: str = path.join(output_root_path, f"{get_formatted_date()}_crunched.csv")

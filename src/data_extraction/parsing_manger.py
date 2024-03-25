@@ -148,5 +148,5 @@ class ParsingManger:
         protein_data_df_list.insert(0, pd.DataFrame(columns=CRUNCHED_CSV_FACTOR_ORDER))
         protein_data_df = pd.concat(protein_data_df_list, ignore_index=True)
         # save into files
-        create_csv_crunched_data(protein_data_df, config.output_files_path)
-        create_xlsx_crunched_data(protein_data_df, config.output_files_path)
+        create_csv_crunched_data(protein_data_df, config.output_root_path)
+        create_xlsx_crunched_data(protein_data_df, config.output_root_path)
