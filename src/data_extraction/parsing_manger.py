@@ -107,7 +107,7 @@ class ParsingManger:
         try:
             result_json = load_json_file(filepath)
         except ParsingError as ex:
-            logging.error("[%s] Loading VDB result.json file failed: %s", pdb_id, ex)
+            logging.info("[%s] Loading VDB result.json file failed: %s", pdb_id, ex)
             return None
 
         return parse_validator_db_result(pdb_id, result_json)
