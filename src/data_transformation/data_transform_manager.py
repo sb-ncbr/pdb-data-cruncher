@@ -1,5 +1,4 @@
 import logging
-from multiprocessing import Pool
 
 from src.config import Config
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
@@ -19,9 +18,7 @@ from src.file_handlers.name_translations_loader import (
     load_factor_names_translations,
     load_factor_type_names_translations,
 )
-from src.file_handlers.seven_zip_archive_creator import create_archive_of_folder
 from src.file_handlers.versions_file_writer import create_versions_file, VersionsType
-from src.utils import get_formatted_date
 
 
 class DataTransformManager:
@@ -151,30 +148,3 @@ class DataTransformManager:
             logging.error("Failed to update version jsons. %s", ex)
         except Exception as ex:  # pylint: disable=broad-exception-caught
             logging.exception("Encountered unexpected exception: %s", ex)
-
-
-    @staticmethod
-    def create_7z_data_files(config: Config) -> None:
-        """
-        Create 7z archives from downloaded data.
-        :param config: App configuration.
-        """
-        logging.info("Starting creation of 7z archives.")
-
-        archive_creation_settings = [  # source folder and resulting archive name
-            (config.path_to_pdbx_files, "rawpdbe.7z"),
-            (config.path_to_xml_reports, "rawvalidxml.7z"),
-            (config.path_to_rest_jsons, "rawrest.7z"),
-            (config.path_to_validator_db_results, "rawvdb.7z"),
-        ]
-
-        # spawns process for each 7z archive task
-        with Pool(config.max_process_count_in_multiprocessing) as p:
-            p.starmap(
-                create_archive_of_folder, [
-                    (path_to_folder, config.output_root_path, archive_name)
-                    for path_to_folder, archive_name
-                    in archive_creation_settings
-                ]
-            )
-        logging.info("Creation of 7z archives finished successfully.")

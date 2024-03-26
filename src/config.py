@@ -5,13 +5,18 @@ from enum import Enum
 from utils import get_formatted_date
 
 
-# TODO only an idea of how the running of the program could work, subject to changes
+# TODO remove later
 class RunModeType(Enum):
     """
     Enum holding the different modes the app can be run in.
     """
 
     ALL = 0
+    DOWNLOAD_ONLY = 1
+    EXTRACT_INTO_CRUNCHED_ONLY = 2
+    TRANSFORM_ONLY = 3
+    ZIP_ONLY = 4
+
     DOWNLOAD_ALL = 1
     DOWNLOAD_ARCHIVE_MMCIF = 2
     # ...
@@ -64,14 +69,10 @@ class Config:
 
     # BASIC CONFIG
     logging_debug: bool = False
-    # run_mode: RunModeType = RunModeType.ALL
-    run_mode: RunModeType = RunModeType.CREATE_ALL
-
+    resume_previous_run: bool = True
     max_process_count_in_multiprocessing: int = 8
-
     # TIMEOUTS
     http_requests_timeout_s: int = 10
-
     # SPECIFIC
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
@@ -93,5 +94,8 @@ class Config:
     versions_path: str = path.join(output_root_path, "Versions.json")
     key_treds_versions_path: str = path.join(output_root_path, "VersionsKT.json")
 
-    # crunched data csv path can only be overwritten when CREATE (transform) only mode is set
+
+    # TODO OLD SETTING remove
+    run_mode: RunModeType = RunModeType.CREATE_ALL
     crunched_data_csv_path: str = path.join(output_root_path, f"{get_formatted_date()}_crunched.csv")
+
