@@ -3,7 +3,7 @@ from typing import Any
 from os import path
 from enum import Enum
 
-from src.file_handlers.json_file_writer import write_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
 
 
 class VersionsType(Enum):

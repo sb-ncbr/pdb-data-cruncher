@@ -1,7 +1,7 @@
 import logging
 import os
 
-from src.file_handlers.json_file_writer import write_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
 from src.utils import get_formatted_date
 from src.models.transformed import DistributionData
 from src.exception import FileWritingError

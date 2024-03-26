@@ -1,7 +1,7 @@
 import logging
 import os
 
-from file_handlers.json_file_writer import write_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
 from src.exception import FileWritingError
 from src.models.transformed import DefaultPlotData
 from src.utils import get_formatted_date

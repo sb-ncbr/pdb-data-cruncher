@@ -7,18 +7,18 @@ from src.data_transformation.distribution_data_creator import create_distributio
 from src.data_transformation.factor_hierarchy_updater import update_factor_hierarchy
 from src.data_transformation.versions_updater import update_versions_json
 from src.exception import ParsingError, DataTransformationError, FileWritingError
-from src.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
-from src.file_handlers.csv_reader import load_csv_as_dataframe
-from src.file_handlers.default_plot_data_file_writer import create_default_plot_data_files
-from src.file_handlers.default_plot_settings_file_writer import create_default_plot_settings_file
-from src.file_handlers.distribution_data_file_writer import create_distribution_data_files
-from src.file_handlers.factor_hierarchy_file_writer import create_factor_hierarchy_file
-from src.file_handlers.json_file_loader import load_json_file
-from src.file_handlers.name_translations_loader import (
+from src.data_transformation.file_handlers.autoplot_csv_loader import load_autoplot_factor_pairs
+from src.generic_file_handlers.csv_reader import load_csv_as_dataframe
+from src.data_transformation.file_handlers.default_plot_data_file_writer import create_default_plot_data_files
+from src.data_transformation.file_handlers.default_plot_settings_file_writer import create_default_plot_settings_file
+from src.data_transformation.file_handlers.distribution_data_file_writer import create_distribution_data_files
+from src.data_transformation.file_handlers.factor_hierarchy_file_writer import create_factor_hierarchy_file
+from src.generic_file_handlers.json_file_loader import load_json_file
+from src.data_transformation.file_handlers.name_translations_loader import (
     load_factor_names_translations,
     load_factor_type_names_translations,
 )
-from src.file_handlers.versions_file_writer import create_versions_file, VersionsType
+from src.data_transformation.file_handlers.versions_file_writer import create_versions_file, VersionsType
 
 
 class DataTransformManager:

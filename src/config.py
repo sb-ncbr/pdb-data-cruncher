@@ -2,7 +2,7 @@ from os import path
 from dataclasses import dataclass, field
 from enum import Enum
 
-from utils import get_formatted_date
+from src.utils import get_formatted_date
 
 
 # TODO remove later

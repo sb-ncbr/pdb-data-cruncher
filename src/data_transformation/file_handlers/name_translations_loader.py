@@ -1,7 +1,7 @@
 import logging
 from functools import lru_cache
 
-from src.file_handlers.json_file_loader import load_json_file
+from src.generic_file_handlers.json_file_loader import load_json_file
 from src.models import FactorType
 from src.utils import get_factor_type
 

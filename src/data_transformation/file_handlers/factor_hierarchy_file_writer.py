@@ -2,7 +2,7 @@ import logging
 from typing import Any
 from os import path
 
-from src.file_handlers.json_file_writer import write_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
 from src.utils import get_formatted_date
 
 

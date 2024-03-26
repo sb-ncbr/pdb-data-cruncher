@@ -14,8 +14,8 @@ from src.models.protein_data import (
     ProteinDataFromVDB,
     ProteinDataComplete,
 )
-from src.file_handlers.json_file_loader import load_json_file
-from src.file_handlers.crunched_data_csv_writer import create_csv_crunched_data, create_xlsx_crunched_data
+from src.generic_file_handlers.json_file_loader import load_json_file
+from src.data_extraction.crunched_data_csv_writer import create_csv_crunched_data, create_xlsx_crunched_data
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
 from src.data_extraction.pdbx_parser import parse_pdbx

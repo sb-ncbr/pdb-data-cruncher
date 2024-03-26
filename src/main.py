@@ -113,9 +113,9 @@ def run_create_all(config: Config):
 
     # DataTransformManager.create_default_plot_data(config)
     # DataTransformManager.create_distribution_data(config)
-    # DataTransformManager.create_default_plot_settings(config)
-    # DataTransformManager.create_updated_factor_hierarchy(config)
-    # DataTransformManager.create_updated_versions_jsons(config)
+    DataTransformManager.create_default_plot_settings(config)
+    DataTransformManager.create_updated_factor_hierarchy(config)
+    DataTransformManager.create_updated_versions_jsons(config)
 
     logging.info("Phase of creating all neccessary output data has finished.")
 
