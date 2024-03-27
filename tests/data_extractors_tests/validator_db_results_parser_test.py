@@ -7,22 +7,10 @@ from tests.utils import compare_dataclasses
 from tests.expected_results_loader import load_expected_validator_db_protein_data
 
 
-@pytest.mark.basic
-@pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
+@pytest.mark.parametrize("pdb_id", TEST_PDB_IDS)
 def test_parse_validator_db_result_basic(pdb_id: str):
-    unified_test_parse_validator_db_result(pdb_id)
-
-
-@pytest.mark.extended
-@pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
-def test_parse_validator_db_result_extended(pdb_id: str):
-    unified_test_parse_validator_db_result(pdb_id, True)
-
-
-def unified_test_parse_validator_db_result(pdb_id: str, extended: bool = False):
     # arrange
-    test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    path_to_result_json = path.join(test_data_root, pdb_id, "result.json")
+    path_to_result_json = path.join(TEST_DATA_PATH, pdb_id, "result.json")
     expected_protein_data = load_expected_validator_db_protein_data(pdb_id)
 
     # act

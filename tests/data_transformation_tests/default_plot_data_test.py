@@ -66,7 +66,6 @@ def create_crunched_df_for_joining_buckets() -> pd.DataFrame:
     })
 
 
-@pytest.mark.basic
 def test_simple_default_plot_data_creation_works():
     # arrange
     expected_result = {
@@ -147,7 +146,6 @@ def test_simple_default_plot_data_creation_works():
     assert plot_data_string == expected_result_string
 
 
-@pytest.mark.basic
 def test_small_buckets_get_merged():
     # arrange
     expected_result = {
@@ -212,7 +210,6 @@ def test_small_buckets_get_merged():
     assert plot_data_string == expected_result_string
 
 
-@pytest.mark.basic
 def test_empty_buckets_get_merged():
     # arrange
     expected_result = {
@@ -276,7 +273,6 @@ def test_empty_buckets_get_merged():
     assert plot_data_string == expected_result_string
 
 
-@pytest.mark.basic
 def test_creation_fails_on_invalid_x_limits():
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.RESOLUTION)]
     crunched_df = create_simple_crunched_df()
@@ -288,7 +284,6 @@ def test_creation_fails_on_invalid_x_limits():
         )
 
 
-@pytest.mark.basic
 def test_creation_fails_on_missing_csv_column():
     factor_pairs = [FactorPair(FactorType.RELEASE_DATE, FactorType.AA_COUNT)]  # AA_COUNT is not in test crunched df
     crunched_df = create_simple_crunched_df()
@@ -300,7 +295,6 @@ def test_creation_fails_on_missing_csv_column():
         )
 
 
-@pytest.mark.basic
 def test_default_plot_data_instance_serializes_as_expected():
     plot_data = DefaultPlotData(
         x_factor=FactorType.RELEASE_DATE,

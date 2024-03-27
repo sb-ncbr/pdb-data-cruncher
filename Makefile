@@ -21,16 +21,13 @@ docker-tests:
 	docker-compose up
 
 pytest:
-	poetry run pytest -k "basic"
+	poetry run pytest -k "not integration"
 
 pytest-integration:
-	poetry run pytest -m "integration_basic"
-
-pytest-extended:
-	poetry run pytest
+	poetry run pytest -m "integration"
 
 pytest-coverage:
-	poetry run pytest -k "basic" --cov=src
+	poetry run pytest --cov=src
 
 
 check: pylint flake8 pytest

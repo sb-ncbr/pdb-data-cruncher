@@ -11,6 +11,7 @@ from src.models import FactorType
 
 TEST_CONFIG = FactorHierarchySettings(
     min_interval_count=10,
+    ideal_interval_count=100,
     max_interval_count=100,
     allowed_slider_size_bases=[10, 20, 25, 50]
 )
@@ -31,7 +32,6 @@ def create_minimal_df(min_value, max_value, factor_type: FactorType) -> pd.DataF
     })
 
 
-@pytest.mark.basic
 @pytest.mark.parametrize(
     "factor_type, data_min, data_max, expected_min_value, expected_max_value, expected_slider_step",
     [
@@ -60,7 +60,6 @@ def test_basic_factor_hierarchy_gets_updated_correctly(
     assert Decimal(factor_json["SliderStep"]) == Decimal(expected_slider_step)
 
 
-@pytest.mark.basic
 def test_nonexistent_factor_name_raises():
     incorrect_factor_hierarchy = {
         "FactorList": [{
@@ -73,7 +72,6 @@ def test_nonexistent_factor_name_raises():
         update_factor_hierarchy(incorrect_factor_hierarchy, minimal_crunched_df, FACTOR_NAMES_TRANSLATION, TEST_CONFIG)
 
 
-@pytest.mark.basic
 def test_factor_hierarchy_with_wrong_structure_raises():
     wrong_factor_hierarchy = {}
     minimal_crunched_df = create_minimal_df(10, 20, FactorType.RESOLUTION)
@@ -82,7 +80,6 @@ def test_factor_hierarchy_with_wrong_structure_raises():
         update_factor_hierarchy(wrong_factor_hierarchy, minimal_crunched_df, FACTOR_NAMES_TRANSLATION, TEST_CONFIG)
 
 
-@pytest.mark.basic
 def test_only_one_value_raises():
     minimal_factor_hierarchy = {
         "FactorList": [{

@@ -2,8 +2,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-from src.constants import UNKNOWN_LIGAND_NAME
-from src.config import BIOPOLYMER_MOLECULE_TYPES
+from src.constants import UNKNOWN_LIGAND_NAME, BIOPOLYMER_MOLECULE_TYPES
 from src.exception import RestParsingError
 from src.models.protein_data import ProteinDataFromRest
 from src.models import LigandInfo, Diagnostics

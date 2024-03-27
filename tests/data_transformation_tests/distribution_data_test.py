@@ -14,7 +14,6 @@ FACTOR_TYPE_TRANSLATIONS = {
 }
 
 
-@pytest.mark.basic
 def test_small_distribution_data_creation():
     factor_types = [FactorType.RELEASE_DATE]
     crunched_df = pd.DataFrame({FactorType.RELEASE_DATE.value: [2020, 2010, 2010, 2010, 2015, 2015]})
@@ -48,7 +47,6 @@ def test_small_distribution_data_creation():
     assert actual_result == expected_result
 
 
-@pytest.mark.basic
 def test_distribution_data_creation_with_bucket_merging():
     # arrange
     factor_types = [FactorType.RESOLUTION]
@@ -98,14 +96,12 @@ def test_distribution_data_creation_with_bucket_merging():
     assert actual_result == expected_result
 
 
-@pytest.mark.basic
 def test_creation_fails_on_missing_crunched_column():
     factor_types = [FactorType.RESOLUTION]
     with pytest.raises(DataTransformationError):
         _ = create_distribution_data(pd.DataFrame(), factor_types, FACTOR_TYPE_TRANSLATIONS)
 
 
-@pytest.mark.basic
 def test_distribution_data_serialization():
     distribution_data = DistributionData(
         factor_type=FactorType.RELEASE_DATE,

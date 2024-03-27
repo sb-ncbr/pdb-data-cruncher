@@ -81,7 +81,7 @@ def create_distribution_data(
                 )
             )
         except KeyError as ex:
-            logging.error("[%s] failed to create distribution data. KeyError: %s", factor_type.value, str(ex))
+            logging.warning("[%s] failed to create distribution data. KeyError: %s", factor_type.value, str(ex))
             failed_factors_count += 1
 
     if failed_factors_count > 0:

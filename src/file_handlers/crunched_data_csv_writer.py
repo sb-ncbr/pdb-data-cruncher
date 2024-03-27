@@ -1,47 +1,41 @@
 import logging
-from csv import DictWriter
+from os import path
 
-from src.models import CRUNCHED_CSV_FACTOR_ORDER
-from src.exception import CrunchedCsvAssemblyError
+import pandas as pd
+
+from src.models import CSV_INVALID_VALUE_STRING
+from src.utils import get_formatted_date
 
 
-def create_crunched_csv_file(data_rows: list[dict[str, str]], path_to_crunched_csv: str) -> None:
+def create_csv_crunched_data(protein_data_df: pd.DataFrame, output_files_folder: str) -> None:
     """
-    Takes given protein data as dictionaries and stores it into newly created crunched csv.
-    :param data_rows: List of protein data in a form of dictionary where key is csv column name, and value is the
-    value to be inserted.
-    :param path_to_crunched_csv: Path (inc. filename itself) where the crunched csv should be stored.
-    :raise CrunchedCsvAssemblyError: If the crunched csv could not be created.
-    :return:
+    Write given dataframe into csv format files.
+    :param protein_data_df: Dataframe with data.
+    :param output_files_folder: Folder into which to save the data.
     """
-    logging.debug(
-        "Start of crunched csv creation into '%s'. Got %s protein data to store.", path_to_crunched_csv, len(data_rows)
-    )
-
+    filepath_version_one = path.join(output_files_folder, f"{get_formatted_date()}_crunched.csv")
+    filepath_version_two = path.join(output_files_folder, "data.csv")
     try:
-        with open(path_to_crunched_csv, "w", encoding="utf8") as csv_output_file:
-            csv_writer = DictWriter(
-                csv_output_file, delimiter=";", fieldnames=CRUNCHED_CSV_FACTOR_ORDER, extrasaction="ignore"
-            )
-            csv_writer.writeheader()
-            for data_row in data_rows:
-                csv_writer.writerow(data_row)
-            logging.info("Protein data saved into crunched csv sucessfully. (filepath: '%s')", path_to_crunched_csv)
-    except OSError as ex:
-        logging.error(
-            "Failed to open file '%s' for writing crunched csv. Reason: %s. Cannot proceed. "
-            "See INFO level for crunched data that would have been printed.",
-            path_to_crunched_csv,
-            ex,
+        protein_data_df.to_csv(
+            filepath_version_one, index=False, sep=";", encoding="utf8", na_rep=CSV_INVALID_VALUE_STRING
         )
-        _log_data_rows_as_csv_string(data_rows)
-        raise CrunchedCsvAssemblyError("Failed to open file for writing. Cannot create crunched csv.") from ex
+        protein_data_df.to_csv(
+            filepath_version_two, index=False, sep=";", encoding="utf8", na_rep=CSV_INVALID_VALUE_STRING
+        )
+        logging.info("Successfully saved crunched data into '%s' and '%s'.", filepath_version_one, filepath_version_two)
+    except OSError as ex:
+        logging.error("Failed to save to file: %s", ex)
 
 
-def _log_data_rows_as_csv_string(data_rows: list[dict[str, str]]) -> None:
-    rows = [";".join(CRUNCHED_CSV_FACTOR_ORDER)]
-    for data_row in data_rows:
-        row = [data_row.get(csv_attribute) for csv_attribute in CRUNCHED_CSV_FACTOR_ORDER]
-        rows.append(";".join(row))
-    rows_as_string = "\n".join(rows)
-    logging.info("%s", rows_as_string)
+def create_xlsx_crunched_data(protein_data_df: pd.DataFrame, output_files_folder: str) -> None:
+    """
+    Write given dataframe into xlsx format file.
+    :param protein_data_df: Dataframe to save into file.
+    :param output_files_folder: Folder into which to save it.
+    """
+    filepath = path.join(output_files_folder, "data.xlsx")
+    try:
+        protein_data_df.to_excel(filepath, index=False, na_rep="nan")
+        logging.info("Successfully saved crunched datat into '%s'.", filepath)
+    except OSError as ex:
+        logging.error("Failed to save to file: %s", ex)

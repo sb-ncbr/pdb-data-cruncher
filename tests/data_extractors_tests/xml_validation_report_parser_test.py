@@ -6,33 +6,21 @@ from tests.test_constants import *
 from tests.utils import compare_dataclasses
 from tests.expected_results_loader import load_expected_xml_protein_data
 
-PDB_IDS_WITHOUT_XML_VALIDATION_REPORT = ["8ckb"]
+PDB_IDS_WITHOUT_XML_VALIDATION_REPORT = []
 
 
-@pytest.mark.basic
-@pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
+@pytest.mark.parametrize("pdb_id", TEST_PDB_IDS)
 def test_parse_xml_validation_report_basic(pdb_id: str):
-    unified_test_parse_xml_validation_report(pdb_id)
-
-
-@pytest.mark.extended
-@pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
-def test_parse_xml_validation_report_extended(pdb_id: str):
-    unified_test_parse_xml_validation_report(pdb_id, True)
-
-
-def unified_test_parse_xml_validation_report(pdb_id: str, extended: bool = False):
     if pdb_id in PDB_IDS_WITHOUT_XML_VALIDATION_REPORT:
         # for some proteins, there is no xml validation file and that is valid
-        assert_correct_parse_xml_without_validation_report(pdb_id, extended)
+        assert_correct_parse_xml_without_validation_report(pdb_id)
     else:
-        assert_correct_parse_xml_with_validation_report(pdb_id, extended)
+        assert_correct_parse_xml_with_validation_report(pdb_id)
 
 
-def assert_correct_parse_xml_without_validation_report(pdb_id: str, extended: bool = False):
+def assert_correct_parse_xml_without_validation_report(pdb_id: str):
     # arrange
-    test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    nonexistent_xml_file_path = path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
+    nonexistent_xml_file_path = path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
     path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
 
     # act
@@ -43,10 +31,9 @@ def assert_correct_parse_xml_without_validation_report(pdb_id: str, extended: bo
     assert not actual_protein_data
 
 
-def assert_correct_parse_xml_with_validation_report(pdb_id: str, extended: bool = False):
+def assert_correct_parse_xml_with_validation_report(pdb_id: str):
     # arrange
-    test_data_root = EXTENDED_TEST_DATA_PATH if extended else BASIC_TEST_DATA_PATH
-    xml_file_path = path.join(test_data_root, pdb_id, f"{pdb_id}_validation.xml")
+    xml_file_path = path.join(TEST_DATA_PATH, pdb_id, f"{pdb_id}_validation.xml")
     path_to_ligand_stats = path.join(TEST_DATA_PATH, "ligandStats.csv")
 
     assert path.exists(xml_file_path)

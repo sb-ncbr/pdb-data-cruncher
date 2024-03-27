@@ -60,6 +60,7 @@ def create_default_plot_data(
             factor_pair_crunched_df = crunched_df[[factor_pair.x.value, factor_pair.y.value]].dropna()
             # extract and transform interval buckets relevant to current factor on x
             x_bucket_limit_series = x_factor_bucket_limits_df[factor_pair.x.value].dropna()
+            x_bucket_limit_series = x_bucket_limit_series.astype("float64")  # retype to accomodate for infinities
             _add_inf_boundaries_to_bucket_timits(x_bucket_limit_series)
             x_bucket_intervals = pd.IntervalIndex.from_breaks(x_bucket_limit_series, closed="left")
             # extract the default plot data
@@ -68,7 +69,7 @@ def create_default_plot_data(
             )
             default_plot_data.append(single_plot_data)
         except (KeyError, ValueError) as ex:
-            logging.error(
+            logging.warning(
                 "[%s+%s] failed to create default data. %s: %s",
                 factor_pair.x.value,
                 factor_pair.y.value,

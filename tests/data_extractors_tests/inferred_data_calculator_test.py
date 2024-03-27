@@ -13,19 +13,8 @@ from tests.expected_results_loader import (
 from tests.utils import compare_dataclasses
 
 
-@pytest.mark.basic
-@pytest.mark.parametrize("pdb_id", BASIC_TEST_PDB_IDS)
+@pytest.mark.parametrize("pdb_id", TEST_PDB_IDS)
 def test_calculate_inferred_protein_data_basic(pdb_id: str):
-    unified_test_calculate_inferred_protein_data(pdb_id)
-
-
-@pytest.mark.extended
-@pytest.mark.parametrize("pdb_id", EXTENDED_TEST_PDB_IDS)
-def test_calculate_inferred_protein_data_extended(pdb_id: str):
-    unified_test_calculate_inferred_protein_data(pdb_id)
-
-
-def unified_test_calculate_inferred_protein_data(pdb_id: str):
     # arrange
     pre_loaded_protein_data = ProteinDataComplete(
         pdb_id=pdb_id,
