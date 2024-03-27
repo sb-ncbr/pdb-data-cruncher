@@ -34,7 +34,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pylint]
 max-line-length = 120
-disable = ["missing-module-docstring"]
+disable = ["missing-module-docstring", "duplicate-code", "too-many-instance-attributes"]
 
 [tool.flake8]
 max-line-length = 120

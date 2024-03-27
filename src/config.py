@@ -99,8 +99,12 @@ class Config:
     crunched_data_csv_path: str = path.join(output_root_path, f"{get_formatted_date()}_crunched.csv")
 
 
+# pylint: disable=missing-function-docstring
 @dataclass(slots=True)
 class FilepathConfig:
+    """
+    Configuration
+    """
     dataset_root_path: str = "../raw_dataset/"  # TODO not the final value
     output_root_path: str = "../output/"  # TODO not the final value
     log_root_path: str = "../logs/"  # TODO not the final value
@@ -117,15 +121,16 @@ class FilepathConfig:
 
     # output names used as input too
     _familiar_name_translations_json_name: str = "nametranslation.json"
-    _factor_hierarchy_json_name: str = "FactorHierarchy.json"
     _versions_json_name: str = "Versions.json"
     _key_trends_versions_json_name: str = "VersionsKT.json"
     _ligand_stats_name: str = "ligandStats.csv"
 
     # logs
     _full_log_name: str = "full_log.txt"
-    _warning_and_error_log_name: str = "warning_and_error_log.txt"
-    # TODO somehow include updated pdb mmcifs log file
+    _previous_full_log_name: str = "previous_full_log.txt"
+    _filtered_log_name: str = "filtered_log.txt"
+    _previous_filtered_log_name: str = "previous_filtered_log.txt"
+    # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
     # TODO somehow include updated ligands log file
 
     @property
@@ -165,10 +170,6 @@ class FilepathConfig:
         return path.join(self.output_root_path, self._familiar_name_translations_json_name)
 
     @property
-    def factor_hierarchy_json(self) -> str:
-        return path.join(self.output_root_path, self._factor_hierarchy_json_name)
-
-    @property
     def versions_json(self) -> str:
         return path.join(self.output_root_path, self._versions_json_name)
 
@@ -185,14 +186,27 @@ class FilepathConfig:
         return path.join(self.log_root_path, self._full_log_name)
 
     @property
-    def warning_and_error_log(self) -> str:
-        return path.join(self.log_root_path, self._warning_and_error_log_name)
+    def previous_full_log(self) -> str:
+        return path.join(self.log_root_path, self._previous_full_log_name)
+
+    @property
+    def filtered_log(self) -> str:
+        return path.join(self.log_root_path, self._filtered_log_name)
+
+    @property
+    def previous_filtered_log(self) -> str:
+        return path.join(self.log_root_path, self._previous_filtered_log_name)
 
 
 @dataclass(slots=True)
 class NewConfig:
+    """
+    Application configuraiton.
+    """
+
     logging_debug: bool = False
     max_process_count: int = 8
+    current_formatted_date: str = get_formatted_date()  # TODO use this everywhere instead of get_formatted_date
 
     # data download
     run_data_download_only: bool = False

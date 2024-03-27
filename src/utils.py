@@ -1,5 +1,6 @@
 import decimal
 import math
+import os
 from datetime import datetime
 from decimal import Decimal
 from typing import Optional, Any, get_type_hints, Union, get_args
@@ -182,10 +183,31 @@ def round_with_precision(number_to_round: Decimal, precision: int, rounding_meth
         return +number_to_round  # need to do aritmetic operation for the precision constraint to apply
 
 
-def get_formatted_date(sep="") -> str:
+def get_formatted_date() -> str:
     """
     Get current date in the format %Y%m%d (e.g. 20240101)
-    :param sep: Symbol to seperate year-month-day part. Empty string by default.
     :return: The string with the date.
     """
-    return datetime.now().strftime(f"%Y{sep}%m{sep}%d")
+    return datetime.now().strftime("%Y%m%d")
+
+
+def find_matching_files(folder_path: str, string_to_match: str) -> list[str]:
+    """
+    Find files in given folder path that contain given string exactly.
+    :param folder_path:
+    :param string_to_match:
+    :return: List of matched filenames (without full path).
+    """
+    all_filenames = next(os.walk(folder_path), (None, None, []))[2]  # [] if no file
+    return [filename for filename in all_filenames if string_to_match in filename]
+
+
+def find_matching_subfolders(folder_path: str, string_to_match: str) -> list[str]:
+    """
+    Find subfolders in given folder path that contain given string exactly.
+    :param folder_path:
+    :param string_to_match:
+    :return: List of matched folder names (without full path).
+    """
+    all_filenames = next(os.walk(folder_path), (None, [], None))[1]  # [] if no subdirectories
+    return [filename for filename in all_filenames if string_to_match in filename]

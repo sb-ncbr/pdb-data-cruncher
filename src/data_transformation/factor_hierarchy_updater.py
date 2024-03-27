@@ -27,7 +27,7 @@ def update_factor_hierarchy(
     factor_hierarchy_json: dict,
     crunched_df: pd.DataFrame,
     factor_types_translations: dict[FactorType, str],
-    fh_config: FactorHierarchySettings
+    fh_config: FactorHierarchySettings,
 ):
     """
     Update given factor hierarchy json with freshly calculated ValueRangeFrom, ValueRangeTo and SliderStep values.
@@ -87,9 +87,7 @@ def _create_values_to_update(
     return _create_values_to_update_for_normal_numbers(factor_series, fh_config, factor_type)
 
 
-def _create_values_to_update_for_year(
-    factor_series: pd.Series, fh_config: FactorHierarchySettings
-) -> ValuesToUpdate:
+def _create_values_to_update_for_year(factor_series: pd.Series, fh_config: FactorHierarchySettings) -> ValuesToUpdate:
     """
     Create values that are to be updated for values representing year.
     :param factor_series: Series from crunched csv related to this factor.
@@ -153,19 +151,21 @@ def _create_values_to_update_for_normal_numbers(
 def _find_optimal_slider_step(value_range_to_cover: Decimal, fh_config: FactorHierarchySettings) -> tuple[Decimal, int]:
     slider_step_for_max_intervals = _ceiling_slider_step_to_allowed_values(
         ceiling_relative(Decimal(value_range_to_cover / fh_config.max_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases)
+        fh_config.allowed_slider_size_bases,
+    )
     max_intervals_count = math.ceil(value_range_to_cover / slider_step_for_max_intervals)
     max_intervals_diff_to_goal = abs(max_intervals_count - fh_config.ideal_interval_count)
 
     slider_step_for_min_intervals = _ceiling_slider_step_to_allowed_values(
         floor_relative(Decimal(value_range_to_cover / fh_config.min_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases)
+        fh_config.allowed_slider_size_bases,
+    )
     min_intervals_count = math.ceil(value_range_to_cover / slider_step_for_min_intervals)
     min_intervals_diff_to_goal = abs(min_intervals_count - fh_config.ideal_interval_count)
 
     ideal_slider_step = _ceiling_slider_step_to_allowed_values(
         floor_relative(Decimal(value_range_to_cover / fh_config.ideal_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases
+        fh_config.allowed_slider_size_bases,
     )
     ideal_intervals_count = math.ceil(value_range_to_cover / ideal_slider_step)
     ideal_intervals_diff_to_goal = abs(ideal_intervals_count - fh_config.ideal_interval_count)

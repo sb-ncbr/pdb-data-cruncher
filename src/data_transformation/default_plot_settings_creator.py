@@ -502,9 +502,7 @@ def _possible_neat_bucket_size_generator(
             f"'{factor_min_max.min_raw}', adjusted max value: '{factor_min_max.max_raw}'."
         ) from ex
 
-    allowed_size_index = _match_minimal_size_to_allowed_sizes(
-        bucket_size, allowed_bucket_size_bases
-    )
+    allowed_size_index = _match_minimal_size_to_allowed_sizes(bucket_size, allowed_bucket_size_bases)
 
     yield bucket_size.to_decimal()
     while True:

@@ -1,6 +1,5 @@
 import logging
-import os.path
-from os import path
+import os
 
 import py7zr
 
