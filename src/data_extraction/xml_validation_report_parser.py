@@ -10,7 +10,6 @@ from src.models import Diagnostics, LigandInfo, XML_ENTRY_ATTRIBUTE_TO_PROPERTY
 from src.utils import to_float, to_int, get_clean_type_hint
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class ModelledSubgroupsData:
     """

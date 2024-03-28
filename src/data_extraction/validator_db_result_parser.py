@@ -19,7 +19,6 @@ class SummaryCounts:
     missing_rings: int = 0
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class RawDataFromVDB:
     """

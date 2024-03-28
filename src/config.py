@@ -61,7 +61,6 @@ class FactorHierarchySettings:
     )
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class Config:
     """

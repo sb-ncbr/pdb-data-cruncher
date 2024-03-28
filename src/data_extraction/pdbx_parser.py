@@ -12,7 +12,6 @@ from src.utils import to_float, to_int
 from src.constants import METAL_ELEMENT_NAMES
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class AtomSiteItem:
     """
@@ -58,7 +57,6 @@ class EncounteredLigand:
     atoms: list[AtomSiteItem] = field(default_factory=list)
 
 
-# pylint: disable=duplicate-code  # the code duplicate evaluation did not make sense in this case
 def parse_pdbx(pdb_id: str, filepath: str) -> Optional[ProteinDataFromPDBx]:
     """
     Extracts and calculates protein information from mmcif (PDBx) file.

@@ -3,7 +3,6 @@ from decimal import Decimal
 from typing import Union
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class DefaultPlotSettingsItem:
     """
