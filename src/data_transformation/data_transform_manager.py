@@ -259,7 +259,7 @@ def run_data_transformation(config: NewConfig) -> bool:
 
 def _assemble_crunched_csv_path(config: NewConfig) -> str:
     crunched_csv_name = f"{config.current_formatted_date}_crunched.csv"
-    if config.run_data_transformation_only and config.crunched_csv_path_for_data_transformation_only:
-        crunched_csv_name = config.crunched_csv_path_for_data_transformation_only
+    if config.run_data_transformation_only and config.crunched_csv_name_for_data_transformation_only:
+        crunched_csv_name = config.crunched_csv_name_for_data_transformation_only
     crunched_csv_path = path.join(config.filepaths.output_root_path, crunched_csv_name)
     return crunched_csv_path

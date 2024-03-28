@@ -49,8 +49,8 @@ def prepare_log_folder(config: NewConfig) -> None:
     Ensures log folder exists, discards old logs and renames the last logs with prefix "previous".
     :param config: Application configuraiton.
     """
-    if not os.path.exists(config.filepaths.log_root_path):
-        os.mkdir(config.filepaths.log_root_path)
+    if not os.path.exists(config.filepaths.logs_root_path):
+        os.mkdir(config.filepaths.logs_root_path)
     else:
         if os.path.exists(config.filepaths.previous_filtered_log):
             os.remove(config.filepaths.previous_filtered_log)
@@ -111,13 +111,6 @@ def main():
     Application entrypoint.
     """
     config = NewConfig()
-
-    # TODO adjust config by env values or commandline
-    config.run_data_transformation_only = True
-    config.crunched_csv_path_for_data_transformation_only = "20240314_crunched.csv"
-    config.data_transformation_skip_plot_settings = False
-    # TODO delete this temporary adjustments
-
     prepare_log_folder(config)
     configure_logging(config)
     run_app(config)

@@ -1,9 +1,10 @@
 from os import path
+from os import environ as env
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-from src.utils import get_formatted_date
+from src.utils import get_formatted_date, int_from_env, float_from_env, bool_from_env
 
 
 # TODO remove later
@@ -39,9 +40,9 @@ class DefaultPlotSettingsConfig:
     Configuration for creating default plot settings.
     """
 
-    max_bucket_count: int = 50
-    min_count_in_bucket: int = 50
-    std_outlier_multiplier: int = 2
+    max_bucket_count: int = int_from_env("DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT", 50)
+    min_count_in_bucket: int = int_from_env("DEFAULT_PLOT_SETTINGS_MIN_BUCKET_COUNT", 50)
+    std_outlier_multiplier: int = int_from_env("DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER", 2)
     allowed_bucket_size_bases: list[int] = field(
         default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]  # TODO parsing check it's <10, 99>
     )  # TODO and need to be sorted
@@ -53,9 +54,9 @@ class FactorHierarchySettings:
     Configuration for updating factor hierarchy.
     """
 
-    min_interval_count: int = 100
-    ideal_interval_count: int = 200
-    max_interval_count: int = 300
+    min_interval_count: int = int_from_env("FACTOR_HIERARCHY_MIN_INTERVAL_COUNT", 100)
+    ideal_interval_count: int = int_from_env("FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT", 200)
+    max_interval_count: int = int_from_env("FACTOR_HIERARCHY_MAX_INTERVAL_COUNT", 300)
     allowed_slider_size_bases: list[int] = field(
         default_factory=lambda: [10, 20, 25, 50]  # TODO parsing check it's <10, 99> and need to be sorted
     )
@@ -104,31 +105,33 @@ class FilepathConfig:
     """
     Configuration
     """
-    dataset_root_path: str = "../raw_dataset/"  # TODO not the final value
-    output_root_path: str = "../output/"  # TODO not the final value
-    log_root_path: str = "../logs/"  # TODO not the final value
+    dataset_root_path: str = env.get("DATASET_ROOT_PATH", path.join("app", "dataset"))
+    output_root_path: str = env.get("OUTPUT_ROOT_PATH", path.join("app", "output"))
+    logs_root_path: str = env.get("LOGS_ROOT_PATH", path.join("app", "logs"))
 
     # source of data
-    _rest_jsons_name: str = "PDBe_REST_API_JSON"
-    _pdb_mmcifs_name: str = "PDBe_updated_mmCIF"
-    _xml_reports_name: str = "ValRep_XML"
-    _validator_db_results_name: str = "MotiveValidator_JSON"
-    _ligand_cifs_name: str = "ccd_CIF"
-    _factor_pairs_autoplot_csv_name: str = "autoplot.csv"
-    _factor_x_plot_bucket_limits_csv_name: str = "3-Hranice-X_nazvy_promennych.csv"
-    _ligand_occurence_json_name: str = "ligand_occurence_in_pdb_ids.json"
+    _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
+    _pdb_mmcifs_name: str = env.get("PDB_MMCIFS_FOLDER_NAME", "PDBe_updated_mmCIF")
+    _xml_reports_name: str = env.get("XML_REPORTS_FOLDER_NAME", "ValRep_XML")
+    _validator_db_results_name: str = env.get("VALIDATOR_DB_RESULTS_FOLDER_NAME", "MotiveValidator_JSON")
+    _ligand_cifs_name: str = env.get("LIGAND_CIFS_FOLDER_NAME", "ccd_CIF")
+    _factor_pairs_autoplot_csv_name: str = env.get("AUTOPLOT_CSV_NAME", "autoplot.csv")
+    _factor_x_plot_bucket_limits_csv_name: str = env.get(
+        "X_PLOT_BUCKET_LIMITS_CSV_NAME", "3-Hranice-X_nazvy_promennych.csv"
+    )
+    _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurence_in_pdb_ids.json")
 
     # output names used as input too
-    _familiar_name_translations_json_name: str = "nametranslation.json"
-    _versions_json_name: str = "Versions.json"
-    _key_trends_versions_json_name: str = "VersionsKT.json"
-    _ligand_stats_name: str = "ligandStats.csv"
+    _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
+    _versions_json_name: str = env.get("VERSIONS_JSON_NAME", "Versions.json")
+    _key_trends_versions_json_name: str = env.get("KEY_TRENDS_VERSIONS_JSON_NAME", "VersionsKT.json")
+    _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
 
     # logs
-    _full_log_name: str = "full_log.txt"
-    _previous_full_log_name: str = "previous_full_log.txt"
-    _filtered_log_name: str = "filtered_log.txt"
-    _previous_filtered_log_name: str = "previous_filtered_log.txt"
+    _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
+    _previous_full_log_name: str = env.get("PREVIOUS_FULL_LOG_NAME", "previous_full_log.txt")
+    _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
+    _previous_filtered_log_name: str = env.get("PREVIOUS_FILTERED_LOG_NAME", "previous_filtered_log.txt")
     # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
     # TODO somehow include updated ligands log file
 
@@ -162,7 +165,7 @@ class FilepathConfig:
 
     @property
     def ligand_occurence_json(self) -> str:
-        return path.join(self.dataset_root_path, self._ligand_occurence_json_name)
+        return path.join(self.dataset_root_path, self._ligand_occurrence_json_name)
 
     @property
     def familiar_name_translations_json(self) -> str:
@@ -182,19 +185,19 @@ class FilepathConfig:
 
     @property
     def full_log(self) -> str:
-        return path.join(self.log_root_path, self._full_log_name)
+        return path.join(self.logs_root_path, self._full_log_name)
 
     @property
     def previous_full_log(self) -> str:
-        return path.join(self.log_root_path, self._previous_full_log_name)
+        return path.join(self.logs_root_path, self._previous_full_log_name)
 
     @property
     def filtered_log(self) -> str:
-        return path.join(self.log_root_path, self._filtered_log_name)
+        return path.join(self.logs_root_path, self._filtered_log_name)
 
     @property
     def previous_filtered_log(self) -> str:
-        return path.join(self.log_root_path, self._previous_filtered_log_name)
+        return path.join(self.logs_root_path, self._previous_filtered_log_name)
 
 
 @dataclass(slots=True)
@@ -203,25 +206,26 @@ class NewConfig:
     Application configuraiton.
     """
 
-    logging_debug: bool = False
-    max_process_count: int = 8
-    current_formatted_date: str = get_formatted_date()  # TODO use this everywhere instead of get_formatted_date
+    logging_debug: bool = bool_from_env("LOGGING_DEBUG", False)
+    max_process_count: int = int_from_env("MAX_PROCESS_COUNT", 8)
+    current_formatted_date: str = env.get("CURRENT_FORMATTED_DATE", get_formatted_date())
+    # TODO use this everywhere instead of get_formatted_date
 
     # data download
-    run_data_download_only: bool = False
+    run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)  # TODO check allowed combos of this
     # data extraction
-    run_data_extraction_only: bool = False
-    force_complete_data_extraction: bool = False
-    pdb_ids_to_update: Optional[list[str]] = None
+    run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
+    force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
+    pdb_ids_to_update: Optional[list[str]] = None  # TODO list from env -- or should it be file?
     # 7zip data
-    run_zipping_files_only: bool = False
-    force_complete_7zip_integrity_check: bool = False
+    run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
+    force_7zip_integrity_check: bool = bool_from_env("FORCE_7ZIP_INTEGRITY_CHECK", False)
     # data transformation
-    run_data_transformation_only: bool = False
-    crunched_csv_path_for_data_transformation_only: str = ""
-    data_transformation_skip_plot_settings: bool = True
+    run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
+    crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")
+    data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
+
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
-
     filepaths: FilepathConfig = FilepathConfig()
 

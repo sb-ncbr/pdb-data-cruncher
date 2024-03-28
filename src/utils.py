@@ -1,4 +1,5 @@
 import decimal
+import logging
 import math
 import os
 from datetime import datetime
@@ -89,6 +90,49 @@ def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = No
         if int_value is not None:
             return int_value
     return float_value
+
+
+def int_from_env(env_variable_name: str, default_value: Optional[int] = None) -> Optional[int]:
+    """
+    Attempts to get value from environment variable, and converts it to int.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    return to_int(os.environ.get(env_variable_name), default_value)
+
+
+def float_from_env(env_variable_name: str, default_value: Optional[float] = None) -> Optional[float]:
+    """
+    Attempts to get value from environment variable, and converts it to float.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    return to_float(os.environ.get(env_variable_name), default_value)
+
+
+def bool_from_env(env_variable_name: str, default_value: bool) -> bool:
+    """
+    Attempts to get value from environment variable, and converts it to bool. Permitted values are (case
+    insensitive): true/on/1 for true, false/off/0 for false.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    env_value = os.environ.get(env_variable_name)
+    if env_value is None:
+        return default_value
+
+    if env_value.lower() in ["true", "on", "1"]:
+        return True
+    if env_value.lower() in ["false", "off", "0"]:
+        return False
+
+    logging.warning(
+        "Environmental variable %s (value %s) failed to convert to bool. Using default.", env_variable_name, env_value
+    )
+    return default_value
 
 
 def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
