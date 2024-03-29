@@ -1,3 +1,4 @@
+import logging
 from os import path
 from os import environ as env
 from dataclasses import dataclass, field
@@ -17,13 +18,28 @@ class DefaultPlotSettingsConfig:
     std_outlier_multiplier: int = int_from_env("DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER", 2)
     allowed_bucket_base_sizes: list[int] = field(
         default_factory=lambda: int_list_from_env(
-            "ALLOWED_BUCKET_BASE_SIZES", [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+            "DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES", [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
         )
     )
 
     def validate(self) -> None:
+        """
+        Check values are within allowed limits.
+        :raises ValueError:
+        """
+        if self.max_bucket_count < 10:
+            raise ValueError("DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT should be at least 10 for proper results.")
+
         if len(self.allowed_bucket_base_sizes) == 0:
-            raise ValueError("ALLOWED_BUCKET_BASE_SIZES need at least one value.")
+            raise ValueError("DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES need at least one value.")
+
+        if len(self.allowed_bucket_base_sizes) > 20 or self.max_bucket_count > 100 or self.min_count_in_bucket > 100:
+            logging.warning(
+                "Given default plot settings may cause the app to run significantly longer. Default plot settings "
+                "ideal interval size is determined experimentally - setting allowed base sizes to many options, setting"
+                " big max bucket count or large minimal count in bucket may cause it to try more options before finding"
+                " a suitable option, and may result in less optimal intervals."
+            )
 
         last_bucket_base_size = None
         for base_size in self.allowed_bucket_base_sizes:
@@ -44,19 +60,45 @@ class FactorHierarchySettings:
     ideal_interval_count: int = int_from_env("FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT", 200)
     max_interval_count: int = int_from_env("FACTOR_HIERARCHY_MAX_INTERVAL_COUNT", 300)
     allowed_slider_base_sizes: list[int] = field(
-        default_factory=lambda: int_list_from_env("ALLOWED_SLIDER_BASE_SIZES", [10, 20, 25, 50])
+        default_factory=lambda: int_list_from_env("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES", [10, 20, 25, 50])
     )
 
     def validate(self) -> None:
+        """
+        Check values are within allowed limits.
+        :raises ValueError:
+        """
+        if self.min_interval_count <= 0:
+            raise ValueError("FACTOR_HIERARCHY_MIN_INTERVAL_COUNT needs to be bigger than 0.")
+
+        if self.min_interval_count > self.max_interval_count:
+            raise ValueError(
+                "FACTOR_HIERARCHY_MIN_INTERVAL_COUNT cannot be bigger than FACTOR_HIERARCHY_MAX_INTERVAL_COUNT."
+            )
+
+        if self.ideal_interval_count < self.min_interval_count:
+            self.ideal_interval_count = self.min_interval_count
+            logging.warning(
+                "FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT was smaller than the FACTOR_HIERARCHY_MIN_INTERVAL_COUNT. "
+                "It was set to the minimal value instead."
+            )
+
+        if self.ideal_interval_count > self.max_interval_count:
+            self.ideal_interval_count = self.max_interval_count
+            logging.warning(
+                "FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT was larger than the FACTOR_HIERARCHY_MAX_INTERVAL_COUNT. "
+                "It was set to the maximum value instead."
+            )
+
         if len(self.allowed_slider_base_sizes) == 0:
-            raise ValueError("ALLOWED_SLIDER_BASE_SIZES need at least one value.")
+            raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need at least one value.")
 
         last_bucket_base_size = None
         for base_size in self.allowed_slider_base_sizes:
             if not 10 <= base_size <= 100:
-                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
+                raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
             if last_bucket_base_size and last_bucket_base_size >= base_size:
-                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
+                raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
             last_bucket_base_size = base_size
 
 
@@ -194,6 +236,10 @@ class Config:
     filepaths: FilepathConfig = FilepathConfig()
 
     def validate(self):
+        """
+        Check the values set for config are valid for their purpose.
+        :raises ValueError:
+        """
         # at most 1 standalone mode is set
         run_only_mode_count = 0
         if self.run_data_download_only:
@@ -210,23 +256,14 @@ class Config:
                 "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
             )
 
-        # if extraction/archivation only wihtout force complete run, pdb ids are passed
-        if (
-            self.run_data_extraction_only
-            and not self.force_complete_data_extraction
-            or self.run_zipping_files_only
-            and not self.force_7zip_integrity_check
-        ):
-            pdb_ids_sources = 0
-            if self.pdb_ids_to_update_filepath:
-                pdb_ids_sources += 1
-            if self.pdb_ids_to_update:
-                pdb_ids_sources += 1
-            if pdb_ids_sources != 1:
+        # if extraction/archivation only is run, at most one pdb ids source can be set
+        if self.run_data_extraction_only or self.run_zipping_files_only:
+            if self.pdb_ids_to_update_filepath and self.pdb_ids_to_update:
                 raise ValueError(
-                    f"Found {pdb_ids_sources} sources for PDB IDS to run. When data extraction or data archivation "
-                    "is run standalone, exactly one source for pdb ids to run needs to be passed: either "
-                    "PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids."
+                    f"Found two sources for PDB IDS to run. When data extraction or data archivation "
+                    "is run standalone, at most one source for pdb ids to run can to be passed: either "
+                    "PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids,"
+                    "or none when old log from download is used."
                 )
 
         # transformation settings are valid

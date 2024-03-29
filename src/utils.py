@@ -71,27 +71,6 @@ def to_bool(value_to_convert: Any, default: Optional[bool] = None) -> Optional[b
     return default
 
 
-# TODO remove if this remains unused
-def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = None) -> Union[float, int, None]:
-    """
-    Safe way to convert to int or float, when unsure which type it is. If the conversion fails due to ValueError
-    or TypeError, returns default value instead.
-    :param value_to_convert: String to be converted to int or float.
-    :param default: Value to return when conversion fails.
-    :return: Converted int, if it is int, float if number that's not finite integer, default value otherwise.
-    """
-    if value_to_convert == "nan":  # the meaning on nan in data is None that should not be treated as a number
-        return default
-    float_value = to_float(value_to_convert)
-    if float_value is None:
-        return default
-    if float_value.is_integer():
-        int_value = to_int(value_to_convert)
-        if int_value is not None:
-            return int_value
-    return float_value
-
-
 def int_from_env(env_variable_name: str, default_value: Optional[int] = None) -> Optional[int]:
     """
     Attempts to get value from environment variable, and converts it to int.
@@ -113,6 +92,12 @@ def float_from_env(env_variable_name: str, default_value: Optional[float] = None
 
 
 def int_list_from_env(env_variable_name: str, default_value: Optional[list[int]] = None) -> list[int]:
+    """
+    Get value of environmental variable and cut it by commas, and convert those into integers.
+    :param env_variable_name:
+    :param default_value:
+    :return: List of integers.
+    """
     if default_value is None:
         default_value = []
 
@@ -135,6 +120,12 @@ def int_list_from_env(env_variable_name: str, default_value: Optional[list[int]]
 
 
 def string_list_from_env(env_variable_name: str, default_value: Optional[list[str]] = None) -> list[str]:
+    """
+    Get value of environmental variable and cut it by commas, creating list of string values.
+    :param env_variable_name:
+    :param default_value:
+    :return: List of strings.
+    """
     if default_value is None:
         default_value = []
 
@@ -152,8 +143,8 @@ def string_list_from_env(env_variable_name: str, default_value: Optional[list[st
 
 def bool_from_env(env_variable_name: str, default_value: bool) -> bool:
     """
-    Attempts to get value from environment variable, and converts it to bool. Permitted values are (case
-    insensitive): true/on/1 for true, false/off/0 for false.
+    Attempts to get value from environment variable, and converts it to bool. Permitted values are
+    (case-insensitive): true/on/1 for true, false/off/0 for false.
     :param env_variable_name: Name of the environment variable to find.
     :param default_value:
     :return: Converted environmental variable, or default.

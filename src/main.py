@@ -3,7 +3,7 @@ import os.path
 import sys
 
 from src.data_transformation.data_transform_manager import run_data_transformation
-from src.data_extraction.parsing_manger import run_data_extraction
+from src.data_extraction.data_extraction_manager import run_data_extraction
 from src.data_archivation.data_archivation_manager import run_data_archivation
 from src.data_download.data_download_manager import run_data_download
 from src.config import Config
@@ -130,12 +130,12 @@ def main():
 #     :return:
 #     """
 #     start_time = time.monotonic()
-#     ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
+#     ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
 #     with Pool(config.max_process_count_in_multiprocessing) as p:
 #         collected_data = p.starmap(
-#             ParsingManger.load_all_protein_data, [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids]
+#             DataExtractionManager.load_all_protein_data, [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids]
 #         )
-#     ParsingManger.store_protein_data_into_crunched_csv(collected_data, config)
+#     DataExtractionManager.store_protein_data_into_crunched_csv(collected_data, config)
 #     end_time = time.monotonic()
 #     logging.info("Full data extraction completed in %s.", timedelta(seconds=end_time - start_time))
 #

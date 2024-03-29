@@ -22,10 +22,11 @@ from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
+from src.data_extraction.pdb_ids_to_update_finder import find_pdb_ids_to_update
 from src.exception import ParsingError
 
 
-class ParsingManger:
+class DataExtractionManager:
     """
     Class with static methods only aggregating file loading and parsing operations into logical groups
     for easier handling.
@@ -125,11 +126,11 @@ class ParsingManger:
         """
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
         if ligand_stats is None:
-            ligand_stats = ParsingManger.load_and_parse_ligand_stats(config)
-        protein_data.vdb = ParsingManger.load_and_parse_validator_db_result(pdb_id, config)
-        protein_data.pdbx = ParsingManger.load_and_parse_pdbx(pdb_id, config)
-        protein_data.xml = ParsingManger.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
-        protein_data.rest = ParsingManger.load_and_parse_rest(pdb_id, ligand_stats, config)
+            ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
+        protein_data.vdb = DataExtractionManager.load_and_parse_validator_db_result(pdb_id, config)
+        protein_data.pdbx = DataExtractionManager.load_and_parse_pdbx(pdb_id, config)
+        protein_data.xml = DataExtractionManager.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
+        protein_data.rest = DataExtractionManager.load_and_parse_rest(pdb_id, ligand_stats, config)
         calculate_inferred_protein_data(protein_data)
         logging.debug("[%s] All protein data loaded", pdb_id)
         return protein_data
@@ -159,4 +160,11 @@ def run_data_extraction(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
+    logging.info("Starting data extraction.")
+    try:
+        pdb_ids_to_update = find_pdb_ids_to_update(config)
+    except ParsingError as ex:
+        logging.error(ex)
+        return False
+
     raise NotImplementedError()
