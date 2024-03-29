@@ -372,7 +372,7 @@ def _find_ideal_factor_bucket_size(
     )
 
     possible_bucket_size_generator = _possible_neat_bucket_size_generator(
-        factor_min_max, dps_config.max_bucket_count, dps_config.allowed_bucket_size_bases
+        factor_min_max, dps_config.max_bucket_count, dps_config.allowed_bucket_base_sizes
     )
     for possible_bucket_size in possible_bucket_size_generator:
         bucket_limits = _create_neat_bucket_limits(factor_min_max, possible_bucket_size)
@@ -502,9 +502,7 @@ def _possible_neat_bucket_size_generator(
             f"'{factor_min_max.min_raw}', adjusted max value: '{factor_min_max.max_raw}'."
         ) from ex
 
-    allowed_size_index = _match_minimal_size_to_allowed_sizes(
-        bucket_size, allowed_bucket_size_bases
-    )
+    allowed_size_index = _match_minimal_size_to_allowed_sizes(bucket_size, allowed_bucket_size_bases)
 
     yield bucket_size.to_decimal()
     while True:

@@ -12,13 +12,13 @@ from tests.utils import strings_are_equal_respecting_floats, Differences, Differ
 def test_full_data_extraction_basic(pdb_id: str):
     # arrange
     expected_csv_row_dict = load_row_of_csv_as_dict(pdb_id)
-    config = Config(
-        path_to_rest_jsons=(path.join(TEST_DATA_PATH, pdb_id)),
-        path_to_pdbx_files=(path.join(TEST_DATA_PATH, pdb_id)),
-        path_to_xml_reports=(path.join(TEST_DATA_PATH, pdb_id)),
-        path_to_validator_db_results=TEST_DATA_PATH,
-        path_to_ligand_stats_csv=(path.join(TEST_DATA_PATH, "ligandStats.csv")),
-    )
+    config = Config()
+    config.filepaths.dataset_root_path = TEST_DATA_PATH
+    config.filepaths._rest_jsons_name = pdb_id
+    config.filepaths._pdb_mmcifs_name = pdb_id
+    config.filepaths._xml_reports_name = pdb_id
+    config.filepaths._validator_db_results_name = ""
+    config.filepaths._ligand_stats_name = "ligandStats.csv"
 
     # act
     complete_protein_data = ParsingManger.load_all_protein_data(pdb_id, config)

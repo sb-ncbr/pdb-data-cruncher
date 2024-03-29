@@ -38,7 +38,7 @@ def load_autoplot_factor_pairs(filepath: str) -> list[FactorPair]:
             factor_pairs.append(factor_pair)
 
     if len(factor_pair_duplicates) > 0:
-        logging.warning(
+        logging.info(
             "In autoplot csv, %s factor pairs were present multiple times. Only one copy will be processed. "
             "Duplicate pairs: %s",
             len(factor_pair_duplicates),

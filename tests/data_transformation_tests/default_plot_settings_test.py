@@ -15,7 +15,7 @@ TEST_CONFIG = DefaultPlotSettingsConfig(
     max_bucket_count=50,
     min_count_in_bucket=50,
     std_outlier_multiplier=2,
-    allowed_bucket_size_bases=[10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90],
+    allowed_bucket_base_sizes=[10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90],
 )
 
 FACTOR_NAMES_TRANSLATION = {

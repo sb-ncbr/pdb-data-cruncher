@@ -15,7 +15,6 @@ class XFactorBoundary:
     value: Union[float, int, None] = None
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class DefaultPlotBucket:
     """
@@ -67,7 +66,6 @@ class DefaultPlotBucket:
         }
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class DefaultPlotData:
     """

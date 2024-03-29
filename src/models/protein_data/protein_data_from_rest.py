@@ -2,7 +2,6 @@ from dataclasses import dataclass, fields
 from typing import Optional
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(slots=True)
 class ProteinDataFromRest:
     """

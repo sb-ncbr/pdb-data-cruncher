@@ -1,5 +1,7 @@
 import decimal
+import logging
 import math
+import os
 from datetime import datetime
 from decimal import Decimal
 from typing import Optional, Any, get_type_hints, Union, get_args
@@ -88,6 +90,87 @@ def to_int_or_float(value_to_convert: str, default: Union[float, int, None] = No
         if int_value is not None:
             return int_value
     return float_value
+
+
+def int_from_env(env_variable_name: str, default_value: Optional[int] = None) -> Optional[int]:
+    """
+    Attempts to get value from environment variable, and converts it to int.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    return to_int(os.environ.get(env_variable_name), default_value)
+
+
+def float_from_env(env_variable_name: str, default_value: Optional[float] = None) -> Optional[float]:
+    """
+    Attempts to get value from environment variable, and converts it to float.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    return to_float(os.environ.get(env_variable_name), default_value)
+
+
+def int_list_from_env(env_variable_name: str, default_value: Optional[list[int]] = None) -> list[int]:
+    if default_value is None:
+        default_value = []
+
+    env_value = os.environ.get(env_variable_name)
+    if not env_value:
+        return default_value
+
+    int_list = []
+    for value in env_value.replace(" ", "").split(","):
+        if value:  # skip empty items if any
+            int_list.append(to_int(value))
+
+    if None in int_list:
+        raise ValueError(
+            f"One or multiple items in env {env_variable_name} with value '{env_value}' failed to convert to int."
+            "Expected list of number convertable to int, separated by commas."
+        )
+
+    return int_list
+
+
+def string_list_from_env(env_variable_name: str, default_value: Optional[list[str]] = None) -> list[str]:
+    if default_value is None:
+        default_value = []
+
+    env_value = os.environ.get(env_variable_name)
+    if not env_value:
+        return default_value
+
+    string_list = []
+    for value in env_value.replace(" ", "").split(","):
+        if value:  # skip empty items if any
+            string_list.append(value)
+
+    return string_list
+
+
+def bool_from_env(env_variable_name: str, default_value: bool) -> bool:
+    """
+    Attempts to get value from environment variable, and converts it to bool. Permitted values are (case
+    insensitive): true/on/1 for true, false/off/0 for false.
+    :param env_variable_name: Name of the environment variable to find.
+    :param default_value:
+    :return: Converted environmental variable, or default.
+    """
+    env_value = os.environ.get(env_variable_name)
+    if env_value is None:
+        return default_value
+
+    if env_value.lower() in ["true", "on", "1"]:
+        return True
+    if env_value.lower() in ["false", "off", "0"]:
+        return False
+
+    logging.warning(
+        "Environmental variable %s (value %s) failed to convert to bool. Using default.", env_variable_name, env_value
+    )
+    return default_value
 
 
 def get_clean_type_hint(instance: object, field_name: str) -> Optional[type]:
@@ -182,10 +265,31 @@ def round_with_precision(number_to_round: Decimal, precision: int, rounding_meth
         return +number_to_round  # need to do aritmetic operation for the precision constraint to apply
 
 
-def get_formatted_date(sep="") -> str:
+def get_formatted_date() -> str:
     """
     Get current date in the format %Y%m%d (e.g. 20240101)
-    :param sep: Symbol to seperate year-month-day part. Empty string by default.
     :return: The string with the date.
     """
-    return datetime.now().strftime(f"%Y{sep}%m{sep}%d")
+    return datetime.now().strftime("%Y%m%d")
+
+
+def find_matching_files(folder_path: str, string_to_match: str) -> list[str]:
+    """
+    Find files in given folder path that contain given string exactly.
+    :param folder_path:
+    :param string_to_match:
+    :return: List of matched filenames (without full path).
+    """
+    all_filenames = next(os.walk(folder_path), (None, None, []))[2]  # [] if no file
+    return [filename for filename in all_filenames if string_to_match in filename]
+
+
+def find_matching_subfolders(folder_path: str, string_to_match: str) -> list[str]:
+    """
+    Find subfolders in given folder path that contain given string exactly.
+    :param folder_path:
+    :param string_to_match:
+    :return: List of matched folder names (without full path).
+    """
+    all_filenames = next(os.walk(folder_path), (None, [], None))[1]  # [] if no subdirectories
+    return [filename for filename in all_filenames if string_to_match in filename]

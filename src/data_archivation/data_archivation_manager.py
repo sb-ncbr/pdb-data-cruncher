@@ -18,19 +18,28 @@ class DataArchivationManger:
         logging.info("Starting creation of 7z archives.")
 
         archive_creation_settings = [  # source folder and resulting archive name
-            (config.path_to_pdbx_files, "rawpdbe.7z"),
-            (config.path_to_xml_reports, "rawvalidxml.7z"),
-            (config.path_to_rest_jsons, "rawrest.7z"),
-            (config.path_to_validator_db_results, "rawvdb.7z"),
+            (config.filepaths.pdb_mmcifs, "rawpdbe.7z"),
+            (config.filepaths.xml_reports, "rawvalidxml.7z"),
+            (config.filepaths.rest_jsons, "rawrest.7z"),
+            (config.filepaths.validator_db_results, "rawvdb.7z"),
         ]
 
         # spawns process for each 7z archive task
-        with Pool(config.max_process_count_in_multiprocessing) as p:
+        with Pool(config.max_process_count) as p:
             p.starmap(
                 create_archive_of_folder, [
-                    (path_to_folder, config.output_root_path, archive_name)
+                    (path_to_folder, config.filepaths.output_root_path, archive_name)
                     for path_to_folder, archive_name
                     in archive_creation_settings
                 ]
             )
         logging.info("Creation of 7z archives finished successfully.")
+
+
+def run_data_archivation(config: Config) -> bool:
+    """
+    Updates 7zip archives with pdb id set (defined by data download phase or config values).
+    :param config: Application configuration.
+    :return: True if action succeeded. False otherwise.
+    """
+    raise NotImplementedError()
