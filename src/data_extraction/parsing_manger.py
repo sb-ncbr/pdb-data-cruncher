@@ -150,3 +150,13 @@ class ParsingManger:
         # save into files
         create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path)
         create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
+
+
+def run_data_extraction(config: Config) -> bool:
+    """
+    Do data extraction for pdb id set (defined by data download phase or config values). Creates crunched csv
+    (in 3 versions) and updates ligand occurence across structures.
+    :param config: Application configuration.
+    :return: True if action succeeded. False otherwise.
+    """
+    raise NotImplementedError()

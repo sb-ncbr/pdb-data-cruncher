@@ -66,6 +66,7 @@ class FilepathConfig:
     """
     Configuration
     """
+
     dataset_root_path: str = env.get("DATASET_ROOT_PATH", path.join("app", "dataset"))
     output_root_path: str = env.get("OUTPUT_ROOT_PATH", path.join("app", "output"))
     logs_root_path: str = env.get("LOGS_ROOT_PATH", path.join("app", "logs"))
@@ -93,6 +94,7 @@ class FilepathConfig:
     _previous_full_log_name: str = env.get("PREVIOUS_FULL_LOG_NAME", "previous_full_log.txt")
     _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
     _previous_filtered_log_name: str = env.get("PREVIOUS_FILTERED_LOG_NAME", "previous_filtered_log.txt")
+
     # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
     # TODO somehow include updated ligands log file
 
@@ -177,9 +179,7 @@ class Config:
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
-    pdb_ids_to_update: Optional[list[str]] = field(
-        default_factory=lambda: string_list_from_env("PDB_IDS_TO_UPDATE")
-    )
+    pdb_ids_to_update: Optional[list[str]] = field(default_factory=lambda: string_list_from_env("PDB_IDS_TO_UPDATE"))
     pdb_ids_to_update_filepath: Optional[str] = env.get("PDB_IDS_TO_UPDATE_FILEPATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
@@ -210,8 +210,13 @@ class Config:
                 "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
             )
 
-        # if extraction only wihtout force complete run, pdb ids are passed
-        if self.run_data_extraction_only and not self.force_complete_data_extraction:
+        # if extraction/archivation only wihtout force complete run, pdb ids are passed
+        if (
+            self.run_data_extraction_only
+            and not self.force_complete_data_extraction
+            or self.run_zipping_files_only
+            and not self.force_7zip_integrity_check
+        ):
             pdb_ids_sources = 0
             if self.pdb_ids_to_update_filepath:
                 pdb_ids_sources += 1
@@ -219,9 +224,9 @@ class Config:
                 pdb_ids_sources += 1
             if pdb_ids_sources != 1:
                 raise ValueError(
-                    f"Found {pdb_ids_sources} sources for PDB IDS to run. When data extraction is run standalone, "
-                    "exactly one source for pdb ids to run needs to be passed: either PDB_IDS_TO_UPDATE as comma "
-                    "separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids."
+                    f"Found {pdb_ids_sources} sources for PDB IDS to run. When data extraction or data archivation "
+                    "is run standalone, exactly one source for pdb ids to run needs to be passed: either "
+                    "PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids."
                 )
 
         # transformation settings are valid

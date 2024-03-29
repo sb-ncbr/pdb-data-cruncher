@@ -34,3 +34,12 @@ class DataArchivationManger:
                 ]
             )
         logging.info("Creation of 7z archives finished successfully.")
+
+
+def run_data_archivation(config: Config) -> bool:
+    """
+    Updates 7zip archives with pdb id set (defined by data download phase or config values).
+    :param config: Application configuration.
+    :return: True if action succeeded. False otherwise.
+    """
+    raise NotImplementedError()

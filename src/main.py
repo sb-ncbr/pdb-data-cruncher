@@ -1,7 +1,11 @@
 import logging
 import os.path
+import sys
 
 from src.data_transformation.data_transform_manager import run_data_transformation
+from src.data_extraction.parsing_manger import run_data_extraction
+from src.data_archivation.data_archivation_manager import run_data_archivation
+from src.data_download.data_download_manager import run_data_download
 from src.config import Config
 
 
@@ -55,16 +59,43 @@ def configure_logging(config: Config) -> None:
 
 
 def run_app(config: Config) -> None:
+    """
+    Run the app.
+    :param config:
+    """
     if config.run_data_download_only:
-        raise NotImplementedError()
+        if not run_data_download(config):
+            sys.exit("Data download failed.")
     elif config.run_data_extraction_only:
-        raise NotImplementedError()
+        if not run_data_extraction(config):
+            sys.exit("Data extraction failed.")
     elif config.run_zipping_files_only:
-        raise NotImplementedError()
+        if not run_data_archivation(config):
+            sys.exit("Data archivation failed.")
     elif config.run_data_transformation_only:
-        run_data_transformation(config)
-    else:  # full run
-        raise NotImplementedError()
+        if not run_data_transformation(config):
+            sys.exit("Data transformation failed.")
+    else:
+        run_app_full_flow(config)
+
+
+def run_app_full_flow(config):
+    """
+    Run the full run of the app (download -> archiving -> extraction -> transformation). If download or extraction
+    fails, the rest is not done. The app exits with error code after any of the parts failure.
+    :param config:
+    """
+    if not run_data_download(config):
+        sys.exit("Cannot continue because data download failed.")
+    archivation_success = run_data_archivation(config)
+    if not run_data_extraction(config):
+        sys.exit("Cannot continue because data extraction failed.")
+    transformation_success = run_data_transformation(config)
+    if not archivation_success or not transformation_success:
+        sys.exit(
+            f"{'Data archivation failed. ' if not archivation_success else ''}"
+            f"{'Data transformation failed.' if not transformation_success else ''}"
+        )
 
 
 def main():
