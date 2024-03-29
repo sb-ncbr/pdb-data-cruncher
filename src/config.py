@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-from src.utils import get_formatted_date, int_from_env, float_from_env, bool_from_env
+from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env, string_list_from_env
 
 
 # TODO remove later
@@ -43,9 +43,23 @@ class DefaultPlotSettingsConfig:
     max_bucket_count: int = int_from_env("DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT", 50)
     min_count_in_bucket: int = int_from_env("DEFAULT_PLOT_SETTINGS_MIN_BUCKET_COUNT", 50)
     std_outlier_multiplier: int = int_from_env("DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER", 2)
-    allowed_bucket_size_bases: list[int] = field(
-        default_factory=lambda: [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]  # TODO parsing check it's <10, 99>
-    )  # TODO and need to be sorted
+    allowed_bucket_base_sizes: list[int] = field(
+        default_factory=lambda: int_list_from_env(
+            "ALLOWED_BUCKET_BASE_SIZES", [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+        )
+    )
+
+    def validate(self) -> None:
+        if len(self.allowed_bucket_base_sizes) == 0:
+            raise ValueError("ALLOWED_BUCKET_BASE_SIZES need at least one value.")
+
+        last_bucket_base_size = None
+        for base_size in self.allowed_bucket_base_sizes:
+            if not 10 <= base_size <= 100:
+                raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be from interval <10,99>")
+            if last_bucket_base_size and last_bucket_base_size >= base_size:
+                raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be sorted in the ascending order")
+            last_bucket_base_size = base_size
 
 
 @dataclass(slots=True)
@@ -57,9 +71,21 @@ class FactorHierarchySettings:
     min_interval_count: int = int_from_env("FACTOR_HIERARCHY_MIN_INTERVAL_COUNT", 100)
     ideal_interval_count: int = int_from_env("FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT", 200)
     max_interval_count: int = int_from_env("FACTOR_HIERARCHY_MAX_INTERVAL_COUNT", 300)
-    allowed_slider_size_bases: list[int] = field(
-        default_factory=lambda: [10, 20, 25, 50]  # TODO parsing check it's <10, 99> and need to be sorted
+    allowed_slider_base_sizes: list[int] = field(
+        default_factory=lambda: int_list_from_env("ALLOWED_SLIDER_BASE_SIZES", [10, 20, 25, 50])
     )
+
+    def validate(self) -> None:
+        if len(self.allowed_slider_base_sizes) == 0:
+            raise ValueError("ALLOWED_SLIDER_BASE_SIZES need at least one value.")
+
+        last_bucket_base_size = None
+        for base_size in self.allowed_slider_base_sizes:
+            if not 10 <= base_size <= 100:
+                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
+            if last_bucket_base_size and last_bucket_base_size >= base_size:
+                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
+            last_bucket_base_size = base_size
 
 
 @dataclass(slots=True)
@@ -212,11 +238,14 @@ class NewConfig:
     # TODO use this everywhere instead of get_formatted_date
 
     # data download
-    run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)  # TODO check allowed combos of this
+    run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
-    pdb_ids_to_update: Optional[list[str]] = None  # TODO list from env -- or should it be file?
+    pdb_ids_to_update: Optional[list[str]] = field(
+        default_factory=lambda: string_list_from_env("PDB_IDS_TO_UPDATE")
+    )
+    pdb_ids_to_update_filepath: Optional[str] = env.get("PDB_IDS_TO_UPDATE_FILEPATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
     force_7zip_integrity_check: bool = bool_from_env("FORCE_7ZIP_INTEGRITY_CHECK", False)
@@ -229,3 +258,45 @@ class NewConfig:
     factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
     filepaths: FilepathConfig = FilepathConfig()
 
+    def validate(self):
+        # at most 1 standalone mode is set
+        run_only_mode_count = 0
+        if self.run_data_download_only:
+            run_only_mode_count += 1
+        if self.run_data_extraction_only:
+            run_only_mode_count += 1
+        if self.run_zipping_files_only:
+            run_only_mode_count += 1
+        if self.run_data_transformation_only:
+            run_only_mode_count += 1
+        if run_only_mode_count > 1:
+            raise ValueError(
+                "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
+                "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
+            )
+
+        # if extraction only wihtout force complete run, pdb ids are passed
+        if self.run_data_extraction_only and not self.force_complete_data_extraction:
+            pdb_ids_sources = 0
+            if self.pdb_ids_to_update_filepath:
+                pdb_ids_sources += 1
+            if self.pdb_ids_to_update:
+                pdb_ids_sources += 1
+            if pdb_ids_sources != 1:
+                raise ValueError(
+                    f"Found {pdb_ids_sources} sources for PDB IDS to run. When data extraction is run standalone, "
+                    "exactly one source for pdb ids to run needs to be passed: either PDB_IDS_TO_UPDATE as comma "
+                    "separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids."
+                )
+
+        # transformation settings are valid
+        self.factor_hierarchy_settings.validate()
+        self.default_plot_settings.validate()
+
+        # max process count is at least 1
+        if self.max_process_count < 1:
+            raise ValueError("MAX_PROCESS_COUNT needs to be at least 1.")
+
+        # current date is in format 20240101 (has 8 chars that represent digits
+        if len(self.current_formatted_date) != 8 or len([c for c in self.current_formatted_date if c.isdigit()]) != 8:
+            raise ValueError("CURRENT_FORMATTED_DATE needs to be 8 chars representing digits, e.g. 20240101.")

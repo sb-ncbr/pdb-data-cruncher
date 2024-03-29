@@ -112,6 +112,44 @@ def float_from_env(env_variable_name: str, default_value: Optional[float] = None
     return to_float(os.environ.get(env_variable_name), default_value)
 
 
+def int_list_from_env(env_variable_name: str, default_value: Optional[list[int]] = None) -> list[int]:
+    if default_value is None:
+        default_value = []
+
+    env_value = os.environ.get(env_variable_name)
+    if not env_value:
+        return default_value
+
+    int_list = []
+    for value in env_value.replace(" ", "").split(","):
+        if value:  # skip empty items if any
+            int_list.append(to_int(value))
+
+    if None in int_list:
+        raise ValueError(
+            f"One or multiple items in env {env_variable_name} with value '{env_value}' failed to convert to int."
+            "Expected list of number convertable to int, separated by commas."
+        )
+
+    return int_list
+
+
+def string_list_from_env(env_variable_name: str, default_value: Optional[list[str]] = None) -> list[str]:
+    if default_value is None:
+        default_value = []
+
+    env_value = os.environ.get(env_variable_name)
+    if not env_value:
+        return default_value
+
+    string_list = []
+    for value in env_value.replace(" ", "").split(","):
+        if value:  # skip empty items if any
+            string_list.append(value)
+
+    return string_list
+
+
 def bool_from_env(env_variable_name: str, default_value: bool) -> bool:
     """
     Attempts to get value from environment variable, and converts it to bool. Permitted values are (case

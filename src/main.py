@@ -111,6 +111,7 @@ def main():
     Application entrypoint.
     """
     config = NewConfig()
+    config.validate()
     prepare_log_folder(config)
     configure_logging(config)
     run_app(config)

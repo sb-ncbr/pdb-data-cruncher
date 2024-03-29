@@ -95,7 +95,7 @@ def _create_values_to_update_for_year(factor_series: pd.Series, fh_config: Facto
     updated values.
     :return: Extracted values to be updated in factor hierarchy json.
     """
-    if 10 not in fh_config.allowed_slider_size_bases:
+    if 10 not in fh_config.allowed_slider_base_sizes:
         logging.warning(
             "10 was not allowed as a base for factor hierarchy slider step, but '1' will still be used for year values."
         )
@@ -151,21 +151,21 @@ def _create_values_to_update_for_normal_numbers(
 def _find_optimal_slider_step(value_range_to_cover: Decimal, fh_config: FactorHierarchySettings) -> tuple[Decimal, int]:
     slider_step_for_max_intervals = _ceiling_slider_step_to_allowed_values(
         ceiling_relative(Decimal(value_range_to_cover / fh_config.max_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases,
+        fh_config.allowed_slider_base_sizes,
     )
     max_intervals_count = math.ceil(value_range_to_cover / slider_step_for_max_intervals)
     max_intervals_diff_to_goal = abs(max_intervals_count - fh_config.ideal_interval_count)
 
     slider_step_for_min_intervals = _ceiling_slider_step_to_allowed_values(
         floor_relative(Decimal(value_range_to_cover / fh_config.min_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases,
+        fh_config.allowed_slider_base_sizes,
     )
     min_intervals_count = math.ceil(value_range_to_cover / slider_step_for_min_intervals)
     min_intervals_diff_to_goal = abs(min_intervals_count - fh_config.ideal_interval_count)
 
     ideal_slider_step = _ceiling_slider_step_to_allowed_values(
         floor_relative(Decimal(value_range_to_cover / fh_config.ideal_interval_count), precision=2),
-        fh_config.allowed_slider_size_bases,
+        fh_config.allowed_slider_base_sizes,
     )
     ideal_intervals_count = math.ceil(value_range_to_cover / ideal_slider_step)
     ideal_intervals_diff_to_goal = abs(ideal_intervals_count - fh_config.ideal_interval_count)
