@@ -1,37 +1,9 @@
 from os import path
 from os import environ as env
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import Optional
 
 from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env, string_list_from_env
-
-
-# TODO remove later
-class RunModeType(Enum):
-    """
-    Enum holding the different modes the app can be run in.
-    """
-
-    ALL = 0
-    DOWNLOAD_ONLY = 1
-    EXTRACT_INTO_CRUNCHED_ONLY = 2
-    TRANSFORM_ONLY = 3
-    ZIP_ONLY = 4
-
-    DOWNLOAD_ALL = 1
-    DOWNLOAD_ARCHIVE_MMCIF = 2
-    # ...
-    EXTRACT_ALL_INTO_CRUNCHED = 10
-    # ...
-    CREATE_ALL = 20
-    CREATE_DEFAULT_PLOT_DATA = 21
-    CREATE_DISTRIBUTION_DATA = 22
-    CREATE_DEFAULT_PLOT_SETTINGS = 23
-    CREATE_FACTOR_HIERARCHY = 24
-    CREATE_VERSION_JSONS = 25
-    CREATE_COPIES_OF_MINOR_FILES = 26
-    CREATE_7Z_ARCHIVES = 27
 
 
 @dataclass(slots=True)
@@ -88,43 +60,6 @@ class FactorHierarchySettings:
             last_bucket_base_size = base_size
 
 
-@dataclass(slots=True)
-class Config:
-    """
-    Class containing configuration for mulsan with default values. Switches from commandline will overwrite this.
-    """
-
-    # BASIC CONFIG
-    logging_debug: bool = False
-    resume_previous_run: bool = True
-    max_process_count_in_multiprocessing: int = 8
-    # TIMEOUTS
-    http_requests_timeout_s: int = 10
-    # SPECIFIC
-    default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
-    factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
-
-    # FILE config
-    raw_dataset_root_path: str = "../raw_dataset/"
-    output_root_path: str = "../output/"
-
-    path_to_rest_jsons: str = path.join(raw_dataset_root_path, "PDBe_REST_API_JSON/")
-    path_to_pdbx_files: str = path.join(raw_dataset_root_path, "PDBe_updated_mmCIF/")
-    path_to_xml_reports: str = path.join(raw_dataset_root_path, "ValRep_XML/")
-    path_to_validator_db_results: str = path.join(raw_dataset_root_path, "MotiveValidator_JSON/")
-    factor_pairs_autoplot_csv_path: str = path.join(output_root_path, "autoplot.csv")
-    factor_x_plot_bucket_limits_csv_path: str = path.join(raw_dataset_root_path, "3-Hranice-X_nazvy_promennych.csv")
-    path_to_ligand_stats_csv: str = path.join(raw_dataset_root_path, "ligandStats.csv")
-
-    familiar_name_translation_path: str = path.join(output_root_path, "nametranslation.json")
-    factor_hierarchy_path: str = path.join(output_root_path, "FactorHierarchy.json")
-    versions_path: str = path.join(output_root_path, "Versions.json")
-    key_treds_versions_path: str = path.join(output_root_path, "VersionsKT.json")
-
-    run_mode: RunModeType = RunModeType.CREATE_ALL
-    crunched_data_csv_path: str = path.join(output_root_path, f"{get_formatted_date()}_crunched.csv")
-
-
 # pylint: disable=missing-function-docstring
 @dataclass(slots=True)
 class FilepathConfig:
@@ -146,12 +81,12 @@ class FilepathConfig:
         "X_PLOT_BUCKET_LIMITS_CSV_NAME", "3-Hranice-X_nazvy_promennych.csv"
     )
     _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurence_in_pdb_ids.json")
+    _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
 
     # output names used as input too
     _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
     _versions_json_name: str = env.get("VERSIONS_JSON_NAME", "Versions.json")
     _key_trends_versions_json_name: str = env.get("KEY_TRENDS_VERSIONS_JSON_NAME", "VersionsKT.json")
-    _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
 
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
@@ -194,6 +129,10 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._ligand_occurrence_json_name)
 
     @property
+    def ligand_stats(self) -> str:
+        return path.join(self.dataset_root_path, self._ligand_stats_name)
+
+    @property
     def familiar_name_translations_json(self) -> str:
         return path.join(self.output_root_path, self._familiar_name_translations_json_name)
 
@@ -204,10 +143,6 @@ class FilepathConfig:
     @property
     def key_trends_versions_json(self) -> str:
         return path.join(self.output_root_path, self._key_trends_versions_json_name)
-
-    @property
-    def ligand_stats(self) -> str:
-        return path.join(self.output_root_path, self._ligand_stats_name)
 
     @property
     def full_log(self) -> str:
@@ -227,7 +162,7 @@ class FilepathConfig:
 
 
 @dataclass(slots=True)
-class NewConfig:
+class Config:
     """
     Application configuraiton.
     """

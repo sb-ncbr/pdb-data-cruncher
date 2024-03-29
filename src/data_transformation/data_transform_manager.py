@@ -1,7 +1,7 @@
 import logging
 from os import path
 
-from src.config import NewConfig
+from src.config import Config
 from src.data_transformation.default_plot_data_creator import create_default_plot_data
 from src.data_transformation.default_plot_settings_creator import create_default_plot_settings
 from src.data_transformation.distribution_data_creator import create_distribution_data
@@ -43,7 +43,7 @@ class DataTransformManager:
     """
 
     @staticmethod
-    def create_default_plot_data(config: NewConfig, crunched_csv_path: str) -> bool:
+    def create_default_plot_data(config: Config, crunched_csv_path: str) -> bool:
         """
         Create all default plot data for each factor pair from autoplot. Creates them as jsons into zip archive.
         :param config: App configuration.
@@ -81,7 +81,7 @@ class DataTransformManager:
             return False
 
     @staticmethod
-    def create_distribution_data(config: NewConfig, crunched_csv_path: str) -> bool:
+    def create_distribution_data(config: Config, crunched_csv_path: str) -> bool:
         """
         Create all default plot data for each factor from names translations. Creates them as jsons into zip archive.
         :param config: App configuration.
@@ -114,7 +114,7 @@ class DataTransformManager:
             return False
 
     @staticmethod
-    def create_default_plot_settings(config: NewConfig, crunched_csv_path: str, factor_hierarchy_path: str) -> bool:
+    def create_default_plot_settings(config: Config, crunched_csv_path: str, factor_hierarchy_path: str) -> bool:
         """
         Create default plot settings json with plot settings for each factor.
         :param config: App configuration.
@@ -149,7 +149,7 @@ class DataTransformManager:
             return False
 
     @staticmethod
-    def copy_default_plot_settings(config: NewConfig) -> bool:
+    def copy_default_plot_settings(config: Config) -> bool:
         """
         For skipping the default plot settings creation, this function only copies the first old file following
         the default plot settings naming scheme it finds.
@@ -171,7 +171,7 @@ class DataTransformManager:
             return False
 
     @staticmethod
-    def create_updated_factor_hierarchy(config: NewConfig, crunched_csv_path: str, factor_hierarchy_path: str) -> bool:
+    def create_updated_factor_hierarchy(config: Config, crunched_csv_path: str, factor_hierarchy_path: str) -> bool:
         """
         Create updated version of factor hierarchy json.
         :param config: App configuration.
@@ -205,7 +205,7 @@ class DataTransformManager:
             return False
 
     @staticmethod
-    def create_updated_versions_jsons(config: NewConfig) -> bool:
+    def create_updated_versions_jsons(config: Config) -> bool:
         """
         Create updated versions json and versionsKT json.
         :param config: App configuration.
@@ -232,7 +232,7 @@ class DataTransformManager:
             return False
 
 
-def run_data_transformation(config: NewConfig) -> bool:
+def run_data_transformation(config: Config) -> bool:
     """
     Run full data transformation. Creates current files, deletes old ones.
     :param config: App configuration.
@@ -257,7 +257,7 @@ def run_data_transformation(config: NewConfig) -> bool:
     return success
 
 
-def _assemble_crunched_csv_path(config: NewConfig) -> str:
+def _assemble_crunched_csv_path(config: Config) -> str:
     crunched_csv_name = f"{config.current_formatted_date}_crunched.csv"
     if config.run_data_transformation_only and config.crunched_csv_name_for_data_transformation_only:
         crunched_csv_name = config.crunched_csv_name_for_data_transformation_only

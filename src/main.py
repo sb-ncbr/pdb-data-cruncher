@@ -1,50 +1,11 @@
 import logging
-import argparse
 import os.path
-from multiprocessing import Pool
-from datetime import timedelta
-import time
 
-from src.data_extraction.parsing_manger import ParsingManger
 from src.data_transformation.data_transform_manager import run_data_transformation
-from src.config import Config, RunModeType, NewConfig
+from src.config import Config
 
 
-def parse_arguments_into_config() -> Config:
-    """
-    Parses arguments from commandline and updates the default values in config.
-
-    :return: Object holding program configuration.
-    """
-    parser = argparse.ArgumentParser(
-        prog="valtrendsdb_dataprep",
-        description="TODO"
-    )
-
-    parser.add_argument("-d", "--debug", action="store_true", dest="logging_debug",
-                        help="Turning debug mode on will result in more information about the state of program being "
-                             "logged.")
-
-    # TODO options for program mode, location of files and more
-
-    args = parser.parse_args()
-
-    return Config(
-        logging_debug=args.logging_debug
-    )
-
-
-def create_config_from_parsed_arguments() -> Config:
-    """
-    Creates config and updates it with any values passed via commandline.
-
-    :return: Config loaded with updated values.
-    """
-    config = parse_arguments_into_config()
-    return config
-
-
-def prepare_log_folder(config: NewConfig) -> None:
+def prepare_log_folder(config: Config) -> None:
     """
     Ensures log folder exists, discards old logs and renames the last logs with prefix "previous".
     :param config: Application configuraiton.
@@ -62,7 +23,7 @@ def prepare_log_folder(config: NewConfig) -> None:
             os.rename(config.filepaths.full_log, config.filepaths.previous_full_log)
 
 
-def configure_logging(config: NewConfig) -> None:
+def configure_logging(config: Config) -> None:
     """
     Configures logging based on configuration - two file logs and one std log stream.
     :param config: Application configuration.
@@ -93,7 +54,7 @@ def configure_logging(config: NewConfig) -> None:
     logging.debug("Starting pdb-data-cruncher app with following configuration: %s", config)
 
 
-def run_app(config: NewConfig) -> None:
+def run_app(config: Config) -> None:
     if config.run_data_download_only:
         raise NotImplementedError()
     elif config.run_data_extraction_only:
@@ -110,7 +71,7 @@ def main():
     """
     Application entrypoint.
     """
-    config = NewConfig()
+    config = Config()
     config.validate()
     prepare_log_folder(config)
     configure_logging(config)
@@ -118,21 +79,6 @@ def main():
     logging.info("App finished running.")
 
 
-# def old_main():
-#     """
-#     Application entrypoint.
-#     """
-#     config = create_config_from_parsed_arguments()
-#
-#     if config.run_mode == RunModeType.CREATE_ALL:
-#         run_create_all(config)
-#
-#     if config.run_mode == RunModeType.EXTRACT_ALL_INTO_CRUNCHED:
-#         run_current_test(config)
-#
-#     logging.info("App finished running successfully")
-#
-#
 # def run_current_test(config: Config):
 #     """
 #     Temporary testing function.

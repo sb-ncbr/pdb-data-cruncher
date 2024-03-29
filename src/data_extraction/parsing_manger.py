@@ -39,7 +39,7 @@ class ParsingManger:
         :return: Loaded ligand information, or None in case of serious error.
         """
         try:
-            return parse_ligand_stats(config.path_to_ligand_stats_csv)
+            return parse_ligand_stats(config.filepaths.ligand_stats)
         except OSError as ex:
             logging.error("Loading ligand stats failed: %s! All values requiring them will be none.", ex)
             return {}
@@ -56,9 +56,9 @@ class ParsingManger:
         :param config: App configuration.
         :return: Instance of ProteinDataFromRest laoded with protein data, or None in case of serious error.
         """
-        summary_json_path = path.join(config.path_to_rest_jsons, "summary", f"{pdb_id}.json")
-        assembly_json_path = path.join(config.path_to_rest_jsons, "assembly", f"{pdb_id}.json")
-        molecules_json_path = path.join(config.path_to_rest_jsons, "molecules", f"{pdb_id}.json")
+        summary_json_path = path.join(config.filepaths.rest_jsons, "summary", f"{pdb_id}.json")
+        assembly_json_path = path.join(config.filepaths.rest_jsons, "assembly", f"{pdb_id}.json")
+        molecules_json_path = path.join(config.filepaths.rest_jsons, "molecules", f"{pdb_id}.json")
         try:
             protein_summary_json = load_json_file(summary_json_path)
             protein_assembly_json = load_json_file(assembly_json_path)
@@ -78,7 +78,7 @@ class ParsingManger:
         :param config: App configuration.
         :return: Instance of ProteinDataFromPDBx loaded with protein data, or None in case of a serious error.
         """
-        filepath = path.join(config.path_to_pdbx_files, f"{pdb_id}.cif")
+        filepath = path.join(config.filepaths.pdb_mmcifs, f"{pdb_id}.cif")
         return parse_pdbx(pdb_id, filepath)
 
     @staticmethod
@@ -92,7 +92,7 @@ class ParsingManger:
         :param config: App configuration containing paths where to look for the file.
         :return: Protein information in case of success, None in case of critical issue.
         """
-        filepath = path.join(config.path_to_xml_reports, f"{pdb_id}_validation.xml")
+        filepath = path.join(config.filepaths.xml_reports, f"{pdb_id}_validation.xml")
         return parse_xml_validation_report(pdb_id, filepath, ligand_info)
 
     @staticmethod
@@ -103,7 +103,7 @@ class ParsingManger:
         :param config: App configuration containing paths where to look for the file.
         :return: Protein information in case of success, None in case of critical issue.
         """
-        filepath = path.join(config.path_to_validator_db_results, pdb_id, "result.json")
+        filepath = path.join(config.filepaths.validator_db_results, pdb_id, "result.json")
         try:
             result_json = load_json_file(filepath)
         except ParsingError as ex:
@@ -148,5 +148,5 @@ class ParsingManger:
         protein_data_df_list.insert(0, pd.DataFrame(columns=CRUNCHED_CSV_FACTOR_ORDER))
         protein_data_df = pd.concat(protein_data_df_list, ignore_index=True)
         # save into files
-        create_csv_crunched_data(protein_data_df, config.output_root_path)
-        create_xlsx_crunched_data(protein_data_df, config.output_root_path)
+        create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path)
+        create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
