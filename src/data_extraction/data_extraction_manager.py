@@ -1,4 +1,5 @@
 import logging
+from multiprocessing import Pool
 from os import path
 from typing import Optional
 
@@ -15,6 +16,7 @@ from src.models.protein_data import (
     ProteinDataComplete,
 )
 from src.generic_file_handlers.json_file_loader import load_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
 from src.data_extraction.crunched_data_csv_writer import create_csv_crunched_data, create_xlsx_crunched_data
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.rest_parser import parse_rest
@@ -23,7 +25,8 @@ from src.data_extraction.xml_validation_report_parser import parse_xml_validatio
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.data_extraction.pdb_ids_to_update_finder import find_pdb_ids_to_update
-from src.exception import ParsingError
+from src.data_extraction.ligand_occurance_handler import update_ligand_occurence_in_structures
+from src.exception import ParsingError, FileWritingError
 
 
 class DataExtractionManager:
@@ -136,6 +139,15 @@ class DataExtractionManager:
         return protein_data
 
     @staticmethod
+    def update_ligand_occurence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
+        try:
+            ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
+            update_ligand_occurence_in_structures(protein_data_list, ligand_occurence_json)
+            write_json_file(config.filepaths.ligand_occurence_json, ligand_occurence_json)
+        except (ParsingError, FileWritingError) as ex:
+            logging.error("Failed to load ligand occurence json: %s", ex)
+
+    @staticmethod
     def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
         """
         Takes list of protein data and creates crunched csv from it.
@@ -167,4 +179,16 @@ def run_data_extraction(config: Config) -> bool:
         logging.error(ex)
         return False
 
+    ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
+    with Pool(config.max_process_count) as p:
+        collected_data = p.starmap(
+            DataExtractionManager.load_all_protein_data,
+            [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids_to_update],
+        )
+
+    # TODO let it update only for pdb_ids that did not fail on any level of parsing, download too -
+    # filter it here before that step, and log the failed and succeeded count
+    DataExtractionManager.update_ligand_occurence_json(collected_data, config)
+    # DataExtractionManager.store_protein_data_into_crunched_csv(collected_data, config)
+    # TODO success value
     raise NotImplementedError()

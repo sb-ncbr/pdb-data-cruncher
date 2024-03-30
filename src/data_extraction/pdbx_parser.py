@@ -206,6 +206,8 @@ def _calculate_ligand_counts(encountered_ligands: list[EncounteredLigand], data:
             data.ligand_count_metal += 1
             data.hetatm_count_metal += hetatms_in_this_ligand
 
+        data.ligand_types_present.add(encountered_ligand.id.residue_name_auth)
+
 
 def _atomsite_item_generator(mmcif_dict: MMCIF2Dict) -> Generator[AtomSiteItem, None, None]:
     """

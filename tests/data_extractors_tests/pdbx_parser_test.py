@@ -21,5 +21,6 @@ def test_parse_pdbx_basic(pdb_id: str):
     differences = compare_dataclasses(
         actual_protein_data,
         expected_protein_data,
+        ignored_fields=["ligand_types_present"]  # value for ligand_occurence purposes, tested in other test
     )
     assert not differences.count, differences.get_difference_description()

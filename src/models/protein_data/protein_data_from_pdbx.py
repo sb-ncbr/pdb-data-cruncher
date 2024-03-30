@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 
@@ -43,3 +43,4 @@ class ProteinDataFromPDBx:
     # other
     resolution: Optional[float] = None
     experimental_method: Optional[str] = None  # _exptl.method
+    ligand_types_present: set[str] = field(default_factory=set)
