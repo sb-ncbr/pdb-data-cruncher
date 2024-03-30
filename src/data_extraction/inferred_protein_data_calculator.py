@@ -10,11 +10,11 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
     """
     data.inferred = ProteinDataInferred()
 
+    if data.xml is None or data.vdb is None:
+        return  # there was no XML validation file for this protein or VDB file
+
     if data.vdb.ligand_count_filtered is not None:
         data.inferred.aa_ligand_count_filtered = data.vdb.ligand_count_filtered + data.pdbx.aa_count
-
-    if data.xml is None:
-        return  # there was no XML validation file for this protein
 
     clashscore_perc = data.xml.absolute_percentile_clashscore
     rama_perc = data.xml.absolute_percentile_percent_rama_outliers
@@ -36,12 +36,12 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
         data.inferred.combined_x_ray_quality_metric = harmonic_mean([r_free_perc, rsrz_perc])
 
     if (
-        data.inferred.combined_x_ray_quality_metric is not None
-        and data.inferred.combined_geometry_quality is not None
-        and data.pdbx.resolution is not None
+            data.inferred.combined_x_ray_quality_metric is not None
+            and data.inferred.combined_geometry_quality is not None
+            and data.pdbx.resolution is not None
     ):
         data.inferred.combined_overall_quality_metric = (
-            data.inferred.combined_x_ray_quality_metric
-            + data.inferred.combined_geometry_quality
-            - 30.0 * data.pdbx.resolution
-        ) / 2
+                                                                data.inferred.combined_x_ray_quality_metric
+                                                                + data.inferred.combined_geometry_quality
+                                                                - 30.0 * data.pdbx.resolution
+                                                        ) / 2

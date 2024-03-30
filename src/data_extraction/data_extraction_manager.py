@@ -139,22 +139,27 @@ class DataExtractionManager:
         return protein_data
 
     @staticmethod
-    def update_ligand_occurence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
+    def update_ligand_occurence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
         try:
+            logging.info("Starting updating of ligand occurence json file.")
             ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
             update_ligand_occurence_in_structures(protein_data_list, ligand_occurence_json)
             write_json_file(config.filepaths.ligand_occurence_json, ligand_occurence_json)
+            logging.info("Updating of ligand occurence json file finished successfully.")
+            return True
         except (ParsingError, FileWritingError) as ex:
             logging.error("Failed to load ligand occurence json: %s", ex)
+            return False
 
     @staticmethod
-    def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> None:
+    def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
         """
         Takes list of protein data and creates crunched csv from it.
         :param protein_data_list: List of collected ProteinDataComplete.
         :param config: App config.
         :raise IrrecoverableError: If crunched csv cannot be created.
         """
+        # TODO improve
         # prepare data
         protein_data_df_list = [pd.DataFrame([protein_data.as_dict_for_csv()]) for protein_data in protein_data_list]
         # adding empty dataframe with desired column order on the start will ensure this order is in output csv
@@ -163,6 +168,7 @@ class DataExtractionManager:
         # save into files
         create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path)
         create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
+        return True
 
 
 def run_data_extraction(config: Config) -> bool:
@@ -186,9 +192,41 @@ def run_data_extraction(config: Config) -> bool:
             [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids_to_update],
         )
 
-    # TODO let it update only for pdb_ids that did not fail on any level of parsing, download too -
-    # filter it here before that step, and log the failed and succeeded count
-    DataExtractionManager.update_ligand_occurence_json(collected_data, config)
-    # DataExtractionManager.store_protein_data_into_crunched_csv(collected_data, config)
-    # TODO success value
-    raise NotImplementedError()
+    successful_protein_data, overall_success = _filter_and_log_failed_protein_data(collected_data)
+
+    if len(successful_protein_data) > 0:
+        overall_success &= DataExtractionManager.update_ligand_occurence_json(successful_protein_data, config)
+        overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(successful_protein_data, config)
+
+    logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
+    return overall_success
+
+
+def _filter_and_log_failed_protein_data(
+    protein_data_list: list[ProteinDataComplete]
+) -> tuple[list[ProteinDataComplete], bool]:
+    """
+    Get back only the data considered successfull and bool whether all succeeded, log those that are considered failed.
+    :param protein_data_list:
+    :return: Tuple consisting of filtered protein data list and bool that is True if all protein data were considered
+    successfull.
+    """
+    failed_pdb_ids = []
+    successfull_data_list = []
+
+    for protein_data in protein_data_list:
+        if protein_data.successful:
+            successfull_data_list.append(protein_data)
+        else:
+            failed_pdb_ids.append(protein_data.pdb_id)
+
+    if len(failed_pdb_ids) > 0:
+        logging.error(
+            "%s out of %s pdb ids failed to extract and update. If any succeeded, they are still updated. "
+            "The failed ids: %s",
+            len(failed_pdb_ids),
+            len(protein_data_list),
+            ", ".join(failed_pdb_ids)
+        )
+
+    return successfull_data_list, len(failed_pdb_ids) == 0

@@ -23,6 +23,10 @@ class ProteinDataComplete:
     pdbx: Optional[ProteinDataFromPDBx] = None
     inferred: Optional[ProteinDataInferred] = None
 
+    @property
+    def successful(self):
+        return self.rest and self.pdbx
+
     def as_dict_for_csv(self) -> dict[str, str]:
         """
         Transforms all the data inside the dataclass into a row to be inserted into csv. Uses
