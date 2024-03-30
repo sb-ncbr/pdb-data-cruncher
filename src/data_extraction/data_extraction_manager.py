@@ -6,7 +6,26 @@ from typing import Optional
 import pandas as pd
 
 from src.config import Config
-from src.models import LigandInfo
+from src.data_extraction.crunched_data_csv_handler import (
+    create_csv_crunched_data,
+    create_xlsx_crunched_data,
+    try_to_load_previous_crunched_df,
+)
+from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
+from src.data_extraction.ligand_occurance_handler import (
+    update_ligand_occurence_in_structures,
+    remove_structure_from_ligand_occurence,
+)
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats
+from src.data_extraction.pdb_ids_finder import find_pdb_ids_to_update, find_pdb_ids_to_remove
+from src.data_extraction.pdbx_parser import parse_pdbx
+from src.data_extraction.rest_parser import parse_rest
+from src.data_extraction.validator_db_result_parser import parse_validator_db_result
+from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
+from src.exception import ParsingError, FileWritingError
+from src.generic_file_handlers.json_file_loader import load_json_file
+from src.generic_file_handlers.json_file_writer import write_json_file
+from src.models import LigandInfo, FactorType
 from src.models.names_csv_output_attributes import CRUNCHED_CSV_FACTOR_ORDER
 from src.models.protein_data import (
     ProteinDataFromRest,
@@ -15,20 +34,7 @@ from src.models.protein_data import (
     ProteinDataFromVDB,
     ProteinDataComplete,
 )
-from src.generic_file_handlers.json_file_loader import load_json_file
-from src.generic_file_handlers.json_file_writer import write_json_file
-from src.data_extraction.crunched_data_csv_writer import create_csv_crunched_data, create_xlsx_crunched_data
-from src.data_extraction.ligand_stats_parser import parse_ligand_stats
-from src.data_extraction.rest_parser import parse_rest
-from src.data_extraction.pdbx_parser import parse_pdbx
-from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
-from src.data_extraction.validator_db_result_parser import parse_validator_db_result
-from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
-from src.data_extraction.pdb_ids_finder import find_pdb_ids_to_update, find_pdb_ids_to_remove
-from src.data_extraction.ligand_occurance_handler import update_ligand_occurence_in_structures, \
-    remove_structure_from_ligand_occurence
-from src.exception import ParsingError, FileWritingError
-from utils import lists_have_crossover
+from src.utils import lists_have_crossover
 
 
 class DataExtractionManager:
@@ -190,15 +196,21 @@ class DataExtractionManager:
         :param structure_ids_to_remove: List of ids of structures that are no longer desired in the crunched csv
         but may have been in the last version that gets updated.
         :param config: App config.
-        :raise IrrecoverableError: If crunched csv cannot be created.
         """
         # load previous crunched data
-        # TODO
+        original_df = try_to_load_previous_crunched_df(config)
+        if original_df is not None and len(structure_ids_to_remove) > 0:
+            original_df = original_df[~original_df[FactorType.PDB_ID.value].isin(structure_ids_to_remove)]
         # prepare data
         protein_data_df_list = [pd.DataFrame([protein_data.as_dict_for_csv()]) for protein_data in protein_data_list]
         # adding empty dataframe with desired column order on the start will ensure this order is in output csv
         protein_data_df_list.insert(0, pd.DataFrame(columns=CRUNCHED_CSV_FACTOR_ORDER))
         protein_data_df = pd.concat(protein_data_df_list, ignore_index=True)
+        # if original df was loaded, combine it with protein data df and overwrite duplicates with new values
+        if original_df is not None:
+            protein_data_df = pd.concat([original_df, protein_data_df]).drop_duplicates(
+                subset=[FactorType.PDB_ID.value], keep="last"
+            )
         # save into files
         create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path)
         create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
@@ -227,6 +239,7 @@ def run_data_extraction(config: Config) -> bool:
             pdb_ids_to_update,
             pdb_ids_to_remove,
         )
+        return False
 
     ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
     with Pool(config.max_process_count) as p:
@@ -241,13 +254,15 @@ def run_data_extraction(config: Config) -> bool:
         overall_success &= DataExtractionManager.update_ligand_occurence_json(
             successful_protein_data, config
         )
+    if len(pdb_ids_to_remove):
         overall_success &= DataExtractionManager.remove_structures_from_ligand_occurence_json(
             pdb_ids_to_remove, config
         )
-        overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(
-            successful_protein_data, pdb_ids_to_remove, config
-        )
+    overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(
+        successful_protein_data, pdb_ids_to_remove, config
+    )
 
+    # TODO remove old crunched?
     logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
     return overall_success
 

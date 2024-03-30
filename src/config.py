@@ -130,6 +130,7 @@ class FilepathConfig:
     _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
     _versions_json_name: str = env.get("VERSIONS_JSON_NAME", "Versions.json")
     _key_trends_versions_json_name: str = env.get("KEY_TRENDS_VERSIONS_JSON_NAME", "VersionsKT.json")
+    _old_crunched_csv_name: str = env.get("OLD_CRUNCHED_CSV_NAME", "data.csv")
 
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
@@ -187,6 +188,10 @@ class FilepathConfig:
     @property
     def key_trends_versions_json(self) -> str:
         return path.join(self.output_root_path, self._key_trends_versions_json_name)
+
+    @property
+    def old_crunched_csv(self) -> str:
+        return path.join(self.output_root_path, self._old_crunched_csv_name)
 
     @property
     def full_log(self) -> str:
@@ -264,14 +269,14 @@ class Config:
             if self.pdb_ids_to_update_filepath and self.pdb_ids_to_update:
                 raise ValueError(
                     f"Found two sources for PDB IDS to run. When data extraction or data archivation "
-                    "is run standalone with pdb ids supplied, exactly one source for pdb ids to run can to "
+                    "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
                     "be passed: either PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH "
                     "with list of pdb ids, or none when old log from download is used."
                 )
             if self.pdb_ids_to_remove_filepath and self.pdb_ids_to_remove:
                 raise ValueError(
                     f"Found two sources for PDB IDS to remove. When data extraction or data archivation "
-                    "is run standalone with pdb ids supplied, exactly one source for pdb ids to run can to "
+                    "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
                     "be passed: either PDB_IDS_TO_REMOVE comma separated list, or PDB_IDS_TO_REMOVE_FILEPATH "
                     "with list of pdb ids, or none when old log from download is used."
                 )

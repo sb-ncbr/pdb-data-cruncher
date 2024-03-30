@@ -35,15 +35,13 @@ def find_pdb_ids_to_remove(config: Config) -> list[str]:
     :param config: App configuration.
     :return: List of strings.
     """
-    pdb_ids_to_remove = _find_pdb_ids(config, Purpose.UPDATE)
+    pdb_ids_to_remove = _find_pdb_ids(config, Purpose.REMOVAL)
     logging.info("Found these PDB IDS to be extacted and updated in crunched csv: %s", pdb_ids_to_remove)
     return pdb_ids_to_remove
 
 
 def _find_pdb_ids(config: Config, purpose: Purpose) -> list[str]:
     pdb_ids = _find_pdb_ids_without_quality_check(config, purpose)
-    if len(pdb_ids) == 0:
-        raise ParsingError("Found 0 pdb ids to update. Check the source of the data (env variable or download logs")
 
     invalid_pdb_ids = []
     for pdb_id in pdb_ids:
@@ -89,6 +87,7 @@ def _find_pdb_ids_without_quality_check(config: Config, purpose: Purpose) -> lis
                 return config.pdb_ids_to_remove
             if config.pdb_ids_to_update_filepath:
                 return load_text_file_as_lines(config.pdb_ids_to_remove_filepath)
+        return []  # in manual pdb feed, this purpose may not be specified and thus is empty
 
     # if nothing else is specified, attempt to load ids that need redoing from data download logs
     return _get_pdb_ids_to_update_from_download_logs(config, purpose)
