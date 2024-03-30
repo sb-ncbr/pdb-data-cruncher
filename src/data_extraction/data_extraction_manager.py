@@ -24,9 +24,11 @@ from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
-from src.data_extraction.pdb_ids_to_update_finder import find_pdb_ids_to_update
-from src.data_extraction.ligand_occurance_handler import update_ligand_occurence_in_structures
+from src.data_extraction.pdb_ids_finder import find_pdb_ids_to_update, find_pdb_ids_to_remove
+from src.data_extraction.ligand_occurance_handler import update_ligand_occurence_in_structures, \
+    remove_structure_from_ligand_occurence
 from src.exception import ParsingError, FileWritingError
+from utils import lists_have_crossover
 
 
 class DataExtractionManager:
@@ -140,6 +142,13 @@ class DataExtractionManager:
 
     @staticmethod
     def update_ligand_occurence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
+        """
+        For every protein data, make sure the ligand occurance json has the structure's id noted down exactly for
+        the ligand names present in the data structure.
+        :param protein_data_list:
+        :param config:
+        :return: True if successful.
+        """
         try:
             logging.info("Starting updating of ligand occurence json file.")
             ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
@@ -148,18 +157,43 @@ class DataExtractionManager:
             logging.info("Updating of ligand occurence json file finished successfully.")
             return True
         except (ParsingError, FileWritingError) as ex:
-            logging.error("Failed to load ligand occurence json: %s", ex)
+            logging.error("Failed to update ligand occurence json: %s", ex)
             return False
 
     @staticmethod
-    def store_protein_data_into_crunched_csv(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
+    def remove_structures_from_ligand_occurence_json(structure_ids: list[str], config: Config) -> bool:
         """
-        Takes list of protein data and creates crunched csv from it.
+        Remove given structure ids from ligand occurence json (used if the structure was removed altogether).
+        :param structure_ids:
+        :param config:
+        :return: True if successful.
+        """
+        try:
+            logging.info("Starting removing structures from ligand occurence json file.")
+            ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
+            for structure_id in structure_ids:
+                remove_structure_from_ligand_occurence(structure_id, ligand_occurence_json)
+            write_json_file(config.filepaths.ligand_occurence_json, ligand_occurence_json)
+            logging.info("Removing structures from ligand occurence json file finished successfully.")
+            return True
+        except (ParsingError, FileWritingError) as ex:
+            logging.error("Failed to remove items from ligand occurence json: %s", ex)
+            return False
+
+    @staticmethod
+    def store_protein_data_into_crunched_csv(
+        protein_data_list: list[ProteinDataComplete], structure_ids_to_remove: list[str], config: Config
+    ) -> bool:
+        """
+        Takes list of protein data and updates crunched csv from it.
         :param protein_data_list: List of collected ProteinDataComplete.
+        :param structure_ids_to_remove: List of ids of structures that are no longer desired in the crunched csv
+        but may have been in the last version that gets updated.
         :param config: App config.
         :raise IrrecoverableError: If crunched csv cannot be created.
         """
-        # TODO improve
+        # load previous crunched data
+        # TODO
         # prepare data
         protein_data_df_list = [pd.DataFrame([protein_data.as_dict_for_csv()]) for protein_data in protein_data_list]
         # adding empty dataframe with desired column order on the start will ensure this order is in output csv
@@ -181,9 +215,18 @@ def run_data_extraction(config: Config) -> bool:
     logging.info("Starting data extraction.")
     try:
         pdb_ids_to_update = find_pdb_ids_to_update(config)
+        pdb_ids_to_remove = find_pdb_ids_to_remove(config)
     except ParsingError as ex:
         logging.error(ex)
         return False
+
+    if lists_have_crossover(pdb_ids_to_update, pdb_ids_to_remove):
+        logging.error(
+            "PDB IDS to update and remove should never have the same items! Double check the inputs.\nPDB IDS to "
+            "update: %s.\nPDB IDS to remove: %s.",
+            pdb_ids_to_update,
+            pdb_ids_to_remove,
+        )
 
     ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
     with Pool(config.max_process_count) as p:
@@ -195,8 +238,15 @@ def run_data_extraction(config: Config) -> bool:
     successful_protein_data, overall_success = _filter_and_log_failed_protein_data(collected_data)
 
     if len(successful_protein_data) > 0:
-        overall_success &= DataExtractionManager.update_ligand_occurence_json(successful_protein_data, config)
-        overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(successful_protein_data, config)
+        overall_success &= DataExtractionManager.update_ligand_occurence_json(
+            successful_protein_data, config
+        )
+        overall_success &= DataExtractionManager.remove_structures_from_ligand_occurence_json(
+            pdb_ids_to_remove, config
+        )
+        overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(
+            successful_protein_data, pdb_ids_to_remove, config
+        )
 
     logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
     return overall_success

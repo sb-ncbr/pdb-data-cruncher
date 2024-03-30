@@ -284,3 +284,16 @@ def find_matching_subfolders(folder_path: str, string_to_match: str) -> list[str
     """
     all_filenames = next(os.walk(folder_path), (None, [], None))[1]  # [] if no subdirectories
     return [filename for filename in all_filenames if string_to_match in filename]
+
+
+def lists_have_crossover(list_a: list, list_b: list) -> bool:
+    """
+    Find out if any item from list A can be found in list B.
+    :param list_a:
+    :param list_b:
+    :return: True if at least one item is in both.
+    """
+    for item in list_a:
+        if item in list_b:
+            return True
+    return False
