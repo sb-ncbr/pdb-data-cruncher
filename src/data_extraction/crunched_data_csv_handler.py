@@ -1,4 +1,5 @@
 import logging
+import os
 from os import path
 from typing import Optional
 
@@ -6,8 +7,8 @@ import pandas as pd
 
 from src.config import Config
 from src.generic_file_handlers.csv_reader import load_csv_as_dataframe
-from src.models import CSV_INVALID_VALUE_STRING, FactorType
-from src.utils import get_formatted_date
+from src.models import CSV_INVALID_VALUE_STRING
+from src.utils import find_matching_files
 
 
 def try_to_load_previous_crunched_df(config: Config) -> Optional[pd.DataFrame]:
@@ -20,7 +21,7 @@ def try_to_load_previous_crunched_df(config: Config) -> Optional[pd.DataFrame]:
         df = load_csv_as_dataframe(config.filepaths.old_crunched_csv)
         logging.info("Loaded older dataframe from %s to be updated this run.", config.filepaths.old_crunched_csv)
         return df
-    elif not config.force_complete_data_extraction:
+    if not config.force_complete_data_extraction:
         logging.warning(
             "Did not find previous crunched csv in location '%s' even though it was expected. Crunched "
             "csv will be created anew only with pdb ids processed this run - this may be not desirable!",
@@ -29,13 +30,14 @@ def try_to_load_previous_crunched_df(config: Config) -> Optional[pd.DataFrame]:
     return None
 
 
-def create_csv_crunched_data(protein_data_df: pd.DataFrame, output_files_folder: str) -> None:
+def create_csv_crunched_data(protein_data_df: pd.DataFrame, output_files_folder: str, current_date_prefix: str) -> None:
     """
     Write given dataframe into csv format files.
     :param protein_data_df: Dataframe with data.
     :param output_files_folder: Folder into which to save the data.
+    :param current_date_prefix: Current date formatted as 20240101 for naming purposes.
     """
-    filepath_version_one = path.join(output_files_folder, f"{get_formatted_date()}_crunched.csv")
+    filepath_version_one = path.join(output_files_folder, f"{current_date_prefix}_crunched.csv")
     filepath_version_two = path.join(output_files_folder, "data.csv")
     try:
         protein_data_df.to_csv(
@@ -61,3 +63,20 @@ def create_xlsx_crunched_data(protein_data_df: pd.DataFrame, output_files_folder
         logging.info("Successfully saved crunched datat into '%s'.", filepath)
     except OSError as ex:
         logging.error("Failed to save to file: %s", ex)
+
+
+def delete_old_crunched_csv(output_folder_path: str, current_date_prefix: str) -> None:
+    """
+    Delete other crunched csvs left from previous runs that were not the ones created in this run
+    (with today's date in filename).
+    :param output_folder_path:
+    :param current_date_prefix: Current date formatted as 20240101 - only files with this prefix will not be deleted.
+    """
+    plot_settings_files = find_matching_files(output_folder_path, "_crunched.csv")
+    for filename in plot_settings_files:
+        if current_date_prefix in filename:
+            continue
+
+        full_filepath = os.path.join(output_folder_path, filename)
+        os.remove(full_filepath)
+        logging.info("Deleted old '%s'.", full_filepath)

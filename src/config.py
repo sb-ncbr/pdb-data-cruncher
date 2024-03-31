@@ -209,7 +209,6 @@ class Config:
     logging_debug: bool = bool_from_env("LOGGING_DEBUG", False)
     max_process_count: int = int_from_env("MAX_PROCESS_COUNT", 8)
     current_formatted_date: str = env.get("CURRENT_FORMATTED_DATE", get_formatted_date())
-    # TODO use this everywhere instead of get_formatted_date
 
     # data download
     run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
@@ -258,14 +257,14 @@ class Config:
         if self.run_data_extraction_only or self.run_zipping_files_only and self.use_supplied_pdb_ids_instead:
             if self.pdb_ids_to_update_filepath and self.pdb_ids_to_update:
                 raise ValueError(
-                    f"Found two sources for PDB IDS to run. When data extraction or data archivation "
+                    "Found two sources for PDB IDS to run. When data extraction or data archivation "
                     "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
                     "be passed: either PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH "
                     "with list of pdb ids, or none when old log from download is used."
                 )
             if self.pdb_ids_to_remove_filepath and self.pdb_ids_to_remove:
                 raise ValueError(
-                    f"Found two sources for PDB IDS to remove. When data extraction or data archivation "
+                    "Found two sources for PDB IDS to remove. When data extraction or data archivation "
                     "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
                     "be passed: either PDB_IDS_TO_REMOVE comma separated list, or PDB_IDS_TO_REMOVE_FILEPATH "
                     "with list of pdb ids, or none when old log from download is used."

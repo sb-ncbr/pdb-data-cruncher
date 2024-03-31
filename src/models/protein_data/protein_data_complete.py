@@ -25,6 +25,10 @@ class ProteinDataComplete:
 
     @property
     def successful(self):
+        """
+        Whether the final state of the protein data is considered successful for subsequent data processing.
+        :return: True if successful, False otherwise.
+        """
         return self.rest and self.pdbx
 
     def as_dict_for_csv(self) -> dict[str, str]:

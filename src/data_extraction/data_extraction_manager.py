@@ -9,7 +9,7 @@ from src.config import Config
 from src.data_extraction.crunched_data_csv_handler import (
     create_csv_crunched_data,
     create_xlsx_crunched_data,
-    try_to_load_previous_crunched_df,
+    try_to_load_previous_crunched_df, delete_old_crunched_csv,
 )
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.data_extraction.ligand_occurance_handler import (
@@ -215,7 +215,7 @@ class DataExtractionManager:
                 subset=[FactorType.PDB_ID.value], keep="last"
             )
         # save into files
-        create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path)
+        create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path, config.current_formatted_date)
         create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
         return True
 
@@ -265,7 +265,7 @@ def run_data_extraction(config: Config) -> bool:
         successful_protein_data, pdb_ids_to_remove, config
     )
 
-    # TODO remove old crunched?
+    delete_old_crunched_csv(config.filepaths.output_root_path, config.current_formatted_date)
     logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
     return overall_success
 

@@ -8,6 +8,10 @@ from src.utils import find_matching_files
 
 
 class Purpose(Enum):
+    """
+    Purpose for which the ids are being searched for. Only used in this file.
+    """
+
     UPDATE = 1
     REMOVAL = 2
 
@@ -77,20 +81,24 @@ def _find_pdb_ids_without_quality_check(config: Config, purpose: Purpose) -> lis
 
     if config.run_data_extraction_only and config.use_supplied_pdb_ids_instead:
         # if only a subset of pdb ids is specified
-        if purpose == purpose.UPDATE:
-            if config.pdb_ids_to_update:
-                return config.pdb_ids_to_update
-            if config.pdb_ids_to_update_filepath:
-                return load_text_file_as_lines(config.pdb_ids_to_update_filepath)
-        elif purpose == purpose.REMOVAL:
-            if config.pdb_ids_to_remove:
-                return config.pdb_ids_to_remove
-            if config.pdb_ids_to_update_filepath:
-                return load_text_file_as_lines(config.pdb_ids_to_remove_filepath)
-        return []  # in manual pdb feed, this purpose may not be specified and thus is empty
+        return _get_pdb_ids_suplied_from_config(config, purpose)
 
     # if nothing else is specified, attempt to load ids that need redoing from data download logs
     return _get_pdb_ids_to_update_from_download_logs(config, purpose)
+
+
+def _get_pdb_ids_suplied_from_config(config: Config, purpose: Purpose):
+    if purpose == purpose.UPDATE:
+        if config.pdb_ids_to_update:
+            return config.pdb_ids_to_update
+        if config.pdb_ids_to_update_filepath:
+            return load_text_file_as_lines(config.pdb_ids_to_update_filepath)
+    elif purpose == purpose.REMOVAL:
+        if config.pdb_ids_to_remove:
+            return config.pdb_ids_to_remove
+        if config.pdb_ids_to_update_filepath:
+            return load_text_file_as_lines(config.pdb_ids_to_remove_filepath)
+    return []  # in manual pdb feed, this purpose may not be specified and thus is empty
 
 
 def _get_all_pdb_ids_from_present_pdbx_files(config: Config) -> list[str]:
