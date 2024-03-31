@@ -17,14 +17,10 @@ def prepare_log_folder(config: Config) -> None:
     if not os.path.exists(config.filepaths.logs_root_path):
         os.mkdir(config.filepaths.logs_root_path)
     else:
-        if os.path.exists(config.filepaths.previous_filtered_log):
-            os.remove(config.filepaths.previous_filtered_log)
-        if os.path.exists(config.filepaths.previous_full_log):
-            os.remove(config.filepaths.previous_full_log)
         if os.path.exists(config.filepaths.filtered_log):
-            os.rename(config.filepaths.filtered_log, config.filepaths.previous_filtered_log)
+            os.remove(config.filepaths.filtered_log)
         if os.path.exists(config.filepaths.full_log):
-            os.rename(config.filepaths.full_log, config.filepaths.previous_full_log)
+            os.remove(config.filepaths.full_log)
 
 
 def configure_logging(config: Config) -> None:

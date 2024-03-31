@@ -134,9 +134,7 @@ class FilepathConfig:
 
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
-    _previous_full_log_name: str = env.get("PREVIOUS_FULL_LOG_NAME", "previous_full_log.txt")
     _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
-    _previous_filtered_log_name: str = env.get("PREVIOUS_FILTERED_LOG_NAME", "previous_filtered_log.txt")
 
     # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
     # TODO somehow include updated ligands log file
@@ -198,16 +196,8 @@ class FilepathConfig:
         return path.join(self.logs_root_path, self._full_log_name)
 
     @property
-    def previous_full_log(self) -> str:
-        return path.join(self.logs_root_path, self._previous_full_log_name)
-
-    @property
     def filtered_log(self) -> str:
         return path.join(self.logs_root_path, self._filtered_log_name)
-
-    @property
-    def previous_filtered_log(self) -> str:
-        return path.join(self.logs_root_path, self._previous_filtered_log_name)
 
 
 @dataclass(slots=True)
