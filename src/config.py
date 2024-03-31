@@ -123,7 +123,7 @@ class FilepathConfig:
     _factor_x_plot_bucket_limits_csv_name: str = env.get(
         "X_PLOT_BUCKET_LIMITS_CSV_NAME", "3-Hranice-X_nazvy_promennych.csv"
     )
-    _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurence_in_structures.json")
+    _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurrence_in_structures.json")
     _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
 
     # output names used as input too
@@ -168,7 +168,7 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._factor_x_plot_bucket_limits_csv_name)
 
     @property
-    def ligand_occurence_json(self) -> str:
+    def ligand_occurrence_json(self) -> str:
         return path.join(self.dataset_root_path, self._ligand_occurrence_json_name)
 
     @property

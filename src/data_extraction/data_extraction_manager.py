@@ -13,8 +13,8 @@ from src.data_extraction.crunched_data_csv_handler import (
 )
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.data_extraction.ligand_occurance_handler import (
-    update_ligand_occurence_in_structures,
-    remove_structure_from_ligand_occurence,
+    update_ligand_occurrence_in_structures,
+    remove_structure_from_ligand_occurrence,
 )
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats
 from src.data_extraction.pdb_ids_finder import find_pdb_ids_to_update, find_pdb_ids_to_remove
@@ -147,43 +147,46 @@ class DataExtractionManager:
         return protein_data
 
     @staticmethod
-    def update_ligand_occurence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
+    def update_ligand_occurrence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
         """
-        For every protein data, make sure the ligand occurance json has the structure's id noted down exactly for
+        For every protein data, make sure the ligand occurrence json has the structure's id noted down exactly for
         the ligand names present in the data structure.
         :param protein_data_list:
         :param config:
         :return: True if successful.
         """
         try:
-            logging.info("Starting updating of ligand occurence json file.")
-            ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
-            update_ligand_occurence_in_structures(protein_data_list, ligand_occurence_json)
-            write_json_file(config.filepaths.ligand_occurence_json, ligand_occurence_json)
-            logging.info("Updating of ligand occurence json file finished successfully.")
+            logging.info("Starting updating of ligand occurrence json file.")
+            if config.force_complete_data_extraction:
+                ligand_occurrence_json = {}  # start fresh for this run mode
+            else:
+                ligand_occurrence_json = load_json_file(config.filepaths.ligand_occurrence_json)
+            update_ligand_occurrence_in_structures(protein_data_list, ligand_occurrence_json)
+            write_json_file(config.filepaths.ligand_occurrence_json, ligand_occurrence_json)
+            logging.info("Updating of ligand occurrence json file finished successfully.")
             return True
         except (ParsingError, FileWritingError) as ex:
             logging.error("Failed to update ligand occurence json: %s", ex)
             return False
 
     @staticmethod
-    def remove_structures_from_ligand_occurence_json(structure_ids: list[str], config: Config) -> bool:
+    def remove_structures_from_ligand_occurrence_json(structure_ids: list[str], config: Config) -> bool:
         """
-        Remove given structure ids from ligand occurence json (used if the structure was removed altogether).
+        Remove given structure ids from ligand occurrence json (used if the structure was removed altogether).
         :param structure_ids:
         :param config:
         :return: True if successful.
         """
         try:
-            logging.info("Starting removing structures from ligand occurence json file.")
-            ligand_occurence_json = load_json_file(config.filepaths.ligand_occurence_json)
+            logging.info("Starting removing structures from ligand occurrence json file.")
+            ligand_occurrence_json = load_json_file(config.filepaths.ligand_occurrence_json)
             for structure_id in structure_ids:
-                remove_structure_from_ligand_occurence(structure_id, ligand_occurence_json)
-            write_json_file(config.filepaths.ligand_occurence_json, ligand_occurence_json)
+                remove_structure_from_ligand_occurrence(structure_id, ligand_occurrence_json)
+            write_json_file(config.filepaths.ligand_occurrence_json, ligand_occurrence_json)
             logging.info("Removing structures from ligand occurence json file finished successfully.")
             return True
         except (ParsingError, FileWritingError) as ex:
-            logging.error("Failed to remove items from ligand occurence json: %s", ex)
+            logging.error("Failed to remove items from ligand occurrence json: %s", ex)
             return False
 
     @staticmethod
@@ -251,11 +254,11 @@ def run_data_extraction(config: Config) -> bool:
     successful_protein_data, overall_success = _filter_and_log_failed_protein_data(collected_data)
 
     if len(successful_protein_data) > 0:
-        overall_success &= DataExtractionManager.update_ligand_occurence_json(
+        overall_success &= DataExtractionManager.update_ligand_occurrence_json(
             successful_protein_data, config
         )
     if len(pdb_ids_to_remove):
-        overall_success &= DataExtractionManager.remove_structures_from_ligand_occurence_json(
+        overall_success &= DataExtractionManager.remove_structures_from_ligand_occurrence_json(
             pdb_ids_to_remove, config
         )
     overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(
