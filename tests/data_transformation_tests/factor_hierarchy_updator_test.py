@@ -4,12 +4,12 @@ import pandas as pd
 import pytest
 
 from src.exception import DataTransformationError
-from src.config import FactorHierarchySettings
+from src.config import FactorHierarchyConfig
 from src.data_transformation.factor_hierarchy_updater import update_factor_hierarchy
 from src.models import FactorType
 
 
-TEST_CONFIG = FactorHierarchySettings(
+TEST_CONFIG = FactorHierarchyConfig(
     min_interval_count=10,
     ideal_interval_count=100,
     max_interval_count=100,

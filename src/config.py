@@ -43,7 +43,7 @@ class DefaultPlotSettingsConfig:
 
         last_bucket_base_size = None
         for base_size in self.allowed_bucket_base_sizes:
-            if not 10 <= base_size <= 100:
+            if not 10 <= base_size < 100:
                 raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be from interval <10,99>")
             if last_bucket_base_size and last_bucket_base_size >= base_size:
                 raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be sorted in the ascending order")
@@ -51,7 +51,7 @@ class DefaultPlotSettingsConfig:
 
 
 @dataclass(slots=True)
-class FactorHierarchySettings:
+class FactorHierarchyConfig:
     """
     Configuration for updating factor hierarchy.
     """
@@ -95,7 +95,7 @@ class FactorHierarchySettings:
 
         last_bucket_base_size = None
         for base_size in self.allowed_slider_base_sizes:
-            if not 10 <= base_size <= 100:
+            if not 10 <= base_size < 100:
                 raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
             if last_bucket_base_size and last_bucket_base_size >= base_size:
                 raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
@@ -229,7 +229,7 @@ class Config:
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
-    factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
+    factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
     filepaths: FilepathConfig = FilepathConfig()
 
     def validate(self):

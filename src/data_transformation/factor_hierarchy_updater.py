@@ -8,7 +8,7 @@ import pandas as pd
 
 from src.exception import DataTransformationError
 from src.models import FactorType
-from src.config import FactorHierarchySettings
+from src.config import FactorHierarchyConfig
 from src.utils import ceiling_relative, floor_relative
 
 
@@ -27,7 +27,7 @@ def update_factor_hierarchy(
     factor_hierarchy_json: dict,
     crunched_df: pd.DataFrame,
     factor_types_translations: dict[FactorType, str],
-    fh_config: FactorHierarchySettings,
+    fh_config: FactorHierarchyConfig,
 ):
     """
     Update given factor hierarchy json with freshly calculated ValueRangeFrom, ValueRangeTo and SliderStep values.
@@ -71,7 +71,7 @@ def update_factor_hierarchy(
 
 
 def _create_values_to_update(
-    factor_series: pd.Series, fh_config: FactorHierarchySettings, factor_type: FactorType
+    factor_series: pd.Series, fh_config: FactorHierarchyConfig, factor_type: FactorType
 ) -> ValuesToUpdate:
     """
     Create values that are to be updated. Rounds to two significant digits in case of anything that does not
@@ -87,7 +87,7 @@ def _create_values_to_update(
     return _create_values_to_update_for_normal_numbers(factor_series, fh_config, factor_type)
 
 
-def _create_values_to_update_for_year(factor_series: pd.Series, fh_config: FactorHierarchySettings) -> ValuesToUpdate:
+def _create_values_to_update_for_year(factor_series: pd.Series, fh_config: FactorHierarchyConfig) -> ValuesToUpdate:
     """
     Create values that are to be updated for values representing year.
     :param factor_series: Series from crunched csv related to this factor.
@@ -108,7 +108,7 @@ def _create_values_to_update_for_year(factor_series: pd.Series, fh_config: Facto
 
 
 def _create_values_to_update_for_normal_numbers(
-    factor_series: pd.Series, fh_config: FactorHierarchySettings, factor_type: FactorType
+    factor_series: pd.Series, fh_config: FactorHierarchyConfig, factor_type: FactorType
 ) -> ValuesToUpdate:
     """
     Create values that are to be updated for values represetnting normal numbers. They will be rounded/floored/ceiled
@@ -148,7 +148,7 @@ def _create_values_to_update_for_normal_numbers(
     )
 
 
-def _find_optimal_slider_step(value_range_to_cover: Decimal, fh_config: FactorHierarchySettings) -> tuple[Decimal, int]:
+def _find_optimal_slider_step(value_range_to_cover: Decimal, fh_config: FactorHierarchyConfig) -> tuple[Decimal, int]:
     slider_step_for_max_intervals = _ceiling_slider_step_to_allowed_values(
         ceiling_relative(Decimal(value_range_to_cover / fh_config.max_interval_count), precision=2),
         fh_config.allowed_slider_base_sizes,
