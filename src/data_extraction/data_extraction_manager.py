@@ -230,7 +230,7 @@ def run_data_extraction(config: Config) -> bool:
     """
     logging.info("Starting data extraction.")
     try:
-        pdb_ids_to_update = find_pdb_ids_to_update(config)
+        pdb_ids_to_update = find_pdb_ids_to_update(config)  # TODO rework
         pdb_ids_to_remove = find_pdb_ids_to_remove(config)
     except ParsingError as ex:
         logging.error(ex)

@@ -44,21 +44,3 @@ def test_current_date_string_gets_validated():
         config.validate()
     config.current_formatted_date = "20240101"
     config.validate()
-
-
-def test_max_one_pdb_ids_source_is_permitted():
-    config = Config()
-    config.use_supplied_pdb_ids_instead = True
-    config.run_data_extraction_only = True
-    config.pdb_ids_to_remove = ["xxxx"]
-    config.pdb_ids_to_remove_filepath = "xxxx"
-    with pytest.raises(ValueError):
-        config.validate()
-
-    config = Config()
-    config.use_supplied_pdb_ids_instead = True
-    config.run_zipping_files_only = True
-    config.pdb_ids_to_update = ["xxxx"]
-    config.pdb_ids_to_update_filepath = "xxxx"
-    with pytest.raises(ValueError):
-        config.validate()

@@ -220,6 +220,7 @@ class Config:
     pdb_ids_to_remove: Optional[list[str]] = field(default_factory=lambda: string_list_from_env("PDB_IDS_TO_REMOVE"))
     pdb_ids_to_update_filepath: Optional[str] = env.get("PDB_IDS_TO_UPDATE_FILEPATH")
     pdb_ids_to_remove_filepath: Optional[str] = env.get("PDB_IDS_TO_REMOVE_FILEPATH")
+    ids_to_remove_and_update_override_filepath: Optional[str] = env.get("IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
     force_7zip_integrity_check: bool = bool_from_env("FORCE_7ZIP_INTEGRITY_CHECK", False)
@@ -260,23 +261,6 @@ class Config:
                 "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
                 "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
             )
-
-        # if extraction/archivation only is run, at most one pdb ids source can be set
-        if self.run_data_extraction_only or self.run_zipping_files_only and self.use_supplied_pdb_ids_instead:
-            if self.pdb_ids_to_update_filepath and self.pdb_ids_to_update:
-                raise ValueError(
-                    "Found two sources for PDB IDS to run. When data extraction or data archivation "
-                    "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
-                    "be passed: either PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH "
-                    "with list of pdb ids, or none when old log from download is used."
-                )
-            if self.pdb_ids_to_remove_filepath and self.pdb_ids_to_remove:
-                raise ValueError(
-                    "Found two sources for PDB IDS to remove. When data extraction or data archivation "
-                    "is run standalone with pdb ids supplied, at most one source for pdb ids to run can to "
-                    "be passed: either PDB_IDS_TO_REMOVE comma separated list, or PDB_IDS_TO_REMOVE_FILEPATH "
-                    "with list of pdb ids, or none when old log from download is used."
-                )
 
         # transformation settings are valid
         self.factor_hierarchy_settings.validate()
