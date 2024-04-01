@@ -1,4 +1,7 @@
 from src.config import Config
+from src.generic_file_handlers.simple_lock_handler import (
+    check_no_lock_present_preventing_download, create_simple_lock_file, LockType
+)
 
 
 def run_data_download(config: Config) -> bool:
@@ -7,4 +10,8 @@ def run_data_download(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
-    raise NotImplementedError()
+    check_no_lock_present_preventing_download(config)
+    raise NotImplementedError()   # TODO
+    create_simple_lock_file(LockType.DATA_EXTRACTION, config)
+    create_simple_lock_file(LockType.DATA_ARCHIVATION, config)
+

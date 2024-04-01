@@ -232,6 +232,14 @@ class Config:
     factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
     filepaths: FilepathConfig = FilepathConfig()
 
+    def is_full_run(self) -> bool:
+        return (
+            not self.run_data_download_only and
+            not self.run_data_extraction_only and
+            not self.run_zipping_files_only and
+            not self.run_data_transformation_only
+        )
+
     def validate(self):
         """
         Check the values set for config are valid for their purpose.

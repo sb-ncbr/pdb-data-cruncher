@@ -35,6 +35,7 @@ from src.models.protein_data import (
     ProteinDataComplete,
 )
 from src.utils import lists_have_crossover
+from src.generic_file_handlers.simple_lock_handler import release_simple_lock_file, LockType
 
 
 class DataExtractionManager:
@@ -267,6 +268,10 @@ def run_data_extraction(config: Config) -> bool:
 
     delete_old_crunched_csv(config.filepaths.output_root_path, config.current_formatted_date)
     logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
+
+    if overall_success:
+        release_simple_lock_file(LockType.DATA_EXTRACTION, config)
+
     return overall_success
 
 
