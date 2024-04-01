@@ -1,8 +1,12 @@
 import csv
 import logging
 
+import pandas as pd
+
+from src.config import Config
 from src.models import LigandInfo
 from src.exception import ParsingError
+from src.models.ids_to_update import IdsToUpdateAndRemove
 
 
 def parse_ligand_stats(ligand_stats_csv_path: str) -> dict[str, LigandInfo]:
@@ -23,9 +27,9 @@ def parse_ligand_stats(ligand_stats_csv_path: str) -> dict[str, LigandInfo]:
             try:
                 if first_row:
                     first_row = False
-                    check_first_ligand_row(row)
+                    _check_first_ligand_row(row)
                 else:
-                    ligand_id, ligand_stats = process_normal_ligand_stats_row(row)
+                    ligand_id, ligand_stats = _process_normal_ligand_stats_row(row)
                     ligand_stats_dict[ligand_id] = ligand_stats
             except ParsingError as ex:
                 logging.warning("Skipping ligand stats row '%s', reason: %s", row, str(ex))
@@ -34,7 +38,7 @@ def parse_ligand_stats(ligand_stats_csv_path: str) -> dict[str, LigandInfo]:
     return ligand_stats_dict
 
 
-def check_first_ligand_row(row: list[str]) -> None:
+def _check_first_ligand_row(row: list[str]) -> None:
     """
     Checks if the first row contains expected csv headers.
 
@@ -44,7 +48,7 @@ def check_first_ligand_row(row: list[str]) -> None:
         raise ParsingError("Expected first line content 'LigandID;heavyAtomSize;flexibility'")
 
 
-def process_normal_ligand_stats_row(row: list[str]) -> tuple[str, LigandInfo]:
+def _process_normal_ligand_stats_row(row: list[str]) -> tuple[str, LigandInfo]:
     """
     Validates contents of normal csv row and returns it processed.
 
@@ -58,3 +62,9 @@ def process_normal_ligand_stats_row(row: list[str]) -> tuple[str, LigandInfo]:
         return row[0], LigandInfo(int(row[1]), float(row[2]))
     except ValueError as ex:
         raise ParsingError(str(ex)) from ex
+
+
+def update_ligand_stats_df(
+    config: Config, ligand_stats_df: pd.DataFrame, ids_to_update_and_remove: IdsToUpdateAndRemove
+) -> None:
+    pass  # TODO

@@ -216,10 +216,6 @@ class Config:
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
     use_supplied_pdb_ids_instead: bool = bool_from_env("USE_SUPPLIED_PDB_IDS_INSTEAD", False)
-    pdb_ids_to_update: Optional[list[str]] = field(default_factory=lambda: string_list_from_env("PDB_IDS_TO_UPDATE"))
-    pdb_ids_to_remove: Optional[list[str]] = field(default_factory=lambda: string_list_from_env("PDB_IDS_TO_REMOVE"))
-    pdb_ids_to_update_filepath: Optional[str] = env.get("PDB_IDS_TO_UPDATE_FILEPATH")
-    pdb_ids_to_remove_filepath: Optional[str] = env.get("PDB_IDS_TO_REMOVE_FILEPATH")
     ids_to_remove_and_update_override_filepath: Optional[str] = env.get("IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)

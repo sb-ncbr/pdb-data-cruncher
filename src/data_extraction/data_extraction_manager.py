@@ -14,18 +14,20 @@ from src.data_extraction.crunched_data_csv_handler import (
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.data_extraction.ligand_occurance_handler import (
     update_ligand_occurrence_in_structures,
-    remove_structure_from_ligand_occurrence,
+    remove_structure_from_ligand_occurrence, update_structures_to_update_based_on_ligand_occurence,
 )
-from src.data_extraction.ligand_stats_parser import parse_ligand_stats
-from src.data_extraction.pdb_ids_finder import find_pdb_ids_to_update, find_pdb_ids_to_remove
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats, update_ligand_stats_df
+from src.data_extraction.pdb_ids_finder import finds_ids_to_update_and_remove
 from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.rest_parser import parse_rest
 from src.data_extraction.validator_db_result_parser import parse_validator_db_result
 from src.data_extraction.xml_validation_report_parser import parse_xml_validation_report
 from src.exception import ParsingError, FileWritingError
+from src.generic_file_handlers.csv_handler import load_csv_as_dataframe, save_dataframe_to_csv
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
 from src.models import LigandInfo, FactorType
+from src.models.ids_to_update import IdsToUpdateAndRemove
 from src.models.names_csv_output_attributes import CRUNCHED_CSV_FACTOR_ORDER
 from src.models.protein_data import (
     ProteinDataFromRest,
@@ -34,7 +36,6 @@ from src.models.protein_data import (
     ProteinDataFromVDB,
     ProteinDataComplete,
 )
-from src.utils import lists_have_crossover
 from src.generic_file_handlers.simple_lock_handler import release_simple_lock_file, LockType
 
 
@@ -43,6 +44,17 @@ class DataExtractionManager:
     Class with static methods only aggregating file loading and parsing operations into logical groups
     for easier handling.
     """
+
+    @staticmethod
+    def update_ligand_stats(config: Config, ids_to_update_and_remove: IdsToUpdateAndRemove) -> None:
+        if config.force_complete_data_extraction:
+            ligand_stats_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
+        else:
+            ligand_stats_df = load_csv_as_dataframe(config.filepaths.ligand_stats)
+
+        update_ligand_stats_df(config, ligand_stats_df, ids_to_update_and_remove)
+        ligand_stats_df = ligand_stats_df.sort_values("LigandID", ignore_index=True)
+        save_dataframe_to_csv(ligand_stats_df, config.filepaths.ligand_stats)
 
     @staticmethod
     def load_and_parse_ligand_stats(config: Config) -> Optional[dict[str, LigandInfo]]:
@@ -148,6 +160,19 @@ class DataExtractionManager:
         return protein_data
 
     @staticmethod
+    def update_ids_to_update_based_on_ligand_occurences(
+        config: Config, ids_to_update_and_remove: IdsToUpdateAndRemove
+    ) -> None:
+        """
+        For each updated ligand id, check if any structures had data calculated based on it in past - if so,
+        add such id to the ids_to_update_and_remove list to be recalculated.
+        :param config:
+        :param ids_to_update_and_remove:
+        """
+        ligand_occurrence_json = load_json_file(config.filepaths.ligand_occurrence_json)
+        update_structures_to_update_based_on_ligand_occurence(ids_to_update_and_remove, ligand_occurrence_json)
+
+    @staticmethod
     def update_ligand_occurrence_json(protein_data_list: list[ProteinDataComplete], config: Config) -> bool:
         """
         For every protein data, make sure the ligand occurrence json has the structure's id noted down exactly for
@@ -215,6 +240,7 @@ class DataExtractionManager:
             protein_data_df = pd.concat([original_df, protein_data_df]).drop_duplicates(
                 subset=[FactorType.PDB_ID.value], keep="last"
             )
+        protein_data_df = protein_data_df.sort_values(FactorType.PDB_ID.value, ignore_index=True)
         # save into files
         create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path, config.current_formatted_date)
         create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
@@ -229,28 +255,26 @@ def run_data_extraction(config: Config) -> bool:
     :return: True if action succeeded. False otherwise.
     """
     logging.info("Starting data extraction.")
+    # prepare ids of structures and ligands to be updated or removed
     try:
-        pdb_ids_to_update = find_pdb_ids_to_update(config)  # TODO rework
-        pdb_ids_to_remove = find_pdb_ids_to_remove(config)
-    except ParsingError as ex:
+        ids_to_update_and_remove = finds_ids_to_update_and_remove(config)
+        ids_to_update_and_remove.validate()
+        DataExtractionManager.update_ids_to_update_based_on_ligand_occurences(config, ids_to_update_and_remove)
+    except (ParsingError, ValueError) as ex:
         logging.error(ex)
         return False
-
-    if lists_have_crossover(pdb_ids_to_update, pdb_ids_to_remove):
-        logging.error(
-            "PDB IDS to update and remove should never have the same items! Double check the inputs.\nPDB IDS to "
-            "update: %s.\nPDB IDS to remove: %s.",
-            pdb_ids_to_update,
-            pdb_ids_to_remove,
-        )
-        return False
-
+    # update ligand stats if needed, then load it
+    if ids_to_update_and_remove.ligands_to_update or ids_to_update_and_remove.ligands_to_delete:
+        DataExtractionManager.update_ligand_stats(config, ids_to_update_and_remove)
     ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
+
+    logging.info("Starting data extraction parsing of the protein data itself.")
     with Pool(config.max_process_count) as p:
         collected_data = p.starmap(
             DataExtractionManager.load_all_protein_data,
-            [(pdb_id, config, ligand_stats) for pdb_id in pdb_ids_to_update],
+            [(pdb_id, config, ligand_stats) for pdb_id in ids_to_update_and_remove.structures_to_update],
         )
+    logging.info("Finished data extraction prasing of the protein data itself.")
 
     successful_protein_data, overall_success = _filter_and_log_failed_protein_data(collected_data)
 
@@ -258,12 +282,12 @@ def run_data_extraction(config: Config) -> bool:
         overall_success &= DataExtractionManager.update_ligand_occurrence_json(
             successful_protein_data, config
         )
-    if len(pdb_ids_to_remove):
+    if len(ids_to_update_and_remove.structures_to_delete):
         overall_success &= DataExtractionManager.remove_structures_from_ligand_occurrence_json(
-            pdb_ids_to_remove, config
+            ids_to_update_and_remove.structures_to_delete, config
         )
     overall_success &= DataExtractionManager.store_protein_data_into_crunched_csv(
-        successful_protein_data, pdb_ids_to_remove, config
+        successful_protein_data, ids_to_update_and_remove.structures_to_delete, config
     )
 
     delete_old_crunched_csv(config.filepaths.output_root_path, config.current_formatted_date)

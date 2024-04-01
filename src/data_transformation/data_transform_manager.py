@@ -31,7 +31,7 @@ from src.data_transformation.file_handlers.name_translations_loader import (
 )
 from src.data_transformation.versions_updater import update_versions_json
 from src.exception import ParsingError, DataTransformationError, FileWritingError
-from src.generic_file_handlers.csv_reader import load_csv_as_dataframe
+from src.generic_file_handlers.csv_handler import load_csv_as_dataframe
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
 

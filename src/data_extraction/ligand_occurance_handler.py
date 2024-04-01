@@ -1,6 +1,13 @@
 from typing import Optional
 
+from src.models.ids_to_update import IdsToUpdateAndRemove
 from src.models.protein_data import ProteinDataComplete
+
+
+def update_structures_to_update_based_on_ligand_occurence(
+    ids_to_update: IdsToUpdateAndRemove, ligand_occurrence_json: dict[str, list[str]]
+) -> None:
+    pass  # TODO
 
 
 def update_ligand_occurrence_in_structures(

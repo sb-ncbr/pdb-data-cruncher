@@ -24,8 +24,9 @@ def create_simple_lock_file(lock_type: LockType, config: Config) -> None:
 
 def release_simple_lock_file(lock_type: LockType, config: Config) -> None:
     filepath = os.path.join(config.filepaths.logs_root_path, lock_type.value)
-    os.remove(filepath)
-    logging.info(f"Deleted (released) lock file %s.", filepath)
+    if os.path.exists(filepath):
+        os.remove(filepath)
+        logging.info(f"Deleted (released) lock file %s.", filepath)
 
 
 def check_no_lock_present_preventing_download(config: Config) -> None:

@@ -6,7 +6,7 @@ from typing import Optional
 import pandas as pd
 
 from src.config import Config
-from src.generic_file_handlers.csv_reader import load_csv_as_dataframe
+from src.generic_file_handlers.csv_handler import load_csv_as_dataframe
 from src.models import CSV_INVALID_VALUE_STRING
 from src.utils import find_matching_files
 
@@ -59,7 +59,7 @@ def create_xlsx_crunched_data(protein_data_df: pd.DataFrame, output_files_folder
     """
     filepath = path.join(output_files_folder, "data.xlsx")
     try:
-        protein_data_df.to_excel(filepath, index=False, na_rep="nan")
+        protein_data_df.to_excel(filepath, index=False, na_rep=CSV_INVALID_VALUE_STRING)
         logging.info("Successfully saved crunched datat into '%s'.", filepath)
     except OSError as ex:
         logging.error("Failed to save to file: %s", ex)
