@@ -14,7 +14,8 @@ from src.data_extraction.crunched_data_csv_handler import (
 from src.data_extraction.inferred_protein_data_calculator import calculate_inferred_protein_data
 from src.data_extraction.ligand_occurance_handler import (
     update_ligand_occurrence_in_structures,
-    remove_structure_from_ligand_occurrence, update_structures_to_update_based_on_ligand_occurence,
+    remove_structure_from_ligand_occurrence,
+    update_structures_to_update_based_on_ligand_occurence,
 )
 from src.data_extraction.ligand_stats_parser import parse_ligand_stats, update_ligand_stats_df
 from src.data_extraction.pdb_ids_finder import finds_ids_to_update_and_remove
