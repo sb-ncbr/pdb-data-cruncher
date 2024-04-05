@@ -1,5 +1,3 @@
-from typing import Optional
-
 from src.models.ids_to_update import IdsToUpdateAndRemove
 from src.models.protein_data import ProteinDataComplete
 

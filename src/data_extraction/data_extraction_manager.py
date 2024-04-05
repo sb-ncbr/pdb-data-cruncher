@@ -17,7 +17,7 @@ from src.data_extraction.ligand_occurance_handler import (
     remove_structure_from_ligand_occurrence,
     update_structures_to_update_based_on_ligand_occurence,
 )
-from src.data_extraction.ligand_stats_parser import parse_ligand_stats, update_ligand_stats_df
+from src.data_extraction.ligand_stats_parser import parse_ligand_stats, calculate_ligand_stats
 from src.data_extraction.pdb_ids_finder import finds_ids_to_update_and_remove
 from src.data_extraction.pdbx_parser import parse_pdbx
 from src.data_extraction.rest_parser import parse_rest
@@ -48,14 +48,26 @@ class DataExtractionManager:
 
     @staticmethod
     def update_ligand_stats(config: Config, ids_to_update_and_remove: IdsToUpdateAndRemove) -> None:
+        logging.info("Starting updating ligand stats csv.")
         if config.force_complete_data_extraction:
-            ligand_stats_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
+            original_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
         else:
-            ligand_stats_df = load_csv_as_dataframe(config.filepaths.ligand_stats)
+            original_df = load_csv_as_dataframe(config.filepaths.ligand_stats)
+            original_df = original_df[~original_df["LigandID"].isin(ids_to_update_and_remove.ligands_to_delete)]
 
-        update_ligand_stats_df(config, ligand_stats_df, ids_to_update_and_remove)
-        ligand_stats_df = ligand_stats_df.sort_values("LigandID", ignore_index=True)
-        save_dataframe_to_csv(ligand_stats_df, config.filepaths.ligand_stats)
+        new_ligand_stats = calculate_ligand_stats(config.filepaths.ligand_cifs, ids_to_update_and_remove)
+        if len(new_ligand_stats) > 0:
+            new_ligand_dfs_list = [pd.DataFrame([ligand_stats.as_dict()]) for ligand_stats in new_ligand_stats]
+            new_ligand_df = pd.concat(new_ligand_dfs_list, ignore_index=True)
+            new_ligand_df = pd.concat([original_df, new_ligand_df]).drop_duplicates(
+                subset=["LigandID"], keep="last"
+            )
+        else:
+            new_ligand_df = original_df
+
+        new_ligand_df = new_ligand_df.sort_values("LigandID", ignore_index=True)
+        save_dataframe_to_csv(new_ligand_df, config.filepaths.ligand_stats)
+        logging.info("Successfully updated ligand stats csv.")
 
     @staticmethod
     def load_and_parse_ligand_stats(config: Config) -> Optional[dict[str, LigandInfo]]:

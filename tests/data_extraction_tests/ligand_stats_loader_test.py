@@ -16,8 +16,8 @@ def test_ligands_load_correctly(mocker):
     # assert
     assert len(ligands) == 2
     assert "000" in ligands and "004" in ligands
-    assert LigandInfo(5, 0.125) == ligands["000"]
-    assert LigandInfo(11, 0.1) == ligands["004"]
+    assert LigandInfo("000", 5, 0.125) == ligands["000"]
+    assert LigandInfo("004", 11, 0.1) == ligands["004"]
 
 
 def test_ligands_load_skips_invalid_lines(mocker, caplog):
@@ -33,6 +33,6 @@ def test_ligands_load_skips_invalid_lines(mocker, caplog):
     assert len(ligands) == 1
     assert "000" not in ligands
     assert "004" in ligands
-    assert LigandInfo(11, 0.1) == ligands["004"]
+    assert LigandInfo("004", 11, 0.1) == ligands["004"]
     # check there were logged exactly two WARNINGs (one for first line, one for skipped ligand line)
     assert len([r for r in caplog.records if r.levelname == "WARNING"]) == 2
