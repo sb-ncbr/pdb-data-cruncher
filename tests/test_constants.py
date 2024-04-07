@@ -16,5 +16,13 @@ TEST_PDB_IDS = [
     "8ucv",
     "103d",
 ]
+TEST_LIGAND_IDS = [
+    "AOH",
+    "CBY",
+    "IX3",
+    "MN3",
+    "OT1",
+    "QON",
+]
 CRUNCHED_RESULTS_CSV_PATH = path.join(path.curdir, "tests", "test_data", "crunched_results.csv")
 TEST_DATA_PATH = path.join(path.curdir, "tests", "test_data")

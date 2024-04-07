@@ -23,6 +23,14 @@ class ProteinDataComplete:
     pdbx: Optional[ProteinDataFromPDBx] = None
     inferred: Optional[ProteinDataInferred] = None
 
+    @property
+    def successful(self):
+        """
+        Whether the final state of the protein data is considered successful for subsequent data processing.
+        :return: True if successful, False otherwise.
+        """
+        return self.pdbx
+
     def as_dict_for_csv(self) -> dict[str, str]:
         """
         Transforms all the data inside the dataclass into a row to be inserted into csv. Uses

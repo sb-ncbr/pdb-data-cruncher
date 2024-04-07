@@ -1,0 +1,170 @@
+data_QON
+# 
+_chem_comp.id                                    QON 
+_chem_comp.name                                  "N-[1-(2-Chloroacetyl)piperidin-4-yl]-5-cyclopropyl-1,2-oxazole-3-carboxamide" 
+_chem_comp.type                                  non-polymer 
+_chem_comp.pdbx_type                             HETAIN 
+_chem_comp.formula                               "C14 H18 Cl N3 O3" 
+_chem_comp.mon_nstd_parent_comp_id               ? 
+_chem_comp.pdbx_synonyms                         "~{N}-[1-(2-chloranylethanoyl)piperidin-4-yl]-5-cyclopropyl-1,2-oxazole-3-carboxamide" 
+_chem_comp.pdbx_formal_charge                    0 
+_chem_comp.pdbx_initial_date                     2020-07-13 
+_chem_comp.pdbx_modified_date                    2022-07-22 
+_chem_comp.pdbx_ambiguous_flag                   N 
+_chem_comp.pdbx_release_status                   REL 
+_chem_comp.pdbx_replaced_by                      ? 
+_chem_comp.pdbx_replaces                         ? 
+_chem_comp.formula_weight                        311.764 
+_chem_comp.one_letter_code                       ? 
+_chem_comp.three_letter_code                     QON 
+_chem_comp.pdbx_model_coordinates_details        ? 
+_chem_comp.pdbx_model_coordinates_missing_flag   N 
+_chem_comp.pdbx_ideal_coordinates_details        Corina 
+_chem_comp.pdbx_ideal_coordinates_missing_flag   N 
+_chem_comp.pdbx_model_coordinates_db_code        6ZRB 
+_chem_comp.pdbx_subcomponent_list                ? 
+_chem_comp.pdbx_processing_site                  PDBE 
+# 
+loop_
+_chem_comp_atom.comp_id 
+_chem_comp_atom.atom_id 
+_chem_comp_atom.alt_atom_id 
+_chem_comp_atom.type_symbol 
+_chem_comp_atom.charge 
+_chem_comp_atom.pdbx_align 
+_chem_comp_atom.pdbx_aromatic_flag 
+_chem_comp_atom.pdbx_leaving_atom_flag 
+_chem_comp_atom.pdbx_stereo_config 
+_chem_comp_atom.model_Cartn_x 
+_chem_comp_atom.model_Cartn_y 
+_chem_comp_atom.model_Cartn_z 
+_chem_comp_atom.pdbx_model_Cartn_x_ideal 
+_chem_comp_atom.pdbx_model_Cartn_y_ideal 
+_chem_comp_atom.pdbx_model_Cartn_z_ideal 
+_chem_comp_atom.pdbx_component_atom_id 
+_chem_comp_atom.pdbx_component_comp_id 
+_chem_comp_atom.pdbx_ordinal 
+QON C11 C1  C  0 1 N N N 16.831 3.613  15.513 1.724  0.520  -0.650 C11 QON 1  
+QON C13 C2  C  0 1 Y N N 16.196 4.611  16.397 3.094  0.235  -0.156 C13 QON 2  
+QON C17 C3  C  0 1 Y N N 15.908 5.971  16.136 4.280  0.134  -0.936 C17 QON 3  
+QON C19 C4  C  0 1 N N N 14.091 8.585  16.486 7.321  -1.690 0.088  C19 QON 4  
+QON C01 C5  C  0 1 N N N 18.954 -3.198 13.425 -5.267 -1.088 -0.418 C01 QON 5  
+QON C02 C6  C  0 1 N N N 17.684 -2.727 14.025 -4.679 0.166  0.175  C02 QON 6  
+QON O03 O1  O  0 1 N N N 16.815 -3.559 14.256 -5.291 0.782  1.021  O03 QON 7  
+QON N04 N1  N  0 1 N N N 17.477 -1.403 14.183 -3.472 0.604  -0.236 N04 QON 8  
+QON C05 C7  C  0 1 N N N 16.096 -1.011 14.507 -2.886 1.825  0.332  C05 QON 9  
+QON C06 C8  C  0 1 N N N 16.060 0.103  15.524 -1.483 1.501  0.855  C06 QON 10 
+QON C07 C9  C  0 1 N N N 16.934 1.234  15.020 -0.657 0.871  -0.268 C07 QON 11 
+QON C08 C10 C  0 1 N N N 18.366 0.796  14.898 -1.317 -0.433 -0.720 C08 QON 12 
+QON C09 C11 C  0 1 N N N 18.506 -0.380 13.922 -2.716 -0.134 -1.257 C09 QON 13 
+QON N10 N2  N  0 1 N N N 16.816 2.344  15.944 0.696  0.590  0.219  N10 QON 14 
+QON O12 O2  O  0 1 N N N 17.244 3.955  14.430 1.530  0.694  -1.836 O12 QON 15 
+QON N14 N3  N  0 1 Y N N 15.734 4.276  17.616 3.457  0.032  1.086  N14 QON 16 
+QON O15 O3  O  0 1 Y N N 15.208 5.402  18.132 4.645  -0.175 1.171  O15 QON 17 
+QON C16 C12 C  0 1 Y N N 15.262 6.420  17.251 5.245  -0.134 -0.027 C16 QON 18 
+QON C18 C13 C  0 1 N N N 14.716 7.755  17.609 6.711  -0.343 -0.306 C18 QON 19 
+QON C20 C14 C  0 1 N N N 15.404 8.985  17.103 7.653  -0.434 0.896  C20 QON 20 
+QON H1  H1  H  0 1 N N N 16.148 6.533  15.246 4.385  0.244  -2.005 H1  QON 21 
+QON H2  H2  H  0 1 N N N 13.186 9.181  16.677 6.661  -2.425 0.548  H2  QON 22 
+QON H3  H3  H  0 1 N N N 14.060 8.191  15.459 8.102  -2.096 -0.555 H3  QON 23 
+QON H5  H5  H  0 1 N N N 19.810 -2.647 13.842 -5.386 -0.961 -1.494 H5  QON 24 
+QON H6  H6  H  0 1 N N N 19.091 -4.275 13.600 -4.602 -1.929 -0.223 H6  QON 25 
+QON H7  H7  H  0 1 N N N 15.596 -0.672 13.588 -2.820 2.592  -0.439 H7  QON 26 
+QON H8  H8  H  0 1 N N N 15.563 -1.883 14.914 -3.508 2.182  1.153  H8  QON 27 
+QON H9  H9  H  0 1 N N N 15.027 0.459  15.650 -0.999 2.418  1.192  H9  QON 28 
+QON H10 H10 H  0 1 N N N 16.442 -0.261 16.489 -1.558 0.802  1.688  H10 QON 29 
+QON H11 H11 H  0 1 N N N 16.572 1.542  14.028 -0.603 1.561  -1.110 H11 QON 30 
+QON H12 H12 H  0 1 N N N 18.732 0.486  15.888 -0.716 -0.893 -1.504 H12 QON 31 
+QON H13 H13 H  0 1 N N N 18.969 1.640  14.532 -1.393 -1.115 0.128  H13 QON 32 
+QON H14 H14 H  0 1 N N N 19.502 -0.832 14.042 -3.226 -1.070 -1.484 H14 QON 33 
+QON H15 H15 H  0 1 N N N 18.393 -0.009 12.892 -2.636 0.470  -2.160 H15 QON 34 
+QON H16 H16 H  0 1 N N N 16.722 2.160  16.922 0.852  0.455  1.167  H16 QON 35 
+QON H17 H17 H  0 1 N N N 14.229 7.839  18.592 7.091  0.137  -1.208 H17 QON 36 
+QON H18 H18 H  0 1 N N N 16.332 8.891  16.521 7.213  -0.344 1.889  H18 QON 37 
+QON H19 H19 H  0 1 N N N 15.459 9.881  17.739 8.653  -0.014 0.786  H19 QON 38 
+QON CL1 CL1 CL 0 0 N N N 18.778 -2.866 11.715 -6.876 -1.409 0.330  CL1 QON 39 
+# 
+loop_
+_chem_comp_bond.comp_id 
+_chem_comp_bond.atom_id_1 
+_chem_comp_bond.atom_id_2 
+_chem_comp_bond.value_order 
+_chem_comp_bond.pdbx_aromatic_flag 
+_chem_comp_bond.pdbx_stereo_config 
+_chem_comp_bond.pdbx_ordinal 
+QON C01 C02 SING N N 1  
+QON C09 N04 SING N N 2  
+QON C09 C08 SING N N 3  
+QON C02 N04 SING N N 4  
+QON C02 O03 DOUB N N 5  
+QON N04 C05 SING N N 6  
+QON O12 C11 DOUB N N 7  
+QON C05 C06 SING N N 8  
+QON C08 C07 SING N N 9  
+QON C07 C06 SING N N 10 
+QON C07 N10 SING N N 11 
+QON C11 N10 SING N N 12 
+QON C11 C13 SING N N 13 
+QON C17 C13 SING Y N 14 
+QON C17 C16 DOUB Y N 15 
+QON C13 N14 DOUB Y N 16 
+QON C19 C20 SING N N 17 
+QON C19 C18 SING N N 18 
+QON C20 C18 SING N N 19 
+QON C16 C18 SING N N 20 
+QON C16 O15 SING Y N 21 
+QON N14 O15 SING Y N 22 
+QON C17 H1  SING N N 23 
+QON C19 H2  SING N N 24 
+QON C19 H3  SING N N 25 
+QON C01 H5  SING N N 26 
+QON C01 H6  SING N N 27 
+QON C05 H7  SING N N 28 
+QON C05 H8  SING N N 29 
+QON C06 H9  SING N N 30 
+QON C06 H10 SING N N 31 
+QON C07 H11 SING N N 32 
+QON C08 H12 SING N N 33 
+QON C08 H13 SING N N 34 
+QON C09 H14 SING N N 35 
+QON C09 H15 SING N N 36 
+QON N10 H16 SING N N 37 
+QON C18 H17 SING N N 38 
+QON C20 H18 SING N N 39 
+QON C20 H19 SING N N 40 
+QON CL1 C01 SING N N 41 
+# 
+loop_
+_pdbx_chem_comp_descriptor.comp_id 
+_pdbx_chem_comp_descriptor.type 
+_pdbx_chem_comp_descriptor.program 
+_pdbx_chem_comp_descriptor.program_version 
+_pdbx_chem_comp_descriptor.descriptor 
+QON InChI            InChI                1.03  "InChI=1S/C14H18ClN3O3/c15-8-13(19)18-5-3-10(4-6-18)16-14(20)11-7-12(21-17-11)9-1-2-9/h7,9-10H,1-6,8H2,(H,16,20)" 
+QON InChIKey         InChI                1.03  OENTXAYVUCLRJQ-UHFFFAOYSA-N                                                                                       
+QON SMILES_CANONICAL CACTVS               3.385 "ClCC(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3"                                                                          
+QON SMILES           CACTVS               3.385 "ClCC(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3"                                                                          
+QON SMILES_CANONICAL "OpenEye OEToolkits" 2.0.7 "c1c(onc1C(=O)NC2CCN(CC2)C(=O)CCl)C3CC3"                                                                          
+QON SMILES           "OpenEye OEToolkits" 2.0.7 "c1c(onc1C(=O)NC2CCN(CC2)C(=O)CCl)C3CC3"                                                                          
+# 
+_pdbx_chem_comp_identifier.comp_id           QON 
+_pdbx_chem_comp_identifier.type              "SYSTEMATIC NAME" 
+_pdbx_chem_comp_identifier.program           "OpenEye OEToolkits" 
+_pdbx_chem_comp_identifier.program_version   2.0.7 
+_pdbx_chem_comp_identifier.identifier        "~{N}-[1-(2-chloranylethanoyl)piperidin-4-yl]-5-cyclopropyl-1,2-oxazole-3-carboxamide" 
+# 
+loop_
+_pdbx_chem_comp_audit.comp_id 
+_pdbx_chem_comp_audit.action_type 
+_pdbx_chem_comp_audit.date 
+_pdbx_chem_comp_audit.processing_site 
+QON "Create component" 2020-07-13 PDBE 
+QON "Modify synonyms"  2021-03-13 RCSB 
+QON "Initial release"  2022-07-27 RCSB 
+# 
+_pdbx_chem_comp_synonyms.ordinal      1 
+_pdbx_chem_comp_synonyms.comp_id      QON 
+_pdbx_chem_comp_synonyms.name         "~{N}-[1-(2-chloranylethanoyl)piperidin-4-yl]-5-cyclopropyl-1,2-oxazole-3-carboxamide" 
+_pdbx_chem_comp_synonyms.provenance   PDB 
+_pdbx_chem_comp_synonyms.type         ? 
+# 

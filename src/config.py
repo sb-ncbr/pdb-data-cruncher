@@ -1,9 +1,10 @@
+import logging
 from os import path
 from os import environ as env
 from dataclasses import dataclass, field
 from typing import Optional
 
-from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env, string_list_from_env
+from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env
 
 
 @dataclass(slots=True)
@@ -17,17 +18,32 @@ class DefaultPlotSettingsConfig:
     std_outlier_multiplier: int = int_from_env("DEFAULT_PLOT_SETTINGS_STD_OUTLIER_MULTIPLIER", 2)
     allowed_bucket_base_sizes: list[int] = field(
         default_factory=lambda: int_list_from_env(
-            "ALLOWED_BUCKET_BASE_SIZES", [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
+            "DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES", [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]
         )
     )
 
     def validate(self) -> None:
+        """
+        Check values are within allowed limits.
+        :raises ValueError:
+        """
+        if self.max_bucket_count < 10:
+            raise ValueError("DEFAULT_PLOT_SETTINGS_MAX_BUCKET_COUNT should be at least 10 for proper results.")
+
         if len(self.allowed_bucket_base_sizes) == 0:
-            raise ValueError("ALLOWED_BUCKET_BASE_SIZES need at least one value.")
+            raise ValueError("DEFAULT_PLOT_SETTINGS_ALLOWED_BUCKET_BASE_SIZES need at least one value.")
+
+        if len(self.allowed_bucket_base_sizes) > 20 or self.max_bucket_count > 100 or self.min_count_in_bucket > 100:
+            logging.warning(
+                "Given default plot settings may cause the app to run significantly longer. Default plot settings "
+                "ideal interval size is determined experimentally - setting allowed base sizes to many options, setting"
+                " big max bucket count or large minimal count in bucket may cause it to try more options before finding"
+                " a suitable option, and may result in less optimal intervals."
+            )
 
         last_bucket_base_size = None
         for base_size in self.allowed_bucket_base_sizes:
-            if not 10 <= base_size <= 100:
+            if not 10 <= base_size < 100:
                 raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be from interval <10,99>")
             if last_bucket_base_size and last_bucket_base_size >= base_size:
                 raise ValueError("ALLOWED_BUCKET_BASE_SIZES need to be sorted in the ascending order")
@@ -35,7 +51,7 @@ class DefaultPlotSettingsConfig:
 
 
 @dataclass(slots=True)
-class FactorHierarchySettings:
+class FactorHierarchyConfig:
     """
     Configuration for updating factor hierarchy.
     """
@@ -44,19 +60,45 @@ class FactorHierarchySettings:
     ideal_interval_count: int = int_from_env("FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT", 200)
     max_interval_count: int = int_from_env("FACTOR_HIERARCHY_MAX_INTERVAL_COUNT", 300)
     allowed_slider_base_sizes: list[int] = field(
-        default_factory=lambda: int_list_from_env("ALLOWED_SLIDER_BASE_SIZES", [10, 20, 25, 50])
+        default_factory=lambda: int_list_from_env("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES", [10, 20, 25, 50])
     )
 
     def validate(self) -> None:
+        """
+        Check values are within allowed limits.
+        :raises ValueError:
+        """
+        if self.min_interval_count <= 0:
+            raise ValueError("FACTOR_HIERARCHY_MIN_INTERVAL_COUNT needs to be bigger than 0.")
+
+        if self.min_interval_count > self.max_interval_count:
+            raise ValueError(
+                "FACTOR_HIERARCHY_MIN_INTERVAL_COUNT cannot be bigger than FACTOR_HIERARCHY_MAX_INTERVAL_COUNT."
+            )
+
+        if self.ideal_interval_count < self.min_interval_count:
+            self.ideal_interval_count = self.min_interval_count
+            logging.warning(
+                "FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT was smaller than the FACTOR_HIERARCHY_MIN_INTERVAL_COUNT. "
+                "It was set to the minimal value instead."
+            )
+
+        if self.ideal_interval_count > self.max_interval_count:
+            self.ideal_interval_count = self.max_interval_count
+            logging.warning(
+                "FACTOR_HIERARCHY_IDEAL_INTERVAL_COUNT was larger than the FACTOR_HIERARCHY_MAX_INTERVAL_COUNT. "
+                "It was set to the maximum value instead."
+            )
+
         if len(self.allowed_slider_base_sizes) == 0:
-            raise ValueError("ALLOWED_SLIDER_BASE_SIZES need at least one value.")
+            raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need at least one value.")
 
         last_bucket_base_size = None
         for base_size in self.allowed_slider_base_sizes:
-            if not 10 <= base_size <= 100:
-                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
+            if not 10 <= base_size < 100:
+                raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be from interval <10,99>")
             if last_bucket_base_size and last_bucket_base_size >= base_size:
-                raise ValueError("ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
+                raise ValueError("FACTOR_HIERARCHY_ALLOWED_SLIDER_BASE_SIZES need to be sorted in the ascending order")
             last_bucket_base_size = base_size
 
 
@@ -81,22 +123,21 @@ class FilepathConfig:
     _factor_x_plot_bucket_limits_csv_name: str = env.get(
         "X_PLOT_BUCKET_LIMITS_CSV_NAME", "3-Hranice-X_nazvy_promennych.csv"
     )
-    _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurence_in_pdb_ids.json")
+    _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurrence_in_structures.json")
     _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
+    _download_changed_ids_json_name: str = env.get(
+        "DOWNLOAD_CHANGED_IDS_JSON_NAME", "download_changed_ids_to_update.json"
+    )
 
     # output names used as input too
     _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
     _versions_json_name: str = env.get("VERSIONS_JSON_NAME", "Versions.json")
     _key_trends_versions_json_name: str = env.get("KEY_TRENDS_VERSIONS_JSON_NAME", "VersionsKT.json")
+    _old_crunched_csv_name: str = env.get("OLD_CRUNCHED_CSV_NAME", "data.csv")
 
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
-    _previous_full_log_name: str = env.get("PREVIOUS_FULL_LOG_NAME", "previous_full_log.txt")
     _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
-    _previous_filtered_log_name: str = env.get("PREVIOUS_FILTERED_LOG_NAME", "previous_filtered_log.txt")
-
-    # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
-    # TODO somehow include updated ligands log file
 
     @property
     def rest_jsons(self) -> str:
@@ -127,12 +168,16 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._factor_x_plot_bucket_limits_csv_name)
 
     @property
-    def ligand_occurence_json(self) -> str:
+    def ligand_occurrence_json(self) -> str:
         return path.join(self.dataset_root_path, self._ligand_occurrence_json_name)
 
     @property
     def ligand_stats(self) -> str:
         return path.join(self.dataset_root_path, self._ligand_stats_name)
+
+    @property
+    def download_changed_ids_json(self) -> str:
+        return path.join(self.dataset_root_path, self._download_changed_ids_json_name)
 
     @property
     def familiar_name_translations_json(self) -> str:
@@ -147,20 +192,16 @@ class FilepathConfig:
         return path.join(self.output_root_path, self._key_trends_versions_json_name)
 
     @property
+    def old_crunched_csv(self) -> str:
+        return path.join(self.output_root_path, self._old_crunched_csv_name)
+
+    @property
     def full_log(self) -> str:
         return path.join(self.logs_root_path, self._full_log_name)
 
     @property
-    def previous_full_log(self) -> str:
-        return path.join(self.logs_root_path, self._previous_full_log_name)
-
-    @property
     def filtered_log(self) -> str:
         return path.join(self.logs_root_path, self._filtered_log_name)
-
-    @property
-    def previous_filtered_log(self) -> str:
-        return path.join(self.logs_root_path, self._previous_filtered_log_name)
 
 
 @dataclass(slots=True)
@@ -172,15 +213,13 @@ class Config:
     logging_debug: bool = bool_from_env("LOGGING_DEBUG", False)
     max_process_count: int = int_from_env("MAX_PROCESS_COUNT", 8)
     current_formatted_date: str = env.get("CURRENT_FORMATTED_DATE", get_formatted_date())
-    # TODO use this everywhere instead of get_formatted_date
 
     # data download
     run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
-    pdb_ids_to_update: Optional[list[str]] = field(default_factory=lambda: string_list_from_env("PDB_IDS_TO_UPDATE"))
-    pdb_ids_to_update_filepath: Optional[str] = env.get("PDB_IDS_TO_UPDATE_FILEPATH")
+    ids_to_remove_and_update_override_filepath: Optional[str] = env.get("IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
     force_7zip_integrity_check: bool = bool_from_env("FORCE_7ZIP_INTEGRITY_CHECK", False)
@@ -190,10 +229,22 @@ class Config:
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
-    factor_hierarchy_settings: FactorHierarchySettings = FactorHierarchySettings()
+    factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
     filepaths: FilepathConfig = FilepathConfig()
 
+    def is_full_run(self) -> bool:
+        return (
+            not self.run_data_download_only and
+            not self.run_data_extraction_only and
+            not self.run_zipping_files_only and
+            not self.run_data_transformation_only
+        )
+
     def validate(self):
+        """
+        Check the values set for config are valid for their purpose.
+        :raises ValueError:
+        """
         # at most 1 standalone mode is set
         run_only_mode_count = 0
         if self.run_data_download_only:
@@ -209,25 +260,6 @@ class Config:
                 "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
                 "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
             )
-
-        # if extraction/archivation only wihtout force complete run, pdb ids are passed
-        if (
-            self.run_data_extraction_only
-            and not self.force_complete_data_extraction
-            or self.run_zipping_files_only
-            and not self.force_7zip_integrity_check
-        ):
-            pdb_ids_sources = 0
-            if self.pdb_ids_to_update_filepath:
-                pdb_ids_sources += 1
-            if self.pdb_ids_to_update:
-                pdb_ids_sources += 1
-            if pdb_ids_sources != 1:
-                raise ValueError(
-                    f"Found {pdb_ids_sources} sources for PDB IDS to run. When data extraction or data archivation "
-                    "is run standalone, exactly one source for pdb ids to run needs to be passed: either "
-                    "PDB_IDS_TO_UPDATE as comma separated list, or PDB_IDS_TO_UPDATE_FILEPATH with list of pdb ids."
-                )
 
         # transformation settings are valid
         self.factor_hierarchy_settings.validate()

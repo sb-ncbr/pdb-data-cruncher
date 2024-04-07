@@ -3,6 +3,7 @@ from multiprocessing import Pool
 
 from src.data_archivation.seven_zip_archive_creator import create_archive_of_folder
 from src.config import Config
+from src.generic_file_handlers.simple_lock_handler import release_simple_lock_file, LockType
 
 
 class DataArchivationManger:
@@ -43,3 +44,5 @@ def run_data_archivation(config: Config) -> bool:
     :return: True if action succeeded. False otherwise.
     """
     raise NotImplementedError()
+    # if success
+    release_simple_lock_file(LockType.DATA_ARCHIVATION, config)

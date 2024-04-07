@@ -1,7 +1,7 @@
 import pytest
 
 from src.config import Config
-from src.data_extraction.parsing_manger import ParsingManger
+from src.data_extraction.data_extraction_manager import DataExtractionManager
 from tests.test_constants import *
 from tests.expected_results_loader import load_row_of_csv_as_dict
 from tests.utils import strings_are_equal_respecting_floats, Differences, Difference
@@ -21,7 +21,7 @@ def test_full_data_extraction_basic(pdb_id: str):
     config.filepaths._ligand_stats_name = "ligandStats.csv"
 
     # act
-    complete_protein_data = ParsingManger.load_all_protein_data(pdb_id, config)
+    complete_protein_data = DataExtractionManager.load_all_protein_data(pdb_id, config)
     assert complete_protein_data is not None
     protein_data_as_csv_row_dict = complete_protein_data.as_dict_for_csv()
 

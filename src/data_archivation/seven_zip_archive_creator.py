@@ -1,5 +1,5 @@
 import logging
-import os
+from os import path
 
 import py7zr
 
@@ -13,7 +13,7 @@ def create_archive_of_folder(folder_to_archive_filepath: str, output_folder_file
     :param output_folder_filepath: Path to folder where the ouput should be stored.
     :param archive_name: Name of the created archive.
     """
-    if not os.path.isdir(folder_to_archive_filepath):
+    if not path.isdir(folder_to_archive_filepath):
         raise FileWritingError(f"Path to archive '{folder_to_archive_filepath}' does not point to a folder.")
 
     archive_filepath = path.join(output_folder_filepath, archive_name)
