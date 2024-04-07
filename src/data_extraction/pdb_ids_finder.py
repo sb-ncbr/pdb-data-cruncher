@@ -48,12 +48,16 @@ def _find_ids_to_update_and_remove(config: Config) -> IdsToUpdateAndRemove:
             config.ids_to_remove_and_update_override_filepath
         )
         return _load_ids_to_update_and_remove_from_json(config.ids_to_remove_and_update_override_filepath)
-    else:
-        return _load_ids_to_update_and_remove_from_download_logs(config)
+
+    return _load_ids_to_update_and_remove_from_json(config.filepaths.download_changed_ids_json)
 
 
 def _load_ids_to_update_and_remove_from_json(json_filepath: str) -> IdsToUpdateAndRemove:
-    ids_json = load_json_file(json_filepath)
+    try:
+        ids_json = load_json_file(json_filepath)
+    except ParsingError as ex:
+        raise ParsingError(f"Failed to load ids to update and remove. Data extraction cannot proceed. {ex}") from ex
+
     try:
         return IdsToUpdateAndRemove(
             structures_to_update=ids_json["structuresToUpdate"],
@@ -63,10 +67,6 @@ def _load_ids_to_update_and_remove_from_json(json_filepath: str) -> IdsToUpdateA
         )
     except ValueError as ex:
         raise ParsingError(f"Failed to load json with ids to update and remove: No item {ex}") from ex
-
-
-def _load_ids_to_update_and_remove_from_download_logs(config: Config) -> IdsToUpdateAndRemove:
-    raise NotImplementedError()  # TODO
 
 
 def _get_all_structure_ids_from_present_pdbx_files(config: Config) -> list[str]:

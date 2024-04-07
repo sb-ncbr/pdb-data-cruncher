@@ -88,7 +88,7 @@ def calculate_ligand_stats(
             failed_ligand_ids.append(ligand_id)
 
     if failed_ligand_ids:
-        logging.warning("Failed to calculate update for %s ligand ids: %s", len(failed_ligand_ids), failed_ligand_ids)
+        logging.error("Failed to calculate update for %s ligand ids: %s", len(failed_ligand_ids), failed_ligand_ids)
 
     return ligand_stats
 
@@ -114,6 +114,8 @@ def _calculate_one_ligand_stats(path_to_ccd_files: str, ligand_id: str) -> Ligan
     )
 
 
+# pylint: disable=no-member
+# for some reasons, rdkit.Chem object types are not recognised properly and false warnings occur
 def _calculate_rotatable_bonds(ligand_full_mol: Chem.Mol) -> int:
     """
     Calculate number of rotatable bonds, eg. those not of double/triple bond type, not terminal and not part of cycle.
@@ -122,12 +124,11 @@ def _calculate_rotatable_bonds(ligand_full_mol: Chem.Mol) -> int:
     """
     # sanitization is off because the cif is loaded into the mol without adjusting charge of atoms, which would result
     # in AtomValenceException with sanitization on
-    mol_withouth_hs: Chem.Mol = Chem.RemoveHs(ligand_full_mol, sanitize=False)
+    mol_withouth_hs = Chem.RemoveHs(ligand_full_mol, sanitize=False)
     bond_count = 0
 
     for bond in mol_withouth_hs.GetBonds():
-        bond_type = bond.GetBondType()
-        if bond_type == Chem.BondType.DOUBLE or bond_type == Chem.BondType.TRIPLE:
+        if bond.GetBondType() in (Chem.BondType.DOUBLE, Chem.BondType.TRIPLE):
             continue  # double or triple bond cannot rotate
         if bond.GetBeginAtom().GetDegree() == 1 or bond.GetEndAtom().GetDegree() == 1:
             continue  # one of the atoms is terminal

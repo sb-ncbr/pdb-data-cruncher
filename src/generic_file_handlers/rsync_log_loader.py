@@ -7,6 +7,10 @@ from src.generic_file_handlers.plain_text_loader import load_text_file_as_lines
 
 @dataclass(slots=True)
 class RsyncLog:
+    """
+    Representation of information from rsync log.
+    """
+
     recieved: list[str] = field(default_factory=list)
     deleted: list[str] = field(default_factory=list)
 

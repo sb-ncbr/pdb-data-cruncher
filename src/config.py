@@ -4,7 +4,7 @@ from os import environ as env
 from dataclasses import dataclass, field
 from typing import Optional
 
-from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env, string_list_from_env
+from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env
 
 
 @dataclass(slots=True)
@@ -125,6 +125,9 @@ class FilepathConfig:
     )
     _ligand_occurrence_json_name: str = env.get("LIGAND_OCCURRENCE_JSON_NAME", "ligand_occurrence_in_structures.json")
     _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
+    _download_changed_ids_json_name: str = env.get(
+        "DOWNLOAD_CHANGED_IDS_JSON_NAME", "download_changed_ids_to_update.json"
+    )
 
     # output names used as input too
     _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
@@ -135,9 +138,6 @@ class FilepathConfig:
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
     _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
-
-    # TODO somehow include updated pdb mmcifs log file, ideally with previous version like logs
-    # TODO somehow include updated ligands log file
 
     @property
     def rest_jsons(self) -> str:
@@ -174,6 +174,10 @@ class FilepathConfig:
     @property
     def ligand_stats(self) -> str:
         return path.join(self.dataset_root_path, self._ligand_stats_name)
+
+    @property
+    def download_changed_ids_json(self) -> str:
+        return path.join(self.dataset_root_path, self._download_changed_ids_json_name)
 
     @property
     def familiar_name_translations_json(self) -> str:
@@ -215,7 +219,6 @@ class Config:
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
-    use_supplied_pdb_ids_instead: bool = bool_from_env("USE_SUPPLIED_PDB_IDS_INSTEAD", False)
     ids_to_remove_and_update_override_filepath: Optional[str] = env.get("IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)

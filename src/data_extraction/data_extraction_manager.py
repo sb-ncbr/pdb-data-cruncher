@@ -48,26 +48,34 @@ class DataExtractionManager:
 
     @staticmethod
     def update_ligand_stats(config: Config, ids_to_update_and_remove: IdsToUpdateAndRemove) -> None:
+        """
+        Update ligand stats file based on passed ligand ids to update (recalculate) and ligand ids to remove.
+        :param config: App configuration.
+        :param ids_to_update_and_remove: Contains ids to update and ids to remove.
+        """
         logging.info("Starting updating ligand stats csv.")
-        if config.force_complete_data_extraction:
-            original_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
-        else:
-            original_df = load_csv_as_dataframe(config.filepaths.ligand_stats)
-            original_df = original_df[~original_df["LigandID"].isin(ids_to_update_and_remove.ligands_to_delete)]
+        try:
+            if config.force_complete_data_extraction:
+                original_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
+            else:
+                original_df = load_csv_as_dataframe(config.filepaths.ligand_stats)
+                original_df = original_df[~original_df["LigandID"].isin(ids_to_update_and_remove.ligands_to_delete)]
 
-        new_ligand_stats = calculate_ligand_stats(config.filepaths.ligand_cifs, ids_to_update_and_remove)
-        if len(new_ligand_stats) > 0:
-            new_ligand_dfs_list = [pd.DataFrame([ligand_stats.as_dict()]) for ligand_stats in new_ligand_stats]
-            new_ligand_df = pd.concat(new_ligand_dfs_list, ignore_index=True)
-            new_ligand_df = pd.concat([original_df, new_ligand_df]).drop_duplicates(
-                subset=["LigandID"], keep="last"
-            )
-        else:
-            new_ligand_df = original_df
+            new_ligand_stats = calculate_ligand_stats(config.filepaths.ligand_cifs, ids_to_update_and_remove)
+            if len(new_ligand_stats) > 0:
+                new_ligand_dfs_list = [pd.DataFrame([ligand_stats.as_dict()]) for ligand_stats in new_ligand_stats]
+                new_ligand_df = pd.concat(new_ligand_dfs_list, ignore_index=True)
+                new_ligand_df = pd.concat([original_df, new_ligand_df]).drop_duplicates(
+                    subset=["LigandID"], keep="last"
+                )
+            else:
+                new_ligand_df = original_df
 
-        new_ligand_df = new_ligand_df.sort_values("LigandID", ignore_index=True)
-        save_dataframe_to_csv(new_ligand_df, config.filepaths.ligand_stats)
-        logging.info("Successfully updated ligand stats csv.")
+            new_ligand_df = new_ligand_df.sort_values("LigandID", ignore_index=True)
+            save_dataframe_to_csv(new_ligand_df, config.filepaths.ligand_stats)
+            logging.info("Updated ligand stats csv.")
+        except (OSError, ParsingError) as ex:
+            logging.error("Failed to update ligand stats: %s", ex)
 
     @staticmethod
     def load_and_parse_ligand_stats(config: Config) -> Optional[dict[str, LigandInfo]]:
@@ -295,7 +303,7 @@ def run_data_extraction(config: Config) -> bool:
         overall_success &= DataExtractionManager.update_ligand_occurrence_json(
             successful_protein_data, config
         )
-    if len(ids_to_update_and_remove.structures_to_delete):
+    if len(ids_to_update_and_remove.structures_to_delete) > 0:
         overall_success &= DataExtractionManager.remove_structures_from_ligand_occurrence_json(
             ids_to_update_and_remove.structures_to_delete, config
         )

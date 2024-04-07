@@ -88,7 +88,11 @@ def _parse_pdbx_unsafe(pdb_id: str, filepath: str) -> tuple[ProteinDataFromPDBx,
     """
     protein_data = ProteinDataFromPDBx(pdb_id=pdb_id)
     diagnostics = Diagnostics()
-    mmcif_dict = MMCIF2Dict(filepath)
+
+    try:
+        mmcif_dict = MMCIF2Dict(filepath)
+    except OSError as ex:
+        raise PDBxParsingError(f"Failed to load PDBx file: {ex}") from ex
 
     _check_pdb_id_from_mmcif(mmcif_dict, pdb_id)
     _extract_atom_and_ligand_counts(mmcif_dict, protein_data)
