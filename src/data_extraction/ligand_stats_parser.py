@@ -88,7 +88,7 @@ def calculate_ligand_stats(
             failed_ligand_ids.append(ligand_id)
 
     if failed_ligand_ids:
-        logging.warning("Failed to update for %s ligand ids: %s", len(failed_ligand_ids), failed_ligand_ids)
+        logging.warning("Failed to calculate update for %s ligand ids: %s", len(failed_ligand_ids), failed_ligand_ids)
 
     return ligand_stats
 
@@ -100,6 +100,7 @@ def _calculate_one_ligand_stats(path_to_ccd_files: str, ligand_id: str) -> Ligan
     :param ligand_id:
     :return: Ligand info instance loaded with ligand stats.
     """
+    logging.debug("[%s] Calculating ligand stats.", ligand_id)
     ligand_cif_path = os.path.join(path_to_ccd_files, f"{ligand_id}.cif")
     ligand_full_mol = ccd_reader.read_pdb_cif_file(ligand_cif_path).component.mol
 
