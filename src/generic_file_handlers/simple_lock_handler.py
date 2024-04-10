@@ -11,7 +11,6 @@ class LockType(Enum):
     """
 
     DATA_EXTRACTION = "data_extraction_lock.txt"
-    DATA_ARCHIVATION = "data_archivation_lock.txt"
 
 
 def create_simple_lock_file(lock_type: LockType, config: Config) -> None:
@@ -49,7 +48,7 @@ def check_no_lock_present_preventing_download(config: Config) -> None:
     :param config:
     :raises RuntimeError: If such lock actually exists.
     """
-    for lock in [LockType.DATA_EXTRACTION, LockType.DATA_ARCHIVATION]:
+    for lock in [LockType.DATA_EXTRACTION]:
         filepath = os.path.join(config.filepaths.logs_root_path, lock.value)
         if os.path.exists(filepath):
             raise RuntimeError(

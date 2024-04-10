@@ -1,40 +1,35 @@
 import logging
-from multiprocessing import Pool
+import subprocess
+from os import path
 
-from src.data_archivation.seven_zip_archive_creator import create_archive_of_folder
 from src.config import Config
-from src.generic_file_handlers.simple_lock_handler import release_simple_lock_file, LockType
+from src.exception import DataArchivationError
 
 
+# pylint: disable=too-few-public-methods
 class DataArchivationManger:
-    # TODO redo the functionality in incremental manner
+    """
+    Class aggregating methods for archive creation and handling.
+    """
 
     @staticmethod
-    def create_7z_data_files(config: Config) -> None:
+    def update_archive(archive_filepath: str, folder_to_archive_path: str) -> None:
         """
-        Create 7z archives from downloaded data.
-        :param config: App configuration.
+        Updates the archive via 7z commandline utility.
+        :param archive_filepath:
+        :param folder_to_archive_path:
         """
-        # TODO do only for changed files
-        logging.info("Starting creation of 7z archives.")
-
-        archive_creation_settings = [  # source folder and resulting archive name
-            (config.filepaths.pdb_mmcifs, "rawpdbe.7z"),
-            (config.filepaths.xml_reports, "rawvalidxml.7z"),
-            (config.filepaths.rest_jsons, "rawrest.7z"),
-            (config.filepaths.validator_db_results, "rawvdb.7z"),
-        ]
-
-        # spawns process for each 7z archive task
-        with Pool(config.max_process_count) as p:
-            p.starmap(
-                create_archive_of_folder, [
-                    (path_to_folder, config.filepaths.output_root_path, archive_name)
-                    for path_to_folder, archive_name
-                    in archive_creation_settings
-                ]
-            )
-        logging.info("Creation of 7z archives finished successfully.")
+        logging.info("Starting to update archive %s with data from %s.", archive_filepath, folder_to_archive_path)
+        # u => update the archive
+        # -uq0 => defines behaviour for files that exist in the archive but not in data to archive as: delete in archive
+        command = ["7z", "u", archive_filepath, "-uq0", folder_to_archive_path]
+        try:
+            subprocess.run(command, check=True)
+            logging.info("Successfully updated archive %s", archive_filepath)
+        except subprocess.CalledProcessError as ex:
+            raise DataArchivationError(
+                f"Failed to update archive '{archive_filepath}' with data from {folder_to_archive_path}: {ex}"
+            ) from ex
 
 
 def run_data_archivation(config: Config) -> bool:
@@ -43,6 +38,27 @@ def run_data_archivation(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
-    raise NotImplementedError()
-    # if success
-    release_simple_lock_file(LockType.DATA_ARCHIVATION, config)
+    logging.info("Running data archivation.")
+    data_to_archive = [  # source folder and resulting archive name
+        (config.filepaths.pdb_mmcifs, "rawpdbe.7z"),
+        (config.filepaths.xml_reports, "rawvalidxml.7z"),
+        (config.filepaths.rest_jsons, "rawrest.7z"),
+        (config.filepaths.validator_db_results, "rawvdb.7z"),
+        (config.filepaths.ligand_cifs, "rawccd.7z")
+    ]
+    failed_count = 0
+
+    for data_source_folder, final_archive_name in data_to_archive:
+        archive_path = path.join(config.filepaths.output_root_path, final_archive_name)
+        try:
+            DataArchivationManger.update_archive(archive_path, data_source_folder)
+        except DataArchivationError as ex:
+            logging.error(ex)
+            failed_count += 1
+
+    if failed_count > 0:
+        logging.error("%s folders failed to be archived.", failed_count)
+        return False
+
+    logging.info("Data archivation finished successfully.")
+    return True
