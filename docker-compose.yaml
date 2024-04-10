@@ -1,5 +1,0 @@
-services:
-  pdb-data-cruncher-tests:
-    build:
-      context: .
-      dockerfile: Dockerfile-tests
