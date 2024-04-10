@@ -222,7 +222,6 @@ class Config:
     ids_to_remove_and_update_override_filepath: Optional[str] = env.get("IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH")
     # 7zip data
     run_zipping_files_only: bool = bool_from_env("RUN_ZIPPING_FILES_ONLY", False)
-    force_7zip_integrity_check: bool = bool_from_env("FORCE_7ZIP_INTEGRITY_CHECK", False)
     # data transformation
     run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
     crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")

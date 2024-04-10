@@ -29,6 +29,12 @@ class DataTransformationError(Exception):
     """
 
 
+class DataArchivationError(Exception):
+    """
+    Exception raised when data archivation encounteres issue.
+    """
+
+
 class FileWritingError(Exception):
     """
     Exception raised when encountering error while trying to write content into file.

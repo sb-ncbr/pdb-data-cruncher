@@ -13,4 +13,3 @@ def run_data_download(config: Config) -> bool:
     check_no_lock_present_preventing_download(config)
     raise NotImplementedError()   # TODO
     create_simple_lock_file(LockType.DATA_EXTRACTION, config)
-    create_simple_lock_file(LockType.DATA_ARCHIVATION, config)
