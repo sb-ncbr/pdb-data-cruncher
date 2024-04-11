@@ -40,9 +40,11 @@ def create_csv_crunched_data(protein_data_df: pd.DataFrame, output_files_folder:
     filepath_version_one = path.join(output_files_folder, f"{current_date_prefix}_crunched.csv")
     filepath_version_two = path.join(output_files_folder, "data.csv")
     try:
+        logging.info("Starting saving data into '%s'.", filepath_version_one)
         protein_data_df.to_csv(
             filepath_version_one, index=False, sep=";", encoding="utf8", na_rep=CSV_INVALID_VALUE_STRING
         )
+        logging.info("Starting saving data into '%s'.", filepath_version_one)
         protein_data_df.to_csv(
             filepath_version_two, index=False, sep=";", encoding="utf8", na_rep=CSV_INVALID_VALUE_STRING
         )
@@ -58,9 +60,10 @@ def create_xlsx_crunched_data(protein_data_df: pd.DataFrame, output_files_folder
     :param output_files_folder: Folder into which to save it.
     """
     filepath = path.join(output_files_folder, "data.xlsx")
+    logging.info("Starting saving crunched data into '%s'.", filepath)
     try:
         protein_data_df.to_excel(filepath, index=False, na_rep=CSV_INVALID_VALUE_STRING)
-        logging.info("Successfully saved crunched datat into '%s'.", filepath)
+        logging.info("Successfully saved crunched data into '%s'.", filepath)
     except OSError as ex:
         logging.error("Failed to save to file: %s", ex)
 

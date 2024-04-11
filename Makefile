@@ -20,6 +20,10 @@ docker-tests:
 	docker-compose -f tests/docker-compose.yaml build
 	docker-compose -f tests/docker-compose.yaml up
 
+docker:
+	docker-compose build
+	docker-compose up --force-recreate --remove-orphans
+
 pytest:
 	poetry run pytest -k "not integration"
 

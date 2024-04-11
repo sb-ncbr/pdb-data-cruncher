@@ -7,8 +7,9 @@ COPY poetry.lock .
 COPY pyproject.toml .
 COPY readme.md .
 COPY src src
-COPY tests tests
 
+RUN apt update && apt install -y p7zip-full
 RUN pip install poetry
 RUN poetry install
-CMD ["make", "pytest"]
+CMD ["poetry", "run", "python3", "src/main.py"]
+#CMD tail -f /dev/null

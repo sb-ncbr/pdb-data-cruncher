@@ -64,8 +64,8 @@ CSV_OUTPUT_ATTRIBUTE_NAMES = {
     "absolute_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_PERCENTILE,
     "relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE,
     "num_pdb_ids_relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE_COUNT,
-    "high_resol_relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE_MAX_RESOLUTION,
-    "low_resol_relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE_MIN_RESOLUTION,
+    "high_resol_relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE_MAX_RESOLUTION,  # noqa
+    "low_resol_relative_percentile_percent_rota_outliers": FactorType.SIDECHAIN_OUTLIERS_RELATIVE_PERCENTILE_MIN_RESOLUTION,  # noqa
     "structure_weight_kda": FactorType.STRUCTURE_WEIGHT,
     "ligand_quality_missing_atoms_and_rings": FactorType.TOPOLOGY_PROBLEM_LIGAND_RATIO,
     "water_weight_da": FactorType.WATER_WEIGHT,

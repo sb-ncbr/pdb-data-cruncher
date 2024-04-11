@@ -1,0 +1,12 @@
+services:
+  pdb-data-cruncher:
+    build:
+      context: .
+    environment:
+      # Custom environment values can be set here to configure the app run
+      LOGGING_DEBUG: "False"
+    volumes:
+      # These three folders need to be mounted for the app to work
+      - ../logs:/app/logs
+      - ../raw_dataset:/app/dataset
+      - ../output:/app/output

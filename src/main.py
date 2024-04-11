@@ -81,8 +81,9 @@ def run_app_full_flow(config):
     fails, the rest is not done. The app exits with error code after any of the parts failure.
     :param config:
     """
-    if not run_data_download(config):
-        sys.exit("Cannot continue because data download failed.")
+    if not config.skip_data_download:
+        if not run_data_download(config):
+            sys.exit("Cannot continue because data download failed.")
     archivation_success = run_data_archivation(config)
     if not run_data_extraction(config):
         sys.exit("Cannot continue because data extraction failed.")

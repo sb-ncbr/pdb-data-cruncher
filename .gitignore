@@ -5,9 +5,5 @@ __pycache__
 temp/
 .coverage
 
-# ignore everything in test data other than limited test set due to the
-# size of additional data
-tests/test_data/extended
-
 # TODO remove in final version
 local_testing_scripts/
