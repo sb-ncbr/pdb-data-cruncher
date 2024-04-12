@@ -78,7 +78,7 @@ def run_app(config: Config) -> None:
 def run_app_full_flow(config):
     """
     Run the full run of the app (download -> archiving -> extraction -> transformation). If download or extraction
-    fails, the rest is not done. The app exits with error code after any of the parts failure.
+    fails, the rest is not run. The app exits with error code after any of the parts failure.
     :param config:
     """
     if not config.skip_data_download:

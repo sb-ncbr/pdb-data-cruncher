@@ -264,7 +264,8 @@ class DataExtractionManager:
         protein_data_df = protein_data_df.sort_values(FactorType.PDB_ID.value, ignore_index=True)
         # save into files
         create_csv_crunched_data(protein_data_df, config.filepaths.output_root_path, config.current_formatted_date)
-        create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
+        # TODO uncomment this - commented only for smoother testing
+        # create_xlsx_crunched_data(protein_data_df, config.filepaths.output_root_path)
         return True
 
 

@@ -59,12 +59,7 @@ def _load_ids_to_update_and_remove_from_json(json_filepath: str) -> IdsToUpdateA
         raise ParsingError(f"Failed to load ids to update and remove. Data extraction cannot proceed. {ex}") from ex
 
     try:
-        return IdsToUpdateAndRemove(
-            structures_to_update=ids_json["structuresToUpdate"],
-            structures_to_delete=ids_json["structuresToDelete"],
-            ligands_to_update=ids_json["ligandsToUpdate"],
-            ligands_to_delete=ids_json["ligandsToDelete"],
-        )
+        return IdsToUpdateAndRemove.from_dict(ids_json)
     except ValueError as ex:
         raise ParsingError(f"Failed to load json with ids to update and remove: No item {ex}") from ex
 

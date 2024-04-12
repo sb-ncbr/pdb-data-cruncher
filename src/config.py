@@ -128,6 +128,9 @@ class FilepathConfig:
     _download_changed_ids_json_name: str = env.get(
         "DOWNLOAD_CHANGED_IDS_JSON_NAME", "download_changed_ids_to_update.json"
     )
+    _download_failed_ids_to_retry_json_name: str = env.get(
+        "DOWNLOAD_FAILED_IDS_TO_RETRY_JSON_NAME", "download_failed_ids_to_retry.json"
+    )
 
     # output names used as input too
     _familiar_name_translations_json_name: str = env.get("FAMILIAR_NAME_TRANSLATIONS_NAME", "nametranslation.json")
@@ -180,6 +183,10 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._download_changed_ids_json_name)
 
     @property
+    def download_failed_ids_to_retry_json(self) -> str:
+        return path.join(self.dataset_root_path, self._download_failed_ids_to_retry_json_name)
+
+    @property
     def familiar_name_translations_json(self) -> str:
         return path.join(self.output_root_path, self._familiar_name_translations_json_name)
 
@@ -202,6 +209,15 @@ class FilepathConfig:
     @property
     def filtered_log(self) -> str:
         return path.join(self.logs_root_path, self._filtered_log_name)
+
+
+@dataclass(slots=True)
+class DownloadTimeoutConfig:
+    """
+    Configuration for download timeouts.
+    """
+
+    rest_timeout_s: int = env.get("DOWNLOAD_REST_TIMEOUT_S", 100)
 
 
 @dataclass(slots=True)
@@ -231,6 +247,7 @@ class Config:
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
     filepaths: FilepathConfig = FilepathConfig()
+    timeouts: DownloadTimeoutConfig = DownloadTimeoutConfig()
 
     def is_full_run(self) -> bool:
         return (

@@ -24,3 +24,27 @@ class IdsToUpdateAndRemove:
         for item in self.ligands_to_update:
             if item in self.ligands_to_delete:
                 raise ValueError(f"Ligand {item} was present in both list to update and list to delete.")
+
+    def to_dict(self) -> dict[str, list[str]]:
+        """
+        Return dictionary representation for storing as a json.
+        """
+        return {
+            "structuresToUpdate": self.structures_to_update,
+            "structuresToDelete": self.structures_to_delete,
+            "ligandsToUpdate": self.ligands_to_update,
+            "ligandsToDelete": self.ligands_to_delete,
+        }
+
+    @staticmethod
+    def from_dict(ids_json) -> 'IdsToUpdateAndRemove':
+        """
+        Create instance from loaded json.
+        :param ids_json:
+        """
+        return IdsToUpdateAndRemove(
+            structures_to_update=ids_json["structuresToUpdate"],
+            structures_to_delete=ids_json["structuresToDelete"],
+            ligands_to_update=ids_json["ligandsToUpdate"],
+            ligands_to_delete=ids_json["ligandsToDelete"],
+        )
