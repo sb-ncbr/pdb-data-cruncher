@@ -40,6 +40,7 @@ class DownloadManager:
         ids_to_download: list[str],
         failed_ids_json: dict,
         rest_data_type: RestDataType,
+        failed_ids_source_type: FailedIdsSourceType,
     ) -> None:
         """
         Download rest files for one type (summary, molecules, assembly, publications or related publications).
@@ -50,33 +51,18 @@ class DownloadManager:
         :param ids_to_download:
         :param failed_ids_json:
         :param rest_data_type:
+        :param failed_ids_source_type:
         """
-        if rest_data_type == RestDataType.SUMMARY:
-            failed_ids_source_type = FailedIdsSourceType.REST_SUMMARY
-        elif rest_data_type == RestDataType.MOLECULES:
-            failed_ids_source_type = FailedIdsSourceType.REST_MOLECULES
-        elif rest_data_type == RestDataType.ASSEMBLY:
-            failed_ids_source_type = FailedIdsSourceType.REST_ASSEMBLY
-        elif rest_data_type == RestDataType.PUBLICATIONS:
-            failed_ids_source_type = FailedIdsSourceType.REST_PUBLICATIONS
-        elif rest_data_type == RestDataType.RELATED_PUBLICATIONS:
-            failed_ids_source_type = FailedIdsSourceType.REST_RELATED_PUBLICATIONS
+        if rest_data_type == RestDataType.VALIDATOR_DB:
+            root_json_folder = config.filepaths.validator_db_results
         else:
-            logging.critical(
-                "Failed to translate rest data type %s to failed ids source type. The whole rest method is ignored "
-                "and the ids to update will never be updated, unless manually added to failed ids json to rerun next "
-                "time! Ids for rest method %s that were ignored: %s. (Also, see in code - this should not happen.)",
-                rest_data_type.value,
-                rest_data_type.value,
-                ids_to_download,
-            )
-            return
+            root_json_folder = config.filepaths.rest_jsons
 
         ids_to_retry = get_failing_ids(failed_ids_json, failed_ids_source_type)
         failed_ids = download_one_type_rest_files(
-            ids_to_download + ids_to_retry,
+            set(ids_to_download + ids_to_retry),
             rest_data_type,
-            config.filepaths.rest_jsons,
+            root_json_folder,
             config.timeouts.rest_timeout_s,
         )
         update_failing_ids(failed_ids_json, failed_ids_source_type, failed_ids)
@@ -93,11 +79,25 @@ class DownloadManager:
         :param failed_ids_json:
         """
         logging.info("Starting downloading rest files.")
-        DownloadManager.download_one_rest(config, structure_ids, failed_ids_json, RestDataType.SUMMARY)
-        DownloadManager.download_one_rest(config, structure_ids, failed_ids_json, RestDataType.MOLECULES)
-        DownloadManager.download_one_rest(config, structure_ids, failed_ids_json, RestDataType.ASSEMBLY)
-        DownloadManager.download_one_rest(config, structure_ids, failed_ids_json, RestDataType.PUBLICATIONS)
-        DownloadManager.download_one_rest(config, structure_ids, failed_ids_json, RestDataType.RELATED_PUBLICATIONS)
+        DownloadManager.download_one_rest(
+            config, structure_ids, failed_ids_json, RestDataType.SUMMARY, FailedIdsSourceType.REST_SUMMARY
+        )
+        DownloadManager.download_one_rest(
+            config, structure_ids, failed_ids_json, RestDataType.MOLECULES, FailedIdsSourceType.REST_MOLECULES
+        )
+        DownloadManager.download_one_rest(
+            config, structure_ids, failed_ids_json, RestDataType.ASSEMBLY, FailedIdsSourceType.REST_ASSEMBLY
+        )
+        DownloadManager.download_one_rest(
+            config, structure_ids, failed_ids_json, RestDataType.PUBLICATIONS, FailedIdsSourceType.REST_PUBLICATIONS
+        )
+        DownloadManager.download_one_rest(
+            config,
+            structure_ids,
+            failed_ids_json,
+            RestDataType.RELATED_PUBLICATIONS,
+            FailedIdsSourceType.REST_RELATED_PUBLICATIONS
+        )
         logging.info("Finished downloading rest files.")
 
     @staticmethod
@@ -107,8 +107,18 @@ class DownloadManager:
 
     @staticmethod
     def download_validator_db_reports(config: Config, structure_ids: list[str], failed_ids_json: dict) -> None:
-        ids_to_retry = get_failing_ids(failed_ids_json, FailedIdsSourceType.VALIDATOR_DB_REPORT)
-        logging.info("TODO this will download validator db reports for %s", structure_ids)  # TODO
+        """
+        Download validator db reports. Include failed ids from previous runs, and add newly failed ids to the
+        failed ids json.
+        :param config:
+        :param structure_ids:
+        :param failed_ids_json:
+        """
+        logging.info("Starting downloading validator db reports.")
+        DownloadManager.download_one_rest(
+            config, structure_ids, failed_ids_json, RestDataType.VALIDATOR_DB, FailedIdsSourceType.VALIDATOR_DB_REPORT
+        )
+        logging.info("Finished downloading validator db reports.")
 
     @staticmethod
     def download_non_mmcif_files(config: Config, structure_ids: list[str]) -> None:

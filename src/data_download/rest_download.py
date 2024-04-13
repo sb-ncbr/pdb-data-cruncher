@@ -1,6 +1,6 @@
 import logging
+import os
 from enum import Enum
-from os import path
 from typing import Any
 
 import requests
@@ -20,10 +20,11 @@ class RestDataType(Enum):
     ASSEMBLY = "assembly"
     PUBLICATIONS = "publications"
     RELATED_PUBLICATIONS = "related_publications"
+    VALIDATOR_DB = "validatorDB"
 
 
 def download_one_type_rest_files(
-    ids_to_download: list[str], rest_type: RestDataType, output_folder_path: str, single_request_timeout_s: int
+    ids_to_download: set[str], rest_type: RestDataType, output_folder_path: str, single_request_timeout_s: int
 ) -> list[str]:
     """
     Download rest files for given rest type and given list of ids. Store them as jsons in given folder.
@@ -43,8 +44,7 @@ def download_one_type_rest_files(
     for structure_id in ids_to_download:
         try:
             rest_json = _download_one_type_rest_file(structure_id, rest_type, single_request_timeout_s)
-            rest_filepath = path.join(output_folder_path, rest_type.value, f"{structure_id}.json")
-            write_json_file(rest_filepath, rest_json)
+            _save_rest_json(rest_json, output_folder_path, rest_type, structure_id)
         except (DataDownloadError, FileWritingError) as ex:
             logging.warning("Failed to download %s rest json for %s. Reason: %s.", rest_type.value, structure_id, ex)
             failed_ids.append(structure_id)
@@ -71,7 +71,31 @@ def _download_one_type_rest_file(structure_id: str, rest_type: RestDataType, sin
     return _get_response_json(address, single_request_timeout_s)
 
 
+def _save_rest_json(rest_json: Any, output_folder_path: str, rest_type: RestDataType, structure_id: str) -> None:
+    if rest_type == RestDataType.VALIDATOR_DB:
+        _save_validator_db_json(rest_json, output_folder_path, structure_id)
+    else:
+        _save_pdbe_rest_json(rest_json, output_folder_path, rest_type, structure_id)
+
+
+def _save_validator_db_json(rest_json: Any, output_folder_path: str, structure_id: str) -> None:
+    directory_path = os.path.join(output_folder_path, structure_id)
+    filepath = os.path.join(directory_path, "result.json")
+
+    if not os.path.exists(directory_path):
+        os.mkdir(directory_path)
+
+    write_json_file(filepath, rest_json)
+
+
+def _save_pdbe_rest_json(rest_json: Any, output_folder_path: str, rest_type: RestDataType, structure_id: str) -> None:
+    filepath = os.path.join(output_folder_path, rest_type.value, f"{structure_id}.json")
+    write_json_file(filepath, rest_json)
+
+
 def _get_rest_data_address(structure_id: str, rest_data_type: RestDataType) -> str:
+    if rest_data_type == RestDataType.VALIDATOR_DB:
+        return f"https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Data/{structure_id}?source=ByStructure"
     return f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/{rest_data_type.value}/{structure_id}"
 
 
