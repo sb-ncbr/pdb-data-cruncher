@@ -109,9 +109,9 @@ class FilepathConfig:
     Configuration
     """
 
-    dataset_root_path: str = env.get("DATASET_ROOT_PATH", path.join("app", "dataset"))
-    output_root_path: str = env.get("OUTPUT_ROOT_PATH", path.join("app", "output"))
-    logs_root_path: str = env.get("LOGS_ROOT_PATH", path.join("app", "logs"))
+    dataset_root_path: str = env.get("DATASET_ROOT_PATH", "./dataset")
+    output_root_path: str = env.get("OUTPUT_ROOT_PATH", "./output")
+    logs_root_path: str = env.get("LOGS_ROOT_PATH", "./logs")
 
     # source of data
     _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
@@ -216,6 +216,7 @@ class Config:
 
     # data download
     run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
+    skip_data_download: bool = bool_from_env("SKIP_DATA_DOWNLOAD", False)
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
     force_complete_data_extraction: bool = bool_from_env("FORCE_COMPLETE_DATA_EXTRACTION", False)
@@ -259,6 +260,9 @@ class Config:
                 "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
                 "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
             )
+
+        if self.run_data_download_only and self.skip_data_download:
+            raise ValueError("Cannot have RUN_DATA_DONWLOAD_ONLY and SKIP_DATA_DOWNLOAD selected at the same time.")
 
         # transformation settings are valid
         self.factor_hierarchy_settings.validate()

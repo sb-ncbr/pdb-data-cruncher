@@ -23,12 +23,14 @@ class DataArchivationManger:
         # u => update the archive
         # -uq0 => defines behaviour for files that exist in the archive but not in data to archive as: delete in archive
         command = ["7z", "u", archive_filepath, "-uq0", folder_to_archive_path]
+        logging.debug("Running command: %s", " ".join(command))
         try:
-            subprocess.run(command, check=True)
+            subprocess.run(command, check=True, capture_output=True)
             logging.info("Successfully updated archive %s", archive_filepath)
         except subprocess.CalledProcessError as ex:
+            logging.error("\n%s\n", ex.stderr.decode("utf8").strip())
             raise DataArchivationError(
-                f"Failed to update archive '{archive_filepath}' with data from {folder_to_archive_path}: {ex}"
+                f"Failed to update '{archive_filepath}' with data from {folder_to_archive_path}: {ex}"
             ) from ex
 
 

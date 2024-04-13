@@ -17,8 +17,12 @@ flake8:
 	poetry run flake8 src
 
 docker-tests:
-	docker-compose build pdb-data-cruncher-tests
-	docker-compose up
+	docker-compose -f tests/docker-compose.yaml build
+	docker-compose -f tests/docker-compose.yaml up
+
+docker:
+	docker-compose build
+	docker-compose up --force-recreate --remove-orphans
 
 pytest:
 	poetry run pytest -k "not integration"
