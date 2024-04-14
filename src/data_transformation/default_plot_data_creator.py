@@ -68,7 +68,7 @@ def create_default_plot_data(
                 factor_pair, factor_pair_crunched_df, x_bucket_intervals, familiar_names_translation
             )
             default_plot_data.append(single_plot_data)
-        except (KeyError, ValueError) as ex:
+        except (KeyError, ValueError, IndexError) as ex:
             logging.warning(
                 "[%s+%s] failed to create default data. %s: %s",
                 factor_pair.x.value,

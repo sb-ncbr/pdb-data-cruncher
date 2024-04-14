@@ -51,26 +51,6 @@ def to_int(value_to_convert: Any, default: Optional[int] = None) -> Optional[int
             return default
 
 
-def to_bool(value_to_convert: Any, default: Optional[bool] = None) -> Optional[bool]:
-    """
-    Safe way to convert to bool. If the conversion fails due to ValueError or TypeError, returns default value
-    instead. Takes string case insensitively, off/on and 0/1.
-    :param value_to_convert: String to be converted to bool.
-    :param default: Value to return when conversion fails (None by default).
-    :return: Converted bool, or default value.
-    """
-    if value_to_convert is None:
-        return default
-    if isinstance(value_to_convert, bool):
-        return value_to_convert
-
-    if value_to_convert in ["true", "TRUE", "True", "on", "1", 1]:
-        return True
-    if value_to_convert in ["false", "FALSE", "False", "off", "0", 0]:
-        return False
-    return default
-
-
 def int_from_env(env_variable_name: str, default_value: Optional[int] = None) -> Optional[int]:
     """
     Attempts to get value from environment variable, and converts it to int.
@@ -286,14 +266,13 @@ def find_matching_subfolders(folder_path: str, string_to_match: str) -> list[str
     return [filename for filename in all_filenames if string_to_match in filename]
 
 
-def lists_have_crossover(list_a: list, list_b: list) -> bool:
+def ensure_folder_exists(folder_path: str, alert_if_does_not_exist: bool = False) -> None:
     """
-    Find out if any item from list A can be found in list B.
-    :param list_a:
-    :param list_b:
-    :return: True if at least one item is in both.
+    Checks given folder exists, creates it if not (and every parent dir that does not exist).
+    :param folder_path:
+    :param alert_if_does_not_exist: If True, logs a warning that such action happened. Default False.
     """
-    for item in list_a:
-        if item in list_b:
-            return True
-    return False
+    if not os.path.exists(folder_path):
+        if alert_if_does_not_exist:
+            logging.warning("Folder %s did not exist. Creating it.", folder_path)
+        os.makedirs(folder_path)

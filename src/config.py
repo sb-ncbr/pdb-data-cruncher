@@ -218,6 +218,7 @@ class DownloadTimeoutConfig:
     """
 
     rest_timeout_s: int = env.get("DOWNLOAD_REST_TIMEOUT_S", 100)
+    ligand_cifs_timeout_s: int = env.get("DOWNLOAD_LIGAND_CIFS_TIMEOUT_S", 30*60)
 
 
 @dataclass(slots=True)

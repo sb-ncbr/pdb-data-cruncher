@@ -44,6 +44,8 @@ def download_one_type_rest_files(
     for structure_id in ids_to_download:
         try:
             rest_json = _download_one_type_rest_file(structure_id, rest_type, single_request_timeout_s)
+            if rest_type == RestDataType.VALIDATOR_DB:
+                _check_vdb_data_downloaded(rest_json)
             _save_rest_json(rest_json, output_folder_path, rest_type, structure_id)
         except (DataDownloadError, FileWritingError) as ex:
             logging.warning("Failed to download %s rest json for %s. Reason: %s.", rest_type.value, structure_id, ex)
@@ -66,12 +68,36 @@ def download_one_type_rest_files(
 
 
 def _download_one_type_rest_file(structure_id: str, rest_type: RestDataType, single_request_timeout_s: int) -> Any:
+    """
+    Download one file from rest api for given rest type. The address is assembled based on the rest type.
+    :param structure_id:
+    :param rest_type:
+    :param single_request_timeout_s:
+    :return:
+    """
     address = _get_rest_data_address(structure_id, rest_type)
     logging.debug("Downloading %s rest json for id %s from %s", rest_type.value, structure_id, address)
     return _get_response_json(address, single_request_timeout_s)
 
 
+def _check_vdb_data_downloaded(rest_json: dict) -> None:
+    """
+    Check if the response contains actual validator db report. If it is empty, raise DataDownloadError.
+    :param rest_json:
+    :raises DataDownloadError: If the response has no version, which happens when there is no report ready yet.
+    """
+    if rest_json.get("Version") in [None, "n/a"]:
+        raise DataDownloadError("Validator DB has no data for this structure.")
+
+
 def _save_rest_json(rest_json: Any, output_folder_path: str, rest_type: RestDataType, structure_id: str) -> None:
+    """
+    Save given rest response into file. The location depends on the rest type given.
+    :param rest_json:
+    :param output_folder_path:
+    :param rest_type:
+    :param structure_id:
+    """
     if rest_type == RestDataType.VALIDATOR_DB:
         _save_validator_db_json(rest_json, output_folder_path, structure_id)
     else:
@@ -79,6 +105,12 @@ def _save_rest_json(rest_json: Any, output_folder_path: str, rest_type: RestData
 
 
 def _save_validator_db_json(rest_json: Any, output_folder_path: str, structure_id: str) -> None:
+    """
+    Save given validator db response into a file.
+    :param rest_json:
+    :param output_folder_path:
+    :param structure_id:
+    """
     directory_path = os.path.join(output_folder_path, structure_id)
     filepath = os.path.join(directory_path, "result.json")
 
@@ -89,11 +121,25 @@ def _save_validator_db_json(rest_json: Any, output_folder_path: str, structure_i
 
 
 def _save_pdbe_rest_json(rest_json: Any, output_folder_path: str, rest_type: RestDataType, structure_id: str) -> None:
+    """
+    Save rest json into file, for rest_type that corresponds with pdbe data source
+    (assembly, summary, molecules, (related) publications).
+    :param rest_json:
+    :param output_folder_path:
+    :param rest_type:
+    :param structure_id:
+    """
     filepath = os.path.join(output_folder_path, rest_type.value, f"{structure_id}.json")
     write_json_file(filepath, rest_json)
 
 
 def _get_rest_data_address(structure_id: str, rest_data_type: RestDataType) -> str:
+    """
+    Assemble address for given structure id, respecting the different rest data type given.
+    :param structure_id:
+    :param rest_data_type:
+    :return: Address of data as string.
+    """
     if rest_data_type == RestDataType.VALIDATOR_DB:
         return f"https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Data/{structure_id}?source=ByStructure"
     return f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/{rest_data_type.value}/{structure_id}"

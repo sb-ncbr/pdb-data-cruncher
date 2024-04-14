@@ -1,4 +1,5 @@
 import logging
+import os
 from dataclasses import dataclass, field
 
 from src.config import Config
@@ -11,6 +12,7 @@ from src.generic_file_handlers.simple_lock_handler import (
     check_no_lock_present_preventing_download, create_simple_lock_file, LockType
 )
 from src.models.ids_to_update import IdsToUpdateAndRemove
+from src.utils import ensure_folder_exists
 
 
 @dataclass
@@ -20,6 +22,16 @@ class ChangedIds:
 
 
 class DownloadManager:
+    @staticmethod
+    def ensure_download_target_folders_exist(config: Config) -> None:
+        ensure_folder_exists(config.filepaths.rest_jsons, True)
+        for pdb_rest_type in ["assembly", "summary", "molecules", "publications", "related_publications"]:
+            ensure_folder_exists(os.path.join(config.filepaths.rest_jsons, pdb_rest_type), True)
+        ensure_folder_exists(config.filepaths.validator_db_results, True)
+        ensure_folder_exists(config.filepaths.pdb_mmcifs, True)
+        ensure_folder_exists(config.filepaths.ligand_cifs, True)
+        ensure_folder_exists(config.filepaths.xml_reports, True)
+
     @staticmethod
     def sync_pdbe_mmcif_via_rsync(config: Config) -> ChangedIds:
         logging.info("Starting sync of pdbe mmcif files via rsync.")
@@ -194,7 +206,7 @@ def run_data_download(config: Config) -> bool:
     :return: True if action succeeded. False otherwise.
     """
     check_no_lock_present_preventing_download(config)
-
+    DownloadManager.ensure_download_target_folders_exist(config)
     overall_success = True  # TODO some other may need this, flow not done
 
     changed_structure_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
