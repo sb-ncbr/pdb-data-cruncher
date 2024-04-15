@@ -3,8 +3,7 @@ import os
 from enum import Enum
 from typing import Any
 
-import requests
-
+from src.data_download.http_request_handler import get_response_json
 from src.exception import DataDownloadError, FileWritingError
 from src.generic_file_handlers.json_file_writer import write_json_file
 
@@ -77,7 +76,7 @@ def _download_one_type_rest_file(structure_id: str, rest_type: RestDataType, sin
     """
     address = _get_rest_data_address(structure_id, rest_type)
     logging.debug("Downloading %s rest json for id %s from %s", rest_type.value, structure_id, address)
-    return _get_response_json(address, single_request_timeout_s)
+    return get_response_json(address, single_request_timeout_s)
 
 
 def _check_vdb_data_downloaded(rest_json: dict) -> None:
@@ -143,22 +142,3 @@ def _get_rest_data_address(structure_id: str, rest_data_type: RestDataType) -> s
     if rest_data_type == RestDataType.VALIDATOR_DB:
         return f"https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Data/{structure_id}?source=ByStructure"
     return f"https://www.ebi.ac.uk/pdbe/api/pdb/entry/{rest_data_type.value}/{structure_id}"
-
-
-def _get_response_json(address: str, get_timeout_s: int) -> dict:
-    """
-    Make a request to given address, check status code and return json in response.
-    :param address: Full endpoint address.
-    :param get_timeout_s: Timeout for GET request in seconds.
-    :return: Response as json.
-    :raises DataDownloadError: If the response isn't status code 200 or if the content isn't json.
-    """
-    try:
-        response = requests.get(address, timeout=get_timeout_s)
-        if response.status_code != 200:
-            raise DataDownloadError(
-                f"GET {address} failed with status code {response.status_code}, content '{response.content}'."
-            )
-        return response.json()
-    except requests.exceptions.RequestException as ex:
-        raise DataDownloadError(f"GET {address} failed.") from ex

@@ -1,4 +1,5 @@
 import decimal
+import hashlib
 import logging
 import math
 import os
@@ -276,3 +277,40 @@ def ensure_folder_exists(folder_path: str, alert_if_does_not_exist: bool = False
         if alert_if_does_not_exist:
             logging.warning("Folder %s did not exist. Creating it.", folder_path)
         os.makedirs(folder_path)
+
+
+def file_hash(file_path: str, block_size: int = 65536) -> str:
+    """
+    Calculate the hash of a file.
+    :param file_path:
+    :param block_size:
+    :return: String hash.
+    """
+    hasher = hashlib.sha256()
+    with open(file_path, 'rb') as f:
+        for block in iter(lambda: f.read(block_size), b''):
+            hasher.update(block)
+    return hasher.hexdigest()
+
+
+def string_hash(content: str) -> str:
+    """
+    Calculate the hash of a string.
+    :param content: String to hash.
+    :return: String hash.
+    """
+    hasher = hashlib.sha256()
+    hasher.update(content.encode('utf-8'))
+    return hasher.hexdigest()
+
+
+def compare_file_and_string(file_path: str, string: str) -> bool:
+    """
+    Compare the hash of a file and a string.
+    :param file_path:
+    :param string:
+    :return: True if same, False if not.
+    """
+    file_hash_value = file_hash(file_path)
+    string_hash_value = string_hash(string)
+    return file_hash_value == string_hash_value

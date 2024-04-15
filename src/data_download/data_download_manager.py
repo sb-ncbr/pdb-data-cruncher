@@ -1,24 +1,18 @@
 import logging
 import os
-from dataclasses import dataclass, field
 
 from src.config import Config
 from src.data_download.failing_ids_handler import get_failing_ids, update_failing_ids, FailedIdsSourceType
-from src.exception import FileWritingError, ParsingError
+from src.exception import FileWritingError, ParsingError, DataDownloadError
 from src.data_download.rest_download import RestDataType, download_one_type_rest_files
+from src.data_download.ligand_ccd_handler import download_and_find_changed_ligand_cifs
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
 from src.generic_file_handlers.simple_lock_handler import (
-    check_no_lock_present_preventing_download, create_simple_lock_file, LockType
+    check_no_lock_present_preventing_download
 )
-from src.models.ids_to_update import IdsToUpdateAndRemove
+from src.models.ids_to_update import IdsToUpdateAndRemove, ChangedIds
 from src.utils import ensure_folder_exists
-
-
-@dataclass
-class ChangedIds:
-    updated: list[str] = field(default_factory=list)
-    deleted: list[str] = field(default_factory=list)
 
 
 class DownloadManager:
@@ -42,9 +36,18 @@ class DownloadManager:
     @staticmethod
     def update_ligand_cifs(config: Config) -> ChangedIds:
         logging.info("Starting updating of ligand (ccd) cif files.")
-        # TODO
-        logging.info("Updating of ligand (ccd) cif files finished successfully.")
-        return ChangedIds()
+        try:
+            changed_ids = download_and_find_changed_ligand_cifs(
+                config.filepaths.ligand_cifs, config.timeouts.ligand_cifs_timeout_s
+            )
+            logging.info("Updating of ligand (ccd) cif files finished successfully.")
+            return changed_ids
+        except DataDownloadError as ex:
+            logging.error("Failed to update ligand (ccd) cif files. %s", ex)
+            return ChangedIds()
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            logging.error("Unexpected error. Failed to update ligand (ccd) cif files. %s", ex)
+            return ChangedIds()
 
     @staticmethod
     def download_one_rest(
@@ -210,12 +213,7 @@ def run_data_download(config: Config) -> bool:
     overall_success = True  # TODO some other may need this, flow not done
 
     changed_structure_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
-    changed_ligand_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
-
-    # TODO remove this
-    changed_structure_ids = ChangedIds(
-        updated=["1dey", "3rec", "8ucv"]
-    )
+    changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
 
     overall_success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
     # TODO uncomment the lock file -> removed just for testing

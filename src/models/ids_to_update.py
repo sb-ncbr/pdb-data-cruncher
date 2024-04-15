@@ -48,3 +48,13 @@ class IdsToUpdateAndRemove:
             ligands_to_update=ids_json["ligandsToUpdate"],
             ligands_to_delete=ids_json["ligandsToDelete"],
         )
+
+
+@dataclass
+class ChangedIds:
+    """
+    Class holding lists of updated and deleted ids.
+    """
+
+    updated: list[str] = field(default_factory=list)
+    deleted: list[str] = field(default_factory=list)
