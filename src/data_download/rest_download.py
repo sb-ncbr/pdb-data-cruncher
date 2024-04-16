@@ -47,7 +47,7 @@ def download_one_type_rest_files(
                 _check_vdb_data_downloaded(rest_json)
             _save_rest_json(rest_json, output_folder_path, rest_type, structure_id)
         except (DataDownloadError, FileWritingError) as ex:
-            logging.warning("Failed to download %s rest json for %s. Reason: %s.", rest_type.value, structure_id, ex)
+            logging.info("Failed to download %s rest json for %s. Reason: %s.", rest_type.value, structure_id, ex)
             failed_ids.append(structure_id)
         except Exception as ex:  # pylint: disable=broad-exception-caught
             logging.error(
@@ -76,7 +76,7 @@ def _download_one_type_rest_file(structure_id: str, rest_type: RestDataType, sin
     """
     address = _get_rest_data_address(structure_id, rest_type)
     logging.debug("Downloading %s rest json for id %s from %s", rest_type.value, structure_id, address)
-    return get_response_json(address, single_request_timeout_s)
+    return get_response_json(address, get_timeout_s=single_request_timeout_s, retry_attempts=2)
 
 
 def _check_vdb_data_downloaded(rest_json: dict) -> None:

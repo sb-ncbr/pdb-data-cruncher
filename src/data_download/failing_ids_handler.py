@@ -27,7 +27,7 @@ def get_failing_ids(failed_ids_json: dict, data_type: FailedIdsSourceType) -> li
 
 
 def update_failing_ids(
-    failed_ids_json: dict, data_type: FailedIdsSourceType, failed_ids: list[str], alert_on_fail_count: int = 3
+    failed_ids_json: dict, data_type: FailedIdsSourceType, failed_ids: list[str]
 ) -> None:
     """
     Update failing ids json for given data type and given failed ids. Entries with ids that are not present in failed
@@ -35,7 +35,6 @@ def update_failing_ids(
     :param failed_ids_json: Loaded json with failing ids from download json.
     :param data_type: Type of data to update.
     :param failed_ids: List of ids that failed this time.
-    :param alert_on_fail_count: If any id failed for this or higher count, logging warning is issued.
     """
     updated_id_group = {}
 
@@ -43,9 +42,5 @@ def update_failing_ids(
         failed_count = failed_ids_json.get(data_type.value, {}).get(failed_id, 0)
         failed_count += 1
         updated_id_group[failed_id] = failed_count
-        if failed_count >= alert_on_fail_count:
-            logging.warning(
-                "Structure %s failed to update %s, %s. time in a row.", failed_id, data_type.value, failed_count
-            )
 
     failed_ids_json[data_type.value] = updated_id_group
