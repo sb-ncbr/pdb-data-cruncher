@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass, field
 
 from src.exception import ParsingError
-from src.generic_file_handlers.plain_text_loader import load_text_file_as_lines
+from src.generic_file_handlers.plain_file_handler import load_text_file_as_lines
 
 
 @dataclass(slots=True)

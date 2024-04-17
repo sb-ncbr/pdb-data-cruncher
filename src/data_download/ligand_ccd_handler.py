@@ -5,7 +5,8 @@ from typing import Generator
 
 import requests
 
-from src.exception import DataDownloadError
+from src.exception import DataDownloadError, FileWritingError
+from src.generic_file_handlers.plain_file_handler import write_file
 from src.models.ids_to_update import ChangedIds
 from src.utils import find_matching_files, compare_file_and_string
 
@@ -53,22 +54,22 @@ def download_and_find_changed_ligand_cifs(ligand_cifs_folder_path: str, download
 
 def _process_one_ligand_cif(
     cif_content: OneLigandCifContent,
-        changed_ids: ChangedIds,
-        ligand_cifs_folder_path: str,
-        ligand_ids_present: dict[str, bool]
+    changed_ids: ChangedIds,
+    ligand_cifs_folder_path: str,
+    ligand_ids_present: dict[str, bool]
 ) -> None:
     try:
         if cif_content.ligand_id not in ligand_ids_present:
-            logging.info("Ligand %s is new and will be saved.", cif_content.ligand_id)
-            changed_ids.updated.append(cif_content.ligand_id)
             _save_ligand_cif_into_file(cif_content, ligand_cifs_folder_path)
+            changed_ids.updated.append(cif_content.ligand_id)
         else:
+            if ligand_ids_present[cif_content.ligand_id]:
+                return  # ligand was already processed from previous file source
             ligand_ids_present[cif_content.ligand_id] = True
             if not _downloaded_and_stored_ligand_cifs_identical(cif_content, ligand_cifs_folder_path):
-                logging.info("Ligand %s is different and will be updated.", cif_content.ligand_id)
-                changed_ids.updated.append(cif_content.ligand_id)
                 _save_ligand_cif_into_file(cif_content, ligand_cifs_folder_path)
-    except DataDownloadError as ex:
+                changed_ids.updated.append(cif_content.ligand_id)
+    except (DataDownloadError, FileWritingError) as ex:
         logging.error(
             "Failed to determine if ligand %s needs to be updated and saved. Reason: %s",
             cif_content.ligand_id,
@@ -85,6 +86,7 @@ def _one_ligand_cif_from_request_generator(
 
     response_lines = response.iter_lines()
     one_ligand_lines = [bytes.decode(next(response_lines), "utf8")]
+    logging.info("Connection to %s established, starting generating cif files.", address)
     for line in response_lines:
         line = bytes.decode(line, "utf8")
         if "data_" in line:
@@ -110,8 +112,8 @@ def _assemble_one_ligand_cif_content(content_lines: list[str]) -> OneLigandCifCo
 
 
 def _save_ligand_cif_into_file(cif_content, ligand_cifs_folder_path):
-    # TODO save the files - temporarily disabled
-    pass
+    filepath = os.path.join(ligand_cifs_folder_path, f"{cif_content.ligand_id}.cif")
+    write_file(filepath, cif_content.content)
 
 
 def _downloaded_and_stored_ligand_cifs_identical(cif_content, ligand_cifs_folder_path) -> bool:
@@ -121,5 +123,5 @@ def _downloaded_and_stored_ligand_cifs_identical(cif_content, ligand_cifs_folder
 
 def _delete_ligand_file(ligand_id, ligand_cifs_folder_path):
     filepath = os.path.join(ligand_cifs_folder_path, f"{ligand_id}.cif")
-    logging.info("Deleted %s because it was not in newly downloaded ligand set.", filepath)
-    pass  # TODO actually delete it
+    os.remove(filepath)
+    logging.info("Deleted file %s (because it was not in udpated ligands)", filepath)
