@@ -62,6 +62,7 @@ class DownloadManager:
         failed_ids_json: dict,
         rest_data_type: RestDataType,
         failed_ids_source_type: FailedIdsSourceType,
+        resolved_failed_ids: list[str],
     ) -> None:
         """
         Download rest files for one type (summary, molecules, assembly, publications or related publications).
@@ -73,6 +74,7 @@ class DownloadManager:
         :param failed_ids_json:
         :param rest_data_type:
         :param failed_ids_source_type:
+        :param resolved_failed_ids:
         """
         if rest_data_type == RestDataType.VALIDATOR_DB:
             root_json_folder = config.filepaths.validator_db_results
@@ -86,10 +88,17 @@ class DownloadManager:
             root_json_folder,
             config.timeouts.rest_timeout_s,
         )
+
+        for previously_failed_id in ids_to_retry:
+            if previously_failed_id not in failed_ids:
+                resolved_failed_ids.append(previously_failed_id)
+
         update_failing_ids(failed_ids_json, failed_ids_source_type, failed_ids)
 
     @staticmethod
-    def download_rest_files(config: Config, structure_ids: list[str], failed_ids_json: dict) -> None:
+    def download_rest_files(
+        config: Config, structure_ids: list[str], failed_ids_json: dict, resolved_failed_ids: list[str]
+    ) -> None:
         """
         Download rest files for all types (summary, molecules, assembly, publications and related publications).
         Downloads those for given ids + those with ids loaded from json holding ids that failed last time the app
@@ -98,26 +107,28 @@ class DownloadManager:
         :param config:
         :param structure_ids:
         :param failed_ids_json:
+        :param resolved_failed_ids: List of ids where those that previously failed but now succeed should be appended.
         """
         logging.info("Starting downloading rest files.")
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.SUMMARY, FailedIdsSourceType.REST_SUMMARY
+            config, structure_ids, failed_ids_json, RestDataType.SUMMARY, FailedIdsSourceType.REST_SUMMARY, resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.MOLECULES, FailedIdsSourceType.REST_MOLECULES
+            config, structure_ids, failed_ids_json, RestDataType.MOLECULES, FailedIdsSourceType.REST_MOLECULES, resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.ASSEMBLY, FailedIdsSourceType.REST_ASSEMBLY
+            config, structure_ids, failed_ids_json, RestDataType.ASSEMBLY, FailedIdsSourceType.REST_ASSEMBLY, resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.PUBLICATIONS, FailedIdsSourceType.REST_PUBLICATIONS
+            config, structure_ids, failed_ids_json, RestDataType.PUBLICATIONS, FailedIdsSourceType.REST_PUBLICATIONS, resolved_failed_ids
         )
         DownloadManager.download_one_rest(
             config,
             structure_ids,
             failed_ids_json,
             RestDataType.RELATED_PUBLICATIONS,
-            FailedIdsSourceType.REST_RELATED_PUBLICATIONS
+            FailedIdsSourceType.REST_RELATED_PUBLICATIONS,
+            resolved_failed_ids,
         )
         logging.info("Finished downloading rest files.")
 
@@ -127,17 +138,24 @@ class DownloadManager:
         logging.info("TODO this will download xml validation files for %s", structure_ids)  # TODO
 
     @staticmethod
-    def download_validator_db_reports(config: Config, structure_ids: list[str], failed_ids_json: dict) -> None:
+    def download_validator_db_reports(
+        config: Config, structure_ids: list[str], failed_ids_json: dict, resolved_failed_ids: list[str]
+    ) -> None:
         """
         Download validator db reports. Include failed ids from previous runs, and add newly failed ids to the
         failed ids json.
         :param config:
         :param structure_ids:
         :param failed_ids_json:
+        :param resolved_failed_ids:
         """
         logging.info("Starting downloading validator db reports.")
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.VALIDATOR_DB, FailedIdsSourceType.VALIDATOR_DB_REPORT
+            config, structure_ids,
+            failed_ids_json,
+            RestDataType.VALIDATOR_DB,
+            FailedIdsSourceType.VALIDATOR_DB_REPORT,
+            resolved_failed_ids,
         )
         logging.info("Finished downloading validator db reports.")
 
@@ -155,9 +173,16 @@ class DownloadManager:
             failed_ids_json = {}
             logging.error("Failed to load failed_ids_json: %s", ex)
 
-        DownloadManager.download_rest_files(config, structure_ids, failed_ids_json)
+        prev_failed_that_passed = []
+
+        DownloadManager.download_rest_files(config, structure_ids, failed_ids_json, prev_failed_that_passed)
         DownloadManager.download_xml_validation_files(config, structure_ids, failed_ids_json)
-        DownloadManager.download_validator_db_reports(config, structure_ids, failed_ids_json)
+        DownloadManager.download_validator_db_reports(config, structure_ids, failed_ids_json, prev_failed_that_passed)
+
+        for structure_id in prev_failed_that_passed:
+            # add previously failed ids that now suceeded to those that need to be updated during extraction as well
+            if structure_id not in structure_ids:
+                structure_ids.append(structure_id)
 
         if previous_failed_ids_json_ok:
             try:
@@ -237,10 +262,11 @@ def run_data_download(config: Config) -> bool:
     changed_ligand_ids = ChangedIds()
 
     # TODO delete those that are to be deleted
+    DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
     overall_success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
     # TODO uncomment the lock file -> removed just for testing
     # create_simple_lock_file(LockType.DATA_EXTRACTION, config)
-    DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
+
     return overall_success
 
 
