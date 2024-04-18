@@ -172,8 +172,8 @@ class DataExtractionManager:
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
         if ligand_stats is None:
             ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
-        protein_data.vdb = DataExtractionManager.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.pdbx = DataExtractionManager.load_and_parse_pdbx(pdb_id, config)
+        protein_data.vdb = DataExtractionManager.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.xml = DataExtractionManager.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
         protein_data.rest = DataExtractionManager.load_and_parse_rest(pdb_id, ligand_stats, config)
         calculate_inferred_protein_data(protein_data)

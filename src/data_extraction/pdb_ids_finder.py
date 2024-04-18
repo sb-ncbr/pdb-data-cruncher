@@ -16,7 +16,7 @@ def finds_ids_to_update_and_remove(config: Config) -> IdsToUpdateAndRemove:
     :raises ParsingError:
     """
     ids = _find_ids_to_update_and_remove(config)
-    logging.info("Will run data extraction with these ids to update and remove: %s", ids)
+    logging.debug("Will run data extraction with these ids to update and remove: %s", ids)
     return ids
 
 

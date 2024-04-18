@@ -10,8 +10,8 @@ def calculate_inferred_protein_data(data: ProteinDataComplete) -> None:
     """
     data.inferred = ProteinDataInferred()
 
-    if data.xml is None or data.vdb is None:
-        return  # there was no XML validation file for this protein or VDB file
+    if data.xml is None or data.vdb is None or data.pdbx is None:
+        return  # there was no XML validation file for this protein or VDB file or pdbx
 
     if data.vdb.ligand_count_filtered is not None:
         data.inferred.aa_ligand_count_filtered = data.vdb.ligand_count_filtered + data.pdbx.aa_count
