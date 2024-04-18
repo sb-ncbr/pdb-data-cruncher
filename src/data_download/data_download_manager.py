@@ -4,14 +4,15 @@ from typing import Optional
 
 from src.config import Config
 from src.data_download.failing_ids_handler import get_failing_ids, update_failing_ids, FailedIdsSourceType
-from src.exception import FileWritingError, ParsingError, DataDownloadError
-from src.data_download.rest_download import RestDataType, download_one_type_rest_files
+from src.data_download.ids_to_download_loader import load_overriden_ids_to_download
 from src.data_download.ligand_ccd_handler import download_and_find_changed_ligand_cifs
-from src.data_download.rsync_handler import RsyncLog, rsync_folder
+from src.data_download.rest_download import RestDataType, download_one_type_rest_files
+from src.data_download.rsync_handler import rsync_xml_validation
+from src.exception import FileWritingError, ParsingError, DataDownloadError
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
 from src.generic_file_handlers.simple_lock_handler import (
-    check_no_lock_present_preventing_download
+    check_no_lock_present_preventing_download, create_simple_lock_file, LockType
 )
 from src.models.ids_to_update import IdsToUpdateAndRemove, ChangedIds
 from src.utils import ensure_folder_exists
@@ -31,13 +32,8 @@ class DownloadManager:
     @staticmethod
     def sync_pdbe_mmcif_via_rsync(config: Config) -> Optional[ChangedIds]:
         logging.info("Starting sync of pdbe mmcif files via rsync.")
-        try:
-            rsync_log = rsync_folder(config.filepaths.pdb_mmcifs)
-            logging.info("Rsync of pdbe mmcif files finished successfully.")
-            return ChangedIds()
-        except DataDownloadError as ex:
-            logging.error(ex)
-            return None
+        # TODO
+        return ChangedIds()
 
     @staticmethod
     def update_ligand_cifs(config: Config) -> ChangedIds:
@@ -111,16 +107,36 @@ class DownloadManager:
         """
         logging.info("Starting downloading rest files.")
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.SUMMARY, FailedIdsSourceType.REST_SUMMARY, resolved_failed_ids
+            config,
+            structure_ids,
+            failed_ids_json,
+            RestDataType.SUMMARY,
+            FailedIdsSourceType.REST_SUMMARY,
+            resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.MOLECULES, FailedIdsSourceType.REST_MOLECULES, resolved_failed_ids
+            config,
+            structure_ids,
+            failed_ids_json,
+            RestDataType.MOLECULES,
+            FailedIdsSourceType.REST_MOLECULES,
+            resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.ASSEMBLY, FailedIdsSourceType.REST_ASSEMBLY, resolved_failed_ids
+            config,
+            structure_ids,
+            failed_ids_json,
+            RestDataType.ASSEMBLY,
+            FailedIdsSourceType.REST_ASSEMBLY,
+            resolved_failed_ids
         )
         DownloadManager.download_one_rest(
-            config, structure_ids, failed_ids_json, RestDataType.PUBLICATIONS, FailedIdsSourceType.REST_PUBLICATIONS, resolved_failed_ids
+            config,
+            structure_ids,
+            failed_ids_json,
+            RestDataType.PUBLICATIONS,
+            FailedIdsSourceType.REST_PUBLICATIONS,
+            resolved_failed_ids
         )
         DownloadManager.download_one_rest(
             config,
@@ -133,9 +149,19 @@ class DownloadManager:
         logging.info("Finished downloading rest files.")
 
     @staticmethod
-    def download_xml_validation_files(config: Config, structure_ids: list[str], failed_ids_json: dict) -> None:
-        ids_to_retry = get_failing_ids(failed_ids_json, FailedIdsSourceType.XML_VALIDATION)
-        logging.info("TODO this will download xml validation files for %s", structure_ids)  # TODO
+    def rsync_xml_validation_files(config: Config) -> list[str]:
+        try:
+            # rsync_log = rsync_xml_validation(
+            #     config.filepaths.xml_reports,
+            #     config.timeouts.rsync_connection_timeout_s,
+            #     config.timeouts.rsync_file_transfer_stall_timeout_s
+            # )
+            # TODO
+            logging.info("Rsync of validation xml files finished successfully.")
+            return []
+        except DataDownloadError as ex:
+            logging.error(ex)
+            return []
 
     @staticmethod
     def download_validator_db_reports(
@@ -160,7 +186,7 @@ class DownloadManager:
         logging.info("Finished downloading validator db reports.")
 
     @staticmethod
-    def download_non_mmcif_files(config: Config, structure_ids: list[str]) -> None:
+    def download_non_mmcif_files(config: Config, structure_ids: list[str]) -> bool:
         previous_failed_ids_json_ok = True
         try:
             failed_ids_json = load_json_file(
@@ -176,17 +202,19 @@ class DownloadManager:
         prev_failed_that_passed = []
 
         DownloadManager.download_rest_files(config, structure_ids, failed_ids_json, prev_failed_that_passed)
-        DownloadManager.download_xml_validation_files(config, structure_ids, failed_ids_json)
         DownloadManager.download_validator_db_reports(config, structure_ids, failed_ids_json, prev_failed_that_passed)
+        updated_xml_ids = DownloadManager.rsync_xml_validation_files(config)
 
-        for structure_id in prev_failed_that_passed:
-            # add previously failed ids that now suceeded to those that need to be updated during extraction as well
-            if structure_id not in structure_ids:
-                structure_ids.append(structure_id)
+        for structure_id_list in [prev_failed_that_passed, updated_xml_ids]:
+            for structure_id in structure_id_list:
+                # add previously failed ids that now suceeded to those that need to be updated during extraction as well
+                if structure_id not in structure_ids:
+                    structure_ids.append(structure_id)
 
         if previous_failed_ids_json_ok:
             try:
                 write_json_file(config.filepaths.download_failed_ids_to_retry_json, failed_ids_json)
+                return True
             except FileWritingError as ex:
                 logging.critical(
                     "Saving failed ids into json failed! %s. Any ids not there would be removed. Check why the saving "
@@ -201,6 +229,12 @@ class DownloadManager:
                 "json or create new one, otherwise this information will be lost!",
                 failed_ids_json
             )
+
+        return False
+
+    @staticmethod
+    def delete_old_non_mmcif_files(config: Config, deleted_structures_ids: list[str]) -> None:
+        pass
 
     @staticmethod
     def save_changed_ids_into_json(config: Config, changed_structures: ChangedIds, changed_ligands: ChangedIds) -> bool:
@@ -241,42 +275,25 @@ def run_data_download(config: Config) -> bool:
     """
     check_no_lock_present_preventing_download(config)
     DownloadManager.ensure_download_target_folders_exist(config)
-    overall_success = True  # TODO some other may need this, flow not done
 
     if config.override_ids_to_download_filepath:
-        updated_ids = _load_ids_to_download(config.override_ids_to_download_filepath)
-        if updated_ids is None:
-            return False
-        logging.info("Override for ids to download was set, will update structures: %s", updated_ids)
-        changed_structure_ids = ChangedIds(
-            updated=updated_ids,
-            deleted=[],
-        )
+        changed_structure_ids = load_overriden_ids_to_download(config.override_ids_to_download_filepath)
     else:
         changed_structure_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
-        if changed_structure_ids is None:
-            return False
+
+    if changed_structure_ids is None:
+        return False
 
     # TODO switch back
     # changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
     changed_ligand_ids = ChangedIds()
 
-    # TODO delete those that are to be deleted
-    DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
-    overall_success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
-    # TODO uncomment the lock file -> removed just for testing
-    # create_simple_lock_file(LockType.DATA_EXTRACTION, config)
+    success = True
 
-    return overall_success
+    success &= DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
+    DownloadManager.delete_old_non_mmcif_files(config, changed_structure_ids.deleted)
+    success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
+    # TODO uncomment
+    # create_simple_lock_file(LockType.DATA_EXTRACTION, config.filepaths.logs_root_path)
 
-
-def _load_ids_to_download(list_of_ids_path: str) -> Optional[list[str]]:
-    try:
-        ids_json = load_json_file(list_of_ids_path)
-        if not isinstance(ids_json, list) or [item for item in ids_json if not isinstance(item, str)]:
-            logging.error("Loaded json %s with ids to update is not a list of strings.", ids_json)
-            return None
-        return ids_json
-    except ParsingError as ex:
-        logging.error("Failed loading ids to download from json %s: %s", list_of_ids_path, ex)
-        return None
+    return success

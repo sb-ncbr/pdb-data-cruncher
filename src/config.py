@@ -219,6 +219,8 @@ class DownloadTimeoutConfig:
 
     rest_timeout_s: int = env.get("DOWNLOAD_REST_TIMEOUT_S", 100)
     ligand_cifs_timeout_s: int = env.get("DOWNLOAD_LIGAND_CIFS_TIMEOUT_S", 30*60)
+    rsync_connection_timeout_s: int = env.get("RSYNC_CONNECTION_TIMEOUT_S", 10)
+    rsync_file_transfer_stall_timeout_s: int = env.get("RSYNC_FILE_TRANSFER_STALL_TIMEOUT_S", 300)
 
 
 @dataclass(slots=True)

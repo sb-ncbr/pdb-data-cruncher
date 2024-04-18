@@ -13,13 +13,13 @@ class LockType(Enum):
     DATA_EXTRACTION = "data_extraction_lock.txt"
 
 
-def create_simple_lock_file(lock_type: LockType, config: Config) -> None:
+def create_simple_lock_file(lock_type: LockType, logs_folder_path: str) -> None:
     """
     Create simple file associated with given lock type, presence of the file will serve as "lock" for certain actions.
     :param lock_type:
-    :param config:
+    :param logs_folder_path:
     """
-    filepath = os.path.join(config.filepaths.logs_root_path, lock_type.value)
+    filepath = os.path.join(logs_folder_path, lock_type.value)
     with open(filepath, "w", encoding="utf8") as f:
         f.write(
             f"Lock for {lock_type.value} was created after download, but never released. It would have been released "

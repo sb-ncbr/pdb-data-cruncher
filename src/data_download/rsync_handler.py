@@ -6,6 +6,9 @@ from dataclasses import dataclass, field
 from src.exception import ParsingError, DataDownloadError
 
 
+TEMP_LOG_FILE_NAME = "temporary_rsync_log.txt"
+
+
 @dataclass(slots=True)
 class RsyncLog:
     """
@@ -16,17 +19,21 @@ class RsyncLog:
     deleted: list[str] = field(default_factory=list)
 
 
-def rsync_folder(mmcif_output_folder: str) -> RsyncLog:
+def rsync_xml_validation(xml_validation_folder: str, con_timeout_s: int, file_transfer_timeout_s: int) -> RsyncLog:
+    # TODO work in progress
     # TODO remove the dry run
     command = [
         "rsync",
-        "-rLt",  # trying without -z
+        "-rLtz",
         "--delete",
         "--dry-run",
         '--out-format="%o %f"',
         "--port=33444",
-        "rsync.rcsb.org::ftp_data/structures/all/mmCIF/",
-        mmcif_output_folder
+        f"--contimeout={con_timeout_s}",
+        f"--timeout={file_transfer_timeout_s}",
+        "rsync.rcsb.org::ftp/validation_reports/",
+        xml_validation_folder,
+
     ]
     logging.info("Running command: %s", command)
 
@@ -38,7 +45,7 @@ def rsync_folder(mmcif_output_folder: str) -> RsyncLog:
         raise DataDownloadError(f"Failed to rsync mmcif files: {ex}. {ex}") from ex
 
     try:
-        return parse_rsync_log(rsync_raw_log, file_ending_to_cut=".cif")
+        return parse_rsync_log(rsync_raw_log, file_ending_to_cut=".cif.gz")
     except ParsingError as ex:
         logging.critical(
             "Failed to parse rsync log, after rsync finished successfully. Files have been updated,"
@@ -82,9 +89,9 @@ def parse_rsync_log(text_to_parse: str, file_ending_to_cut: str = "") -> RsyncLo
     if unprocessed_lines:
         logging.warning(
             "%s lines from rsync log failed to be processed (invalid operation, wrong format or filename did not "
-            "contain required file ending). The failed lines: %s.",
+            "contain required file ending). Whole log: %s",
             len(unprocessed_lines),
-            unprocessed_lines
+            text_to_parse
         )
         raise ParsingError(f"{len(unprocessed_lines)} rsync log lines failed to be parsed.")
 

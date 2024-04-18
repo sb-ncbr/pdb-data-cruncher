@@ -13,7 +13,6 @@ class FailedIdsSourceType(Enum):
     REST_RELATED_PUBLICATIONS = "RestRelatedPublications"
     REST_SUMMARY = "RestSummary"
     VALIDATOR_DB_REPORT = "ValidatorDbReport"
-    XML_VALIDATION = "XMLValidation"
 
 
 def get_failing_ids(failed_ids_json: dict, data_type: FailedIdsSourceType) -> list[str]:
