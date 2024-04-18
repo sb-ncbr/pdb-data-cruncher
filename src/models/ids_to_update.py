@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 @dataclass(slots=True)
 class IdsToUpdateAndRemove:
     """
-    Class holding lists of structure and ligand id to update/remove during data extraction phase.
+    Class holding lists of structure and ligand id to update/remove during data extraction or donwload phase.
     """
 
     structures_to_update: list[str] = field(default_factory=list)

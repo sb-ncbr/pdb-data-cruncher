@@ -233,6 +233,7 @@ class Config:
 
     # data download
     run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
+    override_ids_to_download_filepath: Optional[str] = env.get("OVERRIDE_IDS_TO_DOWNLOAD_PATH")
     skip_data_download: bool = bool_from_env("SKIP_DATA_DOWNLOAD", False)
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)

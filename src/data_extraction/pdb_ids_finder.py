@@ -8,15 +8,6 @@ from src.utils import find_matching_files
 from src.generic_file_handlers.json_file_loader import load_json_file
 
 
-class Purpose(Enum):
-    """
-    Purpose for which the ids are being searched for. Only used in this file.
-    """
-
-    UPDATE = 1
-    REMOVAL = 2
-
-
 def finds_ids_to_update_and_remove(config: Config) -> IdsToUpdateAndRemove:
     """
     Get structure and ligand ids to update and remove. By default, these are taken from download data logs that

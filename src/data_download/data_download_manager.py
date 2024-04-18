@@ -1,11 +1,13 @@
 import logging
 import os
+from typing import Optional
 
 from src.config import Config
 from src.data_download.failing_ids_handler import get_failing_ids, update_failing_ids, FailedIdsSourceType
 from src.exception import FileWritingError, ParsingError, DataDownloadError
 from src.data_download.rest_download import RestDataType, download_one_type_rest_files
 from src.data_download.ligand_ccd_handler import download_and_find_changed_ligand_cifs
+from src.data_download.rsync_handler import RsyncLog, rsync_folder
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
 from src.generic_file_handlers.simple_lock_handler import (
@@ -27,11 +29,15 @@ class DownloadManager:
         ensure_folder_exists(config.filepaths.xml_reports, True)
 
     @staticmethod
-    def sync_pdbe_mmcif_via_rsync(config: Config) -> ChangedIds:
+    def sync_pdbe_mmcif_via_rsync(config: Config) -> Optional[ChangedIds]:
         logging.info("Starting sync of pdbe mmcif files via rsync.")
-        # TODO
-        logging.info("Rsync of pdbe mmcif files finished successfully.")
-        return ChangedIds()
+        try:
+            rsync_log = rsync_folder(config.filepaths.pdb_mmcifs)
+            logging.info("Rsync of pdbe mmcif files finished successfully.")
+            return ChangedIds()
+        except DataDownloadError as ex:
+            logging.error(ex)
+            return None
 
     @staticmethod
     def update_ligand_cifs(config: Config) -> ChangedIds:
@@ -212,11 +218,39 @@ def run_data_download(config: Config) -> bool:
     DownloadManager.ensure_download_target_folders_exist(config)
     overall_success = True  # TODO some other may need this, flow not done
 
-    changed_structure_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
-    changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
+    if config.override_ids_to_download_filepath:
+        updated_ids = _load_ids_to_download(config.override_ids_to_download_filepath)
+        if updated_ids is None:
+            return False
+        logging.info("Override for ids to download was set, will update structures: %s", updated_ids)
+        changed_structure_ids = ChangedIds(
+            updated=updated_ids,
+            deleted=[],
+        )
+    else:
+        changed_structure_ids = DownloadManager.sync_pdbe_mmcif_via_rsync(config)
+        if changed_structure_ids is None:
+            return False
 
+    # TODO switch back
+    # changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
+    changed_ligand_ids = ChangedIds()
+
+    # TODO delete those that are to be deleted
     overall_success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
     # TODO uncomment the lock file -> removed just for testing
     # create_simple_lock_file(LockType.DATA_EXTRACTION, config)
     DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
     return overall_success
+
+
+def _load_ids_to_download(list_of_ids_path: str) -> Optional[list[str]]:
+    try:
+        ids_json = load_json_file(list_of_ids_path)
+        if not isinstance(ids_json, list) or [item for item in ids_json if not isinstance(item, str)]:
+            logging.error("Loaded json %s with ids to update is not a list of strings.", ids_json)
+            return None
+        return ids_json
+    except ParsingError as ex:
+        logging.error("Failed loading ids to download from json %s: %s", list_of_ids_path, ex)
+        return None

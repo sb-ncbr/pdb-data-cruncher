@@ -104,10 +104,10 @@ def _assemble_one_ligand_cif_content(content_lines: list[str]) -> OneLigandCifCo
             f"{content_lines}"
         )
     ligand_name = content_lines[0][5:]
-    content_lines[-1] += "\n"  # add newline at the end
+    content_lines[-1] += os.linesep  # add newline at the end
     return OneLigandCifContent(
         ligand_id=ligand_name,
-        content="\n".join(content_lines)
+        content=os.linesep.join(content_lines)
     )
 
 
