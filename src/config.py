@@ -115,8 +115,10 @@ class FilepathConfig:
 
     # source of data
     _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
-    _pdb_mmcifs_name: str = env.get("PDB_MMCIFS_FOLDER_NAME", "PDBe_updated_mmCIF")
+    _pdb_mmcifs_name: str = env.get("PDB_MMCIFS_FOLDER_NAME", "PDBe_mmCIF")
+    _gzipped_pdb_mmcifs_name: str = env.get("GZIPPED_PDB_MMCIFS_NAME", "gz_PDBe_mmCIF")
     _xml_reports_name: str = env.get("XML_REPORTS_FOLDER_NAME", "ValRep_XML")
+    _gzipped_xml_reports_name: str = env.get("GZIPPED_XML_REPORTS_FOLDER_NAME", "gz_ValRep_XML")
     _validator_db_results_name: str = env.get("VALIDATOR_DB_RESULTS_FOLDER_NAME", "MotiveValidator_JSON")
     _ligand_cifs_name: str = env.get("LIGAND_CIFS_FOLDER_NAME", "ccd_CIF")
     _factor_pairs_autoplot_csv_name: str = env.get("AUTOPLOT_CSV_NAME", "autoplot.csv")
@@ -151,8 +153,16 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._pdb_mmcifs_name)
 
     @property
+    def gz_pdb_mmcifs(self) -> str:
+        return path.join(self.dataset_root_path, self._gzipped_pdb_mmcifs_name)
+
+    @property
     def xml_reports(self) -> str:
         return path.join(self.dataset_root_path, self._xml_reports_name)
+
+    @property
+    def gz_xml_reports(self) -> str:
+        return path.join(self.dataset_root_path, self._gzipped_xml_reports_name)
 
     @property
     def validator_db_results(self) -> str:
@@ -219,8 +229,6 @@ class DownloadTimeoutConfig:
 
     rest_timeout_s: int = env.get("DOWNLOAD_REST_TIMEOUT_S", 100)
     ligand_cifs_timeout_s: int = env.get("DOWNLOAD_LIGAND_CIFS_TIMEOUT_S", 30*60)
-    rsync_connection_timeout_s: int = env.get("RSYNC_CONNECTION_TIMEOUT_S", 10)
-    rsync_file_transfer_stall_timeout_s: int = env.get("RSYNC_FILE_TRANSFER_STALL_TIMEOUT_S", 300)
 
 
 @dataclass(slots=True)
@@ -247,6 +255,8 @@ class Config:
     run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
     crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
+    # post transformation actions
+    run_post_transformation_actions_only: bool = bool_from_env("RUN_POST_TRANSFORMATION_ACTIONS_ONLY", False)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()

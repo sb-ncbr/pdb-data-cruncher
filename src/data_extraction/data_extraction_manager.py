@@ -276,7 +276,7 @@ def run_data_extraction(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
-    logging.info("Starting data extraction.")
+    logging.info("PHASE DATA EXTRACTION is starting")
     # prepare ids of structures and ligands to be updated or removed
     try:
         ids_to_update_and_remove = finds_ids_to_update_and_remove(config)
@@ -313,7 +313,7 @@ def run_data_extraction(config: Config) -> bool:
     )
 
     delete_old_crunched_csv(config.filepaths.output_root_path, config.current_formatted_date)
-    logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
+    logging.info("PHASE DATA EXTRACTION %s.", "finished successfully" if overall_success else "failed")
 
     if overall_success:
         release_simple_lock_file(LockType.DATA_EXTRACTION, config)

@@ -7,7 +7,7 @@ from src.data_download.failing_ids_handler import get_failing_ids, update_failin
 from src.data_download.ids_to_download_loader import load_overriden_ids_to_download
 from src.data_download.ligand_ccd_handler import download_and_find_changed_ligand_cifs
 from src.data_download.rest_download import RestDataType, download_one_type_rest_files
-from src.data_download.rsync_handler import rsync_xml_validation
+from src.data_download.rsync_handler import rsync_and_unzip, RsyncDataType, RsyncLog
 from src.exception import FileWritingError, ParsingError, DataDownloadError
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
@@ -26,14 +26,34 @@ class DownloadManager:
             ensure_folder_exists(os.path.join(config.filepaths.rest_jsons, pdb_rest_type), True)
         ensure_folder_exists(config.filepaths.validator_db_results, True)
         ensure_folder_exists(config.filepaths.pdb_mmcifs, True)
+        ensure_folder_exists(config.filepaths.gz_pdb_mmcifs, True)
         ensure_folder_exists(config.filepaths.ligand_cifs, True)
         ensure_folder_exists(config.filepaths.xml_reports, True)
+        ensure_folder_exists(config.filepaths.gz_xml_reports, True)
 
     @staticmethod
     def sync_pdbe_mmcif_via_rsync(config: Config) -> Optional[ChangedIds]:
-        logging.info("Starting sync of pdbe mmcif files via rsync.")
-        # TODO
-        return ChangedIds()
+        """
+        Rsync PDBe mmCIF files. Extract them.
+        :param config: App configuration.
+        :return: Lists of recieved and deleted files.
+        """
+        logging.info("Starting rsync of mmcif files.")
+        try:
+            rsync_log = rsync_and_unzip(
+                RsyncDataType.ARCHIVE_MMCIF,
+                config.filepaths.gz_pdb_mmcifs,
+                config.filepaths.pdb_mmcifs,
+            )
+            changed_ids = ChangedIds(
+                updated=rsync_log.get_successful_recieved_ids(),
+                deleted=rsync_log.get_deleted_ids(),
+            )
+            logging.info("Rsync mmcif files finished successfully. Changed ids: %s", changed_ids)
+            return changed_ids
+        except DataDownloadError as ex:
+            logging.error(ex)
+            return ChangedIds()
 
     @staticmethod
     def update_ligand_cifs(config: Config) -> ChangedIds:
@@ -42,7 +62,7 @@ class DownloadManager:
             changed_ids = download_and_find_changed_ligand_cifs(
                 config.filepaths.ligand_cifs, config.timeouts.ligand_cifs_timeout_s
             )
-            logging.info("Updating of ligand (ccd) cif files finished successfully.")
+            logging.info("Updating of ligand (ccd) cif files finished successfully. Changed ids: %s", changed_ids)
             return changed_ids
         except DataDownloadError as ex:
             logging.error("Failed to update ligand (ccd) cif files. %s", ex)
@@ -150,15 +170,20 @@ class DownloadManager:
 
     @staticmethod
     def rsync_xml_validation_files(config: Config) -> list[str]:
+        """
+        Rsync XML validation files, and extract them.
+        :param config: App configuration.
+        :return: List of stucture ids that got rsynced (and extracted).
+        """
+        logging.info("Starting rsync of xml validation files.")
         try:
-            # rsync_log = rsync_xml_validation(
-            #     config.filepaths.xml_reports,
-            #     config.timeouts.rsync_connection_timeout_s,
-            #     config.timeouts.rsync_file_transfer_stall_timeout_s
-            # )
-            # TODO
+            rsync_log = rsync_and_unzip(
+                RsyncDataType.XML_VALIDATION_REPORTS,
+                config.filepaths.gz_xml_reports,
+                config.filepaths.xml_reports,
+            )
             logging.info("Rsync of validation xml files finished successfully.")
-            return []
+            return rsync_log.get_successful_recieved_ids()
         except DataDownloadError as ex:
             logging.error(ex)
             return []
@@ -187,6 +212,13 @@ class DownloadManager:
 
     @staticmethod
     def download_non_mmcif_files(config: Config, structure_ids: list[str]) -> bool:
+        """
+        Download other files, based on which mmcif files were updated. This includes all rest files, vdb reports
+        and validation xmls.
+        :param config:
+        :param structure_ids:
+        :return:
+        """
         previous_failed_ids_json_ok = True
         try:
             failed_ids_json = load_json_file(
@@ -234,7 +266,12 @@ class DownloadManager:
 
     @staticmethod
     def delete_old_non_mmcif_files(config: Config, deleted_structures_ids: list[str]) -> None:
-        pass
+        """
+        Removes files from other data sources (rest, vdb reports) for which the mmcif file has been deleted.
+        :param config:
+        :param deleted_structures_ids:
+        """
+        pass  # TODO
 
     @staticmethod
     def save_changed_ids_into_json(config: Config, changed_structures: ChangedIds, changed_ligands: ChangedIds) -> bool:
@@ -273,6 +310,7 @@ def run_data_download(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
+    logging.info("PHASE DATA DOWNLOAD is starting")
     check_no_lock_present_preventing_download(config)
     DownloadManager.ensure_download_target_folders_exist(config)
 
@@ -284,16 +322,15 @@ def run_data_download(config: Config) -> bool:
     if changed_structure_ids is None:
         return False
 
-    # TODO switch back
-    # changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
-    changed_ligand_ids = ChangedIds()
+    changed_ligand_ids = DownloadManager.update_ligand_cifs(config)
 
     success = True
 
     success &= DownloadManager.download_non_mmcif_files(config, changed_structure_ids.updated)
     DownloadManager.delete_old_non_mmcif_files(config, changed_structure_ids.deleted)
     success &= DownloadManager.save_changed_ids_into_json(config, changed_structure_ids, changed_ligand_ids)
-    # TODO uncomment
-    # create_simple_lock_file(LockType.DATA_EXTRACTION, config.filepaths.logs_root_path)
 
+    create_simple_lock_file(LockType.DATA_EXTRACTION, config.filepaths.logs_root_path)
+
+    logging.info("PHASE DATA DOWNLOAD finished")
     return success

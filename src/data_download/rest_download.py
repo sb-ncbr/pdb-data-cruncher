@@ -57,7 +57,7 @@ def download_one_type_rest_files(
 
     if len(failed_ids) > 0:
         successful_count = len(ids_to_download) - len(failed_ids)
-        logging.warning(
+        logging.info(
             "Finished %s rest download. Successful: %s. Failed: %s.", rest_type.value, successful_count, len(failed_ids)
         )
     else:

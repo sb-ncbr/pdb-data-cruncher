@@ -1,98 +1,206 @@
+import gzip
 import logging
 import os
+import shutil
 import subprocess
 from dataclasses import dataclass, field
+from typing import Optional
+from enum import Enum
 
-from src.exception import ParsingError, DataDownloadError
+from src.exception import DataDownloadError
 
 
-TEMP_LOG_FILE_NAME = "temporary_rsync_log.txt"
+@dataclass(slots=True)
+class RsyncLogItem:
+    relative_path: str
+    filename: str
+    structure_id: Optional[str] = "????"
+    unpacking_failure: bool = False
 
 
 @dataclass(slots=True)
 class RsyncLog:
-    """
-    Representation of information from rsync log.
-    """
+    recieved: list[RsyncLogItem] = field(default_factory=list)
+    deleted: list[RsyncLogItem] = field(default_factory=list)
 
-    recieved: list[str] = field(default_factory=list)
-    deleted: list[str] = field(default_factory=list)
+    def get_successful_recieved_ids(self) -> list[str]:
+        return [
+            rsync_log_item.structure_id
+            for rsync_log_item
+            in self.recieved
+            if not rsync_log_item.unpacking_failure
+        ]
+
+    def get_deleted_ids(self) -> list[str]:
+        return [
+            rsync_log_item.structure_id
+            for rsync_log_item
+            in self.deleted
+        ]
 
 
-def rsync_xml_validation(xml_validation_folder: str, con_timeout_s: int, file_transfer_timeout_s: int) -> RsyncLog:
-    # TODO work in progress
-    # TODO remove the dry run
+class RsyncDataType(Enum):
+    ARCHIVE_MMCIF = 0
+    XML_VALIDATION_REPORTS = 1
+
+
+def rsync_and_unzip(rsync_data_type: RsyncDataType, gzip_folder: str, unpacked_folder: str) -> RsyncLog:
+    rsync_command = _assemble_rsync_command(rsync_data_type, gzip_folder)
+    logging.info("Running rsync command: '%s'", " ".join(rsync_command))
+    rsync_raw_log = _run_rsync_command(rsync_command)
+    logging.info("Rsync of gzip files done. Next: parsing log.")
+
+    if rsync_data_type == RsyncDataType.ARCHIVE_MMCIF:
+        rsync_log = _parse_rsync_log_for_mmcif(rsync_raw_log)
+    elif rsync_data_type == RsyncDataType.XML_VALIDATION_REPORTS:
+        rsync_log = _parse_rsync_log_for_xml_validation(rsync_raw_log)
+    else:
+        raise DataDownloadError(f"Unsupported rsync type {rsync_data_type}.")
+
+    logging.info("Parsing rsync log finished. Next: unzipping new data.")
+    _gunzip_updated_files(rsync_log.recieved, gzip_folder, unpacked_folder)
+    logging.info("Unzipping new data finished. Next: deleting unzipped files not present in .gz files anymore.")
+    _delete_removed_files(rsync_log.deleted, unpacked_folder)
+
+    logging.info("Finished deleting old unzipped files.")
+    return rsync_log
+
+
+def _assemble_rsync_command(rsync_data_type: RsyncDataType, target_folder_path: str) -> list[str]:
     command = [
         "rsync",
         "-rLtz",
         "--delete",
-        "--dry-run",
         '--out-format="%o %f"',
         "--port=33444",
-        f"--contimeout={con_timeout_s}",
-        f"--timeout={file_transfer_timeout_s}",
-        "rsync.rcsb.org::ftp/validation_reports/",
-        xml_validation_folder,
-
     ]
-    logging.info("Running command: %s", command)
 
+    if rsync_data_type == RsyncDataType.ARCHIVE_MMCIF:
+        command.extend([
+            "--include", "**/",
+            "--include", "0*/**",
+            "--include", "1*/**",
+            "--exclude", "*",  # TODO remove all lines before this and this
+            "rsync.rcsb.org::ftp_data/structures/divided/mmCIF/",
+        ])
+    elif rsync_data_type == RsyncDataType.XML_VALIDATION_REPORTS:
+        command.extend([
+            "--exclude",
+            "*multipercentile*",
+            "--exclude",
+            "*.pdf.gz",
+            "--exclude",
+            "*.cif.gz",
+            "--exclude",
+            "*map_coef*",
+            "rsync.rcsb.org::ftp/validation_reports/",
+        ])
+    else:
+        raise DataDownloadError(f"Unsupported rsync type {rsync_data_type}.")
+
+    command.append(target_folder_path)
+    return command
+
+
+def _run_rsync_command(rsync_command: list[str]) -> str:
     try:
-        completed_process = subprocess.run(command, check=True, capture_output=True)
-        rsync_raw_log = completed_process.stdout.decode("utf8", errors="ignore")
+        completed_process = subprocess.run(rsync_command, check=True, capture_output=True)
+        return completed_process.stdout.decode("utf8", errors="ignore")
     except subprocess.CalledProcessError as ex:
-        logging.error("\n%s\n", ex.stderr.decode("utf8", errors="ignore").strip())
-        raise DataDownloadError(f"Failed to rsync mmcif files: {ex}. {ex}") from ex
-
-    try:
-        return parse_rsync_log(rsync_raw_log, file_ending_to_cut=".cif.gz")
-    except ParsingError as ex:
-        logging.critical(
-            "Failed to parse rsync log, after rsync finished successfully. Files have been updated,"
-            "but the information about which failed to be processed! Check the following output, and"
-            "adjust ids to be redownloaded json to finish downloading for these files and run download only."
-            "Then, create json with ids to update and remove for data extraction phase, and run that phase only."
-            "Reason parsing failed: %s.",
-            ex
+        logging.error(
+            "Called subproccess error:\n%s\n",
+            ex.stderr.decode("utf8", errors="ignore").strip(),
         )
-        logging.critical(rsync_raw_log)
-        raise DataDownloadError(f"Failed to process rsync log. {ex}") from ex
+        logging.critical(
+            "Check the following log. If any items were recieved, manual actions are needed (unzipping the recieved "
+            "files; and running download with overriden ids to download for these in case of mmcifs).\n%s\n",
+            ex.stdout.decode("utf8", errors="ignore").strip(),
+        )
+        raise DataDownloadError(f"Rsync failed: {ex}") from ex
 
 
-def parse_rsync_log(text_to_parse: str, file_ending_to_cut: str = "") -> RsyncLog:
+def _parse_rsync_log_for_xml_validation(rsync_raw_log: str) -> RsyncLog:
+    rsync_log = _parse_rsync_log(rsync_raw_log, "_validation.xml.gz")
+
+    for rsync_item_list in [rsync_log.recieved, rsync_log.deleted]:
+        for rsync_item in rsync_item_list:
+            rsync_item.structure_id = rsync_item.filename.replace("_validation.xml.gz", "")
+
+    return rsync_log
+
+
+def _parse_rsync_log_for_mmcif(rsync_raw_log: str) -> RsyncLog:
+    rsync_log = _parse_rsync_log(rsync_raw_log, ".cif.gz")
+
+    for rsync_item_list in [rsync_log.recieved, rsync_log.deleted]:
+        for rsync_item in rsync_item_list:
+            rsync_item.structure_id = rsync_item.filename.replace(".cif.gz", "")
+
+    return rsync_log
+
+
+def _parse_rsync_log(text_to_parse: str, only_lines_with_string: str) -> RsyncLog:
     """
-    Load rsync log produced with formatting "%o %f" as list of recieved files and deleted files. If file ending
-    to cut is supplied, only such files are noted and the ending is removed from them.
+    Load rsync log produced with formatting "%o %f" as list of recieved files and deleted files. Take only lines
+    containing passed string.
     :param text_to_parse:
-    :param file_ending_to_cut:
+    :param only_lines_with_string:
     :return: RsyncLog instance.
-    :raises ParsingError: In case of file problems or parsing problems.
     """
-    unprocessed_lines = []
     rsync_log = RsyncLog()
 
     for line in text_to_parse.split(os.linesep):
-        try:
-            operation, filename = line.split(" ")
-            if filename == ".":
-                continue
+        if only_lines_with_string not in line:
+            continue
 
-            if operation == "del" and file_ending_to_cut in filename:
-                rsync_log.deleted.append(filename.replace(file_ending_to_cut, ""))
-            elif operation == "recv" and file_ending_to_cut in filename:
-                rsync_log.recieved.append(filename.replace(file_ending_to_cut, ""))
-            else:
-                unprocessed_lines.append(line)
-        except ValueError:
-            unprocessed_lines.append(line)
+        split_line = line.replace('"', "").split(" ")
+        if len(split_line) != 2:
+            logging.error("Log line '%s' failed to process! This info will be lost, unless processed manually.", line)
 
-    if unprocessed_lines:
-        logging.warning(
-            "%s lines from rsync log failed to be processed (invalid operation, wrong format or filename did not "
-            "contain required file ending). Whole log: %s",
-            len(unprocessed_lines),
-            text_to_parse
-        )
-        raise ParsingError(f"{len(unprocessed_lines)} rsync log lines failed to be parsed.")
+        operation, filepath = split_line
+        filename = filepath.split(os.path.sep)[-1]
+        log_item = RsyncLogItem(relative_path=filepath, filename=filename)
+
+        if operation in ["del", "del."]:
+            rsync_log.deleted.append(log_item)
+        elif operation == "recv":
+            rsync_log.recieved.append(log_item)
+        else:
+            logging.error(
+                "Unexpected operation '%s' in line '%s'. If this line is valid, the info is lost! Manual action needed",
+                operation,
+                line
+            )
 
     return rsync_log
+
+
+def _gunzip_updated_files(recieved_items: list[RsyncLogItem], gzip_folder: str, unpacked_folder: str) -> None:
+    for item in recieved_items:
+        source_path = os.path.join(gzip_folder, item.relative_path)
+        destination_path = os.path.join(unpacked_folder, item.filename.replace(".gz", ""))
+        try:
+            _gunzip_one_file(source_path, destination_path)
+        except DataDownloadError as ex:
+            item.unpacking_failure = True
+            logging.critical(
+                "Structure %s rsynced, but failed to unzip. Manual action needed. %s", item.relative_path, ex
+            )
+
+
+def _gunzip_one_file(gz_filepath: str, unpacked_filepath: str) -> None:
+    try:
+        with gzip.open(gz_filepath, "rb") as input_file:
+            with open(unpacked_filepath, "wb") as output_file:
+                shutil.copyfileobj(input_file, output_file)
+    except OSError as ex:
+        raise DataDownloadError(f"Failed to unpack gz file: {ex}") from ex
+
+
+def _delete_removed_files(deleted_items: list[RsyncLogItem], unpacked_folder: str) -> None:
+    for item in deleted_items:
+        old_filepath = os.path.join(unpacked_folder, item.filename.replace(".gz", ""))
+        try:
+            os.remove(old_filepath)
+        except OSError as ex:
+            logging.warning("Failed to delete %s. Consider deleting it manually. %s", old_filepath, ex)
