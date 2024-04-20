@@ -19,6 +19,10 @@ from src.utils import ensure_folder_exists, delete_file_if_possible
 
 
 class DownloadManager:
+    """
+    Class aggregating functions downlading data.
+    """
+
     @staticmethod
     def ensure_download_target_folders_exist(config: Config) -> None:
         """
@@ -83,6 +87,7 @@ class DownloadManager:
             logging.error("Unexpected error. Failed to update ligand (ccd) cif files. %s", ex)
             return ChangedIds()
 
+    # pylint: disable=too-many-arguments
     @staticmethod
     def download_one_rest(
         config: Config,

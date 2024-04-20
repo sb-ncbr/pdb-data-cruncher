@@ -1,5 +1,4 @@
 import logging
-from enum import Enum
 
 from src.config import Config
 from src.exception import ParsingError

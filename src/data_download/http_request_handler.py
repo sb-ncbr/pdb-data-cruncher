@@ -45,4 +45,3 @@ def get_response(address: str, get_timeout_s: int) -> requests.Response:
         return response
     except requests.exceptions.RequestException as ex:
         raise DataDownloadError(f"GET {address} failed.") from ex
-

@@ -3,6 +3,8 @@ import logging
 from src.config import Config
 
 
+# delete comment about pylint after filling the function
+# pylint: disable=unused-argument
 def run_post_transformation_actions(config: Config) -> bool:
     """
     Run all required actions after data transformation.
