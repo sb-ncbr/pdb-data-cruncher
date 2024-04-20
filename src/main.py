@@ -7,6 +7,7 @@ from src.data_extraction.data_extraction_manager import run_data_extraction
 from src.data_archivation.data_archivation_manager import run_data_archivation
 from src.data_download.data_download_manager import run_data_download
 from src.config import Config
+from src.post_transformation_actions.post_transformation_actions_manager import run_post_transformation_actions
 
 
 def prepare_log_folder(config: Config) -> None:
@@ -71,6 +72,9 @@ def run_app(config: Config) -> None:
     elif config.run_data_transformation_only:
         if not run_data_transformation(config):
             sys.exit("Data transformation failed.")
+    elif config.run_post_transformation_actions_only:
+        if not run_post_transformation_actions(config):
+            sys.exit("Post transformation actions failed.")
     else:
         run_app_full_flow(config)
 
@@ -93,6 +97,8 @@ def run_app_full_flow(config):
             f"{'Data archivation failed. ' if not archivation_success else ''}"
             f"{'Data transformation failed.' if not transformation_success else ''}"
         )
+    if not run_post_transformation_actions(config):
+        sys.exit("Post transformation actions failed")
 
 
 def main():

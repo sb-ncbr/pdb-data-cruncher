@@ -286,10 +286,12 @@ class Config:
             run_only_mode_count += 1
         if self.run_data_transformation_only:
             run_only_mode_count += 1
+        if self.run_post_transformation_actions_only:
+            run_only_mode_count += 1
         if run_only_mode_count > 1:
             raise ValueError(
                 "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
-                "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
+                "RUN_DATA_TRANSFORMATION_ONLY, RUN_POST_TRANSFORMATION_ACTIONS_ONLY can be set to True."
             )
 
         if self.run_data_download_only and self.skip_data_download:
