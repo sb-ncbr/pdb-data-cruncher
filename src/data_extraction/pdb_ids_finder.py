@@ -8,15 +8,6 @@ from src.utils import find_matching_files
 from src.generic_file_handlers.json_file_loader import load_json_file
 
 
-class Purpose(Enum):
-    """
-    Purpose for which the ids are being searched for. Only used in this file.
-    """
-
-    UPDATE = 1
-    REMOVAL = 2
-
-
 def finds_ids_to_update_and_remove(config: Config) -> IdsToUpdateAndRemove:
     """
     Get structure and ligand ids to update and remove. By default, these are taken from download data logs that
@@ -25,7 +16,7 @@ def finds_ids_to_update_and_remove(config: Config) -> IdsToUpdateAndRemove:
     :raises ParsingError:
     """
     ids = _find_ids_to_update_and_remove(config)
-    logging.info("Will run data extraction with these ids to update and remove: %s", ids)
+    logging.debug("Will run data extraction with these ids to update and remove: %s", ids)
     return ids
 
 
@@ -59,12 +50,7 @@ def _load_ids_to_update_and_remove_from_json(json_filepath: str) -> IdsToUpdateA
         raise ParsingError(f"Failed to load ids to update and remove. Data extraction cannot proceed. {ex}") from ex
 
     try:
-        return IdsToUpdateAndRemove(
-            structures_to_update=ids_json["structuresToUpdate"],
-            structures_to_delete=ids_json["structuresToDelete"],
-            ligands_to_update=ids_json["ligandsToUpdate"],
-            ligands_to_delete=ids_json["ligandsToDelete"],
-        )
+        return IdsToUpdateAndRemove.from_dict(ids_json)
     except ValueError as ex:
         raise ParsingError(f"Failed to load json with ids to update and remove: No item {ex}") from ex
 

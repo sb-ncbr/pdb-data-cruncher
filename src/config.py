@@ -115,8 +115,10 @@ class FilepathConfig:
 
     # source of data
     _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
-    _pdb_mmcifs_name: str = env.get("PDB_MMCIFS_FOLDER_NAME", "PDBe_updated_mmCIF")
+    _pdb_mmcifs_name: str = env.get("PDB_MMCIFS_FOLDER_NAME", "PDBe_mmCIF")
+    _gzipped_pdb_mmcifs_name: str = env.get("GZIPPED_PDB_MMCIFS_NAME", "gz_PDBe_mmCIF")
     _xml_reports_name: str = env.get("XML_REPORTS_FOLDER_NAME", "ValRep_XML")
+    _gzipped_xml_reports_name: str = env.get("GZIPPED_XML_REPORTS_FOLDER_NAME", "gz_ValRep_XML")
     _validator_db_results_name: str = env.get("VALIDATOR_DB_RESULTS_FOLDER_NAME", "MotiveValidator_JSON")
     _ligand_cifs_name: str = env.get("LIGAND_CIFS_FOLDER_NAME", "ccd_CIF")
     _factor_pairs_autoplot_csv_name: str = env.get("AUTOPLOT_CSV_NAME", "autoplot.csv")
@@ -127,6 +129,9 @@ class FilepathConfig:
     _ligand_stats_name: str = env.get("LIGAND_STATS_NAME", "ligandStats.csv")
     _download_changed_ids_json_name: str = env.get(
         "DOWNLOAD_CHANGED_IDS_JSON_NAME", "download_changed_ids_to_update.json"
+    )
+    _download_failed_ids_to_retry_json_name: str = env.get(
+        "DOWNLOAD_FAILED_IDS_TO_RETRY_JSON_NAME", "download_failed_ids_to_retry.json"
     )
 
     # output names used as input too
@@ -148,8 +153,16 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._pdb_mmcifs_name)
 
     @property
+    def gz_pdb_mmcifs(self) -> str:
+        return path.join(self.dataset_root_path, self._gzipped_pdb_mmcifs_name)
+
+    @property
     def xml_reports(self) -> str:
         return path.join(self.dataset_root_path, self._xml_reports_name)
+
+    @property
+    def gz_xml_reports(self) -> str:
+        return path.join(self.dataset_root_path, self._gzipped_xml_reports_name)
 
     @property
     def validator_db_results(self) -> str:
@@ -180,6 +193,10 @@ class FilepathConfig:
         return path.join(self.dataset_root_path, self._download_changed_ids_json_name)
 
     @property
+    def download_failed_ids_to_retry_json(self) -> str:
+        return path.join(self.dataset_root_path, self._download_failed_ids_to_retry_json_name)
+
+    @property
     def familiar_name_translations_json(self) -> str:
         return path.join(self.output_root_path, self._familiar_name_translations_json_name)
 
@@ -205,6 +222,16 @@ class FilepathConfig:
 
 
 @dataclass(slots=True)
+class DownloadTimeoutConfig:
+    """
+    Configuration for download timeouts.
+    """
+
+    rest_timeout_s: int = env.get("DOWNLOAD_REST_TIMEOUT_S", 100)
+    ligand_cifs_timeout_s: int = env.get("DOWNLOAD_LIGAND_CIFS_TIMEOUT_S", 30*60)
+
+
+@dataclass(slots=True)
 class Config:
     """
     Application configuraiton.
@@ -216,6 +243,7 @@ class Config:
 
     # data download
     run_data_download_only: bool = bool_from_env("RUN_DATA_DOWNLOAD_ONLY", False)
+    override_ids_to_download_filepath: Optional[str] = env.get("OVERRIDE_IDS_TO_DOWNLOAD_PATH")
     skip_data_download: bool = bool_from_env("SKIP_DATA_DOWNLOAD", False)
     # data extraction
     run_data_extraction_only: bool = bool_from_env("RUN_DATA_EXTRACTION_ONLY", False)
@@ -227,10 +255,13 @@ class Config:
     run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
     crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
+    # post transformation actions TODO integrate this
+    run_post_transformation_actions_only: bool = bool_from_env("RUN_POST_TRANSFORMATION_ACTIONS_ONLY", False)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
     factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
     filepaths: FilepathConfig = FilepathConfig()
+    timeouts: DownloadTimeoutConfig = DownloadTimeoutConfig()
 
     def is_full_run(self) -> bool:
         return (
@@ -255,10 +286,12 @@ class Config:
             run_only_mode_count += 1
         if self.run_data_transformation_only:
             run_only_mode_count += 1
+        if self.run_post_transformation_actions_only:
+            run_only_mode_count += 1
         if run_only_mode_count > 1:
             raise ValueError(
                 "Only one of the options RUN_DATA_DOWNLOAD_ONLY, RUN_DATA_EXTRACTION_ONLY, RUN_ZIPPING_FILES_ONLY, "
-                "RUN_DATA_TRANSFORMATION_ONLY can be set to True."
+                "RUN_DATA_TRANSFORMATION_ONLY, RUN_POST_TRANSFORMATION_ACTIONS_ONLY can be set to True."
             )
 
         if self.run_data_download_only and self.skip_data_download:

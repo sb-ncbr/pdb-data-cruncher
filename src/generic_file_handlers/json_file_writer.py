@@ -1,5 +1,6 @@
 import json
 from typing import Any
+import logging
 
 from src.exception import FileWritingError
 
@@ -14,5 +15,6 @@ def write_json_file(path_to_file: str, json_to_write: Any) -> None:
     try:
         with open(path_to_file, "w", encoding="utf-8") as f:
             json.dump(json_to_write, f, indent="\t")
+            logging.debug("Saved json to %s", path_to_file)
     except (OSError, TypeError, ValueError) as ex:
         raise FileWritingError(f"Cannot create json file {path_to_file}. {ex}") from ex

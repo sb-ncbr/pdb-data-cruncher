@@ -45,11 +45,14 @@ def delete_old_distribution_data_files(output_folder_path: str, current_date_pre
     :param output_folder_path:
     :param current_date_prefix: Current date formatted as 20240101 - only folders with this prefix will not be deleted.
     """
-    distribution_data_folders = find_matching_subfolders(output_folder_path, DISTRIBUTION_DATA_SUFFIX)
-    for foldername in distribution_data_folders:
-        if current_date_prefix in foldername:
-            continue
+    try:
+        distribution_data_folders = find_matching_subfolders(output_folder_path, DISTRIBUTION_DATA_SUFFIX)
+        for foldername in distribution_data_folders:
+            if current_date_prefix in foldername:
+                continue
 
-        full_folder_path = os.path.join(output_folder_path, foldername)
-        shutil.rmtree(full_folder_path)
-        logging.info("Deleted old '%s'.", full_folder_path)
+            full_folder_path = os.path.join(output_folder_path, foldername)
+            shutil.rmtree(full_folder_path)
+            logging.info("Deleted old '%s'.", full_folder_path)
+    except PermissionError:
+        logging.error("Failed to remove file(s) from %s due to permission errors.", output_folder_path)

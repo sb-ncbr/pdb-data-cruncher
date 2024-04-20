@@ -40,7 +40,7 @@ def run_data_archivation(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
-    logging.info("Running data archivation.")
+    logging.info("PHASE DATA ARCHIVATION is starting")
     data_to_archive = [  # source folder and resulting archive name
         (config.filepaths.pdb_mmcifs, "rawpdbe.7z"),
         (config.filepaths.xml_reports, "rawvalidxml.7z"),
@@ -62,5 +62,5 @@ def run_data_archivation(config: Config) -> bool:
         logging.error("%s folders failed to be archived.", failed_count)
         return False
 
-    logging.info("Data archivation finished successfully.")
+    logging.info("PHASE DATA ARCHIVATION finished")
     return True

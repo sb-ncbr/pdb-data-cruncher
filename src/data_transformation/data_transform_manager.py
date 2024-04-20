@@ -238,7 +238,7 @@ def run_data_transformation(config: Config) -> bool:
     :param config: App configuration.
     :return: True if all subparts finished successfully.
     """
-    logging.info("Starting data transformation.")
+    logging.info("PHASE DATA TRANSFORMATION starts")
 
     crunched_csv_path = _assemble_crunched_csv_path(config)
     factor_hierarchy_path = find_older_factor_hierarchy_file(config.filepaths.output_root_path)
@@ -253,7 +253,7 @@ def run_data_transformation(config: Config) -> bool:
     success &= DataTransformManager.create_updated_factor_hierarchy(config, crunched_csv_path, factor_hierarchy_path)
     success &= DataTransformManager.create_updated_versions_jsons(config)
 
-    logging.info("Data transformation %s.", "finished successfully" if success else "failed")
+    logging.info("PHASE DATA TRANSFORMATION %s.", "finished successfully" if success else "failed")
     return success
 
 

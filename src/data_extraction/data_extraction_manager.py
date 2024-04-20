@@ -172,8 +172,8 @@ class DataExtractionManager:
         protein_data = ProteinDataComplete(pdb_id=pdb_id)
         if ligand_stats is None:
             ligand_stats = DataExtractionManager.load_and_parse_ligand_stats(config)
-        protein_data.vdb = DataExtractionManager.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.pdbx = DataExtractionManager.load_and_parse_pdbx(pdb_id, config)
+        protein_data.vdb = DataExtractionManager.load_and_parse_validator_db_result(pdb_id, config)
         protein_data.xml = DataExtractionManager.load_and_parse_xml_validation_report(pdb_id, ligand_stats, config)
         protein_data.rest = DataExtractionManager.load_and_parse_rest(pdb_id, ligand_stats, config)
         calculate_inferred_protein_data(protein_data)
@@ -275,7 +275,7 @@ def run_data_extraction(config: Config) -> bool:
     :param config: Application configuration.
     :return: True if action succeeded. False otherwise.
     """
-    logging.info("Starting data extraction.")
+    logging.info("PHASE DATA EXTRACTION is starting")
     # prepare ids of structures and ligands to be updated or removed
     try:
         ids_to_update_and_remove = finds_ids_to_update_and_remove(config)
@@ -312,7 +312,7 @@ def run_data_extraction(config: Config) -> bool:
     )
 
     delete_old_crunched_csv(config.filepaths.output_root_path, config.current_formatted_date)
-    logging.info("Data extraction %s.", "finished successfully" if overall_success else "failed")
+    logging.info("PHASE DATA EXTRACTION %s.", "finished successfully" if overall_success else "failed")
 
     if overall_success:
         release_simple_lock_file(LockType.DATA_EXTRACTION, config)
