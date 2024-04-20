@@ -7,7 +7,7 @@ from src.data_download.failing_ids_handler import get_failing_ids, update_failin
 from src.data_download.ids_to_download_loader import load_overriden_ids_to_download
 from src.data_download.ligand_ccd_handler import download_and_find_changed_ligand_cifs
 from src.data_download.rest_download import RestDataType, download_one_type_rest_files
-from src.data_download.rsync_handler import rsync_and_unzip, RsyncDataType, RsyncLog
+from src.data_download.rsync_handler import rsync_and_unzip, RsyncDataType
 from src.exception import FileWritingError, ParsingError, DataDownloadError
 from src.generic_file_handlers.json_file_loader import load_json_file
 from src.generic_file_handlers.json_file_writer import write_json_file
@@ -15,12 +15,18 @@ from src.generic_file_handlers.simple_lock_handler import (
     check_no_lock_present_preventing_download, create_simple_lock_file, LockType
 )
 from src.models.ids_to_update import IdsToUpdateAndRemove, ChangedIds
-from src.utils import ensure_folder_exists
+from src.utils import ensure_folder_exists, delete_file_if_possible
 
 
 class DownloadManager:
     @staticmethod
     def ensure_download_target_folders_exist(config: Config) -> None:
+        """
+        Make sure folders for storing data that may not exist in the first run exist. But logging warning is
+        issued in such case, to alert to the possibility of typo in file paths (as the app will almost never
+        be run with empty data folder).
+        :param config: App configuration.
+        """
         ensure_folder_exists(config.filepaths.rest_jsons, True)
         for pdb_rest_type in ["assembly", "summary", "molecules", "publications", "related_publications"]:
             ensure_folder_exists(os.path.join(config.filepaths.rest_jsons, pdb_rest_type), True)
@@ -57,6 +63,12 @@ class DownloadManager:
 
     @staticmethod
     def update_ligand_cifs(config: Config) -> ChangedIds:
+        """
+        Update ligand cif files. The big ligand file is downloaded, cut into individual ligand cifs, and those
+        are saved if they are different from those already saved.
+        :param config: App configuration.
+        :return: Recieved and deleted ligand ids.
+        """
         logging.info("Starting updating of ligand (ccd) cif files.")
         try:
             changed_ids = download_and_find_changed_ligand_cifs(
@@ -271,7 +283,19 @@ class DownloadManager:
         :param config:
         :param deleted_structures_ids:
         """
-        pass  # TODO
+        logging.info("Deleting files for ids that were removed from mmcifs.")
+        for structure_id in deleted_structures_ids:
+            # rest files
+            delete_file_if_possible(os.path.join(config.filepaths.rest_jsons, "summary", f"{structure_id}.json"))
+            delete_file_if_possible(os.path.join(config.filepaths.rest_jsons, "assembly", f"{structure_id}.json"))
+            delete_file_if_possible(os.path.join(config.filepaths.rest_jsons, "molecules", f"{structure_id}.json"))
+            delete_file_if_possible(os.path.join(config.filepaths.rest_jsons, "publications", f"{structure_id}.json"))
+            delete_file_if_possible(
+                os.path.join(config.filepaths.rest_jsons, "related_publications", f"{structure_id}.json")
+            )
+            # vdb file
+            delete_file_if_possible(os.path.join(config.filepaths.validator_db_results, structure_id, "result.json"))
+        logging.info("Finished deleting files for ids that were removed from mmcifs.")
 
     @staticmethod
     def save_changed_ids_into_json(config: Config, changed_structures: ChangedIds, changed_ligands: ChangedIds) -> bool:

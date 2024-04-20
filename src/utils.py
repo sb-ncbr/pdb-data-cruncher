@@ -100,28 +100,6 @@ def int_list_from_env(env_variable_name: str, default_value: Optional[list[int]]
     return int_list
 
 
-def string_list_from_env(env_variable_name: str, default_value: Optional[list[str]] = None) -> list[str]:
-    """
-    Get value of environmental variable and cut it by commas, creating list of string values.
-    :param env_variable_name:
-    :param default_value:
-    :return: List of strings.
-    """
-    if default_value is None:
-        default_value = []
-
-    env_value = os.environ.get(env_variable_name)
-    if not env_value:
-        return default_value
-
-    string_list = []
-    for value in env_value.replace(" ", "").split(","):
-        if value:  # skip empty items if any
-            string_list.append(value)
-
-    return string_list
-
-
 def bool_from_env(env_variable_name: str, default_value: bool) -> bool:
     """
     Attempts to get value from environment variable, and converts it to bool. Permitted values are
@@ -277,6 +255,19 @@ def ensure_folder_exists(folder_path: str, alert_if_does_not_exist: bool = False
         if alert_if_does_not_exist:
             logging.warning("Folder %s did not exist. Creating it.", folder_path)
         os.makedirs(folder_path)
+
+
+def delete_file_if_possible(filepath: str) -> None:
+    """
+    Attempt to delete the file. If it doesn't exist, do nothing. In case of file permissions, log a warning.
+    :param filepath:
+    """
+    try:
+        os.remove(filepath)
+    except FileNotFoundError:
+        pass
+    except OSError as ex:
+        logging.warning("Failed to delete file even though it exists: %s", ex)
 
 
 def file_hash(file_path: str, block_size: int = 65536) -> str:

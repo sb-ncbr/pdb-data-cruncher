@@ -4,14 +4,18 @@ import os
 import shutil
 import subprocess
 from dataclasses import dataclass, field
-from typing import Optional
 from enum import Enum
+from typing import Optional
 
 from src.exception import DataDownloadError
 
 
 @dataclass(slots=True)
 class RsyncLogItem:
+    """
+    Single item from parsed rsync log.
+    """
+
     relative_path: str
     filename: str
     structure_id: Optional[str] = "????"
@@ -20,10 +24,18 @@ class RsyncLogItem:
 
 @dataclass(slots=True)
 class RsyncLog:
+    """
+    Parsed rsync log.
+    """
+
     recieved: list[RsyncLogItem] = field(default_factory=list)
     deleted: list[RsyncLogItem] = field(default_factory=list)
 
     def get_successful_recieved_ids(self) -> list[str]:
+        """
+        Get list of recieved structure ids considered successful (where unpacking did not fail).
+        :return: List of strings representing structure ids (without file extensions).
+        """
         return [
             rsync_log_item.structure_id
             for rsync_log_item
@@ -32,6 +44,10 @@ class RsyncLog:
         ]
 
     def get_deleted_ids(self) -> list[str]:
+        """
+        Get list of structure ids that were deleted.
+        :return: List of strings representing structure ids (without file extensions).
+        """
         return [
             rsync_log_item.structure_id
             for rsync_log_item
@@ -40,11 +56,24 @@ class RsyncLog:
 
 
 class RsyncDataType(Enum):
+    """
+    Type of data to rsync.
+    """
+
     ARCHIVE_MMCIF = 0
     XML_VALIDATION_REPORTS = 1
 
 
 def rsync_and_unzip(rsync_data_type: RsyncDataType, gzip_folder: str, unpacked_folder: str) -> RsyncLog:
+    """
+    Assembles rsync command based on rsync data type. Runs the command. Parses the rsync log to get recieved
+    and deleted files entries. Unzips the gz from the files for recieved files, removes the removed from unzipped.
+    :param rsync_data_type: Type of data to rsync. Rsync command is assembled based on it, and logs are parsed
+    differently for each type (based on file extensions associated with the type).
+    :param gzip_folder: Path to folder where .gz versions are stored. This is the rsync target.
+    :param unpacked_folder: Folder where unpacked files are stored.
+    :return: Parsed rsync log.
+    """
     rsync_command = _assemble_rsync_command(rsync_data_type, gzip_folder)
     logging.info("Running rsync command: '%s'", " ".join(rsync_command))
     rsync_raw_log = _run_rsync_command(rsync_command)

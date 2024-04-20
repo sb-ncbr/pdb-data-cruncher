@@ -255,7 +255,7 @@ class Config:
     run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
     crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
-    # post transformation actions
+    # post transformation actions TODO integrate this
     run_post_transformation_actions_only: bool = bool_from_env("RUN_POST_TRANSFORMATION_ACTIONS_ONLY", False)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
