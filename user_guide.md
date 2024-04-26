@@ -2,6 +2,8 @@
 
 TODO real table of contents
 
+TODO grammarly
+
 [toc]
 
 # Local development
@@ -170,15 +172,15 @@ The data download phase takes care of keeping up to date the source data, and st
 
 Data download is done as follows:
 
-1. Assert no lock is present.
+1. **Assert no lock is present.**
 
    Lock presence (existence of file `./logs/data_extraction_lock.txt`) indicates data extraction did not run fully and did not process the last download's ids to update list, so this is a safeguard against accidentally running download again and overwriting it.
 
-2. Make sure required folders are present.
+2. **Make sure required folders are present.**
 
    Dataset folder itself needs to be present before the run, but all the folders for data to be downloaded will be created if they are missing. However, this will issue a warning - if the app is run for the first time over new storage, it can be ignored. But on subsequent download runs, this may indicate the path is configured incorrectly.
 
-3. Synchronize PDB mmCIF files for structures via rsync.
+3. **Synchronize PDB mmCIF files for structures via rsync.**
 
    First, files in location `./dataset/gz_PDBe_mmCIF/` are synced to the rsync endpoint `rsync.rcsb.org::ftp_data/structures/divided/mmCIF/`. These files have `.cif.gz` extensions.
 
@@ -190,11 +192,11 @@ Data download is done as follows:
 
    If path to json with list of ids is passed via env variable `OVERRIDE_IDS_TO_DOWNLOAD_PATH`, rsync of PDB mmCIF files is not done. Instead, this json is loaded and ids inside will be used as ids that changed for next steps (both for downloading other http files and subsequent data extraction). 
 
-4. Update ligand .cif files.
+4. **Update ligand .cif files.**
 
    This is done by downloading `components.cif` and `aa-variants-v1.cif` files from PDB, cutting them into individual ligand cifs, and comparing them to already saved cif files. If they differ, they are updated and the ids of those updated are saved for further processing. The same goes for those deleted (not present in either of big .cif files anymore).
 
-5. Synchronize validation report .xml files via rsync.
+5. **Synchronize validation report .xml files via rsync.**
 
    First, files in location `./dataset/gz_ValRep_XML` are synced to the rsync endpoint `rsync.rcsb.org::ftp/validation_reports/ `(filtered so only the xml files are synced). These files have `.xml.gz` extensions.
 
@@ -202,21 +204,21 @@ Data download is done as follows:
 
    Based on the rsync log, received files are unzipped into plain `.cif` to folder `./dataset/ValRep_XML/`. Those deleted are deleted from there as well. The ids of updated files are added to the list of ids that updated during download to be recalculated during data extraction.
 
-6. Download files from ValidatorDB and PDBe REST API.
+6. **Download files from ValidatorDB and PDBe REST API.**
 
    Download report from ValidatorDB (to `./dataset/MotiveValidator_JSON/`), and jsons from PDBe API from endpoints: summary, assembly, molecules, publications and related publications (to their respective folders in `./dataset/PDBe_REST_API_JSON`).
 
    Files are downloaded for: structure ids gotten as updated from sync of mmcif and for those that failed last time (loaded from persistent file `./dataset/download_failed_ids_to_retry.json`). Ids that fail are added to the failed ids json and saved for next time. Any that succeeded after previous fails are removed from failed ids json, and also added to the list of ids that updated during download to be recalculated during data extraction.
 
-7. Delete old files from ValidatorDB and PDBe REST API.
+7. **Delete old files from ValidatorDB and PDBe REST API.**
 
    Delete those files for pdb ids that got removed during step 3. (sync of structure mmcifs).
 
-8. Save changed ids into json.
+8. **Save changed ids into json.**<a id="download-save-changed-ids"></a>
 
    Save structure and ligand ids that changed (updated or deleted) into a file `./dataset/download_changed_ids_to_update.json`. When data extraction is run, this file is the source of truth for which ids it updates and removes from crunched.csv.
 
-9. Create simple lock file.
+9. **Create simple lock file.**
 
    Creates `./logs/data_extraction_lock.txt` to serve as a lock against next data download run. This file is deleted (released) upon successful data extraction run.
 
@@ -230,7 +232,7 @@ What to do in the rare case that serious error happens to maintain data integrit
 
 In cases not mentioned here, follow the WARNING and ERROR levels of logs (stored in `./logs/filtered_log.txt` by default). None of them should require any changes and manual actions apart from those mentioned below.
 
-- App fails during the rsync of structure mmCIF files and no other actions are done.
+- **App fails during the rsync of structure mmCIF files and no other actions are done.**
 
   1. Check the logs for raw rsync log of the part that still managed to run. If there are any files that were still received, action needs to be taken.
 
@@ -240,7 +242,7 @@ In cases not mentioned here, follow the WARNING and ERROR levels of logs (stored
 
      Delete the received .cif.gz files from their folder, and run the app again without changes.
 
-- Download of ValidatorDB jsons or PDBe REST API jsons fails to load or save the file with failed downloads.
+- **Download of ValidatorDB jsons or PDBe REST API jsons fails to load or save the file with failed downloads.**
 
   1. Check the logs for what happened. There should be CRITICAL level log with the json with failed ids json included. Copy this.
 
@@ -268,7 +270,7 @@ In cases not mentioned here, follow the WARNING and ERROR levels of logs (stored
 
   3. Save the file. Download phase can now be considered successful and the rest of the program may continue. Run the app again with the environment variable `SKIP_DATA_DOWNLOAD` set to `True`.
 
-- Saving of the json with information about which structure and ligand ids changed failed.
+- **Saving of the json with information about which structure and ligand ids changed failed.**
 
   1. See the logs. Under ERROR log level, there will be printed a list of changed structures and changed ligands that would have been written into the json file, had it not failed.
 
@@ -289,11 +291,231 @@ In cases not mentioned here, follow the WARNING and ERROR levels of logs (stored
 
 ## Data extraction
 
+The data extraction phase takes list of structure and ligand ids that had changed during data download, extracts relevant protein data from their respective files, and updates crunched csv with this new data.
+
+Data extraction is done as follows:
+
+1. **Find which structure and ligand ids should be updated and deleted.**
+
+   With default settings, it loads these lists created by the [download phase](#download-save-changed-ids). It does so from the location `./dataset/download_changed_ids_to_update.json`.
+
+   *<u>Alternative</u>*
+
+   If the `FORCE_COMPLETE_DATA_EXTRACTION` is set to true, it instead looks to the folder with structure mmCIF files (`./dataset/PDBe_mmCIF/` by default) and creates the list of structure ids to update from every structure it finds .cif file there for. In the same way, ligand ids to update are found (from every .cif file from `./dataset/ccd_CIF/` by default). Effectivelly, this means the app will run for **every** structure and ligand there is (assuming the data storage is up to date with PDBe). No structures or ligands are marked for deletion, but with this setting, any files that are normally only updated (crunched csv, ligand stats, ...) are recreated from scratch instead.
+
+   *<u>Alternative</u>* <a id="data-extraction-step-1-alternative-b"></a>
+
+   If the `OVERRIDE_IDS_TO_DOWNLOAD_PATH` is set, the ids will be loaded from this file instead. This may be used to define custom ids to update (in combination with skip data download option).
+
+   This variable needs to contain path to json. Its content can look like this:
+
+   ```json
+   {
+   	"structuresToUpdate": ["1dey", "7pin"],
+   	"structuresToDelete": [],
+   	"ligandsToUpdate": ["AOH"],
+   	"ligandsToDelete": []
+   }
+   ```
+
+2. **For changed ligand ids, find which structures contained these ligands in previous runs, and add these structure ids to the list of ids to update.**
+
+   In between runs, file `./dataset/ligand_occurrence_in_structures.json` stores the information about which ligand ids were used for each structure id. For every ligand id to update, this file is searched for a list of structure ids that had used this ligand. These structure ids are then appended to the list of structures to update this run.
+
+   (This is important because some of the collected protein data for a structure are dependant on ligand data - if the underlying ligand changed, the structure's data need to be recalculated.)
+
+3. **For changed ligand ids, calculate their ligand stats and save the updated version.**
+
+   Ligand stats are calculated for each ligand id (from their .cif file) and updated in the persistent ligand stats csv (default `./dataset/ligandStats.csv`).
+
+4. **Load all ligand stats.**
+
+   Load all ligand stats from the csv (`./dataset/ligandStats.csv` by default).
+
+5. **For every updated structure id, run data extraction to acquire protein data:** <a id="data-extraction-step-5"></a>
+
+   This is done in multiple processes (one for each structure id, up to maximum defined in configuration).
+
+   1. **Load and parse structure's mmCIF.**
+
+      Works with .cif file from PDBe.
+
+   2. **Load and parse structure's ValidatorDB result.**
+
+      Works with result.json file from ValidatorDB.
+
+   3. **Load and parse structure's XML validation report.**
+
+      Works with .xml file from PDBe.
+
+   4. **Load and parse structure's files from PDBe REST API.**
+
+      Works with assembly.json, summary.json and molecules.json from PDBe.
+
+   5. **Calculate inferred protein data.**
+
+      Calculates additional data by combining data from multiple sources.
+
+6. **Go through the collected protein data and determine which are considered successful.**
+
+   The acquired protein data structure is considered successful (thus fit for saving as valid result) if at least the parsing of data from .cif from PDBe was successful. ValidatorDB result, XML validation report and data from PDBe REST API may be missing or invalid (such event is still logged, but the data is saved in at least its partial form).
+
+7. **For successful data, update which ligands they contain for future runs.** <a id="data-extraction-step-7"></a>
+
+   Updates `./dataset/ligand_occurrence_in_structures.json` file with data loaded this run.
+
+8. **Remove structures designated for removal from ligand occurence json.** <a id="data-extraction-step-8"></a>
+
+   If any structures are removed, their entries are removed from `./dataset/ligand_occurrence_in_structures.json` file as well.
+
+9. **Update crunched csv with successfull data, and delete data about structures to be deleted.** <a id="data-extraction-step-9"></a>
+
+   1. **Load previous crunched csv, if such exists.**
+
+      By default, `./output/data.csv` is loaded for the purpose of updating! The other files (crunched.csv and data.xlsx) are only output.
+
+      *<u>Alternative</u>*
+
+      In case of `FORCE_COMPLETE_DATA_EXTRACTION` set to true, this is skipped. New crunched csv is created, and the old one is overwritten!
+
+   2. **For structure id from the list of ids that should be deleted, remove their rows from crunched csv.**
+
+   3. **Update the crunched csv with the successful protein data.**
+
+      These rows are completely replaced with new data.
+
+   4. **Store updated csv.**
+
+      It is stored in three files, as required by ValTrendsDB. `./output/data.csv`, `./output/YYYYMMDD_crunched.csv` and `./output/data.xlsx`.
+
+10. **Delete crunched csv with old tiemstamp.**
+
+    If there are any crunched csv following the format `YYYYMMDD_crunched.csv` in the output folder that do not have current formatted date, they are deleted.
+
+11. **If overall successful, release (delete) lock from download phase.**
+
+    Overall success is defined as:
+
+    - ([Step 5](#data-extraction-step-5)) All collected protein data contain the part of data from PDBe mmCIFs (i.e. there was no unrecoverable error during the processing of the .cif file).
+    - ([Step 7](#data-extraction-step-7) & [Step 8](#data-extraction-step-8)) Update of ligand occurence json was successful.
+    - ([Step 9](#data-extraction-step-9)) Updating and saving of crunched csv (and its other versions) was successful.
+
+    Releasing lock means deleting the file `./logs/data_extraction_lock.txt` that was created during download (to prevent accidental rerun and lost information). By deleting it, it signals that all the information from download (changed ids) was safely processed.
+
+### Required files
+
+Example of file structure (on default configuration) needed for successful aplication run.
+
+All these files are created by either data download or previous data extraction phases. Unless you are running the app with skip download on or run data extraction only on, you do not have to worry about these details.
+
+```
+dataset/
+    ccd_CIF/
+        000.cif
+        ...
+    MotiveValidator_JSON/
+  	    100d/
+  	        result.json
+  	    ...
+    PDBe_mmCIF/
+        100d.cif
+        ...
+    PDBe_REST_API_JSON/
+        assembly/
+        	100d.json
+        	...
+        molecules/
+            100d.json
+            ...
+        summary/
+            100d.json
+            ...
+    ValRep_XML/
+        100d_validation.xml
+        ...
+    download_changed_ids_to_update.json
+    ligandStats.csv [Optional]
+    ligand_occurence_in_structures.json [Optional]
+```
+
+[Optional] = Not needed on the first run ever. But if not present on subsequent runs, something is wrong.
+
+### Error recovery
+
+Multiple things can lead to the data extraction phase being considered unsuccessful and the app exiting with non-zero status code to indicate such. In such cases, simple lock is not released and future download phases are blocked unless the issue is resolved.
+
+None of the issues that can arise is critical (i.e. that would result in the loss of cruical data with no option to reproduce the results), but they still need to be address.
+
+In general, follow these steps:
+
+1. See logs to find out what caused the errors. If possible, try to fix the cause.
+2. Run the app again with either `SKIP_DATA_DOWNLOAD` set to true. (This skips the download phase and lets extraction phase load the result from the *last* download phase, i.e. the same one as the last time when data extraction failed).
+
+If for some reason it is needed to only run a subset of ids to update, use `IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH` to define your own set of ids for the next run. See [here](#data-extraction-step-1-alternative-b) for example of such file.
+
+In the worst case scenario of being aware that the crunched csvs are not up to date with downloaded data, but unable to assert which ones are wrong, option `FORCE_COMPLETE_DATA_EXTRACTION` set to true will force complete redo of the crunched csvs. In such case, no ids to update and delete are loaded from the download - instead, all .cif files in dataset are taken as structure ids to be updated. Beware, with this option on, the app will run significantly longer - use with caution.
+
+If you are certain everything was created successfully, but the simple lock `./logs/data_extraction_lock.txt` was not removed for some reason, simply deleting the file will allow the next run to do download unblocked.
+
 ## Data archiving
+
+Archives downloaded data into .7z archive to output folder. With default configuration, these are:
+
+- `./dataset/ccd_CIF/` to `./output/rawccd.7z`
+- `./dataset/MotiveValidator_JSON/` to `./output/rawvdb.7z`
+- `./dataset/PDBe_mmCIF/` to `./output/rawpdbe.7z`
+- `./dataset/PDBe_REST_API_JSON/` to `./output/rawrest.7z`
+- `./dataset/ValRep_XML/` to `./output/rawvalidxml.7z`
+
+The archiving is done by p7zip-full commandline tool. If such archive already exists, it simply updates it (or removes files when neccessary) without the need to recreate the whole archive from scratch.
+
+### Required files
+
+Example of file structure (on default configuration) needed for achiving.
+
+All these files are created by data download.
+
+```
+dataset/
+    ccd_CIF/
+        000.cif
+        ...
+    MotiveValidator_JSON/
+  	    100d/
+  	        result.json
+  	    ...
+    PDBe_mmCIF/
+        100d.cif
+        ...
+    PDBe_REST_API_JSON/
+        assembly/
+        	100d.json
+        	...
+        molecules/
+            100d.json
+            ...
+        summary/
+            100d.json
+            ...
+    ValRep_XML/
+        100d_validation.xml
+        ...
+```
+
+### Error recovery
+
+In case of failure, simply run the phase again by setting `RUN_ZIPPING_FILES_ONLY` to true.
 
 ## Data transformation
 
+TODO
+
 ## Post transformation actions
 
+This phase only gets to run after all phases finish successfully in normal run, or when `RUN_POST_TRANSFORMATION_ACTIONS_ONLY` is set to true.
 
+**Nothing happens in this phase!** Yet.
 
+It is a code stub for future development, as a place for any actions that should happen after the app runs successfully (i.e. sending the newly created data to another location).
+
+To add functionality to this phase, simply edit function `run_post_transformation_actions` in `src/post_transformation_actions.py`.
