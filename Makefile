@@ -1,3 +1,5 @@
+CERIT_DOCKER_REPOSITORY_NAME=ivetastrnadova
+
 test_run:
 	poetry run python3 src/main.py --debug
 
@@ -32,6 +34,13 @@ pytest-integration:
 
 pytest-coverage:
 	poetry run pytest --cov=src
+
+# builds docker image with name pdb-data-cruncher and tag "latest"
+docker-build:
+	docker build -t cerit.io/${CERIT_DOCKER_REPOSITORY_NAME}/pdb-data-cruncher .
+
+docker-push:
+	docker push cerit.io/${CERIT_DOCKER_REPOSITORY_NAME}/pdb-data-cruncher
 
 
 check: pylint flake8 pytest

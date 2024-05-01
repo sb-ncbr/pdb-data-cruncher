@@ -109,9 +109,9 @@ class FilepathConfig:
     Configuration
     """
 
-    dataset_root_path: str = env.get("DATASET_ROOT_PATH", "./dataset")
-    output_root_path: str = env.get("OUTPUT_ROOT_PATH", "./output")
-    logs_root_path: str = env.get("LOGS_ROOT_PATH", "./logs")
+    dataset_root_path: str = env.get("DATASET_ROOT_PATH", "./data/dataset")
+    output_root_path: str = env.get("OUTPUT_ROOT_PATH", "./data/output")
+    logs_root_path: str = env.get("LOGS_ROOT_PATH", "./data/logs")
 
     # source of data
     _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
