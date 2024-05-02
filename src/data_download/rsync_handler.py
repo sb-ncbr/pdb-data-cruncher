@@ -106,10 +106,6 @@ def _assemble_rsync_command(rsync_data_type: RsyncDataType, target_folder_path: 
 
     if rsync_data_type == RsyncDataType.ARCHIVE_MMCIF:
         command.extend([
-            "--include", "**/",
-            "--include", "0*/**",
-            "--include", "1*/**",
-            "--exclude", "*",  # TODO remove all lines before this and this
             "rsync.rcsb.org::ftp_data/structures/divided/mmCIF/",
         ])
     elif rsync_data_type == RsyncDataType.XML_VALIDATION_REPORTS:
