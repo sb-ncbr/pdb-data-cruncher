@@ -1,0 +1,73 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pdb-data-cruncher
+  annotations:
+    {}
+  labels:
+    {}
+  # Change to desired namespace here
+  namespace: strnadova-ns
+spec:
+  selector:
+    matchLabels:
+  template:
+    metadata:
+      labels:
+        {}
+      # Change to desired namespace here
+      namespace: strnadova-ns
+    spec:
+      containers:
+        - imagePullPolicy: Always
+          name: pdb-data-cruncher
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsUser: 1000
+            seccompProfile:
+              type:
+                RuntimeDefault
+          _init: false
+# If configuraiton via environmental variables needed, uncomment bellow and add it there
+#          env:
+#            - name: LOGGING_DEBUG
+#              value: "True"
+          volumeMounts:
+            - name: pdb-data-cruncher-volume
+              mountPath: /app/data
+              subPath: pdb-data-cruncher/
+          image: cerit.io/ivetastrnadova/pdb-data-cruncher
+          stdin: false
+          stdinOnce: false
+          tty: false
+# If uncommented, container will start up in infinite loop without running anything else
+# Useful if you want to exec into it and run commands from inside
+#          command:
+#            - tail
+#          args:
+#            - '-f'
+#            - /dev/null
+          __active: true
+      restartPolicy: Never
+      volumes:
+        - _type: persistentVolumeClaim
+          persistentVolumeClaim:
+            claimName: pdb-data-cruncher-storage
+          name: pdb-data-cruncher-volume
+          __newPvc:
+            type: persistentvolumeclaim
+            metadata:
+              namespace: strnadova-ns
+            spec:
+              storageClassName: ''
+              volumeName: ''
+              resources:
+                requests: {}
+  replicas: 1
+__clone: true
