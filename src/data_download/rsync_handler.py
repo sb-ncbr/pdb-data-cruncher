@@ -106,7 +106,7 @@ def _assemble_rsync_command(rsync_data_type: RsyncDataType, target_folder_path: 
 
     if rsync_data_type == RsyncDataType.ARCHIVE_MMCIF:
         command.extend([
-            "rsync.rcsb.org::ftp_data/structures/divided/mmCIF/",
+            "rsync.rcsb.org::ftp_data/structures/all/mmCIF/",
         ])
     elif rsync_data_type == RsyncDataType.XML_VALIDATION_REPORTS:
         command.extend([
