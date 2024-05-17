@@ -34,14 +34,22 @@ spec:
               type:
                 RuntimeDefault
           _init: false
+          resources:
+            requests:
+              memory: 16000Mi
+            limits:
+              memory: 32000Mi
 # If configuraiton via environmental variables needed, uncomment bellow and add it there
 #          env:
-#            - name: LOGGING_DEBUG
+#            - name: SKIP_DATA_DOWNLOAD
 #              value: "True"
+#            - name: MAX_PROCESS_COUNT
+#              value: "1"
           volumeMounts:
             - name: pdb-data-cruncher-volume
               mountPath: /app/data
               subPath: pdb-data-cruncher/
+          # Replace the repository in the image name with your cerit.io repository name
           image: cerit.io/ivetastrnadova/pdb-data-cruncher
           stdin: false
           stdinOnce: false
@@ -69,5 +77,7 @@ spec:
               volumeName: ''
               resources:
                 requests: {}
+  backoffLimit: 0
+  suspend: false
   replicas: 1
 __clone: true
