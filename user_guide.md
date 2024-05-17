@@ -12,6 +12,46 @@ TODO
 
 # Deployment
 
+## Creating Docker image
+
+Follow the steps to build new docker image from your local files.
+
+1. Log into the CERIT's docker image harbor with:
+
+   ```bash
+   docker login cerit.io
+   ```
+
+   When asked for credentials, enter your CLI secret as a password (found in [hub.cerit.io](https://hub.cerit.io) in the User Profile section). See [CERIT harbor documentation](docs.cerit.io/docs/harbor.html) for more detailed instructions if needed.
+
+2. Build the docker image locally by running:
+
+    ```bash
+    docker build -t cerit.io/your_cerit_repository_name/pdb-data-cruncher
+    ```
+
+3. Tag the image with new [semver](https://semver.org/) number (e.g. `v1.1`). (By default, the tag is `latest`. The tag can be named however you want, but following semver is a good practice.)
+
+    ```bash
+    docker tag cerit.io/your_cerit_repository_name/pdb-data-cruncher cerit.io/your_cerit_repository_name/pdb-data-cruncher:the_tag_name
+    ```
+
+4. Push the created docker image into the remote repository.
+
+    ```bash
+    docker push cerit.io/your_cerit_repository_name/pdb-data-cruncher:the_tag_name
+    ```
+
+Alternatively, you may run the following command instead of steps 2-4. Before doing so, you need to edit variables `CERIT_DOCKER_REPOSITORY_NAME` and `NEW_DOCKER_TAG` inside the [Makefile](./Makefile) to suit your configuration.
+
+```bash
+make docker-build-tag-push
+```
+
+Please note that any setting used in `docker-compose.yaml` or `local.env` is not used when building the image. To set environmental variables, you need to add them while setting up the deployment in Rancher.
+
+## Deploy to Rancher
+
 TODO
 
 # Configuration
@@ -434,11 +474,14 @@ dataset/
         100d_validation.xml
         ...
     download_changed_ids_to_update.json
+    ligand_occurence_in_structures.json
     ligandStats.csv [Optional]
     ligand_occurence_in_structures.json [Optional]
 ```
 
 [Optional] = Not needed on the first run ever. But if not present on subsequent runs, something is wrong.
+
+For the first run, make sure to create `dataset/ligand_occurence_in_structures.json` with `{}` as content.
 
 ### Error recovery
 
@@ -449,7 +492,7 @@ None of the issues that can arise is critical (i.e. that would result in the los
 In general, follow these steps:
 
 1. See logs to find out what caused the errors. If possible, try to fix the cause.
-2. Run the app again with either `SKIP_DATA_DOWNLOAD` set to true. (This skips the download phase and lets extraction phase load the result from the *last* download phase, i.e. the same one as the last time when data extraction failed).
+2. Run the app again with either `SKIP_DATA_DOWNLOAD` set to true (this skips the download phase and lets extraction phase load the result from the *last* download phase, i.e. the same one as the last time when data extraction failed) or `RUN_DATA_EXTRACTION_ONLY` set to true.
 
 If for some reason it is needed to only run a subset of ids to update, use `IDS_TO_REMOVE_AND_UPDATE_OVERRIDE_PATH` to define your own set of ids for the next run. See [here](#data-extraction-step-1-alternative-b) for example of such file.
 
@@ -508,7 +551,122 @@ In case of failure, simply run the phase again by setting `RUN_ZIPPING_FILES_ONL
 
 ## Data transformation
 
-TODO
+This phase takes care of transforming the data from crunched csv into multiple output files - it creates default plot data, distribution data, and default plot settings; it updates factor hierarchy, Versions and VersionsKT.
+
+It runs as follows:
+
+1. It attempts to find the current crunched csv. It expects it in the output folder location, in format `YYYYMMDD_crunched.csv`, where the formatted date is current date.
+
+   <u>*Alternative*</u>
+
+   If `CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION` is set to path to another crunched csv, that csv is used instead.
+
+2. Default plot data is created.
+
+   Factor pairs to do the default plot data for are loaded from file `./dataset/autoplot.csv` (the name can be overwritten by `AUTOPLOT_CSV_NAME`). Following structure is expected in this file (columns `X` and `Y` need to be present, though they do not need to be the only columns nor do they need to be the first columns):
+
+   ```
+   X;Y
+   resolution;releaseDate
+   resolution;hetatmCount
+   ```
+
+   A list of bucket limits for each factor is taken from file `./dataset/3-Hranice-X_nazvy_promennych.csv` (the name can be overwritten by `X_PLOT_BUCKET_LIMITS_CSV_NAME`). The structure of the file is expected as follows:
+
+   ```
+   ;resolution;releaseDate
+   1;-0.01;-0.01
+   2;0.99;1994
+   3;1.049;1995
+   4;1.13;1996
+   ```
+
+   The second row is ignored and negative infinity is assumed. If any column has fewer buckets than the rest, `NA` in place of the missing values is expected.
+
+   The following is done for each factor pair:
+
+   1. Overall data statistics are calculated. This includes global min/max values for factors on x/y axes.
+   2. Data is sorted based on their x value into buckets defined by the loaded bucket limits.
+   3. If there are any empty buckets or buckets with less structures than 100, they get merged into their smaller neighbour bucket. This is done until all buckets have 100 hundered strucgtures or more, or until there is only one bucket (dataset this small should never occur though).
+   4. For each of the resulting buckets, additional statistics are counted (such as y factor value average, min, max, etc.).
+
+   All the collected information is saved into the folder `YYYYMMDD_DefaultPlotData/`, where each factor pair gets its JSON with collected information. The files inside have format `factor_on_x+factor_on_y.json`, e.g. `resultion+releaseDate.json`. Any old default plot data present in the output folder are then deleted.
+
+3. Distribution data creation, for each factor name loaded from `nametranslations.json`.
+
+   The following is done for each factor (except for a release date, which gets handled in straighforward way):
+
+   1. The values for every structure for this factor are rounded (to 3 decimal significant places).
+   2. The dataset is grouped into buckets based on the factor values.
+   3. The buckets with the fewest structures inside are merged into their neighbour (creating buckets covering intervals instead of single values), as long as there is at most 200 buckets present.
+
+   All the collected information is saved into the folder `YYYYMMDD_DistributionData/`, where each factor has its own JSON with collected information. The files are named as `factor_name.json`, e.g. `resolution.json`. Any old distribution data present in output folder are then deleted.
+
+4. If `DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS` is set to false,  the default plot settings are created. By default, this step is skipped. (This action is resource intesive while the results do not need to be recalculated often.)
+
+   The information about which factor types can be on x-axis (so they need default plot settings created) and which can be on y-axis (so for a calculation of default plot settings for different factor, they can be on y-axis and need to be taken into an account).
+
+   The requirements (by the ValTrendsDB) for the default plot settings are that a plot with buckets with the same width are made. The buckets do not need to cover the maximum range of x-axis factor. However, there need to be at most 50 buckets (by default), and each resulting bucket interval needs to have at least 50 structures (by default), for each combination of factors possible (i.e. the x-factor needs to have enough structures in each final bucket with any of the factors that are permissable on the y-axis; this may differ from factor to factor because not all factors have a value for each structure).
+
+   For each factor on x-axis (except for a release date, which is created with respect to the fact that it represents a year), it is done as follows:
+
+   1. Calculate minimum and maximum value on x, without outliers (that are defined as mean value plus/minus two times standard deviation; by default).
+   2. Possible bucket size is determined in such a way that the resulting bucket count would be less than 50 and would cover the interval defined by adjusted minimum and maximum value. At the same time, the bucket size is allowed to be only one of the numbers from `[10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90]` times 10^n, to keep the bucket boundaries as short human-readable numbers.
+   3. Test if every combination of this factor and any factor on y results in at least 50 structures in every bucket created like this. If not, make the bucket width slightly larger (move it to the next bucket base size from the list, e.g. 700 if 600 did not work out) and try again, until the requirements are met.
+
+   After all the data is collected, one JSON `YYYYMMDD_DefaultPlotSettings.json` is created containing the resulting default plot setting for each factor. Old default plot settings are then deleted.
+
+5. Update factor hierarchy.
+
+   Factor hierarchy has three values that need adjusting for each factor: value range from, value range to, and slider step. These values are used to set the slider controlling which interval on x is displayed for ValTrendsDB plots.
+
+   The rest of the file is unchanged, simply copied. This however means that there needs to be a previous file `YYYYMMDD_FactorHierarchy.json` in output location to run successfully.
+
+   For each factor (except the release date, which follows a simplified version), the values are determined as follows:
+
+   1. Get maximum value rounded up to two significant decimal places. Get minimum value rounded to the same precision at the maximum value. Determine the value range needed to cover with the slider step.
+   2. By default, there should be min 100 steps on the slider, and 300 at most, with 200 the ideal count. Attempt to determine such slider step length that the step count it creates is close to 200 and the slider step is a nice number (similar as in plto settings, slider step value can only be `[10, 20, 25, 50]` times 10^n).
+   3. Adjust the maximum value on x up so that the last step has the same length as the rest of them.
+
+   If successful, the values are updated and saved into a factor hierarchy with current formatted date, and the old file is deleted.
+
+6. Update version JSONs.
+
+   For both `Versions.json` and `VersionsKT.json`, the same action is load. They are loaded, the first entry (the one with last datastamp of current data) is removed, and entry with current formatted data string is added.
+
+### Required files
+
+Example of file structure (on default configuration) needed for achiving.
+
+```
+dataset/
+	3-Hranice-X_nazvy_promennych.csv
+	autoplot.csv
+output/
+	YYYYMMDD_crunched.csv
+	nametranslation.json
+	YYYYMMDD_FactorHierarchy.json
+	Versions.json
+	VersionsKT.json
+	YYYYMMDD_DefaultPlotSettings.json [Optional]
+```
+
+The timestamp in `YYYYMMDD_crunched.csv` represents the current formatted date. The file is matched based on `CURRENT_FORMATTED_DATE` env variable, which defaults to today.
+
+In `YYYYMMDD_FactorHierarchy.json`, it represents any formatted date string, as it is used to find old version and update it.
+
+`YYYYMMDD_DefaultPlotSettings.json` is marked optional as it is only relevant if environment variable `DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS` is set to true. In such case, an older version of default plot settings (with any formatted date string) is taken and copied into filename with current formatted date string.
+
+### Error recovery
+
+None of the issues that can arise is critical (i.e. that would result in the loss of cruical data with no option to reproduce the results), but they still need to be address.
+
+In general, follow these steps:
+
+1. See logs to find out what caused the errors. If possible, try to fix the cause.
+2. Run the app again with `RUN_DATA_TRANSFORMATION_ONLY` set to true. (Keep in mind that this will run only the data transformation; if there are any post-transformation actions set, the application needs to be afterwards run again with `RUN_POST_TRANSFORMATION_ACTIONS_ONLY` set to true.)
+
+You may set `CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION` to a path to a different crunched csv if for any reason you need to run the data extraction over different crunched data.
 
 ## Post transformation actions
 
