@@ -4,9 +4,10 @@ services:
       context: .
     environment:
       # Custom environment values can be set here to configure the app run
-      LOGGING_DEBUG: "False"
+      LOGGING_DEBUG: "True"
     volumes:
       # These three folders need to be mounted for the app to work
-      - ../logs:/app/logs
-      - ../raw_dataset:/app/dataset
-      - ../output:/app/output
+      # Replace the paths with your own
+      - ../logs:/app/data/logs
+      - ../raw_dataset:/app/data/dataset
+      - ../output:/app/data/output

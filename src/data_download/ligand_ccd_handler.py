@@ -13,6 +13,10 @@ from src.utils import find_matching_files, compare_file_and_string
 
 @dataclass
 class OneLigandCifContent:
+    """
+    One ligand id and .cif content.
+    """
+
     ligand_id: str
     content: str
 
@@ -85,6 +89,7 @@ def _one_ligand_cif_from_request_generator(
         raise DataDownloadError(f"Failed to download, request returned {response.status_code}. {response.content}")
 
     response_lines = response.iter_lines()
+    # pylint: disable=stop-iteration-return
     one_ligand_lines = [bytes.decode(next(response_lines), "utf8")]
     logging.info("Connection to %s established, starting generating cif files.", address)
     for line in response_lines:

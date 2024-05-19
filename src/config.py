@@ -109,9 +109,9 @@ class FilepathConfig:
     Configuration
     """
 
-    dataset_root_path: str = env.get("DATASET_ROOT_PATH", "./dataset")
-    output_root_path: str = env.get("OUTPUT_ROOT_PATH", "./output")
-    logs_root_path: str = env.get("LOGS_ROOT_PATH", "./logs")
+    dataset_root_path: str = env.get("DATASET_ROOT_PATH", "./data/dataset")
+    output_root_path: str = env.get("OUTPUT_ROOT_PATH", "./data/output")
+    logs_root_path: str = env.get("LOGS_ROOT_PATH", "./data/logs")
 
     # source of data
     _rest_jsons_name: str = env.get("REST_JSONS_FOLDER_NAME", "PDBe_REST_API_JSON")
@@ -255,7 +255,7 @@ class Config:
     run_data_transformation_only: bool = bool_from_env("RUN_DATA_TRANSFORMATION_ONLY", False)
     crunched_csv_name_for_data_transformation_only: str = env.get("CRUNCHED_CSV_NAME_FOR_DATA_TRANSFORMATION", "")
     data_transformation_skip_plot_settings: bool = bool_from_env("DATA_TRANSFORMATION_SKIP_PLOT_SETTINGS", True)
-    # post transformation actions TODO integrate this
+    # post transformation actions
     run_post_transformation_actions_only: bool = bool_from_env("RUN_POST_TRANSFORMATION_ACTIONS_ONLY", False)
 
     default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
@@ -268,7 +268,8 @@ class Config:
             not self.run_data_download_only and
             not self.run_data_extraction_only and
             not self.run_zipping_files_only and
-            not self.run_data_transformation_only
+            not self.run_data_transformation_only and
+            not self.run_post_transformation_actions_only
         )
 
     def validate(self):

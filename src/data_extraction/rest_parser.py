@@ -103,7 +103,7 @@ def _parse_rest_unsafe(
 
     # parse summary file
     if pdb_id not in protein_summary_json.keys():
-        raise RestParsingError("Given assembly json doesn't have currently processed pdb_id.")
+        raise RestParsingError("Given summray json doesn't have currently processed pdb_id.")
     preferred_assembly_id = _parse_protein_summary(pdb_id, protein_summary_json, protein_data)
 
     # find preferred assembly

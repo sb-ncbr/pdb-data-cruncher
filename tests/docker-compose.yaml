@@ -2,4 +2,7 @@ services:
   pdb-data-cruncher-tests:
     build:
       context: ..
+      # If you want to run something different than the app itself, such as code quality check,
+      # uncomment the command above and edit it
+      # command: poetry run pylint
       dockerfile: tests/Dockerfile-tests

@@ -1,4 +1,5 @@
 import logging
+import os.path
 from multiprocessing import Pool
 from os import path
 from typing import Optional
@@ -56,6 +57,13 @@ class DataExtractionManager:
         logging.info("Starting updating ligand stats csv.")
         try:
             if config.force_complete_data_extraction:
+                original_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
+            elif not os.path.exists(config.filepaths.ligand_stats):
+                logging.warning(
+                    "No ligand stats file found. Creating new one. If not run on empty storage, double check your "
+                    "configuraiton as ligand ststs file was expected on %s.",
+                    config.filepaths.ligand_stats
+                )
                 original_df = pd.DataFrame(columns=["LigandID", "heavyAtomSize", "flexibility"])
             else:
                 original_df = load_csv_as_dataframe(config.filepaths.ligand_stats)

@@ -1,5 +1,4 @@
 from enum import Enum
-import logging
 
 
 class FailedIdsSourceType(Enum):
