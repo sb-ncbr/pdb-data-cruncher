@@ -1,8 +1,5 @@
 CERIT_DOCKER_REPOSITORY_NAME=ivetastrnadova
-NEW_DOCKER_TAG=v0.1
-
-test_run:
-	poetry run python3 src/main.py --debug
+NEW_DOCKER_TAG=v1.0
 
 black:
 	poetry run black src
@@ -28,10 +25,7 @@ docker:
 	docker-compose up --force-recreate --remove-orphans
 
 pytest:
-	poetry run pytest -k "not integration"
-
-pytest-integration:
-	poetry run pytest -m "integration"
+	poetry run pytest
 
 pytest-coverage:
 	poetry run pytest --cov=src

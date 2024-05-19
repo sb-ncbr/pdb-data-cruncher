@@ -51,6 +51,7 @@ spec:
               subPath: pdb-data-cruncher/
           # Replace the repository in the image name with your cerit.io repository name
           image: cerit.io/ivetastrnadova/pdb-data-cruncher
+          terminationGracePeriodSeconds: 60
           stdin: false
           stdinOnce: false
           tty: false
@@ -71,6 +72,7 @@ spec:
           __newPvc:
             type: persistentvolumeclaim
             metadata:
+              # Change to desired namespace here
               namespace: strnadova-ns
             spec:
               storageClassName: ''

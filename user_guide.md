@@ -1,14 +1,130 @@
 # User guide
 
-TODO real table of contents
+1. [Package management](#package-management)
+2. [Local development](#local-development)
+   1. [Docker](##docker)
+   2. [Local runtime](##local-runtime)
+   3. [Code quality](##code-quality)
 
-TODO grammarly
+3. [Deployment](#deployment)
+   1. [Creating Docker image](##creating-docker-image)
+   2. [Deploy to Rancher](##deploy-to-rancher)
+4. [Configuration](#configuration)
+   1. [App flow control](##app-flow-control)
+   2. [Data sources](##data-sources)
+   3. [Tweaking the settings](##tweaking-the-settings)
+   4. [Other relevant](##other-relevant)
+5. [Logging levels](#logging-levels)
+6. [App flow and error recovery](#app-flow-and-error-recovery)
+   1. [Data download](##data-download)
+   2. [Data extraction](##data-extraction)
+   3. [Data archiving](##data-archiving)
+   4. [Data transformation](##data-transformation)
+   5. [Post transformation actions](##post-transformation-actions)
 
-[toc]
+# Package management
+
+The package versions are managed by [poetry](https://python-poetry.org/). The dependencies are defined in the file `pyproject.toml` (which also contains additional settings for tools such as pylint). A `poetry.lock` file should never be edited manually. It contains the result of dependency resolution. Whenever `pyproject.toml` is edited, a `poetry lock` should be called to update the lock to reflect the changes. When installing the packages, the lock is used to get a list of which packages are installed. E.g. when docker image is built, package versions are installed from this lock.
+
+Useful commands:
+
+- `poetry install` Installs the defined dependencies into current environment (poetry automatically creates its environment in the current location).
+- `poetry add package-name` Installs a new package and adds it to the dependencies.
+- `poetry update` Gets the latest versions of the dependencies in the `pyproject.toml` and updates the lock. It respects the version constaints given in the `pyproject.toml`. If no version is given, the newest is used if possible. Settings version to `package_name = "version"` will freeze the package to this version only.  Using `"^1.1"` permits any version that is `1.1` or greater, but less than `2.0`. See [Dependency specification](https://python-poetry.org/docs/dependency-specification/) for detailed syntax. `poetry update <package-name>` would update only the selected packages (and their dependencies, if needed).
+- `poetry lock`  Recreates lock file based on current `pyproject.toml`.
+- `poetry run <action-name>` Runs given thing with poetry environment active. E.g. `poetry run python3 <python-options>`  or `poetry run pylint <pylint-options>`.
+
+Poetry is used in this project because it allows for straightforward package management, easily manages local environments, and because the lock file means you know exactly how the production looks like and you can recreate it exactly locally.
 
 # Local development
 
-TODO
+You can run the app either in Docker, or in your local Python runtime.
+
+## Docker
+
+You need to have a [Docker engine](https://docs.docker.com/engine/install/) installed. Alternatively, you may want [Docker Desktop](https://www.docker.com/products/docker-desktop/) instead, as it comes with application and not only commandline tool.
+
+To build and run the application, run one of these commands:
+
+```bash
+make docker
+```
+
+or
+
+```bash
+docker-compose build
+docker-compose up [-d] --force-recreate --remove-orphans
+```
+
+If you include the `-d` flag, it will run detached and to access the logs, you will need to see the Docker Desktop app or run `docker logs <container-name>`.
+
+This docker-compose command spins up a container with the application with additional settings defined in `docker-compose.yaml`. Before you run this command, you may want to edit the `volumes` paths inside. (Volumes bind your local storage to the container, acting as a persistent storage.) You may use the `environment` section to set custom environmental variables to configure the application.
+
+Running the following command will stop and delete the container.
+
+```bash
+docker-compose down
+```
+
+You can edit the `command` in the `docker-compose.yaml` (see comments inside the file) to override which command gets run inside the container.
+
+If you want to run tests, you can run one of these commands:
+
+```bash
+make tests
+```
+
+or
+
+```bash
+docker-compose -f tests/docker-compose.yaml build
+docker-compose -f tests/docker-compose.yaml up
+```
+
+Beware, these commands need to be run from the root folder (do not run them from inside the tests folder).
+
+The tests have their own different Docker image and docker-compose.yaml, located inside the `tests` folder. This is so that the production image located in the root folder does not contain needless data.
+
+You can edit the `tests/docker-compose.yaml` to run something different than just the tests. Follow the comments inside the docker compose YAML to override the command it runs.
+
+## Local runtime
+
+The application was developed on Python 3.10. You should run it on this version or newer.
+
+How to run the app:
+
+1. Install dependencies with `poetry install`. (If you do not have poetry package manager, run `pip install poetry` first.)
+
+2. You will most likely need to configure the application, at the very least the env variables containing data paths. Create a `.env` file in the root folder with the following content:
+
+   ```yaml
+   DATASET_ROOT_PATH=../dataset/
+   OUTPUT_ROOT_PATH=../output/
+   LOGS_ROOT_PATH=../logs/
+   ```
+
+   These example paths work if the data folders are located in the parent folder of the pdb-data-cruncher. The paths can be either full or relative to the inside of pdb-data-cruncher folder.
+
+   Alternatively, if you're using PyCharm to develop, you can explicitely set which .env file to load in the configuration.
+
+3. Run the application with:
+
+   ```bash
+   poetry run python3 src/main.py
+   ```
+
+## Code quality
+
+Tools `pylint`, `flake8` and `black` are used to maintain higher standard of code quality.
+
+I recommend using these tools before commiting. They promote code quality, higher degree of readability and often point out more serious underlying issues.
+
+- `pylint` and `flake8` are good tools for pointing out bad practises, missing documentation or other deviations from the PEP8 code style. Occassionally, when exceptions make sense, you can use `pylint: disable=xxx` for Pylint and `noqa=xxx` for Flake8 to disable the warnings, but please do so with comments on why this is such a case.
+
+  These tools only report the findings, but manual changes are needed. You can run them with `poetry run pylint src/` and `poetry run flake8 src/`, or via the respective `make` commands. If you need to run these in docker, see the [Docker](##docker) section on how to edit the test docker-compose to run these.
+
+- `black` is a code formatter. Running it will reformat the code to follow its coding style. This is great do to when unusure of how to make the code in Python readable or to unify formatting. Using black means giving up a small portion of control over how the code looks like to achieve consistent style accross the whole code base. As a side-effect, it also fixes some of the issues pointed out by `flake8` and `pylint` automatically.
 
 # Deployment
 
@@ -52,7 +168,21 @@ Please note that any setting used in `docker-compose.yaml` or `local.env` is not
 
 ## Deploy to Rancher
 
-TODO
+Useful links: [Rancher Dashboard](https://rancher.cloud.e-infra.cz/dashboard) | [Harbor](https://hub.cerit.io/) (image repository) | [Racher documentation](https://docs.cerit.io/docs/overview.html)
+
+Two types of Rancher Workloads are relevant: CronJobs and Jobs. A Job starts its pod immediately, and when successfully finished, it never repeats. CronJob contains definition on how often it should run. At that time, it spawns its own Job to run.
+
+To run the pdb-data-cruncher each week, a CronJob should be set up. Go to the CronJobs tab in the Workloads menu item in `kuba-cluster`, and press Create. From there, you can either fill in the form, or click "Edit as YAML" and paste in prepared configuration.
+
+Beware, even though Rancher allows a creation of the Jobs and CronJobs via a form, it requires definition of a property `seccompProfile` that cannot be entered into the form. Because of this, I would recommend preparing and editing the YAML directly, skipping the UI form altogether.
+
+A file `example_cronjob.yaml` contains a full configuration that works (at least for now, until they change the required security settings again). Before copy pasting it, see the comments inside, and edit the namespaces and the image name to your values. Everything else, including the mounted storage, should be prepared to run as-is. This CronJob is set up to save up to 5 succeeded and 5 failed runs, no need to delete the pods, it will do so when this amount is reached.
+
+A Job deployment type is useful for one time fixes or running SSH copying until the post-transformation actions are implemented. See `example_job.yaml`, edit namespaces where comments indicate, and edit the image name. Depending on what task you need done, you may add environmental variables (where the comments indicate) to configure the application run.
+
+Alternatively, you may uncomment the command `tail -f /dev/null` part of the YAML. When it is run like that, the pod does not actually run the pdb-data-cruncher. Instead, the pod is created and runs infinitely. You may then find the pod in Pods, and select `Execute Shell` to get a shell inside the pod. From there, files can be inspected and commands can be run.
+
+When using the Job, you will need to delete it afterwards. Take special care with pods running infinitely. They will not be deleted when you delete the Job itself, you need to go to Pods tab and delete them manually.
 
 # Configuration
 
@@ -199,6 +329,15 @@ Note that at most one of `RUN_ACTION_NAME_ONLY` can be present during single run
 ## Other relevant
 
 - `CURRENT_FORMATTED_DATE`. Default: Today in format `YYYYMMDD`. It may be useful to override it in rare cases. It controls which crunched.csv gets loaded during data transformation, and how output files are named.
+
+# Logging levels
+
+- `EXCEPTION` - Something broke in a way that was not expected. The highest severity, needs to be investigated as it is not supposed to happen. It most likely means the code logic is flawed.
+- `CRITICAL` - A rare case that needs extra attention. Checking the logs and following the instructions is needed.
+- `ERROR` - There is a serious issue with processing the data. Most likely means big chunk of protein data is missing, corrupted or otherwise wrong and cannot be processed. It should be noted and kept eye on during the next program run, investigated if needed.
+- `WARNING` - Minor data issue (e.g. few non-critical values missing). Or situation that does not create problem for the code at all, but may be weird (e.g. multiple values of something where only one is expected). It may be good to review this level occassionally. It will not be spamed - minor issues get aggregated and logged only once on this level (and then in more defail on INFO level).
+- `INFO` - Information about important milestones in code execution or detailed information about minor issues. May get cluttered, it is worth to search through it only when looking for something specific.
+- `DEBUG` - More detail about the code execution, tasks started, configuration loaded, number of things processed, etc. Should be turned off for normal running.
 
 # App flow and error recovery
 
