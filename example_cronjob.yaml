@@ -1,0 +1,79 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pdb-data-cruncher
+  annotations:
+    {}
+  labels:
+    {}
+  # Change to desired namespace here
+  namespace: strnadova-ns
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    metadata:
+      labels:
+        {}
+      # Change to desired namespace here
+      namespace: strnadova-ns
+    spec:
+      template:
+        spec:
+          containers:
+            - imagePullPolicy: Always
+              name: pdb-data-cruncher
+              _init: false
+              volumeMounts:
+                - name: pdb-data-cruncher-volume
+                  mountPath: /app/data
+                  subPath: pdb-data-cruncher/
+              # Replace the repository in the image name with your cerit.io repository name
+              image: cerit.io/ivetastrnadova/pdb-data-cruncher
+# If configuraiton via environmental variables needed, uncomment bellow and add it there
+#              env:
+#                - name: SKIP_DATA_DOWNLOAD
+#                  value: 'True'
+              resources:
+                requests:
+                  memory: 16000Mi
+                limits:
+                  memory: 32000Mi
+              securityContext:
+                runAsNonRoot: true
+                readOnlyRootFilesystem: false
+                capabilities:
+                  drop:
+                    - ALL
+                privileged: false
+                allowPrivilegeEscalation: false
+                runAsUser: 1000
+                seccompProfile:
+                  type:
+                    RuntimeDefault
+              __active: true
+          restartPolicy: Never
+          volumes:
+            - _type: persistentVolumeClaim
+              persistentVolumeClaim:
+                claimName: pdb-data-cruncher-storage
+              name: pdb-data-cruncher-volume
+              __newPvc:
+                type: persistentvolumeclaim
+                metadata:
+                  # Change to desired namespace here
+                  namespace: strnadova-ns
+                spec:
+                  storageClassName: ''
+                  volumeName: ''
+                  resources:
+                    requests: {}
+          terminationGracePeriodSeconds: 60
+      backoffLimit: 0
+  # Schedule to run at 3:00 every 3rd day of the week (Wednesday)
+  # See https://crontab.guru/ for help with creating this schedule
+  schedule: 0 3 * * 3
+  successfulJobsHistoryLimit: 5
+  suspend: false
+#  timeZone: string
+__clone: true
