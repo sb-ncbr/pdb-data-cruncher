@@ -4,7 +4,7 @@ from os import environ as env
 from dataclasses import dataclass, field
 from typing import Optional
 
-from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env
+from src.utils import get_formatted_date, int_from_env, bool_from_env, int_list_from_env, get_formatted_timestamp
 
 
 @dataclass(slots=True)
@@ -143,6 +143,7 @@ class FilepathConfig:
     # logs
     _full_log_name: str = env.get("FULL_LOG_NAME", "full_log.txt")
     _filtered_log_name: str = env.get("FILTERED_LOG_NAME", "filtered_log.txt")
+    _run_start_timesetamp: str = get_formatted_timestamp()
 
     @property
     def rest_jsons(self) -> str:
@@ -213,12 +214,32 @@ class FilepathConfig:
         return path.join(self.output_root_path, self._old_crunched_csv_name)
 
     @property
+    def archive_rsync_logs(self) -> str:
+        return path.join(self.logs_root_path, "rsync_log_history")
+
+    @property
+    def archive_app_logs(self) -> str:
+        return path.join(self.logs_root_path, "full_log_history")
+
+    @property
     def full_log(self) -> str:
         return path.join(self.logs_root_path, self._full_log_name)
 
     @property
     def filtered_log(self) -> str:
         return path.join(self.logs_root_path, self._filtered_log_name)
+
+    @property
+    def archive_full_log(self) -> str:
+        return path.join(self.archive_app_logs, f"{self._run_start_timesetamp}_{self._full_log_name}")
+
+    @property
+    def mmcif_rsync_log(self) -> str:
+        return path.join(self.archive_rsync_logs, f"{self._run_start_timesetamp}_mmcif_rsync_log.txt")
+
+    @property
+    def xml_rsync_log(self) -> str:
+        return path.join(self.archive_rsync_logs, f"{self._run_start_timesetamp}_xml_rsync_log.txt")
 
 
 @dataclass(slots=True)

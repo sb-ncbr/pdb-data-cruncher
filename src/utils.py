@@ -223,6 +223,14 @@ def get_formatted_date() -> str:
     return datetime.now().strftime("%Y%m%d")
 
 
+def get_formatted_timestamp() -> str:
+    """
+    Get current time in the format %Y%m%d_%H%M%S.
+    :return: The timestamp string
+    """
+    return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
 def find_matching_files(folder_path: str, string_to_match: str) -> list[str]:
     """
     Find files in given folder path that contain given string exactly.

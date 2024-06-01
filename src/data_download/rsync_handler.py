@@ -7,7 +7,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-from src.exception import DataDownloadError
+from src.exception import DataDownloadError, ParsingError
+from src.generic_file_handlers.plain_file_handler import load_file
 
 
 @dataclass(slots=True)
@@ -64,7 +65,9 @@ class RsyncDataType(Enum):
     XML_VALIDATION_REPORTS = 1
 
 
-def rsync_and_unzip(rsync_data_type: RsyncDataType, gzip_folder: str, unpacked_folder: str) -> RsyncLog:
+def rsync_and_unzip(
+    rsync_data_type: RsyncDataType, gzip_folder: str, unpacked_folder: str, log_location: str
+) -> RsyncLog:
     """
     Assembles rsync command based on rsync data type. Runs the command. Parses the rsync log to get recieved
     and deleted files entries. Unzips the gz from the files for recieved files, removes the removed from unzipped.
@@ -72,12 +75,25 @@ def rsync_and_unzip(rsync_data_type: RsyncDataType, gzip_folder: str, unpacked_f
     differently for each type (based on file extensions associated with the type).
     :param gzip_folder: Path to folder where .gz versions are stored. This is the rsync target.
     :param unpacked_folder: Folder where unpacked files are stored.
+    :param log_location: Path of the log to be created and used.
     :return: Parsed rsync log.
     """
     rsync_command = _assemble_rsync_command(rsync_data_type, gzip_folder)
     logging.info("Running rsync command: '%s'", " ".join(rsync_command))
-    rsync_raw_log = _run_rsync_command(rsync_command)
+    _run_rsync_command(rsync_command, log_location)
     logging.info("Rsync of gzip files done. Next: parsing log.")
+
+    try:
+        rsync_raw_log = load_file(log_location)
+    except ParsingError as ex:
+        logging.critical(
+            "Failed to open rsync log %s. The changes to the files mentioned inside are not "
+            "processed. You need to see the log for recieved files, and either delete those gip files and"
+            "run the data download again unchanged, or unzip them yourself and then run the data download again"
+            "with the changed ids passed as OVERRIDE_IDS_TO_DOWNLOAD_PATH.",
+            log_location
+        )
+        raise DataDownloadError(f"Failed to open rsync log {log_location}. {ex}") from ex
 
     if rsync_data_type == RsyncDataType.ARCHIVE_MMCIF:
         rsync_log = _parse_rsync_log_for_mmcif(rsync_raw_log)
@@ -124,22 +140,23 @@ def _assemble_rsync_command(rsync_data_type: RsyncDataType, target_folder_path: 
         raise DataDownloadError(f"Unsupported rsync type {rsync_data_type}.")
 
     command.append(target_folder_path)
+
     return command
 
 
-def _run_rsync_command(rsync_command: list[str]) -> str:
+def _run_rsync_command(rsync_command: list[str], log_location: str) -> None:
     try:
-        completed_process = subprocess.run(rsync_command, check=True, capture_output=True)
-        return completed_process.stdout.decode("utf8", errors="ignore")
+        with open(log_location, "w", encoding="utf8") as f:
+            subprocess.run(rsync_command, check=True, stdout=f)
     except subprocess.CalledProcessError as ex:
-        logging.error(
-            "Called subproccess error:\n%s\n",
-            ex.stderr.decode("utf8", errors="ignore").strip(),
-        )
+        logging.error("Called subproccess error:\n%s\n", ex)
         logging.critical(
-            "Check the following log. If any items were recieved, manual actions are needed (unzipping the recieved "
-            "files; and running download with overriden ids to download for these in case of mmcifs).\n%s\n",
-            ex.stdout.decode("utf8", errors="ignore").strip(),
+            "Failed to finish rsync command. See newest rsync log to see files that were already synced "
+            "(file %s). The changes to the files mentioned inside are not "
+            "processed. You need to see the log for recieved files, and either delete those gip files and"
+            "run the data download again unchanged, or unzip them yourself and then run the data download again"
+            "with the changed ids passed as OVERRIDE_IDS_TO_DOWNLOAD_PATH.",
+            log_location
         )
         raise DataDownloadError(f"Rsync failed: {ex}") from ex
 
