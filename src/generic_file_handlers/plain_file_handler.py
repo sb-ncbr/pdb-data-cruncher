@@ -1,6 +1,6 @@
 import logging
 
-from src.exception import FileWritingError
+from src.exception import FileWritingError, ParsingError
 
 
 def write_file(filepath: str, content: str) -> None:
@@ -16,3 +16,16 @@ def write_file(filepath: str, content: str) -> None:
             logging.info("Saved file %s", filepath)
     except OSError as ex:
         raise FileWritingError(f"Failed to write file {filepath}: {ex}") from ex
+
+
+def load_file(filepath: str) -> str:
+    """
+    Load content from given filepath.
+    :param filepath:
+    :return: String representation of file content.
+    """
+    try:
+        with open(filepath, "r", encoding="utf8") as f:
+            return f.read()
+    except OSError as ex:
+        raise ParsingError(f"Failed to read file {filepath}: {ex}") from ex

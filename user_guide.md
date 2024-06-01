@@ -1,5 +1,9 @@
 # User guide
 
+If at any point the aplication fails, check the `logs/` folder and its subfolders for information about
+what happened, if anything needs to be done and how to recover. Take special care if a `CRITICAL` log level
+is ever encountered, as that requires manual actions to avoid losing information.
+
 1. [Package management](#package-management)
 2. [Local development](#local-development)
    1. [Docker](#docker)
@@ -363,7 +367,7 @@ Data download is done as follows:
 
    First, files in location `./dataset/gz_PDBe_mmCIF/` are synced to the rsync endpoint `rsync.rcsb.org::ftp_data/structures/divided/mmCIF/`. These files have `.cif.gz` extensions.
 
-   The output of this operation is parsed to see which files were received or removed, and what are their PDB ids are.
+   The output of this operation is parsed to see which files were received or removed, and what are their PDB ids are. The log is also saved into its log subfolder.
 
    Based on the rsync log, received files are unzipped into plain `.cif` to folder `./dataset/PDBe_mmCIF/`. Those deleted are deleted from there as well. The list of ids that changed or were removed is saved for further processing.
 
@@ -413,7 +417,7 @@ In cases not mentioned here, follow the WARNING and ERROR levels of logs (stored
 
 - **App fails during the rsync of structure mmCIF files and no other actions are done.**
 
-  1. Check the logs for raw rsync log of the part that still managed to run. If there are any files that were still received, action needs to be taken.
+  1. Check the `logs/rsync_log_history/` for raw rsync log of the part that still managed to run. If there are any files that were still received, action needs to be taken.
 
   2. Check the files received were unzipped - if not, do so manually. Then, write the list of PDB ids of mmcifs that downloaded into a json file and pass its path via env variable `OVERRIDE_IDS_TO_DOWNLOAD_PATH`. Then, run the app again.
 

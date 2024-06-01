@@ -25,7 +25,7 @@ def prepare_log_folder(config: Config) -> None:
 
     if not os.path.exists(config.filepaths.archive_rsync_logs):
         os.mkdir(config.filepaths.archive_rsync_logs)
-    if not config.filepaths.archive_app_logs:
+    if not os.path.exists(config.filepaths.archive_app_logs):
         os.mkdir(config.filepaths.archive_app_logs)
 
 

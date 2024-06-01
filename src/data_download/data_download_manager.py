@@ -54,6 +54,7 @@ class DownloadManager:
                 RsyncDataType.ARCHIVE_MMCIF,
                 config.filepaths.gz_pdb_mmcifs,
                 config.filepaths.pdb_mmcifs,
+                config.filepaths.mmcif_rsync_log
             )
             changed_ids = ChangedIds(
                 updated=rsync_log.get_successful_recieved_ids(),
@@ -198,6 +199,7 @@ class DownloadManager:
                 RsyncDataType.XML_VALIDATION_REPORTS,
                 config.filepaths.gz_xml_reports,
                 config.filepaths.xml_reports,
+                config.filepaths.xml_rsync_log
             )
             logging.info("Rsync of validation xml files finished successfully.")
             return rsync_log.get_successful_recieved_ids()
