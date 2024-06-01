@@ -23,6 +23,11 @@ def prepare_log_folder(config: Config) -> None:
         if os.path.exists(config.filepaths.full_log):
             os.remove(config.filepaths.full_log)
 
+    if not os.path.exists(config.filepaths.archive_rsync_logs):
+        os.mkdir(config.filepaths.archive_rsync_logs)
+    if not config.filepaths.archive_app_logs:
+        os.mkdir(config.filepaths.archive_app_logs)
+
 
 def configure_logging(config: Config) -> None:
     """
@@ -38,6 +43,10 @@ def configure_logging(config: Config) -> None:
     full_log_file_handler = logging.FileHandler(config.filepaths.full_log)
     full_log_file_handler.setFormatter(formatter)
 
+    # logging to a timestamped file archive in full
+    archive_log_file_handler = logging.FileHandler(config.filepaths.archive_full_log)
+    archive_log_file_handler.setFormatter(formatter)
+
     # logging to file filtering info/debug out
     filtered_log_file_handler = logging.FileHandler(config.filepaths.filtered_log)
     filtered_log_file_handler.setFormatter(formatter)
@@ -48,6 +57,7 @@ def configure_logging(config: Config) -> None:
     stream_handler.setFormatter(formatter)
 
     root_logger.addHandler(full_log_file_handler)
+    root_logger.addHandler(archive_log_file_handler)
     root_logger.addHandler(filtered_log_file_handler)
     root_logger.addHandler(stream_handler)
 
