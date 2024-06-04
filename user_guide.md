@@ -13,6 +13,7 @@ is ever encountered, as that requires manual actions to avoid losing information
 3. [Deployment](#deployment)
    1. [Creating Docker image](#creating-docker-image)
    2. [Deploy to Rancher](#deploy-to-rancher)
+   3. [Managing files in the persistent storage](#managing-files-in-the-persistent-storage)
 4. [Configuration](#configuration)
    1. [App flow control](#app-flow-control)
    2. [Data sources](#data-sources)
@@ -184,9 +185,19 @@ A file `example_cronjob.yaml` contains a full configuration that works (at least
 
 A Job deployment type is useful for one time fixes or running SSH copying until the post-transformation actions are implemented. See `example_job.yaml`, edit namespaces where comments indicate, and edit the image name. Depending on what task you need done, you may add environmental variables (where the comments indicate) to configure the application run.
 
-Alternatively, you may uncomment the command `tail -f /dev/null` part of the YAML. When it is run like that, the pod does not actually run the pdb-data-cruncher. Instead, the pod is created and runs infinitely. You may then find the pod in Pods, and select `Execute Shell` to get a shell inside the pod. From there, files can be inspected and commands can be run.
+<a id="empty-pod"></a>Alternatively, you may uncomment the command `tail -f /dev/null` part of the YAML. When it is run like that, the pod does not actually run the pdb-data-cruncher. Instead, the pod is created and runs infinitely. You may then find the pod in Pods, and select `Execute Shell` to get a shell inside the pod. From there, files can be inspected and commands can be run.
 
 When using the Job, you will need to delete it afterwards. Take special care with pods running infinitely. They will not be deleted when you delete the Job itself, you need to go to Pods tab and delete them manually.
+
+## Managing files in the persistent storage
+
+The most straighforward way is via kubectl tool and "empty" pod.
+
+1. Install [kubectl](https://kubernetes.io/docs/tasks/tools/) tool locally. kubectl is a commadline tool for accessing and managing kubernetes clusters.
+2. Follow [this CERIT's guide](https://docs.cerit.io/docs/kubectl.html) on how to download and save the cluster configuration. That will allow you to access the cluster from your machine via terminal. Then do `kubectl config get-contexts` to check your connection works and that you have the correct cluster set as current. After that, run `kubectl config set-context --current --namespace=your-namespace` to switch to the namespace so you do not have to specify it after each command.
+3. Create an "empty" pod running nothing endlessly (as described [in the previous section](#empty-pod)), that has access to the persistent storage.
+4. Get a name of that pod (either from the Rancher UI, or by running `kubectl get pods`).
+5. Use `kubectl cp <pod_name>:<path_to_folder_or_file_in_pod> <your_local_path>` to copy files from the pod to your machine, or put your local path first to achive the opposite.
 
 # Configuration
 
