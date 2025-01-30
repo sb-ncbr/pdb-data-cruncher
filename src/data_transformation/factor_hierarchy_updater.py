@@ -213,6 +213,9 @@ def _update_values_in_factor_json(factor_json: dict, values_to_update: ValuesToU
     :param factor_json: Part of hierarchy json representing one factor's item in FactorList.
     :param values_to_update: Values to insert.
     """
-    factor_json["ValueRangeFrom"] = str(values_to_update.value_range_from)
-    factor_json["ValueRangeTo"] = str(values_to_update.value_range_to)
+    value_range_from_str = "0" if values_to_update.value_range_from.normalize() == 0 else values_to_update.value_range_from
+    value_range_to_str = "0" if values_to_update.value_range_to.normalize() == 0 else values_to_update.value_range_to
+
+    factor_json["ValueRangeFrom"] = value_range_from_str
+    factor_json["ValueRangeTo"] = value_range_to_str
     factor_json["SliderStep"] = str(values_to_update.slider_step)
