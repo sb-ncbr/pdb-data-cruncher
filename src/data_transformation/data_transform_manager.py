@@ -29,6 +29,10 @@ from src.data_transformation.file_handlers.name_translations_loader import (
     load_factor_names_translations,
     load_factor_type_names_translations,
 )
+from src.data_transformation.file_handlers.name_translation_file_writer import (
+    create_name_translation_file,
+    delete_old_name_translation_files,
+)
 from src.data_transformation.versions_updater import update_versions_json
 from src.exception import ParsingError, DataTransformationError, FileWritingError
 from src.generic_file_handlers.csv_handler import load_csv_as_dataframe
@@ -205,6 +209,24 @@ class DataTransformManager:
             return False
 
     @staticmethod
+    def copy_name_translations(config: Config) -> bool:
+        """
+        Copy NameTranslation json into timestamped version for output.
+        @param config: App configuration.
+        """
+        logging.info("Starting the copying of name translations json.")
+        try:
+            name_translations_json = load_json_file(config.filepaths.familiar_name_translations_json)
+            create_name_translation_file(name_translations_json, config.filepaths.output_root_path, config.current_formatted_date)
+            delete_old_name_translation_files(config.filepaths.output_root_path, config.current_formatted_date)
+        except (ParsingError, FileWritingError) as ex:
+            logging.error("Failed to copy name translations. %s", ex)
+            return False
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            logging.exception("Encountered unexpected exception: %s", ex)
+            return False
+
+    @staticmethod
     def create_updated_versions_jsons(config: Config) -> bool:
         """
         Create updated versions json and versionsKT json.
@@ -252,6 +274,7 @@ def run_data_transformation(config: Config) -> bool:
         success &= DataTransformManager.create_default_plot_settings(config, crunched_csv_path, factor_hierarchy_path)
     success &= DataTransformManager.create_updated_factor_hierarchy(config, crunched_csv_path, factor_hierarchy_path)
     success &= DataTransformManager.create_updated_versions_jsons(config)
+    success &= DataTransformManager.copy_name_translations(config)
 
     logging.info("PHASE DATA TRANSFORMATION %s.", "finished successfully" if success else "failed")
     return success
