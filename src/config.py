@@ -279,10 +279,10 @@ class Config:
     # post transformation actions
     run_post_transformation_actions_only: bool = bool_from_env("RUN_POST_TRANSFORMATION_ACTIONS_ONLY", False)
 
-    default_plot_settings: DefaultPlotSettingsConfig = DefaultPlotSettingsConfig()
-    factor_hierarchy_settings: FactorHierarchyConfig = FactorHierarchyConfig()
-    filepaths: FilepathConfig = FilepathConfig()
-    timeouts: DownloadTimeoutConfig = DownloadTimeoutConfig()
+    default_plot_settings: DefaultPlotSettingsConfig = field(default_factory=DefaultPlotSettingsConfig)
+    factor_hierarchy_settings: FactorHierarchyConfig = field(default_factory=FactorHierarchyConfig)
+    filepaths: FilepathConfig = field(default_factory=FilepathConfig)
+    timeouts: DownloadTimeoutConfig = field(default_factory=DownloadTimeoutConfig)
 
     def is_full_run(self) -> bool:
         return (
